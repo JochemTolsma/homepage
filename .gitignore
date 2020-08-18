@@ -4,5 +4,5 @@
 # Hugo
 resources/
 public/
-content/
 .Rproj.user
+.Rhistory
