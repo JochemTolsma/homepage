@@ -1,0 +1,103 @@
+---
+title: examplermarkdown
+author: JochemTolsma
+date: '2020-08-19'
+slug: examplermarkdown
+categories:
+  - R
+  - Social Networks
+tags: []
+linktitle: Examplermarkdown
+
+summary: ~
+lastmod: '2020-08-19T08:27:34+02:00'
+
+type: book
+weight: 4
+
+output:
+  blogdown::html_page:
+    number_sections: yes
+    self_contained: yes
+    toc: true
+    fig_width: 6
+    dev: "svg"
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines")
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy()
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+```{css, echo=FALSE}
+
+h1 { /* Header 1 */
+  font-size: 20px;
+  font-weight: bold;
+  }
+  
+h2 { /* Header 2 */
+  font-size: 18px;
+  color: DarkBlue;
+}
+
+.watch-out {
+  background-color: lightpink;
+  border: 3px solid red;
+  font-weight: bold;
+}
+```
+
+test met tekst
+
+# test met header
+
+## nog een test
+
+```{r testcode, results = 'hold'}
+2 + 2
+3 + 3
+```
+
+> en wat is dit dan
+
+
+Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
+
+Please email any comments to: j.tolsma@ru.nl	
+
+# Getting up and running
+
+* install the latest version of R: [R](https://cran.r-project.org/)
+* install the latest version of RStudio: [RStudio](www.rstudio.com) 
+* open RStudio and follow a brief tour/tutorial
+  + [brief tour of Gulzar](https://web.cs.ucla.edu/~gulzar/rstudio/basic-tutorial.html)
+  + lot of youtube videos for RStudio  
+  + check out the tutorials at [R-bloggers](https://www.r-bloggers.com/how-to-learn-r-2/) 
+  + or here: https://data-flair.training/blogs/exporting-data-from-r/
+  + and of course at Rstudio and CRAN
+  
+
+Open RStudio. Your screen will look something like this: 
+
+
+**Figure 1. Screenshot**[]{#anchor}
+![Figure 1. Screenshot](screenshot.PNG) 
+
+
+* I will show you around the major subwindows and taps in RStudio. 
+
+
+
