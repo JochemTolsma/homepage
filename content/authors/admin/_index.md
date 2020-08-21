@@ -27,17 +27,17 @@ interests:
 - Social Networks
 - Research Methods
 
-# #education:
-# #  courses:
-#   - course: PhD in Artificial Intelligence
-#     institution: Stanford University
-#     year: 2012
-#   - course: MEng in Artificial Intelligence
-#     institution: Massachusetts Institute of Technology
-#     year: 2009
-#   - course: BSc in Artificial Intelligence
-#     institution: Massachusetts Institute of Technology
-#     year: 2008
+education:
+  courses:
+   - course: PhD in Sociology
+     institution: Radboud University, Nijmegen / Interuniversity Center for Social Science Theory and Methodology
+     year: 2009
+   - course: MSc Social- Cultural Sciences 
+     institution: Free University, Amsterdam
+     year: 2004
+   - course: MSc Natural Sciences 
+     institution: Radboud University, Nijmegen
+     year: 2002
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
@@ -73,6 +73,7 @@ user_groups:
 - Visitors
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Jochem Tolsma is associate professor at the [Sociology Department of Radboud University Nijmegen](https://www.ru.nl/sociology/) and the programme director of the [Research Master Social and Cultural Science](https://www.ru.nl/courseguides/socsci/research-master/social-cultural-science/).
+In his research he focuses on the causes and consequences of segregation in neighbourhoods, schools and friendship networks.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+At the moment, this site is mainly intended as a medium to communicate with my students and share course material. Hopefully, it will grow into something larger quickly. The intention is to share my R-tutorials (on diagonal reference models, marginal effects, micro-macro models) here, to make my course Social Networks Analysis for social scientists available through this site, and to share my inner thoughts of life (e.g. on current affairs in academia) wthin the blog section. Ultimately of course, my aim is to save the world with this site. With that, thanks for reading and enjoy! 
