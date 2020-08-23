@@ -22,6 +22,7 @@ output:
     toc: true
     fig_width: 6
     dev: "svg"
+    highlight: "haddock"
 ---
 
 
@@ -37,7 +38,7 @@ options(width = 100)
 ```{r klippy, echo=FALSE, include=TRUE}
 require(klippy)
 klippy::klippy()
-klippy::klippy(position = c('top', 'right'))
+klippy::klippy(position = c('top', 'left'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
@@ -66,38 +67,28 @@ test met tekst
 
 ## nog een test
 
-```{r testcode, results = 'hold'}
+```{r testcode, results = 'hold' , class.source="watch-out"}
 2 + 2
 3 + 3
+```
+
+
+```{r class.source="bg-danger", class.output="bg-warning"}
+mtcars[1:5, "mpg"]
 ```
 
 > en wat is dit dan
 
 
+```{r}
+if (TRUE) {
+  x <- 1:10
+  x + 1
+}
+```
+
+
+
 Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
 
 Please email any comments to: j.tolsma@ru.nl	
-
-# Getting up and running
-
-* install the latest version of R: [R](https://cran.r-project.org/)
-* install the latest version of RStudio: [RStudio](www.rstudio.com) 
-* open RStudio and follow a brief tour/tutorial
-  + [brief tour of Gulzar](https://web.cs.ucla.edu/~gulzar/rstudio/basic-tutorial.html)
-  + lot of youtube videos for RStudio  
-  + check out the tutorials at [R-bloggers](https://www.r-bloggers.com/how-to-learn-r-2/) 
-  + or here: https://data-flair.training/blogs/exporting-data-from-r/
-  + and of course at Rstudio and CRAN
-  
-
-Open RStudio. Your screen will look something like this: 
-
-
-**Figure 1. Screenshot**[]{#anchor}
-![Figure 1. Screenshot](screenshot.PNG) 
-
-
-* I will show you around the major subwindows and taps in RStudio. 
-
-
-

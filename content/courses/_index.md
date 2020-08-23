@@ -18,4 +18,17 @@ type: book
 weight: 1
 ---
 
+<!---
+
+{{< highlight go >}} A bunch of code here 
+2 + 2  
+{{< /highlight >}}
+
+{{< youtube id="w7Ft2ymGmfc" autoplay="true" title="my title" >}} 
+  
+
+--->  
+  
+
+
 just some text
