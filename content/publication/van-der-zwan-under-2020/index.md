@@ -17,6 +17,8 @@ lastmod: 2020-08-23T08:28:29+02:00
 featured: false
 draft: false
 
+
+
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
@@ -36,4 +38,10 @@ publication_types:
 - 2
 abstract: ''
 publication: '*Political Geography*'
+
+doi: "https://doi.org/10.1016/j.polgeo.2019.102098"
+url_pdf:
+abstract: Ethnic affinity voting is the term for when political party candidates with an ethnic minority background receive a larger share of the vote in ethnically dense neighbourhoods. This study is one of the first to provide a detailed test for ethnic affinity voting during a national election in an open-list proportional representation system, with the same ballots in every polling station. It tests the conditions under which ethnic affinity voting is greater, studying the proportion of votes for ethnic minority candidates at neighbourhood level in the Netherlands in 2017, when a minority-interest party entered parliament and the traditional ethnic vote for the social democratic party (PvdA) imploded. This study disentangles party and candidate effects and finds evidence for (general and specific) ethnic affinity voting at candidate level. Even though ethnic minority candidates attract fewer votes, they perform better in neighbourhoods where more minorities live, especially when the group size of co-ethnics is larger. Ethnic affinity effects are relatively strong for candidates affiliated with minority-oriented and left-wing parties, and absent or negative for ethnic candidates of right-wing parties. Moreover, whether male or female ethnic candidates are more likely to attract the ethnic vote also depends on the ethnic background and party affiliation of the candidate.
+
+
 ---

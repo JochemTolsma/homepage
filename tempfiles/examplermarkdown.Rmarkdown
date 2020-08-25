@@ -15,16 +15,14 @@ lastmod: '2020-08-19T08:27:34+02:00'
 type: book
 weight: 4
 
-
 output:
   blogdown::html_page:
-    highlight: "haddock"
     number_sections: yes
     self_contained: yes
     toc: true
     fig_width: 6
     dev: "svg"
-
+    highlight: "haddock"
 ---
 
 
@@ -45,18 +43,11 @@ klippy::klippy(position = c('top', 'left'))
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
-
 test met tekst
 
 # test met header
 
 ## nog een test
-
-
-```{r testcode1, results = 'hold' }
-2 + 2
-3 + 3
-```
 
 ```{r testcode, results = 'hold' , class.source="watch-out"}
 2 + 2

@@ -33,6 +33,8 @@ projects: []
 publishDate: '2020-08-23T06:28:29.035341Z'
 publication_types:
 - 2
-abstract: ''
+abstract: Although adverse childhood experiences (ACEs) are relatively common among children, there is limited knowledge on the co-occurrence of such experiences. The current study therefore investigates co-occurrence of childhood adversity in the Netherlands and whether specific clusters are more common among certain types of families.
+
 publication: '*Child abuse & neglect*'
+doi: "https://doi.org/10.1016/j.chiabu.2019.104185"
 ---

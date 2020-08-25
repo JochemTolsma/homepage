@@ -1,5 +1,5 @@
 ---
-title: examplermarkdown
+title: examplermarkdown2
 author: JochemTolsma
 date: '2020-08-19'
 slug: examplermarkdown
@@ -7,13 +7,13 @@ categories:
   - R
   - Social Networks
 tags: []
-linktitle: Examplermarkdown
+linktitle: Examplermarkdown2
 
 summary: ~
 lastmod: '2020-08-19T08:27:34+02:00'
 
 type: book
-weight: 4
+weight: 5
 
 
 output:
@@ -31,18 +31,8 @@ output:
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines")
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE)
 options(width = 100)
-```
-
-
-<!--copy to clipboard-->
-```{r klippy, echo=FALSE, include=TRUE}
-require(klippy)
-klippy::klippy()
-klippy::klippy(position = c('top', 'left'))
-#klippy::klippy(color = 'darkred')
-#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
 
