@@ -17,7 +17,33 @@ type: book  # Do not modify.
 
 ## Literature
 
+**Part 1: Selection**  
+
+Kalmijn, M. (1998). Intermarriage and homogamy: Causes, patterns, trends. *Annual review of sociology*, 395-421.  
+
+Schwartz, C. R. (2013). Trends and variation in assortative mating: Causes and consequences. *Annual Review of Sociology*, 39, 451-470.  
+
+**Part 2: Influence**  
+
+Cook, W. L., & Kenny, D. A. (2005). The actor–partner interdependence model: A model of bidirectional effects in developmental studies. *International Journal of Behavioral Development*, 29(2), 101-109.  
+
+Popp, D., Laursen, B., Kerr, M., Stattin, H., & Burk, W. K. (2008). Modeling homophily over time with an actor-partner interdependence model. *Developmental psychology*, 44(4), 1028.  
+
+Recommended:  
+
+Blossfeld, H. P. (2009). Educational assortative marriage in comparative perspective. *Annual review of sociology*, 35, 513-530.  
+
+Verbakel, E., & De Graaf, P. M. (2009). Partner effects on labour market participation and job level: opposing mechanisms. *Work, Employment & Society*, 23(4), 635-654.  
+
+Keizer, R., Schenk, N., 2012. Becoming a parent and relationship satisfaction: A longitudinal dyadic perspective. *Journal of Marriage and Family*, 74, 759-773.  
+
+
+
 ## Knowledge clips
+
+In the clip below I try to explain the main concepts involved in the smallest possible network. A network between two people. 
+
+{{< vimeo id="452233600" autoplay="true" title="A continous dance of selection and influence processes" >}}
 
 ## Slides
 
