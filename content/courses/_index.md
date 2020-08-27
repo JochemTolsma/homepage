@@ -31,10 +31,10 @@ weight: 1
 
 ## Overview  
 
-Sociologists study how societies (or groups and communities) (*macro-level*) affect the lives of their members (*individual-level*) and, vice versa, how individuals shape the societies in which they live. Within societies people form relations with specific others and thereby form **social networks**.  
-Individuals are embedded in many different social networks (e.g. based on friendships, bullying, family relations). Within these social networks individuals both intentionally and unintentionally influence each others' *attitudes*, *behaviors* and *relations* via complex dynamic processes. 
-The attitudes, behaviors and relations of individuals shape, in turn, the societies they live in. They give rise to social phenomena such as *inequality*, *segregation*, *polarization* and *cohesion*. It is however not possible to explain these macro-level social phenomena, let alone to solve social problems, without taking into account that individuals are connected to each other in social networks. For example, you may have a good idea about where my personal political attitudes come from but this does not explain political polarization, why specific groups in society hold ever more opposing, extreme political attitudes.  
-It is crucial to take into account the *interconnectedness* of individuals and thus the role of social networks if we wish to explain and solve social problems. It can thus be no surprise that the study of the causes and consequences of social networks lies at the core of sociology.   
+Sociologists study how societies affect the lives of their members and, vice versa, how individuals shape the societies in which they live. Within societies people make and break relations with specific others and thereby form **social networks**.  
+Individuals are embedded in many different social networks (e.g. based on friendships, bullying, family relations). Within these social networks individuals influence each others' *attitudes*, *behaviors* and *relations* via complex dynamic processes. 
+The attitudes, behaviors and relations of individuals shape, in turn, the societies they live in. They give rise to social phenomena such as *inequality*, *segregation*, *polarization* and *cohesion*. 
+It is not possible to explain many macro-level social phenomena, let alone to solve many urgent social problems, without taking into account social networks. For example, you may have a good idea about where my personal political attitudes come from but this does not explain political polarization, why specific groups in society hold ever more opposing, extreme political attitudes. It can thus be no surprise that the study of the causes and consequences of social networks lies at the core of sociology.   
 
 ## Aim 
 
@@ -79,8 +79,8 @@ Selection and influence processes are firmly entangled. See below for an example
 {{< vimeo id="451942562" autoplay="true" title="A continous dance of selection and influence processes" >}} 
 
 ## What makes this course stand out? 
-This course is not an introduction to Social Networks or Social Network Analysis. It is also not a course in R. I assume you have some intuitive understanding of what social networks are and have opened R or RStudio at one point in your life but both are not necessary prerequisites to follow this course. There are very good introductions to [R](https://cran.r-project.org/index.html) and the study of Social Networks.[^2]  
-This course is tailored for research master and PhD students. I will assume that you are interested in and have studied social problems in your academic career and that your research interests fits one of the following broad themes: **inequality**, **cohesion** and **diversity**. However, up to this point, when you deduced hypotheses from existing theories you did not explicitly acknowledge that individuals are interconnected in social networks. You was neither aware that this may have theoretical consequences for existing hypotheses nor that this gives rise to new research questions. Up to this point, when you tested your hypotheses you assumed that your observations were independent (e.g. OLS) or, at most, that the interdependencies were relatively easily to take into account (e.g. multi-level analysis).[^3]  
+This course is not an introduction to Social Networks or Social Network Analysis. It is also not a course in R. I assume you have some intuitive understanding of what social networks are and have opened R or RStudio at one point in your life but both are not necessary prerequisites to follow this course. There are very good introductions to the study of Social Networks.[^2] A good introduction to R for this course would be [this one](https://www.jtolsma.nl/TutorialCSR/).  
+This course is tailored for research master and PhD students. I will assume that you are interested in and have studied social problems in your academic career and that your research interests fits one of the following broad themes: **inequality**, **cohesion** and **diversity**. However, up to this point, when you deduced hypotheses from existing theories you did not explicitly acknowledge that individuals are interconnected in social networks. You was neither aware that this may have theoretical consequences for existing hypotheses nor that this gives rise to new research questions. Up to this point, when you tested your hypotheses you assumed that your observations were independent (e.g. OLS) or, at most, that the interdependencies were relatively easy to take into account (e.g. multi-level analysis).[^3]  
 In this course you will learn to apply a social network perspective in the study of inequality, cohesion and diversity. You will become able to deduce more precise and new hypotheses. You will become able to test these hypotheses with social network techniques that take into account and explain complex interdependencies.
 
 
@@ -96,26 +96,35 @@ In this course you will learn to apply a social network perspective in the study
 
 Social Network Perspective
 : It is the acknowledgment that:  
-1. Individuals are embedded within social networks - no man is an island -  and that this has consequences for our theories.  
-2. Empiracal bservations of individuals are not always independent and that the (complex) interdependencies between observations have  consequences for many of our traditional research methods which assume independence of observations. 
-  
-Applying a social network perspective leads to theoretical and methodological advancements. A social network perspective is no theory and no method. 
-
-
-<!---
-## Definitions  
+Individuals are embedded within social networks - no man is an island -  and that this has theoretical and methodological consequences.  
+Theoretical consequences: A social network perspective may force to a rethinking of existing hypotheses and may lead to new research questions on the causes and consequences of social networks.  
+Methodological consequences: A social network perspective will make explicit that empirical observations of individuals are not always independent and that the (complex) interdependencies between observations that result from social networks have  consequences for many of our traditional research methods which assume independence of observations. It may lead to the development and adoption of new social network analysis techniques.  
+Applying a social network perspective leads to theoretical and methodological advancements.  
 
 Social Networks
-:  definition of social networks
+:  A social network is an finite set of actors and the relation(s) defined on this set. The actors are social entities (people, organizations, countries, etc.) whose specific ties (friendship, competition, collaboration, etc.), constitute the network. (Wasserman and Faust, 1994, p. 20)  
+Networks are also called: graphs or sociograms  
+Actors are also called: points, nodes, agents or vertices.  
+Relations are also called: ties, edges or connections.  
+Social networks are social phenomena.  
+Social networks have causes and the size, composition, structure, and development of social networks can be explained.  
+Social networks have consequences for individuals (i.e. attitudes and behavior), dyads (i.e. relations), institutions (e.g. efficiency) and societies (e.g. segregation, opinion polarization). 
 
-Social relations
-: definition of social relations
 
 Social phenomenon
-: collective human behavior 
+: collective human behavior  
 
 Social problem
 : a social phenomenon which people consider undesired. 
+
+
+
+<!---
+To: Update R tutorial 
+--->
+
+<!---
+## Definitions  
 
 
 --->
