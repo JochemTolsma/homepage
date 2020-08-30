@@ -15,15 +15,57 @@ type: book  # Do not modify.
 ---
 ## Overview
 
+The smallest possible social network is a network between to persons (or, more precisely, between two social agents). A network between two persons is also called a dyad. In the clip below I will introduce you to the the main concepts involved in a dyad and hence also in larger social networks. 
+
+{{< vimeo id="452233600" autoplay="true" title="Dyads" >}}
+  
+  
+{{% alert note %}}
+After having watched the video you should be able to:  
+- give a definition of a dyad.  
+- explain what is meant by time-varying and time-constant actor attributes and dyad attributes.  
+- explain that relations between ego and alter can be classified  based on whether relations are directed or undirected and on the level of measurement of the relation (i.e. nominal, ordinal, interval, ratio). 
+- be familair with al the synonyms for networks, agents and relations. 
+- provide examples of dyads, and the relations between ego and alter.
+{{% /alert %}}
+  
+    
+## Causes of dyads (theory)
+
+An important research topic within sociology is **assortative mating** (or intermarriage). Scholars in this field try to explain why two people in an exclusive relationship like marriage are more similar to one another with respect to defining characteristics than two random persons. Assortative mating is a special case of homophily. Assortative mating is an important topic within sociology because it is, next to social mobility, an important indicator of the openness of society.  
+In this section, I will introduce you to a general theoretical model than can be used to explain why people decide to make, break or maintain relationships with specific other. This model closely resembles the theoretical model that is commonly used to explain assortative mating. 
+
+## Causes of dyads (methods)
+
+When testing hypotheses on assortative mating two methodological approaches can be used. We may predict the *frequency of specific dyads* in our population with loglinear models and the data we use is commonly structured in a table like the one below. 
+
+Another approach is to take the *characteristics of the dyad* (e.g. endogamy versus mixed) as the dependent variable. This dependent variable can than be explained by applying (conditional) (multinomial) logistic regression techniques. In this case, the data is commonly structured in long format and looks something like the table below. 
+
+Which methodology is preferred should depend on your hypotheses and on the data you have to your availability. Since I assume most readers are raised within the regression tradition, in this section we will practice with estimating conditional multinomial logistic regression models. 
+
+{{% alert warning %}}
+Please be aware that in both approaches we normally do not have information on (the frequency or characteristics of) dyads in which there is no relation between ego and alter. Thus, you may have information on characteristics of me and my wife but you do not have information on all other women (or men) I could have married but didn't. I fished my wife out of the sea but we don't know what the other fish looked like. (Luckily my wife is no scientist and won't read this clarification.)
+{{% /alert %}}
+
+
+
+## Consequences of dyads (theory)
+
+Assortative mating has consequences for both partners. Just to mention some examples, it may impact relationship quality, time spend together on culture consumption, divorce rates and economic position.
+In this section I will explain a general theoretical framework for explaining how charactersitics of one partner may impact charactersitics of the other partner. 
+
+## Consequences of dyads (methods)
+The method used to explain consequences of dyads depends on our Unit of Analysis. If it is the dyad itself (e.g. relationship quality) methods are relatively straightforward. If, on the other hand, the unit of analysis are the partners that make up the dyad, we need to acknowledge that these observations are not independent. In part exactly because partners select and influence each other. In this secton I will demonstrate how to use actor-partner interdependence models for these situations.
+
 ## Literature
 
-**Part 1: Selection**  
+**Part 1: Causes**  
 
 Kalmijn, M. (1998). Intermarriage and homogamy: Causes, patterns, trends. *Annual review of sociology*, 395-421.  
 
 Schwartz, C. R. (2013). Trends and variation in assortative mating: Causes and consequences. *Annual Review of Sociology*, 39, 451-470.  
 
-**Part 2: Influence**  
+**Part 2: Consequences**  
 
 Cook, W. L., & Kenny, D. A. (2005). The actor–partner interdependence model: A model of bidirectional effects in developmental studies. *International Journal of Behavioral Development*, 29(2), 101-109.  
 
@@ -37,17 +79,16 @@ Verbakel, E., & De Graaf, P. M. (2009). Partner effects on labour market partici
 
 Keizer, R., Schenk, N., 2012. Becoming a parent and relationship satisfaction: A longitudinal dyadic perspective. *Journal of Marriage and Family*, 74, 759-773.  
 
-
+<!---
 
 ## Knowledge clips
 
-In the clip below I try to explain the main concepts involved in the smallest possible network. A network between two people. 
 
-{{< vimeo id="452233600" autoplay="true" title="A continous dance of selection and influence processes" >}}
 
 ## Slides
 
 ## Assignments
+--->
 
 <!---
 

@@ -9,8 +9,12 @@ h2 { /* Header 2 */
   font-weight: bold;
 }
 
+// Override this file to add your own SCSS styling.
+
 .watch-out {
-  background-color: lightpink;
-  border: 3px solid red;
+  background-color: DarkBlue;
   font-weight: bold;
+  padding: 20px 10px;
 }
+
+

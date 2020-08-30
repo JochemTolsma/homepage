@@ -27,6 +27,15 @@ weight: 1
 {{< youtube id="w7Ft2ymGmfc" autoplay="true" title="my title" >}} 
   
 
+{{% alert note %}}
+A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{% /alert %}}
+
+{{% alert warning %}}
+Here's some important information...
+{{% /alert %}}
+
+
 --->  
 
 ## Overview  
@@ -44,7 +53,7 @@ The intended learning outcomes of the course are:
 3. Research skills: you will be able to apply a social network perspective in social science research. This encompasses being able to deduce relevant and new social network hypotheses from existing theories and being able to test these hypotheses with different social network analysis techniques. 
 
 ## Structure
-This course is structured along three different dimensions: (1) the type of Social Network; (2) causes versus consequences of social networks; (3) theoretical versus methodological implications of a social network perspective. 
+This course is structured along three different dimensions: (1) the type of Social Network; (2) causes versus consequences of social networks; (3) theoretical versus methodological implications of applying a social network perspective. 
 
 **Table: structure of the course Social Networks 2020** 
 
@@ -62,6 +71,10 @@ This course is structured along three different dimensions: (1) the type of Soci
 | Complete (longitudinal) networks | Causes | Method |
 | Complete (longitudinal) networks | Consequences | Theory |
 | Complete (longitudinal) networks | Consequences | Method |
+
+{{% alert note %}}
+Feel free to jump to the section you are most interested in. But there is a clear order in the sections. The best way to accumulate theoretical and methodological knowledge, and to gain R-skills to successfully apply a social network perspective to your own research is by going through the sections one by. 
+{{% /alert %}}
 
 ## Causes and Consequences
 **...or Selection and Influence**  
@@ -92,23 +105,31 @@ In this course you will learn to apply a social network perspective in the study
 [^3]: That individuals are interconnected and hence that observations are not independent can be seen as a **nuisance**. That our observations are not independent violates many assumptions of analysis techniques that social scientists commonly apply (e.g. OLS). In order to correctly estimate the effects of interest we need to take these interdependencies into account with social network analysis techniques.  
   However, that individuals are interconnected and hence that observations are correlated or co-vary also is **theoretically interesting**. It gives rise to a complete new type of research questions. Where normally our research questions refer to describing or explaining the variance between individuals (e.g. why individuals differ) the new set of research questions refer to describing and explaining the covariance between individuals (why some people are more (dis)similar to one another than others.)
 
-## Definitions
-
-Social Network Perspective
-: It is the acknowledgment that:  
-Individuals are embedded within social networks - no man is an island -  and that this has theoretical and methodological consequences.  
-Theoretical consequences: A social network perspective may force to a rethinking of existing hypotheses and may lead to new research questions on the causes and consequences of social networks.  
-Methodological consequences: A social network perspective will make explicit that empirical observations of individuals are not always independent and that the (complex) interdependencies between observations that result from social networks have  consequences for many of our traditional research methods which assume independence of observations. It may lead to the development and adoption of new social network analysis techniques.  
-Applying a social network perspective leads to theoretical and methodological advancements.  
+## Definitions  
 
 Social Networks
 :  A social network is an finite set of actors and the relation(s) defined on this set. The actors are social entities (people, organizations, countries, etc.) whose specific ties (friendship, competition, collaboration, etc.), constitute the network. (Wasserman and Faust, 1994, p. 20)  
 Networks are also called: graphs or sociograms  
 Actors are also called: points, nodes, agents or vertices.  
 Relations are also called: ties, edges or connections.  
-Social networks are social phenomena.  
-Social networks have causes and the size, composition, structure, and development of social networks can be explained.  
-Social networks have consequences for individuals (i.e. attitudes and behavior), dyads (i.e. relations), institutions (e.g. efficiency) and societies (e.g. segregation, opinion polarization). 
+
+{{% alert warning %}}  
+
+**Social Networks is/are no theory nor a method.**
+
+Social networks are social phenomena with causes and consequences.
+The size, composition, structure, and development of social networks can be explained. Social networks have an impact on individuals (i.e. attitudes and behavior), dyads (i.e. relations), institutions (e.g. efficiency) and societies (e.g. segregation, opinion polarization). 
+{{% /alert %}}
+
+
+Social Network Perspective
+: It is the acknowledgment that individuals are embedded within social networks - no man is an island -  and that this has theoretical and methodological consequences.  
+Theoretical consequences: A social network perspective may force to a rethinking of existing hypotheses and may lead to new research questions on the causes and consequences of social networks.  
+Methodological consequences: A social network perspective will make explicit that empirical observations of individuals are not always independent and that the (complex) interdependencies between observations that result from social networks have  consequences for many of our traditional research methods which assume independence of observations. It may lead to the development and adoption of new social network analysis techniques.  
+
+Applying a social network perspective leads to theoretical and methodological advancements.  
+
+
 
 
 Social phenomenon
