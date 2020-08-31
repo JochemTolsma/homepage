@@ -40,22 +40,27 @@ Here's some important information...
 
 ## Overview  
 
-Sociologists study how societies affect the lives of their members and, vice versa, how individuals shape the societies in which they live. Within societies people make and break relations with specific others and thereby form **social networks**.  
-Individuals are embedded in many different social networks (e.g. based on friendships, bullying, family relations). Within these social networks individuals influence each others' *attitudes*, *behaviors* and *relations* via complex dynamic processes. 
-The attitudes, behaviors and relations of individuals shape, in turn, the societies they live in. They give rise to social phenomena such as *inequality*, *segregation*, *polarization* and *cohesion*. 
-It is not possible to explain many macro-level social phenomena, let alone to solve many urgent social problems, without taking into account social networks. For example, you may have a good idea about where my personal political attitudes come from but this does not explain political polarization, why specific groups in society hold ever more opposing, extreme political attitudes. It can thus be no surprise that the study of the causes and consequences of social networks lies at the core of sociology.   
+Sociologists study how societies affect the lives of their members and, vice versa, how individuals shape the societies in which they live. Within societies people make and break relations with specific others and thereby form ***social networks***.  
+Individuals are embedded in many different social networks (e.g. based on friendships, bullying, family relations). Within these social networks individuals influence each others' attitudes, behaviors and relations via complex dynamic processes. 
+The attitudes, behaviors and relations of individuals shape, in turn, the societies they live in. They give rise to *social phenomena* such as inequality, segregation, polarization and cohesion. 
+It is not possible to explain many macro-level social phenomena, let alone to solve many urgent *social problems*, without taking into account social networks. For example, you may have a good idea about where my personal political attitudes come from but this does not explain political polarization, why specific groups in society hold ever more opposing, extreme political attitudes. It can thus be no surprise that the study of the causes and consequences of social networks lies at the core of sociology.   
+
+
+{{% alert note %}}
+Throughout this course you will find words in *italics*. These words are defined near the bottom of each page. 
+{{% /alert %}}
 
 ## Aim 
 
 The intended learning outcomes of the course are:
-1. Theoretical knowledge and insight: you will be able to define core concepts related to a social network perspective and are able to summarize what a social network perspective in social science research entails.  
+1. Theoretical knowledge and insight: you will be able to define core concepts related to a social network perspective and are able to summarize what a *social network perspective* in social science research entails.  
 2. Academic attitude: you develop a positive attitude towards applying a social network perspective in social science research.   
 3. Research skills: you will be able to apply a social network perspective in social science research. This encompasses being able to deduce relevant and new social network hypotheses from existing theories and being able to test these hypotheses with different social network analysis techniques. 
 
 ## Structure
-This course is structured along three different dimensions: (1) the type of Social Network; (2) causes versus consequences of social networks; (3) theoretical versus methodological implications of applying a social network perspective. 
+This course is structured along three different dimensions: (1) the Type of Social Network; (2) Causes versus Consequences of social networks; (3) Theoretical versus Methodological implications of applying a social network perspective. 
 
-**Table: structure of the course Social Networks 2020** 
+**Table.** Structure of the course Social Networks 2020** 
 
 | Type of Social Network | Causes or Consequences| Theory or Method 
 | ----------- | ----------- | ----------- |
@@ -72,15 +77,20 @@ This course is structured along three different dimensions: (1) the type of Soci
 | Complete (longitudinal) networks | Consequences | Theory |
 | Complete (longitudinal) networks | Consequences | Method |
 
+<!---
+[dyadscausestheory](dyads/dyads1)
+
+--->
+
 {{% alert note %}}
-Feel free to jump to the section you are most interested in. But there is a clear order in the sections. The best way to accumulate theoretical and methodological knowledge, and to gain R-skills to successfully apply a social network perspective to your own research is by going through the sections one by. 
+Feel free to jump to the section you are most interested in. But there is a clear order in the sections. The best way to accumulate theoretical and methodological knowledge, and to gain the necessary R-skills to successfully apply a social network perspective to your own research is by going through the sections one by. 
 {{% /alert %}}
 
 ## Causes and Consequences
 **...or Selection and Influence**  
-Social networks consist of social relations between people. For example friendship, bullying relations or working-together-during-the-course-social-networks relations.  
-The continuous process of making and braking social relations is also called *selection*. And the reasons why we make and brake relations with specific persons are important *causes* for the structures of the social networks we observe. Thus the causes of social networks are strongly related to selection processes.  
-The people with whom we form social relations also *influence* our attitudes, behaviors and future relations. How we think, behave and with whom we make, brake or maintain social relations is for an important part the *consequence* of the social networks in which we are embedded. Thus the consequences of social networks are strongly related to influence processes (but also to selection processes).  
+Social networks consist of social relations between people. For example friendships, bullying relations or working-together-during-the-course-social-networks relations.  
+The continuous process of making and breaking social relations is also called **selection**. And the reasons why we make and brake relations with specific persons are important **causes** for the structures of the social networks we observe. Thus the causes of social networks are strongly related to selection processes.  
+The people with whom we form social relations also **influence** our attitudes, behaviors and future relations. How we think, behave and with whom we make, break or maintain social relations is for an important part the **consequence** of the social networks in which we are embedded. Thus the consequences of social networks are strongly related to influence processes (but also to selection processes).  
 Selection and influence processes are firmly entangled. See below for an example. We could call the selection process 'Opposite Attracts' and we could call the influence process 'circle beats square'.[^1] 
 
 [^1]: The shapes represent social agents (e.g. individuals).  
@@ -93,7 +103,7 @@ Selection and influence processes are firmly entangled. See below for an example
 
 ## What makes this course stand out? 
 This course is not an introduction to Social Networks or Social Network Analysis. It is also not a course in R. I assume you have some intuitive understanding of what social networks are and have opened R or RStudio at one point in your life but both are not necessary prerequisites to follow this course. There are very good introductions to the study of Social Networks.[^2] A good introduction to R for this course would be [this one](https://www.jtolsma.nl/TutorialCSR/).  
-This course is tailored for research master and PhD students. I will assume that you are interested in and have studied social problems in your academic career and that your research interests fits one of the following broad themes: **inequality**, **cohesion** and **diversity**. However, up to this point, when you deduced hypotheses from existing theories you did not explicitly acknowledge that individuals are interconnected in social networks. You was neither aware that this may have theoretical consequences for existing hypotheses nor that this gives rise to new research questions. Up to this point, when you tested your hypotheses you assumed that your observations were independent (e.g. OLS) or, at most, that the interdependencies were relatively easy to take into account (e.g. multi-level analysis).[^3]  
+This course is tailored for research master and PhD students. I will assume that you are interested in and have studied social problems in your academic career and that your research interests fits one of the following broad themes: **inequality**, **cohesion** and **diversity**. However, up to this point, when you deduced hypotheses from existing theories you did not explicitly acknowledge that individuals are interconnected in social networks. You were neither aware that this may have theoretical consequences for existing hypotheses nor that this gives rise to new research questions. Up to this point, when you tested your hypotheses you assumed that your observations were independent (e.g. OLS) or, at most, that the nonindependence was relatively easy to take into account (e.g. multi-level analysis).[^3]  
 In this course you will learn to apply a social network perspective in the study of inequality, cohesion and diversity. You will become able to deduce more precise and new hypotheses. You will become able to test these hypotheses with social network techniques that take into account and explain complex interdependencies.
 
 

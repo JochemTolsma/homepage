@@ -2,18 +2,18 @@
 title: Consequences of Dyads (methods)
 author: JochemTolsma
 date: '2020-08-19'
-slug: APIM
+slug: dyads4
 categories:
   - R
   - Social Networks
 tags: []
-linktitle: Consequences of Dyads (methods)
+linktitle: Dyads-Consequences-Methods
 
 summary: ~
 lastmod: '2020-08-19T08:27:34+02:00'
 
 type: book
-weight: 5
+weight: 40
 
  
 output:
@@ -44,7 +44,6 @@ klippy::klippy(position = c('top', 'left'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
-
 # Introduction
 
 In this assignment/tutorial I will demonstrate how to estimate an APIM with the R package [Lavaan](https://cran.r-project.org/package=lavaan). The Lavaan website can be found [here](https://www.lavaan.ugent.be/). During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do. 
@@ -65,30 +64,38 @@ updateR() #run the function to start the update process
 ```
 
 
-Don't forget, always start with cleaning up your workspace. 
+Give your script a nice name. Include the author, and data when you last modified the script. Include a lot of comments in your script! Don't forget, always start with cleaning up your workspace. 
 
 ```{r cleanup}
+###Author: JOCHEM TOLSMA###
+###Lastmod: 31-08-2020###
+
+#cleanup workspace
 rm (list = ls( )) 
 ```
 
 And set your working directory. 
 ```{r setwd, eval=FALSE}
+#set working directory
 setwd("C:\\YOURDIR\\YOURSUBDIR\\YOURSUBSUBDIR\\")  #change to your own workdirectory
 ```
 
 Install the packages you will need. 
 
 ```{r packages, eval=FALSE}
+#install packages
 install.packages("lavaan", dependencies=TRUE) # to estimate the APIM model
 install.packages("psych") # to describe our dataset
 install.packages("MASS") # to simulate variables from a multi-variate normal distribution
+install.packages("nlme") # for the multilevel models
 ```
 
 {{% alert note %}}
 Q1: Where and how can you find additional information on R packages?  
   
   
-A1: 
+A1:
+
 - google  
 - The R Cran website go the package
   - check out the manual  
@@ -133,8 +140,8 @@ Y_M <- 0.1*age_M + 0.7*educ_M + 0.2*educ_W + -2*nkids + HH_rand + M_rand
 #Introduce some influence effects. 
 Sigma <- matrix(c(8,5,5,10),2,2)
 errort2 <- mvrnorm(n = 1000, mu=c(0,0), Sigma)
-Y_Wt2 <- (mean(Y_W) + 3) + .6*(Y_W - mean(Y_W)) + .4*(Y_M - mean(Y_M)) + errort2[,1]
-Y_Mt2 <- (mean(Y_M) + 5) + .5*(Y_W - mean(Y_W)) + .7*(Y_M - mean(Y_M)) + errort2[,2]
+Y_Wt2 <- (mean(Y_W) + 3) + .6*(Y_W - mean(Y_W)) + .4*(Y_M - mean(Y_M)) + 0.15*age_W + 0.4*educ_W + 0.1*age_M + 0.3*educ_M + -1*nkids + errort2[,1]
+Y_Mt2 <- (mean(Y_M) + 5) + .5*(Y_W - mean(Y_W)) + .7*(Y_M - mean(Y_M)) + 0.05*age_M + 0.2*educ_M + 0.2*educ_W + -1*nkids + errort2[,2]
 #and let's put everything together
 data <- data.frame(age_M,age_W, educ_M, educ_W, nkids, Y_M, Y_W, Y_Mt2, Y_Wt2)
 #add some description to the data  
@@ -147,7 +154,8 @@ attr(data, "description") <- "This is a simulated dataset to illustrate the use 
 {{% alert note %}}
 Q2: Which functions did we use to simulate data? Please list all used functions. Make a good habit of writing down all new functions you encounter.    
   
-A2:  
+A2: 
+
 - require  
 - set.seed 
 - matrix  
@@ -187,17 +195,17 @@ describe(data)
 
 ```
 
-# Check for interdependecies 
+# Check for interdependencies 
 
 When you reached this point in the course, you should know that within social networks observations are not independent. This has theoretical and methodological consequences. A first step is therefore to assess whether our observations are interdependent (covary, or correlate). 
 There are naive and less naive ways to check for interdependence. 
 
 For more background information see [this page](http://davidakenny.net/dyad.htm) by David A. Kenny.  
-Also check out the book by Snijders and Boskers (1999)[^1]  
+Also check out paragraph 3.3 of the book by Snijders and Boskers (1999).[^1]  
 
-[^1]: ref
+[^1]: Snijders, T.A.B. $ Boskers, R.J. (1999) *Multilevel Analysis. An introduction to basic and advanced multilevel modeling.* London: Sage Publications
 
-Lets start with something that pops up in your mind immediately...a correlation and for those of you with some experience in multilevel analysis...intraclass correlation. 
+Lets start with something that pops up in your mind immediately...a correlation and for those of you with some experience in multilevel analysis...intraclass correlation (ICC). 
 
 ## correlation (wide format)
 
@@ -241,7 +249,7 @@ Do you see that the correct ICC is very close to the correlation based on a data
 
 ## ICC (regression tradition)
 
-Most of you are probably more familiar with definitions of the ICC as provided within textbooks on multi-level analysis. Where the intraclass variance - at least for continuous dependent variables - is defined as the between variance (i.e. the variance in dyad means) divided by the total variance (i.e. the sum of the between and within variance). There is only one problem, we need these variances present in the 'real population'. In our data we only observe the variances present in our sample. The observed between variance needs to be corrected. Below I will show you have to do that. 
+Most of you are probably more familiar with definitions of the ICC as provided within textbooks on multi-level analysis. Where the intraclass variance - at least for continuous dependent variables - is defined as the between variance (i.e. the variance in dyad means) divided by the total variance (i.e. the sum of the between and within variance). There is only one problem, we need these variances present in the 'real population'. In our data we only observe the variances present in our sample. The observed between variance needs to be corrected. Below I will show you how to do that. 
 
 ```{r}
 #first make a dataset in longformat. 
@@ -269,18 +277,15 @@ With this dataset in longformat we can calculate the ICC.
 ```{r ICC_ML , results="hold"}
 #first calculate the between variance of our sample. Note that this we only need observations of the dyads once (thus N_dyads=1000)
 S_B <- var(data_long$dyadmean[1:1000])
-S_B
 #within variance
 SW <- sum((data_long$Y - data_long$dyadmean)^2)/1000 #we divide by the number of dyads
-SW
 #We now need to correct the observed between variance to reflect the population between variance. 
 S_B_E <- S_B - SW/2
-S_B_E 
 ICC_ML <- S_B_E / (S_B_E + SW)
 ICC_ML
 ```
 Of course exactly similar to the ICC_anova. 
-But this is of couse quite cumbersome. Thus in practice I personally simply calculate a correlation on the variabels of interest in a dataset in long format. Or, alternatively, estimate an empty multi-level model. Which also spits out the ICC (after some tweaking). 
+But this procedure is of course quite cumbersome. Thus in practice I personally simply calculate a correlation on the variabels of interest in a dataset in long format. Or, alternatively, estimate an empty multi-level model. Which also spits out the ICC (after some tweaking). 
 See below. 
 
 ```{r ML, results="hold"}
@@ -289,6 +294,7 @@ require(nlme)
 mlme <- lme(Y ~ 1,  data=data_long, random = list(~ 1| dyad_id),)
 summary(mlme)
 #Standard deviations are reported instead of variances. 
+#extract the variances.
 VarCorr(mlme)
 #the intercept variance is at the between-level.
 #the residual variances are at the observation / within-level. 
@@ -302,9 +308,10 @@ The take home message is that the two observations for each dyad are indeed corr
 
 # Hypothesis testing
 
-Suppose we wish to test the following hypotheses:  
-- your own age and education is positively related to your score on Y.
-- the age and education of your partner is positively related to your score on Y. 
+Suppose we wish to test the following hypotheses: 
+
+- your own age and education is positively related to your score on Y.  
+- the age and education of your partner is positively related to your score on Y.   
 
 ## OLS_pooled
 
@@ -318,7 +325,7 @@ So, what would you conclude? We have to refute the hypo on own age and the hypo 
 
 ## OLS seperately for men and women
 
-Perhaps, you would have realized that the impact of own and partner's age and educ may depend on your sex. Thus you may have estimated the model separately for men and women. There would be nothing wrong with that approach, because with one observation per dyad/household the observations can still be regarded as independent. Thus:...
+Perhaps, you would have realized (or theorized) that the impact of own and partner's age and educ may depend on your sex. Thus you may have estimated the model separately for men and women. There would be nothing wrong with that approach, because with one observation per dyad/household the observations can still be regarded as independent. Thus:...
 
 ```{r OLS_sep, results="hold"}
 mlm_W <- lm(Y_W ~ age_W + educ_W + age_M + educ_M + nkids,data=data)
@@ -331,7 +338,7 @@ Clearly, both the actor-effects and partner-effects differ for men and women. A 
 
 ## SEM with lavaan
 
-One approach is to estimate both models simultaneously within a SEM framework. 
+One approach is to estimate both models simultaneously within a SEM framework. And this is the APIM for non longitudinal designs. 
 
 ```{r lavaan, results="hold"}
 require(lavaan)
@@ -354,8 +361,53 @@ Y_W ~ 1
 fit <- sem(myModel, data=data)
 summary(fit, standardized=FALSE)
 ```
-So, what would you conclude now!!??
-  
+So, what would you conclude now!!?? Exact from the estimate referring the the number of children we obtain very similar results (most differences due to rounding errors). Can we conclude anything with respect to influence versus selection processes? 
+
+# APIM
+
+The key use of APIM models is to assess bidirectional effects within longitudinal designs. Suppose we have measured our outcome variable at two occasions. We formulate our hypotheses: 
+
+- your own age and education (measured at time 1) is positively related to your score on Y (measured at time 2), even if we take into account stability in outcome Y. Alternatively phrasing, your age and education is positively related to a positive change in your Y. 
+- your partner's score on outcome Y (measured at time 1) has an impact on your own score on Y (measured at time 2). Alternative phrasing, your partner's score is positively related to a positive change in your Y. 
+- the age and education of your partner (measured at time 1) is positively related to your score on Y (measured at time 2), even if we take into account stability in outcome Y and that your partner's score on Y impacts your outcome Y.  
+
+```{r Apim, results="hold"}
+myModel <-{'# regressions
+Y_Mt2 ~ Y_M + Y_W + age_M + educ_M + age_W + educ_W + b1*nkids
+Y_Wt2 ~ Y_M + Y_W + age_M + educ_M + age_W + educ_W + b2*nkids
+#contraints
+b1==b2
+# variances and covariances
+Y_Mt2 ~~ Y_Mt2
+Y_Mt2 ~~ Y_Wt2
+
+Y_M ~~ Y_M + age_M + educ_M + age_W + educ_W + b3*nkids
+Y_W ~~ Y_W + age_M + educ_M + age_W + educ_W + b3*nkids
+age_M ~~ age_M + age_W + educ_M + educ_W
+age_W ~~ age_W + educ_M + educ_W
+educ_M ~~ educ_M + educ_W
+educ_W ~~ educ_W
+
+# intercepts
+Y_M ~ 1
+Y_W ~ 1
+Y_Mt2 ~ 1
+Y_Wt2 ~ 1
+'}
+
+fit <- sem(myModel, data=data)
+summary(fit, standardized=FALSE)
+```
+What are our final conclusions?   
+We observe clear actor and partner effects: 
+
+- Y_W predicts both Y_Wt2 (actor effect) and Y_Mt2 (partner effect)
+- Y_M predicts both Y_Mt2 (actor effect) and Y_Wt2 (partner effect)
+- Even if we take into account that both a person's own score and partner's score predict a person's own outcome, we also observe that a person's own characteristic and partner's characteristic predict how a person's own outcome develops over time. 
+- the reported covariances may be the result of both selection and influence processes.  
+- the reported regression partner-effects are (more likely) the result of influence processes. 
+
+
 # Assignment  
 
 Time to practice. 
