@@ -16,4 +16,9 @@ type: book
 weight: 10
 ---
 
-some text here
+## General Theoretical Framework
+
+
+{{< vimeo id="453716704" autoplay="true" title="Dyads" >}}  
+
+For slides, see {{% staticref "files/multilevel-framework.pdf" "newtab" %}}here{{% /staticref %}}. 
