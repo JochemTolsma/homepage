@@ -77,9 +77,9 @@ In [this section]({{< ref "/dyads3.md" >}}) I will explain a general theoretical
 ## Consequences of dyads (methods)
 The method used to explain consequences of dyads depends on our Unit of Analysis. If it is the dyad itself (e.g. relationship quality) methods are relatively straightforward, because we may assume that the observations at the dyad-level are independent. If, on the other hand, the unit of analysis are the partners that make up the dyad, we need to acknowledge that these observations are not independent. In part exactly because partners select and influence each other. In [this section]({{< ref "/dyads4.md" >}}) I will demonstrate how to use actor-partner interdependence models for these situations.
 
-# Selection and influence  
+## Selection and influence  
 Selection and influence processes are important reasons why nonindependent observations
-may arise in dyads. A third reason is that both ego and alter share the same context (e.g. neighbourhood) which influence their charactersitics. 
+may arise in dyads. A third reason is that both ego and alter share the same context (e.g. neighborhood) which influence their characteristics. 
 
 ## Literature
 
@@ -102,6 +102,10 @@ Blossfeld, H. P. (2009). Educational assortative marriage in comparative perspec
 Verbakel, E., & De Graaf, P. M. (2009). Partner effects on labour market participation and job level: opposing mechanisms. *Work, Employment & Society*, 23(4), 635-654.  
 
 Keizer, R., Schenk, N., 2012. Becoming a parent and relationship satisfaction: A longitudinal dyadic perspective. *Journal of Marriage and Family*, 74, 759-773.  
+
+## <i class="fas fa-lightbulb"></i> SELF-TEST <i class="fas fa-lightbulb"></i> 
+
+Each chapter ends with a **SELF-TEST**. Using what you learned in this chapter you should be able to answer both the theoretical and methodological part of this [SELF-TEST]({{< ref "/dyads5.md" >}}). 
 
 <!---
 
