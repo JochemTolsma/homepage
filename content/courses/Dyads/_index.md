@@ -19,6 +19,7 @@ The smallest possible social network is a network between two persons (or, more 
 
 {{< vimeo id="452233600" autoplay="true" title="Dyads" >}}
   
+For slides, see {{% staticref "files/dyads.pdf" "newtab" %}}here{{% /staticref %}}. 
   
 {{% alert note %}}
 After having watched the video you should be able to:  
