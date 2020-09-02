@@ -31,12 +31,13 @@ output:
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines")
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
 options(width = 100)
 ```
 
 
-<!--copy to clipboard-->
+
+
 ```{r klippy, echo=FALSE, include=TRUE}
 require(klippy)
 klippy::klippy()
@@ -44,12 +45,14 @@ klippy::klippy(position = c('top', 'left'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
+
+
 <!---
 https://www.w3schools.com/w3css/w3css_buttons.asp
 https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
 --->
 
-<button onclick="window.location.href='static/index.Rmd';">download code</button>
+<button onclick="window.location.href='static/index.Rmd';">download code.Rmd</button>
 
 
 # Introduction
@@ -57,7 +60,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 In this assignment/tutorial I will demonstrate how to estimate an APIM with the R package [Lavaan](https://cran.r-project.org/package=lavaan). The Lavaan website can be found [here](https://www.lavaan.ugent.be/). During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do. 
 
 {{% alert warning %}}
-In the upper left corner of the code blocks you will find a tiny copy-to-clipboard button. Use this button to copy the code to your own editor. I don't know why this button is so small on the website. I will try to fix this issue asap.
+In the upper right corner of the code blocks you will find a copy-to-clipboard button. Use this button to copy the code to your own editor. 
 {{% /alert %}}
 
 
@@ -87,10 +90,10 @@ And set your working directory.
 #set working directory
 setwd("C:\\YOURDIR\\YOURSUBDIR\\YOURSUBSUBDIR\\")  #change to your own workdirectory
 ```
-
+ 
 Install the packages you will need. 
 
-```{r packages, eval=FALSE}
+```{r packages, eval=FALSE, class.source="highlightt"}
 #install packages
 install.packages("lavaan", dependencies=TRUE) # to estimate the APIM model
 install.packages("psych") # to describe our dataset
@@ -100,7 +103,7 @@ install.packages("nlme") # for the multilevel models
 
 {{% alert note %}}
 Q1: Where and how can you find additional information on R packages?  
-  
+   
   
 A1:
 

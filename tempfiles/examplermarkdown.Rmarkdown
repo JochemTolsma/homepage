@@ -14,7 +14,7 @@ lastmod: '2020-08-19T08:27:34+02:00'
 
 type: book
 weight: 4
-
+ 
 output:
   blogdown::html_page:
     number_sections: yes
