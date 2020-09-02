@@ -44,6 +44,14 @@ klippy::klippy(position = c('top', 'left'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<button onclick="window.location.href='static/index.Rmd';">download code</button>
+
+
 # Introduction
 
 In this assignment/tutorial I will demonstrate how to estimate an APIM with the R package [Lavaan](https://cran.r-project.org/package=lavaan). The Lavaan website can be found [here](https://www.lavaan.ugent.be/). During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do. 
@@ -406,7 +414,8 @@ We observe clear actor and partner effects:
 - Even if we take into account that both a person's own score and partner's score predict a person's own outcome, we also observe that a person's own characteristic and partner's characteristic predict how a person's own outcome develops over time. 
 - the reported covariances may be the result of both selection and influence processes.  
 - the reported regression partner-effects are (more likely) the result of influence processes. 
-
+  
+In sum, 
 
 # Assignment  
 

@@ -95,26 +95,27 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
 <div id="TOC">
 <ul>
-<li><a href="#before-you-start"><span class="toc-section-number">1</span> Before you start</a></li>
-<li><a href="#data"><span class="toc-section-number">2</span> Data</a><ul>
-<li><a href="#simulate-data"><span class="toc-section-number">2.1</span> Simulate data</a></li>
-<li><a href="#describe-data"><span class="toc-section-number">2.2</span> Describe data</a></li>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#before-you-start"><span class="toc-section-number">2</span> Before you start</a></li>
+<li><a href="#data"><span class="toc-section-number">3</span> Data</a><ul>
+<li><a href="#simulate-data"><span class="toc-section-number">3.1</span> Simulate data</a></li>
+<li><a href="#describe-data"><span class="toc-section-number">3.2</span> Describe data</a></li>
 </ul></li>
-<li><a href="#check-for-interdependencies"><span class="toc-section-number">3</span> Check for interdependencies</a><ul>
-<li><a href="#correlation-wide-format"><span class="toc-section-number">3.1</span> correlation (wide format)</a></li>
-<li><a href="#correlation-long-format"><span class="toc-section-number">3.2</span> correlation (long format)</a></li>
-<li><a href="#icc-anova-tradition"><span class="toc-section-number">3.3</span> ICC (ANOVA tradition)</a></li>
-<li><a href="#icc-regression-tradition"><span class="toc-section-number">3.4</span> ICC (regression tradition)</a></li>
+<li><a href="#check-for-interdependencies"><span class="toc-section-number">4</span> Check for interdependencies</a><ul>
+<li><a href="#correlation-wide-format"><span class="toc-section-number">4.1</span> correlation (wide format)</a></li>
+<li><a href="#correlation-long-format"><span class="toc-section-number">4.2</span> correlation (long format)</a></li>
+<li><a href="#icc-anova-tradition"><span class="toc-section-number">4.3</span> ICC (ANOVA tradition)</a></li>
+<li><a href="#icc-regression-tradition"><span class="toc-section-number">4.4</span> ICC (regression tradition)</a></li>
 </ul></li>
-<li><a href="#hypothesis-testing"><span class="toc-section-number">4</span> Hypothesis testing</a><ul>
-<li><a href="#ols_pooled"><span class="toc-section-number">4.1</span> OLS_pooled</a></li>
-<li><a href="#ols-seperately-for-men-and-women"><span class="toc-section-number">4.2</span> OLS seperately for men and women</a></li>
-<li><a href="#sem-with-lavaan"><span class="toc-section-number">4.3</span> SEM with lavaan</a></li>
+<li><a href="#hypothesis-testing"><span class="toc-section-number">5</span> Hypothesis testing</a><ul>
+<li><a href="#ols_pooled"><span class="toc-section-number">5.1</span> OLS_pooled</a></li>
+<li><a href="#ols-seperately-for-men-and-women"><span class="toc-section-number">5.2</span> OLS seperately for men and women</a></li>
+<li><a href="#sem-with-lavaan"><span class="toc-section-number">5.3</span> SEM with lavaan</a></li>
 </ul></li>
-<li><a href="#apim"><span class="toc-section-number">5</span> APIM</a></li>
-<li><a href="#assignment"><span class="toc-section-number">6</span> Assignment</a></li>
-<li><a href="#alternative-approaches"><span class="toc-section-number">7</span> Alternative approaches</a><ul>
-<li><a href="#multilevel"><span class="toc-section-number">7.1</span> multilevel</a></li>
+<li><a href="#apim"><span class="toc-section-number">6</span> APIM</a></li>
+<li><a href="#assignment"><span class="toc-section-number">7</span> Assignment</a></li>
+<li><a href="#alternative-approaches"><span class="toc-section-number">8</span> Alternative approaches</a><ul>
+<li><a href="#multilevel"><span class="toc-section-number">8.1</span> multilevel</a></li>
 </ul></li>
 </ul>
 </div>
@@ -128,13 +129,22 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-# Introduction</p>
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+---></p>
+<button onclick="window.location.href=&#39;static/index.Rmd&#39;;">
+download code
+</button>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <p>In this assignment/tutorial I will demonstrate how to estimate an APIM with the R package <a href="https://cran.r-project.org/package=lavaan">Lavaan</a>. The Lavaan website can be found <a href="https://www.lavaan.ugent.be/">here</a>. During the workgroup I will explain all code. For those of you who don’t attend the workgroups, google knows way more than I do.</p>
 <p>{{% alert warning %}}
 In the upper left corner of the code blocks you will find a tiny copy-to-clipboard button. Use this button to copy the code to your own editor. I don’t know why this button is so small on the website. I will try to fix this issue asap.
 {{% /alert %}}</p>
+</div>
 <div id="before-you-start" class="section level1">
-<h1><span class="header-section-number">1</span> Before you start</h1>
+<h1><span class="header-section-number">2</span> Before you start</h1>
 <p>Before you start, check whether you run the latest RStudio version (from the Help menu, pick ‘check for updates’ and whether you need to update R.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;installr&quot;</span>)  <span class="co">#you  first install packages</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">require</span>(installr)  <span class="co">#then you will need to activate packages. </span></span>
@@ -173,9 +183,9 @@ Q1: Where and how can you find additional information on R packages?</p>
 </ul>
 </div>
 <div id="data" class="section level1">
-<h1><span class="header-section-number">2</span> Data</h1>
+<h1><span class="header-section-number">3</span> Data</h1>
 <div id="simulate-data" class="section level2">
-<h2><span class="header-section-number">2.1</span> Simulate data</h2>
+<h2><span class="header-section-number">3.1</span> Simulate data</h2>
 <p>If I try to get an understanding of a new method, I usually use a simulated dataset. Then I at least know what the world looks like (I know what I have put in so I know what I should get out of the model). For you guys and gals, it is not necessary to understand the simulation process but feel free to have a close look.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">require</span>(MASS)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">set.seed</span>(<span class="dv">9864</span>)  <span class="co">#We set a seed. In this we the random numbers we will generate be the same and we thus end up with the same dataset. Please not that to be absolutaly sure to get the same dataset, we need to run the same R version (and packages)</span></span>
@@ -255,7 +265,7 @@ Q3: What is the difference between <code>()</code>, <code>r{}</code> and <code>r
 <p>{{% /alert %}}</p>
 </div>
 <div id="describe-data" class="section level2">
-<h2><span class="header-section-number">2.2</span> Describe data</h2>
+<h2><span class="header-section-number">3.2</span> Describe data</h2>
 <p>Lets have a look at our data.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">require</span>(psych)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">head</span>(data)</span>
@@ -264,12 +274,12 @@ Q3: What is the difference between <code>()</code>, <code>r{}</code> and <code>r
 <span id="cb6-5"><a href="#cb6-5"></a><span class="kw">attr</span>(data, <span class="st">&quot;description&quot;</span>)</span>
 <span id="cb6-6"><a href="#cb6-6"></a><span class="kw">describe</span>(data)</span></code></pre></div>
 <pre><code>##      age_M    age_W educ_M educ_W nkids        Y_M       Y_W     Y_Mt2    Y_Wt2
-## 1 23.65153 17.18029      8      9     4 12.5966983 24.001964 22.245410 23.75408
-## 2 27.11747 25.93062      8     10     1  0.1857714  5.201483  5.732135 13.84248
-## 3 22.20588 20.02249      8      9     5  0.9591408 12.854358  8.199992 18.06067
-## 4 27.48565 18.99072      6      7     3 10.8892384 11.547787 14.273514 22.59930
-## 5 28.29219 19.02406      9     12     5 11.3599118 11.441439 17.387043 19.45935
-## 6 24.72061 24.40805      8     12     5  6.2244939 19.168225 12.378049 15.13356
+## 1 23.65153 17.18029      8      9     4 12.5966983 24.001964 22.827987 30.69627
+## 2 27.11747 25.93062      8     10     1  0.1857714  5.201483  9.688008 25.84382
+## 3 22.20588 20.02249      8      9     5  0.9591408 12.854358  7.710286 24.28463
+## 4 27.48565 18.99072      6      7     3 10.8892384 11.547787 15.247796 29.79648
+## 5 28.29219 19.02406      9     12     5 11.3599118 11.441439 18.001653 27.64218
+## 6 24.72061 24.40805      8     12     5  6.2244939 19.168225 12.614080 23.46683
 ## &#39;data.frame&#39;:    1000 obs. of  9 variables:
 ##  $ age_M : num  23.7 27.1 22.2 27.5 28.3 ...
 ##  $ age_W : num  17.2 25.9 20 19 19 ...
@@ -278,8 +288,8 @@ Q3: What is the difference between <code>()</code>, <code>r{}</code> and <code>r
 ##  $ nkids : int  4 1 5 3 5 5 5 5 5 4 ...
 ##  $ Y_M   : num  12.597 0.186 0.959 10.889 11.36 ...
 ##  $ Y_W   : num  24 5.2 12.9 11.5 11.4 ...
-##  $ Y_Mt2 : num  22.25 5.73 8.2 14.27 17.39 ...
-##  $ Y_Wt2 : num  23.8 13.8 18.1 22.6 19.5 ...
+##  $ Y_Mt2 : num  22.83 9.69 7.71 15.25 18 ...
+##  $ Y_Wt2 : num  30.7 25.8 24.3 29.8 27.6 ...
 ##  - attr(*, &quot;description&quot;)= chr &quot;This is a simulated dataset to illustrate the use of APIM. The dataset is in wide-format: one row refers to one&quot;| __truncated__
 ##      age_M           age_W           educ_M           educ_W          nkids            Y_M         
 ##  Min.   :17.01   Min.   :10.66   Min.   : 1.000   Min.   : 3.00   Min.   :1.000   Min.   :-13.397  
@@ -289,34 +299,34 @@ Q3: What is the difference between <code>()</code>, <code>r{}</code> and <code>r
 ##  3rd Qu.:26.55   3rd Qu.:22.17   3rd Qu.:10.000   3rd Qu.:11.00   3rd Qu.:4.000   3rd Qu.: 13.773  
 ##  Max.   :31.67   Max.   :30.48   Max.   :17.000   Max.   :17.00   Max.   :5.000   Max.   : 28.029  
 ##       Y_W             Y_Mt2             Y_Wt2       
-##  Min.   :-8.637   Min.   :-14.274   Min.   :-4.417  
-##  1st Qu.:10.619   1st Qu.:  7.248   1st Qu.:13.569  
-##  Median :16.273   Median : 14.111   Median :19.077  
-##  Mean   :16.162   Mean   : 13.845   Mean   :19.091  
-##  3rd Qu.:21.741   3rd Qu.: 20.129   3rd Qu.:24.607  
-##  Max.   :42.715   Max.   : 37.843   Max.   :39.126  
+##  Min.   :-8.637   Min.   :-15.552   Min.   : 1.074  
+##  1st Qu.:10.619   1st Qu.:  8.457   1st Qu.:21.805  
+##  Median :16.273   Median : 15.799   Median :27.930  
+##  Mean   :16.162   Mean   : 15.639   Mean   :27.984  
+##  3rd Qu.:21.741   3rd Qu.: 22.523   3rd Qu.:33.998  
+##  Max.   :42.715   Max.   : 41.200   Max.   :52.909  
 ## [1] &quot;This is a simulated dataset to illustrate the use of APIM. The dataset is in wide-format: one row refers to one couple/household. Variables with \&quot;_W\&quot; refer to women,\&quot;_M\&quot; refer to men. Variables with no underscore refer to the couple. The dependent variable is measured at two occassions.&quot;
-##        vars    n  mean   sd median trimmed  mad    min   max range  skew kurtosis   se
-## age_M     1 1000 25.01 2.27  25.01   25.02 2.25  17.01 31.67 14.66 -0.06    -0.03 0.07
-## age_W     2 1000 20.20 3.18  20.22   20.19 3.01  10.66 30.48 19.81  0.05     0.01 0.10
-## educ_M    3 1000  8.03 2.27   8.00    8.03 2.97   1.00 17.00 16.00  0.07     0.08 0.07
-## educ_W    4 1000 10.08 2.01  10.00   10.09 1.48   3.00 17.00 14.00 -0.01     0.20 0.06
-## nkids     5 1000  3.08 1.41   3.00    3.10 1.48   1.00  5.00  4.00 -0.08    -1.28 0.04
-## Y_M       6 1000  8.98 6.86   9.15    9.04 6.93 -13.40 28.03 41.43 -0.10    -0.20 0.22
-## Y_W       7 1000 16.16 8.12  16.27   16.17 8.27  -8.64 42.71 51.35 -0.03    -0.10 0.26
-## Y_Mt2     8 1000 13.84 9.00  14.11   13.84 9.34 -14.27 37.84 52.12 -0.06    -0.24 0.28
-## Y_Wt2     9 1000 19.09 7.78  19.08   19.08 8.20  -4.42 39.13 43.54 -0.03    -0.20 0.25</code></pre>
+##        vars    n  mean   sd median trimmed   mad    min   max range  skew kurtosis   se
+## age_M     1 1000 25.01 2.27  25.01   25.02  2.25  17.01 31.67 14.66 -0.06    -0.03 0.07
+## age_W     2 1000 20.20 3.18  20.22   20.19  3.01  10.66 30.48 19.81  0.05     0.01 0.10
+## educ_M    3 1000  8.03 2.27   8.00    8.03  2.97   1.00 17.00 16.00  0.07     0.08 0.07
+## educ_W    4 1000 10.08 2.01  10.00   10.09  1.48   3.00 17.00 14.00 -0.01     0.20 0.06
+## nkids     5 1000  3.08 1.41   3.00    3.10  1.48   1.00  5.00  4.00 -0.08    -1.28 0.04
+## Y_M       6 1000  8.98 6.86   9.15    9.04  6.93 -13.40 28.03 41.43 -0.10    -0.20 0.22
+## Y_W       7 1000 16.16 8.12  16.27   16.17  8.27  -8.64 42.71 51.35 -0.03    -0.10 0.26
+## Y_Mt2     8 1000 15.64 9.90  15.80   15.62 10.39 -15.55 41.20 56.75 -0.05    -0.25 0.31
+## Y_Wt2     9 1000 27.98 8.97  27.93   27.99  9.06   1.07 52.91 51.84 -0.04    -0.16 0.28</code></pre>
 </div>
 </div>
 <div id="check-for-interdependencies" class="section level1">
-<h1><span class="header-section-number">3</span> Check for interdependencies</h1>
+<h1><span class="header-section-number">4</span> Check for interdependencies</h1>
 <p>When you reached this point in the course, you should know that within social networks observations are not independent. This has theoretical and methodological consequences. A first step is therefore to assess whether our observations are interdependent (covary, or correlate).
 There are naive and less naive ways to check for interdependence.</p>
 <p>For more background information see <a href="http://davidakenny.net/dyad.htm">this page</a> by David A. Kenny.<br />
 Also check out paragraph 3.3 of the book by Snijders and Boskers (1999).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>Lets start with something that pops up in your mind immediately…a correlation and for those of you with some experience in multilevel analysis…intraclass correlation (ICC).</p>
 <div id="correlation-wide-format" class="section level2">
-<h2><span class="header-section-number">3.1</span> correlation (wide format)</h2>
+<h2><span class="header-section-number">4.1</span> correlation (wide format)</h2>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">cor.test</span>(data<span class="op">$</span>Y_M, data<span class="op">$</span>Y_W)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
@@ -333,7 +343,7 @@ Also check out paragraph 3.3 of the book by Snijders and Boskers (1999).<a href=
 Remember thar our data is in wide format. A better way (i.e. the results more closely approaches the ICC) is to calculate the correlation on a long dataset. This method is called the double entry method.</p>
 </div>
 <div id="correlation-long-format" class="section level2">
-<h2><span class="header-section-number">3.2</span> correlation (long format)</h2>
+<h2><span class="header-section-number">4.2</span> correlation (long format)</h2>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>var1 &lt;-<span class="st"> </span><span class="kw">c</span>(data<span class="op">$</span>Y_M, data<span class="op">$</span>Y_W)</span>
 <span id="cb10-2"><a href="#cb10-2"></a>var2 &lt;-<span class="st"> </span><span class="kw">c</span>(data<span class="op">$</span>Y_W, data<span class="op">$</span>Y_M)</span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="kw">cor.test</span>(var1, var2)</span></code></pre></div>
@@ -352,7 +362,7 @@ Remember thar our data is in wide format. A better way (i.e. the results more c
 Well that can be calculated by the ICC. And there are two definitions. See the refs above.</p>
 </div>
 <div id="icc-anova-tradition" class="section level2">
-<h2><span class="header-section-number">3.3</span> ICC (ANOVA tradition)</h2>
+<h2><span class="header-section-number">4.3</span> ICC (ANOVA tradition)</h2>
 <p><span class="math display">\[ ICC = \frac{(MS_B - MS_W)}{(MS_B + MS_W)} \]</span>
 where,</p>
 <p><span class="math display">\[ MS_B = VAR(\bar{X}_{dyad}) * 2 \]</span></p>
@@ -367,7 +377,7 @@ where,</p>
 <p>Do you see that the correct ICC is very close to the correlation based on a dataset in long format (double entry method)? Thus in practice, the double entry method is very convenient to check for interdependencies.</p>
 </div>
 <div id="icc-regression-tradition" class="section level2">
-<h2><span class="header-section-number">3.4</span> ICC (regression tradition)</h2>
+<h2><span class="header-section-number">4.4</span> ICC (regression tradition)</h2>
 <p>Most of you are probably more familiar with definitions of the ICC as provided within textbooks on multi-level analysis. Where the intraclass variance - at least for continuous dependent variables - is defined as the between variance (i.e. the variance in dyad means) divided by the total variance (i.e. the sum of the between and within variance). There is only one problem, we need these variances present in the ‘real population’. In our data we only observe the variances present in our sample. The observed between variance needs to be corrected. Below I will show you how to do that.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># first make a dataset in longformat.</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>dyadmean &lt;-<span class="st"> </span>(data<span class="op">$</span>Y_M <span class="op">+</span><span class="st"> </span>data<span class="op">$</span>Y_W)<span class="op">/</span><span class="dv">2</span></span>
@@ -377,12 +387,12 @@ where,</p>
 <span id="cb14-6"><a href="#cb14-6"></a>data_long<span class="op">$</span>dyadmean &lt;-<span class="st"> </span><span class="kw">c</span>(dyadmean, dyadmean)</span>
 <span id="cb14-7"><a href="#cb14-7"></a><span class="kw">head</span>(data_long)</span></code></pre></div>
 <pre><code>##      age_M    age_W educ_M educ_W nkids        Y_M       Y_W     Y_Mt2    Y_Wt2 index dyad_id
-## 1 23.65153 17.18029      8      9     4 12.5966983 24.001964 22.245410 23.75408     1       1
-## 2 27.11747 25.93062      8     10     1  0.1857714  5.201483  5.732135 13.84248     1       2
-## 3 22.20588 20.02249      8      9     5  0.9591408 12.854358  8.199992 18.06067     1       3
-## 4 27.48565 18.99072      6      7     3 10.8892384 11.547787 14.273514 22.59930     1       4
-## 5 28.29219 19.02406      9     12     5 11.3599118 11.441439 17.387043 19.45935     1       5
-## 6 24.72061 24.40805      8     12     5  6.2244939 19.168225 12.378049 15.13356     1       6
+## 1 23.65153 17.18029      8      9     4 12.5966983 24.001964 22.827987 30.69627     1       1
+## 2 27.11747 25.93062      8     10     1  0.1857714  5.201483  9.688008 25.84382     1       2
+## 3 22.20588 20.02249      8      9     5  0.9591408 12.854358  7.710286 24.28463     1       3
+## 4 27.48565 18.99072      6      7     3 10.8892384 11.547787 15.247796 29.79648     1       4
+## 5 28.29219 19.02406      9     12     5 11.3599118 11.441439 18.001653 27.64218     1       5
+## 6 24.72061 24.40805      8     12     5  6.2244939 19.168225 12.614080 23.46683     1       6
 ##    dyadmean
 ## 1 18.299331
 ## 2  2.693627
@@ -402,12 +412,12 @@ where,</p>
 <span id="cb16-10"><a href="#cb16-10"></a></span>
 <span id="cb16-11"><a href="#cb16-11"></a><span class="kw">head</span>(data_long)</span></code></pre></div>
 <pre><code>##      age_M    age_W educ_M educ_W nkids        Y_M       Y_W     Y_Mt2    Y_Wt2 index dyad_id
-## 1 23.65153 17.18029      8      9     4 12.5966983 24.001964 22.245410 23.75408     1       1
-## 2 27.11747 25.93062      8     10     1  0.1857714  5.201483  5.732135 13.84248     1       2
-## 3 22.20588 20.02249      8      9     5  0.9591408 12.854358  8.199992 18.06067     1       3
-## 4 27.48565 18.99072      6      7     3 10.8892384 11.547787 14.273514 22.59930     1       4
-## 5 28.29219 19.02406      9     12     5 11.3599118 11.441439 17.387043 19.45935     1       5
-## 6 24.72061 24.40805      8     12     5  6.2244939 19.168225 12.378049 15.13356     1       6
+## 1 23.65153 17.18029      8      9     4 12.5966983 24.001964 22.827987 30.69627     1       1
+## 2 27.11747 25.93062      8     10     1  0.1857714  5.201483  9.688008 25.84382     1       2
+## 3 22.20588 20.02249      8      9     5  0.9591408 12.854358  7.710286 24.28463     1       3
+## 4 27.48565 18.99072      6      7     3 10.8892384 11.547787 15.247796 29.79648     1       4
+## 5 28.29219 19.02406      9     12     5 11.3599118 11.441439 18.001653 27.64218     1       5
+## 6 24.72061 24.40805      8     12     5  6.2244939 19.168225 12.614080 23.46683     1       6
 ##    dyadmean      age educ         Y    age_P educ_P        Y_P
 ## 1 18.299331 17.18029    9 24.001964 23.65153      8 12.5966983
 ## 2  2.693627 25.93062   10  5.201483 27.11747      8  0.1857714
@@ -469,7 +479,7 @@ See below.</p>
 </div>
 </div>
 <div id="hypothesis-testing" class="section level1">
-<h1><span class="header-section-number">4</span> Hypothesis testing</h1>
+<h1><span class="header-section-number">5</span> Hypothesis testing</h1>
 <p>Suppose we wish to test the following hypotheses:</p>
 <ul>
 <li>your own age and education is positively related to your score on Y.<br />
@@ -477,7 +487,7 @@ See below.</p>
 <li>the age and education of your partner is positively related to your score on Y.</li>
 </ul>
 <div id="ols_pooled" class="section level2">
-<h2><span class="header-section-number">4.1</span> OLS_pooled</h2>
+<h2><span class="header-section-number">5.1</span> OLS_pooled</h2>
 <p>Prior to this course you would probably have estimated an OLS regression analysis on your complete data in long format.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>mlm &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>educ <span class="op">+</span><span class="st"> </span>age_P <span class="op">+</span><span class="st"> </span>educ_P <span class="op">+</span><span class="st"> </span>nkids, <span class="dt">data =</span> data_long)</span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="kw">summary</span>(mlm)</span></code></pre></div>
@@ -506,7 +516,7 @@ See below.</p>
 <p>So, what would you conclude? We have to refute the hypo on own age and the hypo on partners educ. Obviously, the above approach does not yet take into account the interdepencies.</p>
 </div>
 <div id="ols-seperately-for-men-and-women" class="section level2">
-<h2><span class="header-section-number">4.2</span> OLS seperately for men and women</h2>
+<h2><span class="header-section-number">5.2</span> OLS seperately for men and women</h2>
 <p>Perhaps, you would have realized (or theorized) that the impact of own and partner’s age and educ may depend on your sex. Thus you may have estimated the model separately for men and women. There would be nothing wrong with that approach, because with one observation per dyad/household the observations can still be regarded as independent. Thus:…</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>mlm_W &lt;-<span class="st"> </span><span class="kw">lm</span>(Y_W <span class="op">~</span><span class="st"> </span>age_W <span class="op">+</span><span class="st"> </span>educ_W <span class="op">+</span><span class="st"> </span>age_M <span class="op">+</span><span class="st"> </span>educ_M <span class="op">+</span><span class="st"> </span>nkids, <span class="dt">data =</span> data)</span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="kw">summary</span>(mlm_W)</span>
@@ -561,7 +571,7 @@ See below.</p>
 Clearly, both the actor-effects and partner-effects differ for men and women. A disadvantage of the approach above is that although it takes into account that interdependencies are a nuisance it does not yet take the interdependencies as something of interest. Other disadvantages are that it is hard to test whether partner effects significantly differ for men and women, or to set constraints on specific effects.</p>
 </div>
 <div id="sem-with-lavaan" class="section level2">
-<h2><span class="header-section-number">4.3</span> SEM with lavaan</h2>
+<h2><span class="header-section-number">5.3</span> SEM with lavaan</h2>
 <p>One approach is to estimate both models simultaneously within a SEM framework. And this is the APIM for non longitudinal designs.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">require</span>(lavaan)</span>
 <span id="cb26-2"><a href="#cb26-2"></a>myModel &lt;-<span class="st"> </span>{</span>
@@ -656,7 +666,7 @@ Clearly, both the actor-effects and partner-effects differ for men and women. A 
 </div>
 </div>
 <div id="apim" class="section level1">
-<h1><span class="header-section-number">5</span> APIM</h1>
+<h1><span class="header-section-number">6</span> APIM</h1>
 <p>The key use of APIM models is to assess bidirectional effects within longitudinal designs. Suppose we have measured our outcome variable at two occasions. We formulate our hypotheses:</p>
 <ul>
 <li>your own age and education (measured at time 1) is positively related to your score on Y (measured at time 2), even if we take into account stability in outcome Y. Alternatively phrasing, your age and education is positively related to a positive change in your Y.</li>
@@ -794,9 +804,10 @@ We observe clear actor and partner effects:</p>
 </li>
 <li>the reported regression partner-effects are (more likely) the result of influence processes.</li>
 </ul>
+<p>In sum,</p>
 </div>
 <div id="assignment" class="section level1">
-<h1><span class="header-section-number">6</span> Assignment</h1>
+<h1><span class="header-section-number">7</span> Assignment</h1>
 <p>Time to practice.</p>
 <blockquote>
 <p><strong>Assignment</strong></p>
@@ -816,9 +827,9 @@ We observe clear actor and partner effects:</p>
 </blockquote>
 </div>
 <div id="alternative-approaches" class="section level1">
-<h1><span class="header-section-number">7</span> Alternative approaches</h1>
+<h1><span class="header-section-number">8</span> Alternative approaches</h1>
 <div id="multilevel" class="section level2">
-<h2><span class="header-section-number">7.1</span> multilevel</h2>
+<h2><span class="header-section-number">8.1</span> multilevel</h2>
 <p>We could also estimate APIM models within the multi-level framework. To give you some pointers, see the code below.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># index==1 refers to women.</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>mlme &lt;-<span class="st"> </span><span class="kw">lme</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="kw">as.factor</span>(index) <span class="op">+</span><span class="st"> </span>age<span class="op">:</span><span class="kw">as.factor</span>(index) <span class="op">+</span><span class="st"> </span>educ<span class="op">:</span><span class="kw">as.factor</span>(index) <span class="op">+</span><span class="st"> </span>age_P<span class="op">:</span><span class="kw">as.factor</span>(index) <span class="op">+</span><span class="st"> </span></span>
@@ -888,7 +899,7 @@ We observe clear actor and partner effects:</p>
 ## 
 ## Number of Observations: 2000
 ## Number of Groups: 1000</code></pre>
-<p>Latest Version: 31-08-2020</p>
+<p>Latest Version: 02-09-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
 </div>
