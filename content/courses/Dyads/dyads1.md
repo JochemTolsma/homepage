@@ -97,7 +97,7 @@ Suppose...
 Play around with (agent-based simulation) model below.  
 
 
-<embed src="https://jtolsma.shinyapps.io/marriagemarket/" style="max-width:500px; height: 500px;">
+<embed src="https://jtolsma.shinyapps.io/marriagemarket/">
 
 Go to app [here]("https://jtolsma.shinyapps.io/marriagemarket/")
 
