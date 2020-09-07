@@ -89,11 +89,15 @@ These interdependencies make it difficult to predict the macro-level dependent v
 
 Given the market model above, can you predict who will marry whom?  
 Suppose...
-1. we have an equal gender distribution in society (50% men, 50% women).  
-2. 50% of our population is higher educated and 50% is lower educated.  
-3. In our society there is no inequality in educational opportunity (the distribution of educational degrees between men and women is exactly the same). 
-4. People *do not* have preferences with respect to the educational level in society. 
+1. **%_men=50**: We have an equal gender distribution in society (50% men, 50% women; range: 1-99).  
+2. **_men_EducHigh=50**: 50% of our male population is higher educated and 50% is lower educated (range: 1-99).  
+3. **_women_EducHigh=50**: 50% of our female population is higher educated and 50% is lower educated (range: 1-99).  
+4. **pref_men_EH=0**: Higher educated men do not have any preference with respect to the educational level of their partner. (range: 0-10)
+4. **pref_men_EL=0**: Lower educated men do not have any preference with respect to the educational level of their partner. (range: 0-10)
+4. **pref_women_EH=0**: Higher educated women do not have any preference with respect to the educational level of their partner. (range: 0-10)
+4. **pref_women_EL=0**: Lower educated women do not have any preference with respect to the educational level of their partner. (range: 0-10)
 
+Did you make a guess?? Press update to see if you were correct. 
 Play around with (agent-based simulation) model below.  
 
 
