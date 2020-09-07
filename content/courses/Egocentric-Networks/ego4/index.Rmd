@@ -1,0 +1,807 @@
+---
+title: Consequences of Egocentric Networks (methods)
+author: JochemTolsma
+date: '2020-09-07'
+slug: dyads4
+categories:
+  - R
+  - Social Networks
+tags: []
+linktitle: Egonets-Consequences-Methods
+
+summary: ~
+lastmod: '2020-08-19T08:27:34+02:00'
+
+type: book
+weight: 40
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: yes
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines")
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy()
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<button onclick="window.location.href='static/index.Rmd';">download code</button>
+
+
+# Introduction
+
+In this assignment/tutorial I will demonstrate how to estimate a micro-macro model with the R package [Lavaan](https://cran.r-project.org/package=lavaan). The Lavaan website can be found [here](https://www.lavaan.ugent.be/). During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do. 
+
+{{% alert warning %}}
+In the upper left and right corner of the code blocks you will find copy-to-clipboard buttons. Use these buttons to copy the code to your own editor. 
+{{% /alert %}}
+
+
+# Before you start
+
+Before you start, check whether you run the latest RStudio version (from the Help menu, pick 'check for updates' and whether you need to update R. 
+
+```{r update, eval=FALSE}
+install.packages("installr")  #you  first install packages
+require(installr)  #then you will need to activate packages. 
+updateR() #run the function to start the update process
+```
+
+
+Give your script a nice name. Include the author, and data when you last modified the script. Include a lot of comments in your script! Don't forget, always start with cleaning up your workspace. 
+
+```{r cleanup}
+###Author: JOCHEM TOLSMA###
+###Lastmod: 31-08-2020###
+
+#cleanup workspace
+rm (list = ls( )) 
+```
+
+And set your working directory. 
+```{r setwd, eval=FALSE}
+#set working directory
+setwd("C:\\YOURDIR\\YOURSUBDIR\\YOURSUBSUBDIR\\")  #change to your own workdirectory
+```
+
+Install the packages you will need. 
+
+```{r packages, eval=FALSE}
+#install packages
+install.packages("lavaan", dependencies=TRUE) # to estimate the micro-macro model
+install.packages("psych") # to describe our dataset
+```
+
+
+
+# Data 
+
+## Simulate data
+
+If I try to get an understanding of a new method, I usually use a simulated dataset. Then I at least know what the world looks like (I know what I have put in so I know what I should get out of the model). For you guys and gals, it is not necessary to understand the simulation process but feel free to have a close look. 
+
+```{r simulateData}
+require(MASS)
+set.seed(9864) #We set a seed. In this we the random numbers we will generate be the same and we thus end up with the same dataset. Please not that to be absolutaly sure to get the same dataset, we need to run the same R version (and packages)
+
+
+
+```
+
+
+# Data simulation
+
+Description variables:  
+
+* Manifest alter-level variables:  
+  + x1 x2 x3 / x: an alter characteristics (assuming no missing values)  
+  + xb1 xb2 xb3 / xb: an alter characteristics (assuming no missing values) 
+  + n1 n2 n3 / n: wether or not alter has been mentioned (thus if 0 than missing)  
+  + xna1 xna2 xna3 / xna: an alter characteristic (taking into account missings)  
+* Manifest ego-level variables  
+  + YJT: an ego characteristics (average alter effect)  
+  + YJT: an ego characteristics (total alter effect)
+  + xm: mean score of x1 x2 x3 (assuming no missings) 
+  + xmna: mean score of xna1 xna2 xna3 (thus assuming missings)  
+  + ns: network-size  
+  + ID: ego-id  
+* Latent variable ego-level  
+  + LX  
+  
+Description datasets: 
+
+* dfjt: persons as variables (wide)  
+* dfjt_ML: multi-level (long)
+
+```{r,  attr.source = '.numberLines', results='hold'}
+set.seed(13789876)
+#simulate the true network characteristic
+LX <- rnorm(1000, 0, 2)
+#this network characeristic is latent, not measured. We have six indicators for this latent variable: 2 per alter; 3 alters.  
+
+#a good indicator
+x1 <- alt1_xa <- LX + rnorm(1000, 0, 1)
+x2 <- alt2_xa <- LX + rnorm(1000, 0, 1)
+x3 <- alt3_xa <- LX + rnorm(1000, 0, 1)
+
+#a messy indicator
+alt1_xb <- .3*LX + 0.1*x1 +  rnorm(1000, 0, 1) + 0.1*x1*rnorm(1000, 0, 1)
+alt2_xb <- .3*LX + 0.1*x2 + rnorm(1000, 0, 1)  + 0.1*x3*rnorm(1000, 0, 1)
+alt3_xb <- .3*LX + 0.1*x3 + rnorm(1000, 0, 1)  + 0.1*x3*rnorm(1000, 0, 1)
+
+#we also have missingness (MCAR)
+n1 <- rbinom(1000, 1,.95)
+n2 <- rbinom(1000, 1,.85)
+n3 <- rbinom(1000, 1,.75)
+
+alt1_xa <- ifelse(n1, alt1_xa, NA)
+alt2_xa <- ifelse(n2, alt2_xa, NA)
+alt3_xa <- ifelse(n3, alt3_xa, NA)
+
+alt1_xb <- ifelse(n1, alt1_xb, NA)
+alt2_xb <- ifelse(n2, alt2_xb, NA)
+alt3_xb <- ifelse(n3, alt3_xb, NA)
+
+#lets calculate network size. 
+ns <- rowSums(cbind(n1,n2,n3))
+
+#simulate two dependnt variables to play with. 
+# mean alter effect
+Y1 <- 5*LX + rnorm(1000, 0, 5)
+
+#total alter effect
+Y2 <- 5*LX*ns + rnorm(1000, 0, 5)
+
+ID <- 1:length(Y1)
+
+
+data_wide <- data.frame(ID, Y1, Y2, alt1_xa, alt2_xa, alt3_xa, alt1_xb,alt2_xb,alt3_xb)
+
+data_long <- reshape(data_wide, direction='long', 
+        varying=c('alt1_xa', 'alt2_xa', 'alt3_xa', 'alt1_xb','alt2_xb','alt3_xb'), 
+        timevar='alter',
+        times=c('alt1', 'alt2', 'alt3'),
+        v.names=c('xa', 'xb'),
+        idvar='ID')
+
+                    
+
+
+```
+
+
+We have a dataset with two different dependent variables: **Y1** and **Y2**. For each ego we collected information on at least 3 alters. For each alter we have information on two charactersitics: **xa** and **xb**. Suppose these alter charactersitics are indicators of alter's happiness. We want to know if alter's happiness is related to ego's happiness. 
+ O yeah, we have our data in both long and wide format. 
+ 
+ 
+
+## just try to use one indicator of one alter? 
+
+Lets us start simple and naive. 
+
+```{r,  attr.source = '.numberLines', results='hold'}
+#using one alter observation
+summary(lm(Y1 ~ alt1_xa, data=data_wide))
+
+```
+
+But obviously we would like to use the information on all alters. 
+One method is to use an aggregation method. Thus calculate the mean happiness score of the alters and use to predict ego's happiness. 
+
+```{r,  attr.source = '.numberLines', results='hold'}
+#aggregation
+#first calculate the mean score of the alters. 
+
+data_wide$xam <- rowMeans(cbind(data_wide$alt1_xa,data_wide$alt3_xa,data_wide$alt3_xa ), na.rm=TRUE)
+summary(lm(Y1 ~ xam, data=data_wide))
+```
+
+
+<!---
+xm <- rowMeans(cbind(x1,x2,x3))
+xmna <- rowMeans(cbind(xna1,xna2,xna3), na.rm=TRUE)
+
+# Goals
+
+* demonstrate that lavaan and mplus lead to similar estimates  
+* demonstrate that perspons as variable and ML approach with one manifest variable lead to similar estimates  
+* demonstrate that perspons as variable and ML approach with two manifest variable at alter level and two latent at group level (direct approach) lead to similar estimates 
+* demonstrate that perspons as variable and ML approach with two manifest variable at alter level and one latent at group level (direct approach) lead to similar estimates  
+* demonstrate that perspons as variable and ML approach with two manifest variable at alter level, one latent at alter level, and one at group level lead to similar estimates  
+
+# Simple OLS
+## lm
+
+```{r,  attr.source = '.numberLines', results='hold'}
+#using one alter observation
+summary(lm(YJT ~ x1, data=dfjt))
+
+#disaggregation
+summary(lm(YJT ~ x, data=dfjt_ML))
+
+#aggregation
+summary(lm(YJT ~ xm, data=dfjt))
+
+
+#summary(lm(scale(YJT) ~ scale(x1), data=dfjt))
+#summary(lm(scale(YJT) ~ scale(xm), data=dfjt))
+#summary(lm(YJT ~ x1 + xb1, data=dfjt))
+#summary(lm(scale(YJT) ~ scale(x1) + scale(xb1), data=dfjt))
+```
+Aggregatie laat inderdaad onderschatting zien. Maar eigenlijk niet echt noemenswaardig toch? 
+
+
+## Lavaan
+```{r,  attr.source = '.numberLines', results='hold'}
+library(lavaan)
+model1 <- '
+  YJT ~ x1
+  YJT ~ 1
+  YJT ~~ YJT
+  '
+
+fit1 <- lavaan(model1, 
+               data = dfjt)
+summary(fit1)
+standardizedSolution(fit1)
+```
+
+## Mplus
+```{r,  attr.source = '.numberLines', results='hold'}
+library(MplusAutomation)
+
+mplusm1 <- mplusObject(
+  TITLE = "model1;",
+  MODEL = "
+  YJT ON x1;",
+  OUTPUT= "STANDARDIZED;",
+  usevariables = c("YJT", "x1"),
+  rdata = dfjt[,c("YJT", "x1")])
+
+resmplusm1 <- mplusModeler(mplusm1, modelout = "mplusm1.inp", run = 1L, check=TRUE)
+coef(resmplusm1)
+coef(resmplusm1$results, type = "std")
+coef(resmplusm1$results, type = "un")
+# remove files
+unlink(resmplusm1$results$input$data$file)
+unlink(resmplusm1$results$input$data$file)
+unlink("mplusm1.inp")
+unlink("mplusm1.out")
+
+#prepareMplusData(dfjt[,c("YJT", "x1")], "C:\\Users\\Administrator\\Documents\\mplusfiles\\model1.dat")
+#external check with MPLUS gives same results.
+#watch out with prepareMplusData and variable names/order. this f$!k things up.
+
+
+
+```
+
+# Micro-macro model (persons as variables)
+
+## lavaan
+
+```{r 11,  attr.source = '.numberLines', results='hold'}
+#one individual-level predictor, one latent variable at group level
+model2 <- '
+  FX =~ 1*x1
+  FX =~ 1*x2
+  FX =~ 1*x3
+  
+  x1 ~~ a*x1
+  x2 ~~ a*x2
+  x3 ~~ a*x3
+  FX ~~ FX
+  YJT ~~ YJT
+  
+  YJT ~ FX
+  YJT ~ 1
+  x1 ~ c*1
+  x2 ~ c*1
+  x3 ~ c*1
+'
+
+fit2 <- lavaan(model2, 
+           data = dfjt)
+summary(fit2)
+
+
+
+```
+
+Yess, we krijgen er precies uit wat we er in hebben gestopt!
+
+## mplus 
+
+### persons as variables 
+
+one manifest, one latent, persons as variables
+```{r}
+
+
+mplusm2 <- mplusObject(
+  TITLE = "model2;",
+  MODEL = "
+  f1 by x1* (1)
+  x2 (1)
+  x3 (1); 
+  f1@1;
+  x1@1;
+  x2@1;
+  x3@1;
+  YJT ON f1;
+  YJT;",
+  OUTPUT= "STANDARDIZED;",
+  usevariables = c("YJT", "x1", "x2", "x3"),
+  rdata = dfjt[,c("YJT", "x1", "x2", "x3")])
+
+resmplusm2 <- mplusModeler(mplusm2, modelout = "mplusm2.inp", run = 1L, check=TRUE)
+
+
+coef(resmplusm2)
+```
+Er gaat bij mij wat mis bij constraints op variantie van x vars. En dat beinvloedt best sterk de estimates.
+Bovendien heb ik nu de variantei van F1 gefixed op 1, ipv 2, dus daarom estimates verdubbeld. Verder nagenoeg zelfde estimates als lavaan. Maar lavaan wel iets beter. 
+
+### ML
+
+hier via factor
+
+```{r }
+
+mplusm3 <- mplusObject(
+  TITLE= "test JT;",
+  VARIABLE= "CLUSTER = ID; BETWEEN = YJT;",
+  ANALYSIS= "TYPE = TWOLEVEL RANDOM; ESTIMATOR=MLF;",
+  MODEL= "
+  %WITHIN%
+  x;
+  %BETWEEN%
+  FXB by
+  x*;
+  FXB@1;
+  x@0;
+  YJT ON FXB ;
+  YJT;",
+  usevariables = c("ID", "YJT", "x"),
+  rdata = dfjt_ML[,c("ID", "YJT", "x")])
+
+resmplusm3 <- mplusModeler(mplusm3, modelout = "mplusm3.inp", run = 1L, check=FALSE)
+coef(resmplusm3)
+
+
+```
+
+Replicatie van persons as variables. 
+Nu met de juiste/alternatieve constraint.
+
+```{r }
+
+mplusm3 <- mplusObject(
+  TITLE= "test JT;",
+  VARIABLE= "CLUSTER = ID; BETWEEN = YJT;",
+  ANALYSIS= "TYPE = TWOLEVEL RANDOM; ESTIMATOR=MLF;",
+  MODEL= "
+  %WITHIN%
+  x;
+  %BETWEEN%
+  FXB by
+  x;
+  x@0;
+  YJT ON FXB ;
+  YJT;",
+  usevariables = c("ID", "YJT", "x"),
+  rdata = dfjt_ML[,c("ID", "YJT", "x")])
+
+resmplusm3 <- mplusModeler(mplusm3, modelout = "mplusm3.inp", run = 1L, check=FALSE)
+coef(resmplusm3)
+
+
+```
+
+Nu idd, identieke resultaten als lavaan!!
+Maar volgens thijmen/mij niet nodig om factor toe te voegen. Immers daarvoor is het betweenniveau. 
+
+Dus, hier zonder factor: 
+```{r }
+
+mplusm3 <- mplusObject(
+  TITLE= "test JT;",
+  VARIABLE= "CLUSTER = ID; BETWEEN = YJT;",
+  ANALYSIS= "TYPE = TWOLEVEL RANDOM; ESTIMATOR=MLF;",
+  MODEL= "
+  %WITHIN%
+  x;
+  %BETWEEN%
+  YJT ON x ;
+  YJT;",
+  usevariables = c("ID", "YJT", "x"),
+  rdata = dfjt_ML[,c("ID", "YJT", "x")])
+
+resmplusm3 <- mplusModeler(mplusm3, modelout = "mplusm3.inp", run = 1L, check=FALSE)
+coef(resmplusm3)
+
+
+```
+Grappig genoeg, niet helemaal identiek. Maar waarom niet? 
+
+
+# Intermezzo 1. over het schalen van de estimates. 
+
+Snap ik dat? 
+
+
+```{r}
+
+test <- rnorm(1000, 0, 1)
+var(test)
+
+test2 <- .5*test
+var(test2)
+
+y <- 5*test + rnorm(1000, 2, 2)
+
+summary(lm(y~test))
+summary(lm(y~test2))
+
+```
+
+Ja we snappen het schalen. Dus...  
+
+**Conclusie. met één manifeste, snappen we alles!!** 
+
+# Intermezzo 2: FCA
+
+Ik heb [hier](http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/) een mooie tutorial gevonden. 
+
+```{r FCA}
+#http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/
+
+#note that a model with two manifest for one latent is not identifiable. 
+
+modelfca <- '
+  FX =~ a*x1
+  FX =~ b*xb1
+  FX =~ a*x2 
+  FX =~ b*xb2
+  FX =~ a*x3 
+  FX =~ b*xb3
+  x1 ~~ c*xb1
+  x2 ~~ c*xb2
+  x3 ~~ c*xb3
+  '
+
+ cfares <- cfa(modelfca, data = dfjt, missing="FIML", std.lv=TRUE)
+ summary(cfares)
+ #cfares
+ 
+ #str(cfares,2)
+vcov(cfares)
+cfares@Fit
+?lavOptions
+
+#andere constrains. voordeel is dat je nu ook lading van eerste x test. 
+cfares2 <- cfa(modelfca, data = dfjt, std.lv=TRUE, missing="FIML")
+cfares2
+summary(cfares2, fit.measures=TRUE, standardized=TRUE)
+
+parameterEstimates(cfares2, standardized=TRUE)
+residuals(cfares2, type = "cor")
+
+
+```
+
+
+```{r}
+HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+
+fit <- cfa(HS.model, data=HolzingerSwineford1939, 
+           std.lv=TRUE,  
+           missing="fiml")
+
+fit
+
+summary(fit, fit.measures=TRUE, standardized=TRUE)
+
+parameterEstimates(fit)
+
+residuals(fit, type = "cor")
+
+modificationIndices(fit, sort.=TRUE)
+
+HS.model2 <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 
+              x7~~x9
+'
+fit2 <- cfa(HS.model2, data=HolzingerSwineford1939, 
+           std.lv=TRUE,  
+           missing="fiml")
+fit2
+summary(fit2, fit.measures=TRUE, standardized=TRUE)
+
+
+fit_or <- cfa(HS.model, data=HolzingerSwineford1939, orthogonal=TRUE,
+           std.lv=TRUE,  
+           missing="fiml")
+
+fit_or
+
+summary(fit_or, fit.measures=TRUE, standardized=TRUE)
+
+anova(fit, fit_or)
+
+
+
+```
+
+
+
+# nieuw modelletje 
+
+Wat heb ik gesimuleerd. 1 groepslevel factor met 2 manifeste op alter-niveau
+
+```{r 21,  attr.source = '.numberLines', results='hold'}
+# two individual-level predictors, one latent variable at group-level (influence power netwerk)
+model2b <- '
+  FX =~ 1*x1 + c*xb1
+  FX =~ 1*x2 + c*xb2
+  FX =~ 1*x3 + c*xb3
+  
+  x1 ~~ a*x1
+  x2 ~~ a*x2
+  x3 ~~ a*x3
+  xb1 ~~ a*xb1
+  xb2 ~~ a*xb2
+  xb3 ~~ a*xb3
+  FX ~~ FX
+  YJT ~~ YJT
+  
+  YJT ~ FX
+  YJT ~ 1
+  x1 ~ d*1
+  x2 ~ d*1
+  x3 ~ d*1
+  xb1 ~ e*1
+  xb2 ~ e*1
+  xb3 ~ e*1
+'
+
+fit2b <- lavaan(model2b, 
+           data = dfjt)
+summary(fit2b)
+```
+
+Dus als ik het correcte model schat, krijg ik ook de perfecte resultaten er uit. Let op dat FX =~ xb1 = 0.41 dat komt natuurlijk doordat effect deels via x1 loopt. 
+Lukt het om daarvoor te controleren? 
+
+
+```{r 21alt,  attr.source = '.numberLines', results='hold'}
+# two individual-level predictors, one latent variable at group-level (influence power netwerk)
+model2b <- '
+  FX =~ 1*x1 + c*xb1
+  FX =~ 1*x2 + c*xb2
+  FX =~ 1*x3 + c*xb3
+  
+  x1 ~~ a*x1
+  x2 ~~ a*x2
+  x3 ~~ a*x3
+  x1 ~~ f*xb1
+  x2 ~~ f*xb2
+  x3 ~~ f*xb3
+  xb1 ~~ a*xb1
+  xb2 ~~ a*xb2
+  xb3 ~~ a*xb3
+  FX ~~ FX
+  YJT ~~ YJT
+  
+  YJT ~ FX
+  YJT ~ 1
+  x1 ~ d*1
+  x2 ~ d*1
+  x3 ~ d*1
+  xb1 ~ e*1
+  xb2 ~ e*1
+  xb3 ~ e*1
+'
+
+fit2b <- lavaan(model2b, 
+           data = dfjt)
+summary(fit2b)
+```
+nee, niet echt. 
+
+
+
+
+Laten we nu eens het foute model schatten.
+
+```{r 211,  attr.source = '.numberLines', results='hold'}
+#two individual-level predictors at individual-level determined by one latent variable at individual-level (influence power alter). one group-level latent variable (influence power network). 
+model2c <- '
+  FX1 =~ 1*x1 + c*xb1
+  FX2 =~ 1*x2 + c*xb2
+  FX3 =~ 1*x3 + c*xb3
+  FX =~ 1*FX1 + 1*FX2 + 1*FX3
+  
+  x1 ~~ a*x1
+  x2 ~~ a*x2
+  x3 ~~ a*x3
+  xb1 ~~ g*xb1
+  xb2 ~~ g*xb2
+  xb3 ~~ g*xb3
+  FX ~~ FX
+  FX1 ~~ FX1
+  FX2 ~~ FX2
+  FX3 ~~ FX3
+  YJT ~~ YJT
+  
+  YJT ~ FX
+  YJT ~ 1
+  x1 ~ 1
+  x2 ~ 1
+  x3 ~ 1
+  xb1 ~ 1
+  xb2 ~ 1
+  xb3 ~ 1
+'
+
+fit2c <- lavaan(model2c, 
+           data = dfjt, mimic="lavaan")
+summary(fit2c)
+
+
+
+model2c <- '
+  FX1 =~ 1*x1 + c*xb1
+  FX2 =~ 1*x2 + c*xb2
+  FX3 =~ 1*x3 + c*xb3
+  FX =~ 1*FX1 + 1*FX2 + 1*FX3
+  
+  x1 ~~ a*x1
+  x2 ~~ a*x2
+  x3 ~~ a*x3
+  xb1 ~~ g*xb1
+  xb2 ~~ g*xb2
+  xb3 ~~ g*xb3
+  x1 ~~ f*xb1
+  x2 ~~ f*xb2
+  x3 ~~ f*xb3
+  FX ~~ FX
+  FX1 ~~ FX1
+  FX2 ~~ FX2
+  FX3 ~~ FX3
+  YJT ~~ YJT
+  
+  YJT ~ FX
+  YJT ~ 1
+  x1 ~ 1
+  x2 ~ 1
+  x3 ~ 1
+  xb1 ~ 1
+  xb2 ~ 1
+  xb3 ~ 1
+'
+
+fit2c <- lavaan(model2c, 
+           data = dfjt, mimic="lavaan")
+summary(fit2c)
+#str(fit2c)
+```
+Dit laatste model loopt niet helemaal lekker. Ik denk dat het verschil vooral zit in op welk niveau je de covariantie specificeert. 
+
+Nu via mplus. 
+
+```{r 211mpluspp}
+
+
+mplusm2 <- mplusObject(
+  TITLE = "model 2;",
+  MODEL = "
+FX1 by x1* (b)
+xb1 (c);
+FX2 by x2* (b)
+xb2 (c);
+FX3 by x3* (b)
+xb3 (c);
+
+FX by FX1* (d)
+FX2 (d)
+FX3 (d);
+
+x1@ (a);
+x2@ (a);
+x3@ (a);
+
+xb1@ (e);
+xb2@ (e);
+xb3@ (e);
+
+
+FX1@1;
+FX2@1;
+FX3@1;
+FX@1;
+YJT@;
+
+YJT ON FX;
+YJT ; 
+x1* (f);
+x2 (f);
+x3 (f);
+xb1* (g);
+xb2 (g);
+xb3 (g);
+",
+
+usevariables = c("YJT", "x1", "x2", "x3", "xb1","xb2", "xb3"),
+  rdata = dfjt[,c("YJT", "x1", "x2", "x3", "xb1","xb2", "xb3")],
+autov = FALSE )
+
+resmplusm2 <- mplusModeler(mplusm2, modelout = "mplusm2.inp", run = 1L, check=TRUE)
+coef(resmplusm2)
+
+resmplusm2
+
+
+```
+Weer andere constraints, maar verder prima replicatie van Lavaan. 
+
+
+```{r 211mplusML}
+
+
+mplusm3 <- mplusObject(
+  TITLE= "test JT;",
+  VARIABLE= "CLUSTER = ID; BETWEEN = YJT;",
+  ANALYSIS= "TYPE = TWOLEVEL RANDOM; ESTIMATOR=ML;",
+  MODEL= 
+  "%WITHIN%
+  FW by x* (1)
+  xb (2);
+  x with xb;
+  FW@1;
+  %BETWEEN%
+  FB by x* (1)
+  xb (2);
+  YJT on FB;
+  YJT;",
+  usevariables = c("ID", "YJT", "x", "xb"),
+  rdata = dfjt_ML[,c("ID", "YJT", "x", "xb")],
+  autov = FALSE)
+
+resmplusm3 <- mplusModeler(mplusm3, modelout = "mplusm3.inp", run = 1L, check=FALSE)
+coef(resmplusm3)
+
+
+
+```
+
+Ook dit model leidt tot zelfde schatting van de x en xb op de factor. Zou fijn zijn als ik iets beter wist hoe ik in mplus de constraints kon opleggen. 
+
+--->
