@@ -1,11 +1,11 @@
 ---
 # Course title, summary, and position.
-linktitle: Egocentric Networks
-summary: Influence and selection among alters.
-weight: 2
+linktitle: Intermezzo I Triads
+summary: Influence and selection between partners.
+weight: 3
 
 # Page metadata.
-title: Egocentric Networks
+title: Intermezzo I Triads
 date: "2018-09-09T00:00:00Z"
 lastmod: "2018-09-09T00:00:00Z"
 draft: false  # Is this a draft? true/false

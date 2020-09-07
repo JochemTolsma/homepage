@@ -16,6 +16,11 @@ type: book
 weight: 10
 ---
 
+
+
+
+
+
 ## General Theoretical Framework
 
 In this section, I would like to introduce a General Theoretical Framework (or micro-macro model) which can be used to explain more or less any social phenomena you are interested in. The GTF can thus also be used to explain the emergence of social networks, and thus also to explain the emergence of dyads, and thus also to explain educational intermarriage. 
@@ -49,7 +54,12 @@ Persons also have **resources** (i.e. economic, cultural, cognitive, social reso
 Example1: persons with more economic resources have more options to meet different people and may thus select a partner from a larger choice-set. People with more ICT-skills may be better in finding a partner online.  
 Hypo1: persons with more resources are more likely to marry a partner that meet their preferences.  
 
-
+{{% alert warning %}}
+We would like to apply the GTF to explain the emergence of social networks. The networks we observe are the result of people making and breaking social relations. Consequently, a theory of action to explain decision about social relations should explain not only decisions about making new relations (i.e. selection) but also about decision whether or not to maintain or break existing relations (i.e. selection).  
+Concretely, if we want to explain the degree of intermarriage within society, we need to take into account both who is marrying whom *and* who is divorcing whom! Consider the following example. For some people the saying 'opposite attracts' may hold true and they may be unaware of or ignore the social norm not to intermarry. But once married the couple may face unanticipated sanctions of violating the social norm, they may be ostracized. Being faced with this unanticipated consequence of their marriage decision, the couple may subsequently decide to divorce. In this example, the social norm thus not influences the selection process (more precisely, does not moderate the impact of preferences on marriage decisions) but it does influence the deselection process.  
+Our Theory of Action assumes a cost benefit evaluation of some sort, in line with Rational Action Theory. However, social scientists' view on human's rationality is different than the view of classical economists. Social scientists speak of restricted or bounded rationality; people are not always able to have or process all relevant information to make accurate and correct cost-benefit evaluations. We make questimates about the costs involved in our decision and about the likelihood that our behavior will yield the desired goal. 
+{{% /alert %}}
+  
 ## Transformation rules  
 
 We now almost have all ingredients to explain (or predict) the degree of intermarriage in society. We 'only' need the aggregation mechanisms. We thereby need to know how the marriage market functions.   
@@ -87,8 +97,9 @@ Suppose...
 Play around with (agent-based simulation) model below.  
 
 
-<embed src="https://jtolsma.shinyapps.io/marriagemarket/" style="width:800px; height: 500px;">
+<embed src="https://jtolsma.shinyapps.io/marriagemarket/" style="max-width:500px; height: 500px;">
 
+Go to app [here]("https://jtolsma.shinyapps.io/marriagemarket/")
 
 
 {{% alert note %}}

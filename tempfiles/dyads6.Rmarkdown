@@ -8,7 +8,7 @@
 
 ## Egocentric networks  
 
-Let us consider the following 'world'. And visualize the best friend relationships. 
+Let us consider the following 'world'. And visualize the best-friend-forever relationships in this world. 
 ```{r, echo=FALSE}
 require(igraph)
 set.seed(34676)
@@ -34,6 +34,7 @@ E(g4)$curved=.3
 E(g4)$color="black"
 plot(g4, layout=l4, margin=0,)
 
+
 ```
 And now sample a random person. The person we sampled is made red and square in our network. 
 
@@ -43,7 +44,18 @@ V(g4)$shape="circle"
 V(g4)$shape[96]="square"
 plot(g4, layout=l4)
 ```
-Let's suppose we had asked this person to name all its best friends. Then this person's egocentric or 1.0 degree network would look like this: 
+
+Let us zoom in a little bit. 
+
+```{r}
+l5 <- l4
+l5[,1] <- l5[,1] - 1.5
+l5[,2] <- l5[,2] - .25
+l5 <- l5 / 1.5
+plot(g4, layout=l5, rescale=F)
+
+```
+Let's suppose we had asked this person to name all its best-friend-forevers. Then this person's egocentric or 1.0 degree network would look like this: 
 
 ```{r}
 
@@ -58,9 +70,12 @@ E(g5)$arrow.size=.4
 E(g5)$curved=.3
 E(g5)$color="black"
 V(g5)$shape <- V(g4)$shape[noisolates]
-plot(g5, layout=l4[noisolates,])
+plot(g5, layout=l5[noisolates,], rescale=F)
 
 ```
+We may have asked ego whether his BFFs are also BFFs of one another. 
+It turns out that two alters in ego's BFF-network are also BFFs of each other. 
+If we know the relations between the alters in a 1.0 degree network it becomes a 1.5 degree network. See below: 
 
 ```{r}
 edges <- get.adjacency(g4)
@@ -79,9 +94,9 @@ E(g6)$arrow.size=.4
 E(g6)$curved=.3
 E(g6)$color="black"
 V(g6)$shape <- V(g4)$shape[subnet]
-plot(g6,layout=l4[subnet,])
+plot(g6,layout=l5[subnet,], rescale=F)
 ```
-
+Perhaps, instead of asking whether there are BFF relations between the BFFs of ego, the researchers could also have used a snowball sampling method and interviewed the alters (or BFFs) of ego. If we would have asked these alters to name their BFFs, we would have discoverd the following 2.0 degree network: 
 ```{r}
 subnet_new <- list()
 for (i in 1:length(subnet)) {
@@ -103,6 +118,11 @@ plot(g7,layout=l4[subnet_new,])
 
 
 ```
+Please note that in a 2.0 degree network the number of alters within the 1.0 degree network of ego will remain the same (assuming that ego did not forget to mention a BFF). 
+
+
+
+
 
 
 

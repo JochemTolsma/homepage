@@ -2,7 +2,7 @@
 # Course title, summary, and position.
 linktitle: Complete Networks
 summary: Influence and selection dynamics in complete networks.
-weight: 4
+weight: 5
 
 # Page metadata.
 title: Complete Networks

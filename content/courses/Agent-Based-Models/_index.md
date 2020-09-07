@@ -2,7 +2,7 @@
 # Course title, summary, and position.
 linktitle: ABM
 summary: Influence and selection between partners.
-weight: 5
+weight: 6
 
 # Page metadata.
 title: Agent Based Models

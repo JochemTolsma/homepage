@@ -1,11 +1,11 @@
 ---
 # Course title, summary, and position.
-linktitle: Figures
+linktitle: Intermezzo II Plotting Social Networks
 summary: Influence and selection between partners.
 weight: 3
 
 # Page metadata.
-title: Figures
+title: Intermezzo II Plotting Social Networks
 date: "2018-09-09T00:00:00Z"
 lastmod: "2018-09-09T00:00:00Z"
 draft: false  # Is this a draft? true/false
