@@ -81,6 +81,20 @@ edit_page = {repo_url = "https://github.com/JochemTolsma/homepage.git", content_
 show_related = {docs = true, page = false, post = true, project = true, publication = true, talk = true}
 
 ############################
+## Code folding
+############################
+
+# Set to true to disable code folding
+disable_codefolding = false
+# Set to "hide" or "show" all codes by default
+codefolding_show = "show"
+# Set to true to exclude the "Show/hide all" button
+codefolding_nobutton = false
+
+
+
+
+############################
 ## Contact details
 ##
 ## These details power the Contact widget (if enabled).
