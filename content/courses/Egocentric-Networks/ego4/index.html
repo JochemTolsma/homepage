@@ -115,6 +115,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 <li><a href="#assignment"><span class="toc-section-number">6</span> Assignment</a></li>
 <li><a href="#real-data"><span class="toc-section-number">7</span> Real data</a></li>
+<li><a href="#answers"><span class="toc-section-number">8</span> answers</a><ul>
+<li><a href="#calculate-network-size"><span class="toc-section-number">8.1</span> calculate network size</a></li>
+<li><a href="#two-dependent-variables-two-micro-level-indicators"><span class="toc-section-number">8.2</span> two dependent variables, two micro-level indicators</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -202,15 +206,15 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <span id="cb5-34"><a href="#cb5-34"></a>Y1 &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>LX <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
 <span id="cb5-35"><a href="#cb5-35"></a></span>
 <span id="cb5-36"><a href="#cb5-36"></a><span class="co"># total alter effect</span></span>
-<span id="cb5-37"><a href="#cb5-37"></a>Y2 &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>LX <span class="op">*</span><span class="st"> </span>ns <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb5-37"><a href="#cb5-37"></a>Y2 &lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>LX <span class="op">*</span><span class="st"> </span>ns <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
 <span id="cb5-38"><a href="#cb5-38"></a></span>
 <span id="cb5-39"><a href="#cb5-39"></a>ID &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y1)</span>
 <span id="cb5-40"><a href="#cb5-40"></a></span>
 <span id="cb5-41"><a href="#cb5-41"></a></span>
 <span id="cb5-42"><a href="#cb5-42"></a>data_wide &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ID, Y1, Y2, alt1_xa, alt2_xa, alt3_xa, alt1_xb, alt2_xb, alt3_xb)</span>
 <span id="cb5-43"><a href="#cb5-43"></a></span>
-<span id="cb5-44"><a href="#cb5-44"></a>data_long &lt;-<span class="st"> </span><span class="kw">reshape</span>(data_wide, <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">varying =</span> <span class="kw">c</span>(<span class="st">&quot;alt1_xa&quot;</span>, <span class="st">&quot;alt2_xa&quot;</span>, <span class="st">&quot;alt3_xa&quot;</span>, <span class="st">&quot;alt1_xb&quot;</span>, </span>
-<span id="cb5-45"><a href="#cb5-45"></a>    <span class="st">&quot;alt2_xb&quot;</span>, <span class="st">&quot;alt3_xb&quot;</span>), <span class="dt">timevar =</span> <span class="st">&quot;alter&quot;</span>, <span class="dt">times =</span> <span class="kw">c</span>(<span class="st">&quot;alt1&quot;</span>, <span class="st">&quot;alt2&quot;</span>, <span class="st">&quot;alt3&quot;</span>), <span class="dt">v.names =</span> <span class="kw">c</span>(<span class="st">&quot;xa&quot;</span>, <span class="st">&quot;xb&quot;</span>), </span>
+<span id="cb5-44"><a href="#cb5-44"></a>data_long &lt;-<span class="st"> </span><span class="kw">reshape</span>(data_wide, <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">varying =</span> <span class="kw">c</span>(<span class="st">&quot;alt1_xa&quot;</span>, <span class="st">&quot;alt1_xb&quot;</span>, <span class="st">&quot;alt2_xa&quot;</span>, <span class="st">&quot;alt2_xb&quot;</span>, </span>
+<span id="cb5-45"><a href="#cb5-45"></a>    <span class="st">&quot;alt3_xa&quot;</span>, <span class="st">&quot;alt3_xb&quot;</span>), <span class="dt">timevar =</span> <span class="st">&quot;alter&quot;</span>, <span class="dt">v.names =</span> <span class="kw">c</span>(<span class="st">&quot;xa&quot;</span>, <span class="st">&quot;xb&quot;</span>), <span class="dt">times =</span> <span class="kw">c</span>(<span class="st">&quot;alt1&quot;</span>, <span class="st">&quot;alt2&quot;</span>, <span class="st">&quot;alt3&quot;</span>), </span>
 <span id="cb5-46"><a href="#cb5-46"></a>    <span class="dt">idvar =</span> <span class="st">&quot;ID&quot;</span>)</span></code></pre></div>
 <p>We have a dataset with two different dependent variables: <strong>Y1</strong> and <strong>Y2</strong>. For each ego we collected information on at least 3 alters. For each alter we have information on two characteristics: <strong>xa</strong> and <strong>xb</strong>. Suppose these alter characteristics are indicators of alter’s happiness. We want to know if alter’s happiness is related to ego’s happiness.
 O yeah, we have our data in both long and wide format.</p>
@@ -259,27 +263,28 @@ One method is to use an aggregation method. Thus calculate the mean happiness sc
 </blockquote>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># aggregation first calculate the mean score of the alters.</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a>data_wide<span class="op">$</span>xam &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(<span class="kw">cbind</span>(data_wide<span class="op">$</span>alt1_xa, data_wide<span class="op">$</span>alt3_xa, data_wide<span class="op">$</span>alt3_xa), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">summary</span>(<span class="kw">lm</span>(Y1 <span class="op">~</span><span class="st"> </span>xam, <span class="dt">data =</span> data_wide))</span></code></pre></div>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a>data_wide<span class="op">$</span>xam &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(<span class="kw">cbind</span>(data_wide<span class="op">$</span>alt1_xa, data_wide<span class="op">$</span>alt2_xa, data_wide<span class="op">$</span>alt3_xa), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">summary</span>(<span class="kw">lm</span>(Y1 <span class="op">~</span><span class="st"> </span>xam, <span class="dt">data =</span> data_wide))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Y1 ~ xam, data = data_wide)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -19.8712  -4.4835  -0.1175   4.0421  20.2213 
+## -19.2898  -4.0026  -0.1233   4.0629  20.3896 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.09465    0.20351   0.465    0.642    
-## xam          4.25591    0.09653  44.089   &lt;2e-16 ***
+## (Intercept)  0.19756    0.18942   1.043    0.297    
+## xam          4.52667    0.09248  48.947   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 6.396 on 986 degrees of freedom
-##   (12 observations deleted due to missingness)
-## Multiple R-squared:  0.6635, Adjusted R-squared:  0.6631 
-## F-statistic:  1944 on 1 and 986 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 5.984 on 996 degrees of freedom
+##   (2 observations deleted due to missingness)
+## Multiple R-squared:  0.7063, Adjusted R-squared:  0.7061 
+## F-statistic:  2396 on 1 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="disaggregation-method" class="section level2">
 <h2><span class="header-section-number">4.3</span> Disaggregation method</h2>
@@ -547,7 +552,7 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <span id="cb20-11"><a href="#cb20-11"></a><span class="st">  FX ~~ FX</span></span>
 <span id="cb20-12"><a href="#cb20-12"></a><span class="st">  Y1 ~~ Y1</span></span>
 <span id="cb20-13"><a href="#cb20-13"></a><span class="st">  </span></span>
-<span id="cb20-14"><a href="#cb20-14"></a><span class="st">  Y1 ~ FX</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a><span class="st">  Y1 ~ FX </span></span>
 <span id="cb20-15"><a href="#cb20-15"></a><span class="st">  Y1 ~ 1</span></span>
 <span id="cb20-16"><a href="#cb20-16"></a><span class="st">  alt1_xa ~ c*1</span></span>
 <span id="cb20-17"><a href="#cb20-17"></a><span class="st">  alt2_xa ~ c*1</span></span>
@@ -617,10 +622,13 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <p><img src="static/micro-macro2.png" />
 <strong>Figure:</strong> Micro-macro latent variable model with two micro-level variables</p>
 <blockquote>
-<p><strong>Assignment 6:</strong> Re-estimate the micro-macro model but now use both indicators. See the figure above for the intended model. Note, we do not have a exogenous variable at the ego-level yet. We include a covariance between the two indicators at the alter-level, because it may not be reasonable to assume that all of the association between the alter-level indicators is explained by the latent-variable.</p>
+<p><strong>Assignment 6:</strong> Re-estimate the micro-macro model but now use both indicators. See the figure above for the intended model. Note, we do not have an exogenous variable at the ego-level yet. We include a covariance between the two indicators at the alter-level, because it may not be reasonable to assume that all of the association between the alter-level indicators is explained by the latent-variable.</p>
 </blockquote>
 <p><img src="static/micro-macro3.png" />
 <strong>Figure:</strong> Micro-macro latent variable model with two micro-level variables. Ego-level variable X moderates the impact of the latent variable at the group-level.</p>
+<p>{{% alert warning %}}<br />
+Assignment 7 is way too difficult. First, in Lavaan it is not straightforward to estimate interaction effects when the interaction variable involves a latent-variable. Second, the model will not run if you include size in a model with the two dependent variables simultaneously.
+{{% / alert %}}</p>
 <blockquote>
 <p><strong>Assignment 7:</strong> Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables. Bonus: estimate both dependent variables in one SEM. See the figure above for the intended model.</p>
 </blockquote>
@@ -630,15 +638,15 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 </div>
 <div id="real-data" class="section level1">
 <h1><span class="header-section-number">7</span> Real data</h1>
-<p>Download data <a href="sn2021_egonetdata_v1.Rdata">here</a></p>
+<p>Download data <a href="static/sn2021_egonetdata_v1.Rdata">here</a>.</p>
 <p>Save it in your working directory</p>
-<p>If you want to use this data run the following command <code>load(sn2021_egonetdata_v1.Rdata)</code></p>
+<p>If you want to use this data run the following command <code>load('sn2021_egonetdata_v1.Rdata')</code></p>
 <p>{{% alert note %}}</p>
 <p><strong>Description of dataset</strong><br />
 Subset of the LISS panel data (year 2009 and 2010).<br />
-Four ego variables (eu, educ, age, g).
+Four ego variables (eu, educ, age, g).<br />
 Three confidant variables (educ_a, age_a, g_a).<br />
-In the wide data the first number in the variable label indicates the survey wave, the second number the alter id. For this assignment please use data in wide format.</p>
+In the wide data the first number in the label of confidant variables indicates the survey wave, the second number the alter id. For this assignment please use data in wide format.</p>
 <p>liss_wide: liss data in a wide dataframe.
 liss_long: liss data in a long dataframe.</p>
 <p>Dependent variables:<br />
@@ -665,6 +673,219 @@ liss_long: liss data in a long dataframe.</p>
 12 66 - 70
 13 71 years or older</p>
 <p>{{% /alert %}}</p>
+</div>
+<div id="answers" class="section level1">
+<h1><span class="header-section-number">8</span> answers</h1>
+<div id="calculate-network-size" class="section level2">
+<h2><span class="header-section-number">8.1</span> calculate network size</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>data_wide<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">rowSums</span>(<span class="op">!</span><span class="kw">is.na</span>(<span class="kw">cbind</span>(data_wide<span class="op">$</span>alt1_xa, data_wide<span class="op">$</span>alt2_xa, data_wide<span class="op">$</span>alt3_xa))))</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">table</span>(data_wide<span class="op">$</span>size, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##    0    1    2    3 &lt;NA&gt; 
+##    2   48  314  636    0</code></pre>
+</div>
+<div id="two-dependent-variables-two-micro-level-indicators" class="section level2">
+<h2><span class="header-section-number">8.2</span> two dependent variables, two micro-level indicators</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># two individual-level predictor, one latent variable at group level</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>model2 &lt;-<span class="st"> &quot;</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  #latent variable</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="st">  FX =~ 1*alt1_xa</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  FX =~ 1*alt2_xa</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="st">  FX =~ 1*alt3_xa</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="st">  </span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="st">  FX =~ a*alt1_xb</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="st">  FX =~ a*alt2_xb</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="st">  FX =~ a*alt3_xb</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="st">  </span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="st">  #variances</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="st">  alt1_xa ~~ b*alt1_xa</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="st">  alt2_xa ~~ b*alt2_xa</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="st">  alt3_xa ~~ b*alt3_xa</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="st">  </span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="st">  alt1_xb ~~ c*alt1_xb</span></span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="st">  alt2_xb ~~ c*alt2_xb</span></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="st">  alt3_xb ~~ c*alt3_xb</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="st">  </span></span>
+<span id="cb24-21"><a href="#cb24-21"></a><span class="st">  FX ~~ FX</span></span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="st">  Y1 ~~ Y1</span></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="st">  Y2 ~~ Y2</span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="st">  </span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="st">  #covariances</span></span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="st">  Y1 ~~ Y2</span></span>
+<span id="cb24-27"><a href="#cb24-27"></a><span class="st">  alt1_xa ~~ d*alt1_xb</span></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="st">  alt2_xa ~~ d*alt2_xb</span></span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="st">  alt3_xa ~~ d*alt3_xb</span></span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="st">  </span></span>
+<span id="cb24-31"><a href="#cb24-31"></a><span class="st">  #regression model</span></span>
+<span id="cb24-32"><a href="#cb24-32"></a><span class="st">  Y1 ~ FX</span></span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="st">  Y2 ~ FX</span></span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="st">   </span></span>
+<span id="cb24-35"><a href="#cb24-35"></a><span class="st">  </span></span>
+<span id="cb24-36"><a href="#cb24-36"></a><span class="st">  #intercepts/means</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a><span class="st">  Y1 ~ 1</span></span>
+<span id="cb24-38"><a href="#cb24-38"></a><span class="st">  Y2 ~ 1</span></span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="st">  alt1_xa ~ e*1</span></span>
+<span id="cb24-40"><a href="#cb24-40"></a><span class="st">  alt2_xa ~ e*1</span></span>
+<span id="cb24-41"><a href="#cb24-41"></a><span class="st">  alt3_xa ~ e*1</span></span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="st">  alt1_xb ~ f*1</span></span>
+<span id="cb24-43"><a href="#cb24-43"></a><span class="st">  alt2_xb ~ f*1</span></span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="st">  alt3_xb ~ f*1</span></span>
+<span id="cb24-45"><a href="#cb24-45"></a><span class="st">  </span></span>
+<span id="cb24-46"><a href="#cb24-46"></a><span class="st">&quot;</span></span>
+<span id="cb24-47"><a href="#cb24-47"></a></span>
+<span id="cb24-48"><a href="#cb24-48"></a>fit2 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb24-49"><a href="#cb24-49"></a><span class="kw">summary</span>(fit2)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 76 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                         26
+##   Number of equality constraints                    12
+##                                                       
+##   Number of observations                          1000
+##   Number of missing patterns                         8
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                                33.398
+##   Degrees of freedom                                30
+##   P-value (Chi-square)                           0.306
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Observed
+##   Observed information based on                Hessian
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   FX =~                                               
+##     alt1_xa           1.000                           
+##     alt2_xa           1.000                           
+##     alt3_xa           1.000                           
+##     alt1_xb    (a)    0.406    0.011   36.247    0.000
+##     alt2_xb    (a)    0.406    0.011   36.247    0.000
+##     alt3_xb    (a)    0.406    0.011   36.247    0.000
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   Y1 ~                                                
+##     FX                5.126    0.109   47.110    0.000
+##   Y2 ~                                                
+##     FX               13.360    0.203   65.941    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .Y1 ~~                                               
+##    .Y2               -1.664    2.304   -0.722    0.470
+##  .alt1_xa ~~                                          
+##    .alt1_xb    (d)    0.099    0.024    4.199    0.000
+##  .alt2_xa ~~                                          
+##    .alt2_xb    (d)    0.099    0.024    4.199    0.000
+##  .alt3_xa ~~                                          
+##    .alt3_xb    (d)    0.099    0.024    4.199    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .Y1                0.189    0.349    0.541    0.589
+##    .Y2               -0.173    0.831   -0.209    0.835
+##    .alt1_xa    (e)    0.009    0.063    0.149    0.881
+##    .alt2_xa    (e)    0.009    0.063    0.149    0.881
+##    .alt3_xa    (e)    0.009    0.063    0.149    0.881
+##    .alt1_xb    (f)    0.027    0.032    0.828    0.407
+##    .alt2_xb    (f)    0.027    0.032    0.828    0.407
+##    .alt3_xb    (f)    0.027    0.032    0.828    0.407
+##     FX                0.000                           
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .alt1_xa    (b)    1.008    0.035   28.743    0.000
+##    .alt2_xa    (b)    1.008    0.035   28.743    0.000
+##    .alt3_xa    (b)    1.008    0.035   28.743    0.000
+##    .alt1_xb    (c)    1.100    0.031   35.017    0.000
+##    .alt2_xb    (c)    1.100    0.031   35.017    0.000
+##    .alt3_xb    (c)    1.100    0.031   35.017    0.000
+##     FX                3.618    0.180   20.102    0.000
+##    .Y1               26.544    1.659   15.999    0.000
+##    .Y2               44.584    5.555    8.026    0.000</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">library</span>(lavaan)</span>
+<span id="cb26-2"><a href="#cb26-2"></a>model1 &lt;-<span class="st"> &quot;</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  #latent variable</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  FX =~ 1*alt1_xa</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  FX =~ 1*alt2_xa</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="st">  FX =~ 1*alt3_xa</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="st">  Y1 ~ FX + size</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="st">  Y1 ~ 1</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="st">  FX ~ size</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="st">  </span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="st">  Y1 ~~ Y1</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="st">  size ~~ size</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="st">  FX ~~ FX</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="st">  alt1_xa ~~ b*alt1_xa</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="st">  alt2_xa ~~ b*alt2_xa</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="st">  alt3_xa ~~ b*alt3_xa</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="st">  </span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="st">  </span></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="st">  &quot;</span></span>
+<span id="cb26-21"><a href="#cb26-21"></a></span>
+<span id="cb26-22"><a href="#cb26-22"></a>fit1 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model1, <span class="dt">data =</span> data_wide, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb26-23"><a href="#cb26-23"></a><span class="kw">summary</span>(fit1)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 43 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                         10
+##   Number of equality constraints                     2
+##                                                       
+##   Number of observations                          1000
+##   Number of missing patterns                         8
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                              3009.285
+##   Degrees of freedom                                12
+##   P-value (Chi-square)                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Observed
+##   Observed information based on                Hessian
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   FX =~                                               
+##     alt1_xa           1.000                           
+##     alt2_xa           1.000                           
+##     alt3_xa           1.000                           
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   Y1 ~                                                
+##     FX                5.030    0.105   47.841    0.000
+##     size             -0.866    0.336   -2.580    0.010
+##   FX ~                                                
+##     size              0.006    0.024    0.226    0.821
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .Y1                2.425    0.902    2.690    0.007
+##    .alt1_xa           0.000                           
+##    .alt2_xa           0.000                           
+##    .alt3_xa           0.000                           
+##     size              0.000                           
+##    .FX                0.000                           
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .Y1               25.694    1.651   15.563    0.000
+##     size              7.028    0.314   22.361    0.000
+##    .FX                3.794    0.188   20.171    0.000
+##    .alt1_xa    (b)    0.999    0.035   28.179    0.000
+##    .alt2_xa    (b)    0.999    0.035   28.179    0.000
+##    .alt3_xa    (b)    0.999    0.035   28.179    0.000</code></pre>
+</div>
 </div>
 <div class="footnotes">
 <hr />

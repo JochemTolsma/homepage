@@ -342,11 +342,11 @@ And there you have it.
 > **Assignment 6:** Re-estimate the micro-macro model but now use both indicators. See the figure above for the intended model. Note, we do not have an exogenous variable at the ego-level yet. We include a covariance between the two indicators at the alter-level, because it may not be reasonable to assume that all of the association between the alter-level indicators is explained by the latent-variable. 
 
 ![](static/micro-macro3.png) 
-**Figure:** Micro-macro latent variable model with two micro-level variables. Ego-level variable X moderates the impact of the latent variable at the group-level. 
+**Figure:** Micro-macro latent variable model with two micro-level variables. Ego-level variable X moderates the impact of the latent variable at the group-level.   
 
-{{% alert warning %}}
+{{% alert warning %}}  
 Assignment 7 is way too difficult. First, in Lavaan it is not straightforward to estimate interaction effects when the interaction variable involves a latent-variable. Second, the model will not run if you include size in a model with the two dependent variables simultaneously. 
-{{% / alert  %}}
+{{% / alert  %}}  
 
 > **Assignment 7:** Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables. Bonus: estimate both dependent variables in one SEM. See the figure above for the intended model.   
 
