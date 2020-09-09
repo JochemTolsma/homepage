@@ -308,7 +308,10 @@ One method is to use an aggregation method. Thus calculate the mean happiness sc
 </div>
 <div id="micro-macro-approach" class="section level1">
 <h1><span class="header-section-number">5</span> micro-macro approach</h1>
-<p>Both approaches do not do justice to the structure of our dataset. We have information on alters (lowest level / alter-level / micro-level) and these determine an egonet characteristic (highest level / ego-level / macro-level). Where in the traditional multi-level model we use macro-level variables to predict micro-level variables, we now have micro-level variables predicting macro-level variables. In the literature two approaches are discussed to estimate a micro-macro model, a persons as variables approach and a multi-level approach. The persons as variables approach is - I hope - easiest to implement. The idea is that the alter scores load on a latent variable at the ego-level. This latent variable has a random component at the ego-level (cf random intercept in multi-level models). In a basic model, the latent variable is the (biased corrected) mean alter-score.<br />
+<p>Both approaches do not do justice to the structure of our dataset. We have information on alters (lowest level / alter-level / micro-level) and these determine an egonet characteristic (highest level / ego-level / macro-level). Where in the traditional multi-level model we use macro-level variables to predict micro-level variables, we now have micro-level variables predicting macro-level variables. See Figure below.</p>
+<p><img src="static/micro-macro1.png" />
+<strong>Figure:</strong> Micro-macro latent variable model with one micro-level variable<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>In the literature two approaches are discussed to estimate a micro-macro model, a persons as variables approach and a multi-level approach. The persons as variables approach is - I hope - easiest to implement. The idea is that the alter scores load on a latent variable at the ego-level. This latent variable has a random component at the ego-level (cf random intercept in multi-level models). In a basic model, the latent variable is the (biased corrected) mean alter-score.<br />
 I am using the package Lavaan to estimate the models. In the section ‘alternative approaches’ I will demonstrate the multi-level approach and the syntax to estimate these models with MPlus (within R).</p>
 <div id="first-quickly-estimate-the-previous-models-in-lavaan." class="section level2">
 <h2><span class="header-section-number">5.1</span> first quickly estimate the previous models in Lavaan.</h2>
@@ -453,7 +456,7 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <blockquote>
 <p><strong>Assignment 4:</strong> Test some of these assumptions.</p>
 </blockquote>
-<p>We work with a latent variable. Hence we have to either fix the variance of the latent-variable or fix the factor loading of one of our indicator variables. I have chosen for the latter. I fixed the loading to “1”. But given the assumptions just mentioned above, all of them are fixed. The advantage is that one unit increase in e.g. <code>alt1_xa</code> leads to one unit increase in our latent variable <code>FX</code>. We hence are able to compare the estimate of the latent variable with the previous estimates we obtained for the alter characteristics.</p>
+<p>We work with a latent variable. Hence we have to either fix the variance of the latent-variable or fix the factor loading of one of our indicator variables. I have chosen for the latter. I fixed the loading to “1”. But given the assumptions just mentioned above, all of them are fixed. The advantage is that one unit increase in e.g. <code>alt1_xa</code> leads to one unit increase in our latent variable <code>FX</code>. We hence are able to compare the estimate of the latent variable with the previous estimates we obtained for the alter characteristics. Note, we do not include an exogenous variable at the ego-level yet.</p>
 <div id="persons-as-variables-cases-listwise-deleted" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> persons as variables, cases listwise deleted</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># one individual-level predictor, one latent variable at group level</span></span>
@@ -609,10 +612,20 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <div id="assignment" class="section level1">
 <h1><span class="header-section-number">6</span> Assignment</h1>
 <blockquote>
-<p><strong>Assignment 5:</strong> Re-estimate the micro-macro model but now use the other indicator.<br />
-<strong>Assignment 6:</strong> Re-estimate the micro-macro model but now use both indicators.<br />
-<strong>Assignment 7:</strong> Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables.<br />
-<strong>Assignment 8:</strong> Please now use a real dataset. Formulate an interesting hypothesis (and provide a motivation) on how the CDN (i.e. how alters) may influence the “Attitude towards eu-integration” of ego.</p>
+<p><strong>Assignment 5:</strong> Re-estimate the micro-macro model but now use the other indicator.</p>
+</blockquote>
+<p><img src="static/micro-macro2.png" />
+<strong>Figure:</strong> Micro-macro latent variable model with two micro-level variables</p>
+<blockquote>
+<p><strong>Assignment 6:</strong> Re-estimate the micro-macro model but now use both indicators. See the figure above for the intended model. Note, we do not have a exogenous variable at the ego-level yet. We include a covariance between the two indicators at the alter-level, because it may not be reasonable to assume that all of the association between the alter-level indicators is explained by the latent-variable.</p>
+</blockquote>
+<p><img src="static/micro-macro3.png" />
+<strong>Figure:</strong> Micro-macro latent variable model with two micro-level variables. Ego-level variable X moderates the impact of the latent variable at the group-level.</p>
+<blockquote>
+<p><strong>Assignment 7:</strong> Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables. Bonus: estimate both dependent variables in one SEM. See the figure above for the intended model.</p>
+</blockquote>
+<blockquote>
+<p><strong>Assignment 8:</strong> Please now use a real dataset. Formulate an interesting hypothesis (and provide a motivation) on how the CDN (i.e. how alters) may influence the “Attitude towards eu-integration” of ego.</p>
 </blockquote>
 </div>
 <div id="real-data" class="section level1">
@@ -652,4 +665,10 @@ liss_long: liss data in a long dataframe.</p>
 12 66 - 70
 13 71 years or older</p>
 <p>{{% /alert %}}</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Images adapted from: Bennink, M., Croon, M. A., Kroon, B., &amp; Vermunt, J. K. (2016). Micro–macro multilevel latent class models with multiple discrete individual-level variables. <em>Advances in Data Analysis and Classification, 10</em>(2), 139-154.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>

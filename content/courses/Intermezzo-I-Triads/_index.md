@@ -15,6 +15,13 @@ type: book  # Do not modify.
 ---
 ## Overview
 
+<!---
+https://eehh-stanford.github.io/SNA-workshop/new-triad-census.png
+
+https://www.classes.cs.uchicago.edu/archive/2012/fall/12100-1/assignments/pa3/images/triad-types.png
+
+--->
+
 ## Literature
 
 ## Knowledge clips
