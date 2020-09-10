@@ -9,7 +9,7 @@ categories:
 tags: []
 linktitle: Egonets-Consequences-Methods
 
-summary: ~
+summary: "micro-macro model, tutorial, R, Lavaan"
 lastmod: '2020-08-19T08:27:34+02:00'
 
 type: book
@@ -50,6 +50,12 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 --->
 
 <button onclick="window.location.href='static/index.Rmd';">download code</button>
+
+
+![](static/micro-macro1.png)  
+
+**Figure:** Basic micro-macro model
+
 
 
 # Introduction
@@ -143,7 +149,7 @@ ns <- rowSums(cbind(n1,n2,n3))
 Y1 <- 5*LX + rnorm(1000, 0, 5)
 
 #total alter effect
-Y2 <- 5*LX*ns + rnorm(1000, 0, 5)
+Y2 <- 3*LX*ns + rnorm(1000, 0, 5)
 
 ID <- 1:length(Y1)
 
@@ -151,13 +157,12 @@ ID <- 1:length(Y1)
 data_wide <- data.frame(ID, Y1, Y2, alt1_xa, alt2_xa, alt3_xa, alt1_xb,alt2_xb,alt3_xb)
 
 data_long <- reshape(data_wide, direction='long', 
-        varying=c('alt1_xa', 'alt2_xa', 'alt3_xa', 'alt1_xb','alt2_xb','alt3_xb'), 
+        varying=c('alt1_xa', 'alt1_xb' ,'alt2_xa', 'alt2_xb', 'alt3_xa','alt3_xb'), 
         timevar='alter',
-        times=c('alt1', 'alt2', 'alt3'),
         v.names=c('xa', 'xb'),
+        times=c('alt1', 'alt2', 'alt3'),
         idvar='ID')
 
-                    
 
 
 ```
@@ -194,7 +199,8 @@ One method is to use an aggregation method. Thus calculate the mean happiness sc
 #aggregation
 #first calculate the mean score of the alters. 
 
-data_wide$xam <- rowMeans(cbind(data_wide$alt1_xa,data_wide$alt3_xa,data_wide$alt3_xa ), na.rm=TRUE)
+
+data_wide$xam <- rowMeans(cbind(data_wide$alt1_xa,data_wide$alt2_xa,data_wide$alt3_xa ), na.rm=TRUE)
 summary(lm(Y1 ~ xam, data=data_wide))
 ```
 ## Disaggregation method
@@ -208,11 +214,12 @@ summary(lm(Y1 ~ xa, data=data_long))
 ```
 # micro-macro approach
 
-Both approaches do not do justice to the structure of our dataset. We have information on alters (lowest level / alter-level / micro-level) and these determine an egonet characteristic (highest level / ego-level / macro-level). Where in the traditional multi-level model we use macro-level variables to predict micro-level variables, we now have micro-level variables predicting macro-level variables. See the figure below. 
+Both approaches do not do justice to the structure of our dataset. We have information on alters (lowest level / alter-level / micro-level) and these determine an egonet characteristic (highest level / ego-level / macro-level). Where in the traditional multi-level model we use macro-level variables to predict micro-level variables, we now have micro-level variables predicting macro-level variables. See Figure below.
 
-![](/static/index_files/micro-macro1.png)
+![](static/micro-macro1.png)
+**Figure:** Micro-macro latent variable model with one micro-level variable[^1]
 
-
+[^1]: Images adapted from: Bennink, M., Croon, M. A., Kroon, B., & Vermunt, J. K. (2016). Micro–macro multilevel latent class models with multiple discrete individual-level variables. *Advances in Data Analysis and Classification, 10*(2), 139-154.
 
 In the literature two approaches are discussed to estimate a micro-macro model, a persons as variables approach and a multi-level approach. The persons as variables approach is - I hope - easiest to implement. The idea is that the alter scores load on a latent variable at the ego-level. This latent variable has a random component at the ego-level (cf random intercept in multi-level models). In a basic model, the latent variable is the (biased corrected) mean alter-score.   
 I am using the package Lavaan to estimate the models. In the section 'alternative approaches' I will demonstrate the multi-level approach and the syntax to estimate these models with MPlus (within R). 
@@ -244,7 +251,7 @@ model1 <- '
 
 fit1 <- lavaan(model1, data = data_wide)
 summary(fit1)
-standardizedSolution(fit1)
+
 
 ```
 Disaggregation method: 
@@ -266,7 +273,7 @@ The assumption is that the alters are indistinguishable. Thus variables of alter
 
 >**Assignment 4:** Test some of these assumptions. 
 
-We work with a latent variable. Hence we have to either fix the variance of the latent-variable or fix the factor loading of one of our indicator variables. I have chosen for the latter. I fixed the loading to "1". But given the assumptions just mentioned above, all of them are fixed. The advantage is that one unit increase in e.g. `alt1_xa` leads to one unit increase in our latent variable `FX`. We hence are able to compare the estimate of the latent variable with the previous estimates we obtained for the alter characteristics.  
+We work with a latent variable. Hence we have to either fix the variance of the latent-variable or fix the factor loading of one of our indicator variables. I have chosen for the latter. I fixed the loading to "1". But given the assumptions just mentioned above, all of them are fixed. The advantage is that one unit increase in e.g. `alt1_xa` leads to one unit increase in our latent variable `FX`. We hence are able to compare the estimate of the latent variable with the previous estimates we obtained for the alter characteristics. Note, we do not include an exogenous variable at the ego-level yet.   
 
 ### persons as variables, cases listwise deleted
 
@@ -291,8 +298,8 @@ model2 <- '
   alt3_xa ~ c*1
 '
 
-fit2 <- lavaan(model2, data = data_wide)
-summary(fit2)
+fit <- lavaan(model2, data = data_wide)
+summary(fit)
 
 
 ```
@@ -316,15 +323,15 @@ model2 <- '
   FX ~~ FX
   Y1 ~~ Y1
   
-  Y1 ~ FX
+  Y1 ~ FX 
   Y1 ~ 1
   alt1_xa ~ c*1
   alt2_xa ~ c*1
   alt3_xa ~ c*1
 '
 
-fit2 <- lavaan(model2, data = data_wide, missing = "fiml", fixed.x=FALSE)
-summary(fit2)
+fit <- lavaan(model2, data = data_wide, missing = "fiml", fixed.x=FALSE)
+summary(fit)
 
 
 ```
@@ -334,32 +341,45 @@ And there you have it.
 # Assignment
 
 > **Assignment 5:** Re-estimate the micro-macro model but now use the other indicator.  
-> **Assignment 6:** Re-estimate the micro-macro model but now use both indicators.  
-> **Assignment 7:** Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables.  
+
+![](static/micro-macro2.png) 
+**Figure:** Micro-macro latent variable model with two micro-level variables
+
+> **Assignment 6:** Re-estimate the micro-macro model but now use both indicators. See the figure above for the intended model. Note, we do not have an exogenous variable at the ego-level yet. We include a covariance between the two indicators at the alter-level, because it may not be reasonable to assume that all of the association between the alter-level indicators is explained by the latent-variable. 
+
+![](static/micro-macro3.png) 
+**Figure:** Micro-macro latent variable model with two micro-level variables. Ego-level variable X moderates the impact of the latent variable at the group-level.   
+
+{{% alert warning %}}  
+Assignment 7 is way too difficult. First, in Lavaan it is not straightforward to estimate interaction effects when the interaction variable involves a latent-variable. Second, the variable size is not normally distributed. This violation of model assumptions leads to all kind of 'problems'. 
+{{% / alert  %}}  
+
+> **Assignment 7:** Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables. Bonus: estimate both dependent variables in one SEM. See the figure above for the intended model.   
+
 > **Assignment 8:** Please now use a real dataset. Formulate an interesting hypothesis (and provide a motivation) on how the CDN (i.e. how alters) may influence the "Attitude towards eu-integration" of ego.  
 
 # Real data
 
-Download data [here](sn2021_egonetdata_v1.Rdata)  
+Download data [here](static/sn2021_egonetdata_v2.Rdata).   
   
 Save it in your working directory 
 
-If you want to use this data run the following command `load(sn2021_egonetdata_v1.Rdata)`
+If you want to use this data run the following command `load('sn2021_egonetdata_v2.Rdata')`
 
 {{% alert note %}}
 
 **Description of dataset**  
 Subset of the LISS panel data (year 2009 and 2010).  
-Four ego variables (eu, educ, age, g). 
+Four ego variables (eu, educ, age, g).  
 Three confidant variables (educ_a, age_a, g_a).  
-In the wide data the first number in the variable label indicates the survey wave, the second number the alter id. For this assignment please use data in wide format. 
+In the wide data the first number in the label of confidant variables indicates the survey wave, the second number the alter id. For this assignment please use data in wide format. 
 
 liss_wide: liss data in a wide dataframe. 
 liss_long: liss data in a long dataframe.
 
 
 Dependent variables:  
-**'eu'** Attitude towards eu-integration
+**'eu'** Attitude towards eu-integration (0 "EU integration went to far" to 4 "EU integration not far enough")
 
 Ego control variables:  
 **'educ'** is educational attainment of ego in years.  
@@ -384,6 +404,247 @@ Alter variables:
 12 66 - 70
 13 71 years or older
 
-
 {{% /alert %}}
+
+# answers
+
+## calculate network size
+
+```{r}
+data_wide$size <- as.numeric(rowSums(!is.na(cbind(data_wide$alt1_xa, data_wide$alt2_xa, data_wide$alt3_xa))))
+table(data_wide$size, useNA="always")
+                                 
+```
+
+## Assignment 6
+
+I also included the main effect of size. 
+Please note that size is not a normally distributed variable. This may lead to all kind of estimation problems. 
+See [here]("http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/") and [here]("https://lavaan.ugent.be/tutorial/cat.html").
+
+```{r,  attr.source = '.numberLines', results='hold'}
+#just ignore the non-normality of size
+model <- '
+  #latent variable
+  FX =~ 1*alt1_xa
+  FX =~ 1*alt2_xa
+  FX =~ 1*alt3_xa
+  
+  FX =~ a*alt1_xb
+  FX =~ a*alt2_xb
+  FX =~ a*alt3_xb
+  
+  #variances
+  alt1_xa ~~ b*alt1_xa
+  alt2_xa ~~ b*alt2_xa
+  alt3_xa ~~ b*alt3_xa
+  
+  alt1_xb ~~ c*alt1_xb
+  alt2_xb ~~ c*alt2_xb
+  alt3_xb ~~ c*alt3_xb
+  
+  FX ~~ FX
+  Y1 ~~ Y1
+  Y2 ~~ Y2
+  size ~~ size
+  
+  #covariances
+  Y1 ~~ Y2
+  alt1_xa ~~ d*alt1_xb
+  alt2_xa ~~ d*alt2_xb
+  alt3_xa ~~ d*alt3_xb
+  
+  #regression model
+  Y1 ~ FX + size
+  Y1 ~ 1
+  FX ~ size
+  Y2 ~ FX + size
+  Y2 ~ 1
+   
+  
+  #intercepts/means
+  alt1_xa ~ e*1
+  alt2_xa ~ e*1
+  alt3_xa ~ e*1
+  alt1_xb ~ f*1
+  alt2_xb ~ f*1
+  alt3_xb ~ f*1
+  
+'
+
+
+fit1 <- lavaan(model, data = data_wide, missing = "fiml", fixed.x=FALSE)
+
+#declare the size variable to be ordered. We do have to switch of estimation procedure. 
+data_wide$size2 <- ordered(data_wide$size)
+
+# The code below won't work because if we delete observations with missing values, we don't have any variance left in the size variable. A solution would be to use a two-step approach. 
+# model <- '
+#   #latent variable
+#   FX =~ 1*alt1_xa
+#   FX =~ 1*alt2_xa
+#   FX =~ 1*alt3_xa
+#   
+#   FX =~ a*alt1_xb
+#   FX =~ a*alt2_xb
+#   FX =~ a*alt3_xb
+#   
+#   #variances
+#   alt1_xa ~~ b*alt1_xa
+#   alt2_xa ~~ b*alt2_xa
+#   alt3_xa ~~ b*alt3_xa
+#   
+#   alt1_xb ~~ c*alt1_xb
+#   alt2_xb ~~ c*alt2_xb
+#   alt3_xb ~~ c*alt3_xb
+#   
+#   FX ~~ FX
+#   Y1 ~~ Y1
+#   Y2 ~~ Y2
+#   size2 ~~ size2
+#   
+#   #covariances
+#   Y1 ~~ Y2
+#   alt1_xa ~~ d*alt1_xb
+#   alt2_xa ~~ d*alt2_xb
+#   alt3_xa ~~ d*alt3_xb
+#   
+#   #regression model
+#   Y1 ~ FX + size2
+#   Y1 ~ 1
+#   FX ~ size2
+#   Y2 ~ FX + size2
+#   Y2 ~ 1
+#    
+#   
+#   #intercepts/means
+#   alt1_xa ~ e*1
+#   alt2_xa ~ e*1
+#   alt3_xa ~ e*1
+#   alt1_xb ~ f*1
+#   alt2_xb ~ f*1
+#   alt3_xb ~ f*1
+#   
+# '
+# 
+# 
+# fit2 <- lavaan(model, data = data_wide, fixed.x=FALSE, ordered=c("size2"))
+
+summary(fit1)
+
+# summary(fit2)
+
+
+```
+Please note that the estimated variance (model implied variance) of the `size` variable is way too large. In reality the variance is `0.35`. This indicates we have a misspecified model. 
+
+## Assignment 7
+
+Unfortunately, in Lavaan it is not implemented to include an interaction term with a latent variable into the structural part of the model. We have to fall back on a two-step approach. For some literature on the differences between a one-step and two-step approach see Anderson and Gerbing (1988).[^4]
+
+[^4]: Anderson, J. C., & Gerbing, D. W. (1988). Structural equation modeling in practice: A review and recommended two-step approach. *Psychological bulletin, 103*(3), 411.
+
+But here it goes...
+```{r,  attr.source = '.numberLines', results='hold'}
+#credits where credits are due: https://stackoverflow.com/questions/24399353/r-lavaan-coding-latent-variable-interactions
+
+# 1. set up our measurement model
+model2 <- '
+  #latent variable
+  FX =~ 1*alt1_xa
+  FX =~ 1*alt2_xa
+  FX =~ 1*alt3_xa
+  
+  FX =~ a*alt1_xb
+  FX =~ a*alt2_xb
+  FX =~ a*alt3_xb
+  
+  #variances
+  alt1_xa ~~ b*alt1_xa
+  alt2_xa ~~ b*alt2_xa
+  alt3_xa ~~ b*alt3_xa
+  
+  alt1_xb ~~ c*alt1_xb
+  alt2_xb ~~ c*alt2_xb
+  alt3_xb ~~ c*alt3_xb
+  
+  FX ~~ FX
+  '
+fit <- lavaan(model2, data = data_wide, missing = "fiml", fixed.x=FALSE)
+
+# 2. extract the predicted values of the cfa and add them to new dataframe data_wide2
+data_wide2 <- data.frame(data_wide, predict(fit))
+
+# 3. create a new variable with the interaction of FX and size
+data_wide2$FXsize <- data_wide2$FX * data_wide2$size
+
+# 3. now set up the structural model and add the predefined interaction
+
+model2 <- '
+  
+  FX ~~ FX
+  Y1 ~~ Y1
+  Y2 ~~ Y2
+  size ~~ 0.35*size #I am fixing the variance to the observed variance. 
+  FXsize ~~ FXsize
+  
+  #covariances
+  Y1 ~~ Y2
+ 
+  #regression model
+  Y1 ~ FX + size + FXsize
+  Y1 ~ 1
+  FX ~ size
+  Y2 ~ FX + size + FXsize
+  Y2 ~ 1
+   
+  
+'
+
+fit <- lavaan(model2, data = data_wide2, missing = "fiml", fixed.x=FALSE)
+summary(fit)
+
+
+
+```
+## final model? 
+
+Let us assume that based on the literature, I don't expect that size would lead to my latent variable (e.g. network-happiness). 
+I do not expect that people (egos) with larger networks have networks in which the alters are on average happier. Thus I don't want to include this direct path in my model. I also do not expect that network size by itself is related to my happiness. I thus also would like to exclude this path from the model. 
+I just have very good reasons (ahum) to think that each alter contributes uniquely to my happiness, there is an additive effect. This implies an interaction between network size and our latent variable. Let us estimate this more 'theoretical' model. 
+
+```{r,  attr.source = '.numberLines', results='hold'}
+
+model <- '
+  
+  FX ~~ FX
+  Y1 ~~ Y1
+  Y2 ~~ Y2
+  FXsize ~~ FXsize
+  
+  #covariances
+  Y1 ~~ Y2
+ 
+  #regression model
+  Y1 ~ FX + FXsize
+  Y1 ~ 1
+  Y2 ~ FX + FXsize
+  Y2 ~ 1
+   
+  
+'
+
+fit <- lavaan(model, data = data_wide2, missing = "fiml", fixed.x=FALSE)
+summary(fit)
+
+
+
+```
+
+We would conclude that my line of reasoning holds true with respect to Y2 but not with respect to Y1. 
+
+# Alternative Approaches
+
+The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén [www.statmodel.com]("www.statmodel.com"). If you have Mplus installed on your computer, you may use the R package  `MplusAutomation` to estimate models with Mplus within R. Below you may find two examples with Mplus: one demonstrating the persons as variable approach, the other demonstrating the multi-level approach. 
+
 

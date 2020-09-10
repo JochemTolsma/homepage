@@ -9,7 +9,7 @@ categories:
 tags: []
 linktitle: Egonets-Consequences-Methods
 
-summary: ~
+summary: "micro-macro model, tutorial, R, Lavaan"
 lastmod: '2020-08-19T08:27:34+02:00'
 
 type: book
@@ -115,6 +115,13 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 <li><a href="#assignment"><span class="toc-section-number">6</span> Assignment</a></li>
 <li><a href="#real-data"><span class="toc-section-number">7</span> Real data</a></li>
+<li><a href="#answers"><span class="toc-section-number">8</span> answers</a><ul>
+<li><a href="#calculate-network-size"><span class="toc-section-number">8.1</span> calculate network size</a></li>
+<li><a href="#assignment-6"><span class="toc-section-number">8.2</span> Assignment 6</a></li>
+<li><a href="#assignment-7"><span class="toc-section-number">8.3</span> Assignment 7</a></li>
+<li><a href="#final-model"><span class="toc-section-number">8.4</span> final model?</a></li>
+</ul></li>
+<li><a href="#alternative-approaches"><span class="toc-section-number">9</span> Alternative Approaches</a></li>
 </ul>
 </div>
 
@@ -134,6 +141,8 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <button onclick="window.location.href=&#39;static/index.Rmd&#39;;">
 download code
 </button>
+<p><img src="static/micro-macro1.png" /></p>
+<p><strong>Figure:</strong> Basic micro-macro model</p>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>In this assignment/tutorial I will demonstrate how to estimate a micro-macro model with the R package <a href="https://cran.r-project.org/package=lavaan">Lavaan</a>. The Lavaan website can be found <a href="https://www.lavaan.ugent.be/">here</a>. During the workgroup I will explain all code. For those of you who don’t attend the workgroups, google knows way more than I do.</p>
@@ -202,15 +211,15 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <span id="cb5-34"><a href="#cb5-34"></a>Y1 &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>LX <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
 <span id="cb5-35"><a href="#cb5-35"></a></span>
 <span id="cb5-36"><a href="#cb5-36"></a><span class="co"># total alter effect</span></span>
-<span id="cb5-37"><a href="#cb5-37"></a>Y2 &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>LX <span class="op">*</span><span class="st"> </span>ns <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb5-37"><a href="#cb5-37"></a>Y2 &lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>LX <span class="op">*</span><span class="st"> </span>ns <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
 <span id="cb5-38"><a href="#cb5-38"></a></span>
 <span id="cb5-39"><a href="#cb5-39"></a>ID &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Y1)</span>
 <span id="cb5-40"><a href="#cb5-40"></a></span>
 <span id="cb5-41"><a href="#cb5-41"></a></span>
 <span id="cb5-42"><a href="#cb5-42"></a>data_wide &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ID, Y1, Y2, alt1_xa, alt2_xa, alt3_xa, alt1_xb, alt2_xb, alt3_xb)</span>
 <span id="cb5-43"><a href="#cb5-43"></a></span>
-<span id="cb5-44"><a href="#cb5-44"></a>data_long &lt;-<span class="st"> </span><span class="kw">reshape</span>(data_wide, <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">varying =</span> <span class="kw">c</span>(<span class="st">&quot;alt1_xa&quot;</span>, <span class="st">&quot;alt2_xa&quot;</span>, <span class="st">&quot;alt3_xa&quot;</span>, <span class="st">&quot;alt1_xb&quot;</span>, </span>
-<span id="cb5-45"><a href="#cb5-45"></a>    <span class="st">&quot;alt2_xb&quot;</span>, <span class="st">&quot;alt3_xb&quot;</span>), <span class="dt">timevar =</span> <span class="st">&quot;alter&quot;</span>, <span class="dt">times =</span> <span class="kw">c</span>(<span class="st">&quot;alt1&quot;</span>, <span class="st">&quot;alt2&quot;</span>, <span class="st">&quot;alt3&quot;</span>), <span class="dt">v.names =</span> <span class="kw">c</span>(<span class="st">&quot;xa&quot;</span>, <span class="st">&quot;xb&quot;</span>), </span>
+<span id="cb5-44"><a href="#cb5-44"></a>data_long &lt;-<span class="st"> </span><span class="kw">reshape</span>(data_wide, <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">varying =</span> <span class="kw">c</span>(<span class="st">&quot;alt1_xa&quot;</span>, <span class="st">&quot;alt1_xb&quot;</span>, <span class="st">&quot;alt2_xa&quot;</span>, <span class="st">&quot;alt2_xb&quot;</span>, </span>
+<span id="cb5-45"><a href="#cb5-45"></a>    <span class="st">&quot;alt3_xa&quot;</span>, <span class="st">&quot;alt3_xb&quot;</span>), <span class="dt">timevar =</span> <span class="st">&quot;alter&quot;</span>, <span class="dt">v.names =</span> <span class="kw">c</span>(<span class="st">&quot;xa&quot;</span>, <span class="st">&quot;xb&quot;</span>), <span class="dt">times =</span> <span class="kw">c</span>(<span class="st">&quot;alt1&quot;</span>, <span class="st">&quot;alt2&quot;</span>, <span class="st">&quot;alt3&quot;</span>), </span>
 <span id="cb5-46"><a href="#cb5-46"></a>    <span class="dt">idvar =</span> <span class="st">&quot;ID&quot;</span>)</span></code></pre></div>
 <p>We have a dataset with two different dependent variables: <strong>Y1</strong> and <strong>Y2</strong>. For each ego we collected information on at least 3 alters. For each alter we have information on two characteristics: <strong>xa</strong> and <strong>xb</strong>. Suppose these alter characteristics are indicators of alter’s happiness. We want to know if alter’s happiness is related to ego’s happiness.
 O yeah, we have our data in both long and wide format.</p>
@@ -259,27 +268,28 @@ One method is to use an aggregation method. Thus calculate the mean happiness sc
 </blockquote>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># aggregation first calculate the mean score of the alters.</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a>data_wide<span class="op">$</span>xam &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(<span class="kw">cbind</span>(data_wide<span class="op">$</span>alt1_xa, data_wide<span class="op">$</span>alt3_xa, data_wide<span class="op">$</span>alt3_xa), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">summary</span>(<span class="kw">lm</span>(Y1 <span class="op">~</span><span class="st"> </span>xam, <span class="dt">data =</span> data_wide))</span></code></pre></div>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a>data_wide<span class="op">$</span>xam &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(<span class="kw">cbind</span>(data_wide<span class="op">$</span>alt1_xa, data_wide<span class="op">$</span>alt2_xa, data_wide<span class="op">$</span>alt3_xa), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">summary</span>(<span class="kw">lm</span>(Y1 <span class="op">~</span><span class="st"> </span>xam, <span class="dt">data =</span> data_wide))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Y1 ~ xam, data = data_wide)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -19.8712  -4.4835  -0.1175   4.0421  20.2213 
+## -19.2898  -4.0026  -0.1233   4.0629  20.3896 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.09465    0.20351   0.465    0.642    
-## xam          4.25591    0.09653  44.089   &lt;2e-16 ***
+## (Intercept)  0.19756    0.18942   1.043    0.297    
+## xam          4.52667    0.09248  48.947   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 6.396 on 986 degrees of freedom
-##   (12 observations deleted due to missingness)
-## Multiple R-squared:  0.6635, Adjusted R-squared:  0.6631 
-## F-statistic:  1944 on 1 and 986 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 5.984 on 996 degrees of freedom
+##   (2 observations deleted due to missingness)
+## Multiple R-squared:  0.7063, Adjusted R-squared:  0.7061 
+## F-statistic:  2396 on 1 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="disaggregation-method" class="section level2">
 <h2><span class="header-section-number">4.3</span> Disaggregation method</h2>
@@ -308,8 +318,9 @@ One method is to use an aggregation method. Thus calculate the mean happiness sc
 </div>
 <div id="micro-macro-approach" class="section level1">
 <h1><span class="header-section-number">5</span> micro-macro approach</h1>
-<p>Both approaches do not do justice to the structure of our dataset. We have information on alters (lowest level / alter-level / micro-level) and these determine an egonet characteristic (highest level / ego-level / macro-level). Where in the traditional multi-level model we use macro-level variables to predict micro-level variables, we now have micro-level variables predicting macro-level variables. See the figure below.</p>
-<p><img src="/static/index_files/micro-macro1.png" /></p>
+<p>Both approaches do not do justice to the structure of our dataset. We have information on alters (lowest level / alter-level / micro-level) and these determine an egonet characteristic (highest level / ego-level / macro-level). Where in the traditional multi-level model we use macro-level variables to predict micro-level variables, we now have micro-level variables predicting macro-level variables. See Figure below.</p>
+<p><img src="static/micro-macro1.png" />
+<strong>Figure:</strong> Micro-macro latent variable model with one micro-level variable<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>In the literature two approaches are discussed to estimate a micro-macro model, a persons as variables approach and a multi-level approach. The persons as variables approach is - I hope - easiest to implement. The idea is that the alter scores load on a latent variable at the ego-level. This latent variable has a random component at the ego-level (cf random intercept in multi-level models). In a basic model, the latent variable is the (biased corrected) mean alter-score.<br />
 I am using the package Lavaan to estimate the models. In the section ‘alternative approaches’ I will demonstrate the multi-level approach and the syntax to estimate these models with MPlus (within R).</p>
 <div id="first-quickly-estimate-the-previous-models-in-lavaan." class="section level2">
@@ -365,16 +376,15 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <span id="cb14-6"><a href="#cb14-6"></a><span class="st">  &quot;</span></span>
 <span id="cb14-7"><a href="#cb14-7"></a></span>
 <span id="cb14-8"><a href="#cb14-8"></a>fit1 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model1, <span class="dt">data =</span> data_wide)</span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="kw">summary</span>(fit1)</span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="kw">standardizedSolution</span>(fit1)</span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 21 iterations
+<span id="cb14-9"><a href="#cb14-9"></a><span class="kw">summary</span>(fit1)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 23 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
 ##   Number of free parameters                          3
 ##                                                       
 ##                                                   Used       Total
-##   Number of observations                           988        1000
+##   Number of observations                           998        1000
 ##                                                                   
 ## Model Test User Model:
 ##                                                       
@@ -390,22 +400,15 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##   Y1 ~                                                
-##     xam               4.256    0.096   44.134    0.000
+##     xam               4.527    0.092   48.996    0.000
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .Y1                0.095    0.203    0.466    0.642
+##    .Y1                0.198    0.189    1.044    0.296
 ## 
 ## Variances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .Y1               40.824    1.837   22.226    0.000
-## 
-##   lhs op rhs est.std    se      z pvalue ci.lower ci.upper
-## 1  Y1  ~ xam   0.815 0.009 93.065  0.000    0.797    0.832
-## 2  Y1 ~1       0.009 0.018  0.466  0.642   -0.028    0.045
-## 3  Y1 ~~  Y1   0.337 0.014 23.603  0.000    0.309    0.364
-## 4 xam ~~ xam   1.000 0.000     NA     NA    1.000    1.000
-## 5 xam ~1       0.016 0.000     NA     NA    0.016    0.016</code></pre>
+##    .Y1               35.737    1.600   22.338    0.000</code></pre>
 <p>Disaggregation method:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">library</span>(lavaan)</span>
 <span id="cb16-2"><a href="#cb16-2"></a>model1 &lt;-<span class="st"> &quot;</span></span>
@@ -455,7 +458,7 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <blockquote>
 <p><strong>Assignment 4:</strong> Test some of these assumptions.</p>
 </blockquote>
-<p>We work with a latent variable. Hence we have to either fix the variance of the latent-variable or fix the factor loading of one of our indicator variables. I have chosen for the latter. I fixed the loading to “1”. But given the assumptions just mentioned above, all of them are fixed. The advantage is that one unit increase in e.g. <code>alt1_xa</code> leads to one unit increase in our latent variable <code>FX</code>. We hence are able to compare the estimate of the latent variable with the previous estimates we obtained for the alter characteristics.</p>
+<p>We work with a latent variable. Hence we have to either fix the variance of the latent-variable or fix the factor loading of one of our indicator variables. I have chosen for the latter. I fixed the loading to “1”. But given the assumptions just mentioned above, all of them are fixed. The advantage is that one unit increase in e.g. <code>alt1_xa</code> leads to one unit increase in our latent variable <code>FX</code>. We hence are able to compare the estimate of the latent variable with the previous estimates we obtained for the alter characteristics. Note, we do not include an exogenous variable at the ego-level yet.</p>
 <div id="persons-as-variables-cases-listwise-deleted" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> persons as variables, cases listwise deleted</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># one individual-level predictor, one latent variable at group level</span></span>
@@ -478,8 +481,8 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <span id="cb18-18"><a href="#cb18-18"></a><span class="st">  alt3_xa ~ c*1</span></span>
 <span id="cb18-19"><a href="#cb18-19"></a><span class="st">&quot;</span></span>
 <span id="cb18-20"><a href="#cb18-20"></a></span>
-<span id="cb18-21"><a href="#cb18-21"></a>fit2 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide)</span>
-<span id="cb18-22"><a href="#cb18-22"></a><span class="kw">summary</span>(fit2)</span></code></pre></div>
+<span id="cb18-21"><a href="#cb18-21"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide)</span>
+<span id="cb18-22"><a href="#cb18-22"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
 <pre><code>## lavaan 0.6-7 ended normally after 31 iterations
 ## 
 ##   Estimator                                         ML
@@ -546,15 +549,15 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <span id="cb20-11"><a href="#cb20-11"></a><span class="st">  FX ~~ FX</span></span>
 <span id="cb20-12"><a href="#cb20-12"></a><span class="st">  Y1 ~~ Y1</span></span>
 <span id="cb20-13"><a href="#cb20-13"></a><span class="st">  </span></span>
-<span id="cb20-14"><a href="#cb20-14"></a><span class="st">  Y1 ~ FX</span></span>
+<span id="cb20-14"><a href="#cb20-14"></a><span class="st">  Y1 ~ FX </span></span>
 <span id="cb20-15"><a href="#cb20-15"></a><span class="st">  Y1 ~ 1</span></span>
 <span id="cb20-16"><a href="#cb20-16"></a><span class="st">  alt1_xa ~ c*1</span></span>
 <span id="cb20-17"><a href="#cb20-17"></a><span class="st">  alt2_xa ~ c*1</span></span>
 <span id="cb20-18"><a href="#cb20-18"></a><span class="st">  alt3_xa ~ c*1</span></span>
 <span id="cb20-19"><a href="#cb20-19"></a><span class="st">&quot;</span></span>
 <span id="cb20-20"><a href="#cb20-20"></a></span>
-<span id="cb20-21"><a href="#cb20-21"></a>fit2 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb20-22"><a href="#cb20-22"></a><span class="kw">summary</span>(fit2)</span></code></pre></div>
+<span id="cb20-21"><a href="#cb20-21"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb20-22"><a href="#cb20-22"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
 <pre><code>## lavaan 0.6-7 ended normally after 33 iterations
 ## 
 ##   Estimator                                         ML
@@ -611,27 +614,40 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <div id="assignment" class="section level1">
 <h1><span class="header-section-number">6</span> Assignment</h1>
 <blockquote>
-<p><strong>Assignment 5:</strong> Re-estimate the micro-macro model but now use the other indicator.<br />
-<strong>Assignment 6:</strong> Re-estimate the micro-macro model but now use both indicators.<br />
-<strong>Assignment 7:</strong> Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables.<br />
-<strong>Assignment 8:</strong> Please now use a real dataset. Formulate an interesting hypothesis (and provide a motivation) on how the CDN (i.e. how alters) may influence the “Attitude towards eu-integration” of ego.</p>
+<p><strong>Assignment 5:</strong> Re-estimate the micro-macro model but now use the other indicator.</p>
+</blockquote>
+<p><img src="static/micro-macro2.png" />
+<strong>Figure:</strong> Micro-macro latent variable model with two micro-level variables</p>
+<blockquote>
+<p><strong>Assignment 6:</strong> Re-estimate the micro-macro model but now use both indicators. See the figure above for the intended model. Note, we do not have an exogenous variable at the ego-level yet. We include a covariance between the two indicators at the alter-level, because it may not be reasonable to assume that all of the association between the alter-level indicators is explained by the latent-variable.</p>
+</blockquote>
+<p><img src="static/micro-macro3.png" />
+<strong>Figure:</strong> Micro-macro latent variable model with two micro-level variables. Ego-level variable X moderates the impact of the latent variable at the group-level.</p>
+<p>{{% alert warning %}}<br />
+Assignment 7 is way too difficult. First, in Lavaan it is not straightforward to estimate interaction effects when the interaction variable involves a latent-variable. Second, the variable size is not normally distributed. This violation of model assumptions leads to all kind of ‘problems’.
+{{% / alert %}}</p>
+<blockquote>
+<p><strong>Assignment 7:</strong> Test the hypothesis that the larger the core-discussion network, the smaller the influence of each individual alter will be. Test this hypothesis for both dependent variables. Bonus: estimate both dependent variables in one SEM. See the figure above for the intended model.</p>
+</blockquote>
+<blockquote>
+<p><strong>Assignment 8:</strong> Please now use a real dataset. Formulate an interesting hypothesis (and provide a motivation) on how the CDN (i.e. how alters) may influence the “Attitude towards eu-integration” of ego.</p>
 </blockquote>
 </div>
 <div id="real-data" class="section level1">
 <h1><span class="header-section-number">7</span> Real data</h1>
-<p>Download data <a href="sn2021_egonetdata_v1.Rdata">here</a></p>
+<p>Download data <a href="static/sn2021_egonetdata_v2.Rdata">here</a>.</p>
 <p>Save it in your working directory</p>
-<p>If you want to use this data run the following command <code>load(sn2021_egonetdata_v1.Rdata)</code></p>
+<p>If you want to use this data run the following command <code>load('sn2021_egonetdata_v2.Rdata')</code></p>
 <p>{{% alert note %}}</p>
 <p><strong>Description of dataset</strong><br />
 Subset of the LISS panel data (year 2009 and 2010).<br />
-Four ego variables (eu, educ, age, g).
+Four ego variables (eu, educ, age, g).<br />
 Three confidant variables (educ_a, age_a, g_a).<br />
-In the wide data the first number in the variable label indicates the survey wave, the second number the alter id. For this assignment please use data in wide format.</p>
+In the wide data the first number in the label of confidant variables indicates the survey wave, the second number the alter id. For this assignment please use data in wide format.</p>
 <p>liss_wide: liss data in a wide dataframe.
 liss_long: liss data in a long dataframe.</p>
 <p>Dependent variables:<br />
-<strong>‘eu’</strong> Attitude towards eu-integration</p>
+<strong>‘eu’</strong> Attitude towards eu-integration (0 “EU integration went to far” to 4 “EU integration not far enough”)</p>
 <p>Ego control variables:<br />
 <strong>‘educ’</strong> is educational attainment of ego in years.<br />
 <strong>‘age’</strong> is the self-reported age of respondents.<br />
@@ -654,4 +670,373 @@ liss_long: liss data in a long dataframe.</p>
 12 66 - 70
 13 71 years or older</p>
 <p>{{% /alert %}}</p>
+</div>
+<div id="answers" class="section level1">
+<h1><span class="header-section-number">8</span> answers</h1>
+<div id="calculate-network-size" class="section level2">
+<h2><span class="header-section-number">8.1</span> calculate network size</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>data_wide<span class="op">$</span>size &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">rowSums</span>(<span class="op">!</span><span class="kw">is.na</span>(<span class="kw">cbind</span>(data_wide<span class="op">$</span>alt1_xa, data_wide<span class="op">$</span>alt2_xa, data_wide<span class="op">$</span>alt3_xa))))</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">table</span>(data_wide<span class="op">$</span>size, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##    0    1    2    3 &lt;NA&gt; 
+##    2   48  314  636    0</code></pre>
+</div>
+<div id="assignment-6" class="section level2">
+<h2><span class="header-section-number">8.2</span> Assignment 6</h2>
+<p>I also included the main effect of size.
+Please note that size is not a normally distributed variable. This may lead to all kind of estimation problems.
+See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">here</a> and <a href="%22https://lavaan.ugent.be/tutorial/cat.html%22">here</a>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># just ignore the non-normality of size</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  #latent variable</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="st">  FX =~ 1*alt1_xa</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  FX =~ 1*alt2_xa</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="st">  FX =~ 1*alt3_xa</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="st">  </span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="st">  FX =~ a*alt1_xb</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="st">  FX =~ a*alt2_xb</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="st">  FX =~ a*alt3_xb</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="st">  </span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="st">  #variances</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="st">  alt1_xa ~~ b*alt1_xa</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="st">  alt2_xa ~~ b*alt2_xa</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="st">  alt3_xa ~~ b*alt3_xa</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="st">  </span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="st">  alt1_xb ~~ c*alt1_xb</span></span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="st">  alt2_xb ~~ c*alt2_xb</span></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="st">  alt3_xb ~~ c*alt3_xb</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="st">  </span></span>
+<span id="cb24-21"><a href="#cb24-21"></a><span class="st">  FX ~~ FX</span></span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="st">  Y1 ~~ Y1</span></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="st">  Y2 ~~ Y2</span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="st">  size ~~ size</span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="st">  </span></span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="st">  #covariances</span></span>
+<span id="cb24-27"><a href="#cb24-27"></a><span class="st">  Y1 ~~ Y2</span></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="st">  alt1_xa ~~ d*alt1_xb</span></span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="st">  alt2_xa ~~ d*alt2_xb</span></span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="st">  alt3_xa ~~ d*alt3_xb</span></span>
+<span id="cb24-31"><a href="#cb24-31"></a><span class="st">  </span></span>
+<span id="cb24-32"><a href="#cb24-32"></a><span class="st">  #regression model</span></span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="st">  Y1 ~ FX + size</span></span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="st">  Y1 ~ 1</span></span>
+<span id="cb24-35"><a href="#cb24-35"></a><span class="st">  FX ~ size</span></span>
+<span id="cb24-36"><a href="#cb24-36"></a><span class="st">  Y2 ~ FX + size</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a><span class="st">  Y2 ~ 1</span></span>
+<span id="cb24-38"><a href="#cb24-38"></a><span class="st">   </span></span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="st">  </span></span>
+<span id="cb24-40"><a href="#cb24-40"></a><span class="st">  #intercepts/means</span></span>
+<span id="cb24-41"><a href="#cb24-41"></a><span class="st">  alt1_xa ~ e*1</span></span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="st">  alt2_xa ~ e*1</span></span>
+<span id="cb24-43"><a href="#cb24-43"></a><span class="st">  alt3_xa ~ e*1</span></span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="st">  alt1_xb ~ f*1</span></span>
+<span id="cb24-45"><a href="#cb24-45"></a><span class="st">  alt2_xb ~ f*1</span></span>
+<span id="cb24-46"><a href="#cb24-46"></a><span class="st">  alt3_xb ~ f*1</span></span>
+<span id="cb24-47"><a href="#cb24-47"></a><span class="st">  </span></span>
+<span id="cb24-48"><a href="#cb24-48"></a><span class="st">&quot;</span></span>
+<span id="cb24-49"><a href="#cb24-49"></a></span>
+<span id="cb24-50"><a href="#cb24-50"></a></span>
+<span id="cb24-51"><a href="#cb24-51"></a>fit1 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> data_wide, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb24-52"><a href="#cb24-52"></a></span>
+<span id="cb24-53"><a href="#cb24-53"></a><span class="co"># declare the size variable to be ordered. We do have to switch of estimation procedure.</span></span>
+<span id="cb24-54"><a href="#cb24-54"></a>data_wide<span class="op">$</span>size2 &lt;-<span class="st"> </span><span class="kw">ordered</span>(data_wide<span class="op">$</span>size)</span>
+<span id="cb24-55"><a href="#cb24-55"></a></span>
+<span id="cb24-56"><a href="#cb24-56"></a><span class="co"># The code below won&#39;t work because if we delete observations with missing values, we don&#39;t have any</span></span>
+<span id="cb24-57"><a href="#cb24-57"></a><span class="co"># variance left in the size variable. A solution would be to use a two-step approach.  model &lt;- &#39;</span></span>
+<span id="cb24-58"><a href="#cb24-58"></a><span class="co"># #latent variable FX =~ 1*alt1_xa FX =~ 1*alt2_xa FX =~ 1*alt3_xa FX =~ a*alt1_xb FX =~ a*alt2_xb FX</span></span>
+<span id="cb24-59"><a href="#cb24-59"></a><span class="co"># =~ a*alt3_xb #variances alt1_xa ~~ b*alt1_xa alt2_xa ~~ b*alt2_xa alt3_xa ~~ b*alt3_xa alt1_xb ~~</span></span>
+<span id="cb24-60"><a href="#cb24-60"></a><span class="co"># c*alt1_xb alt2_xb ~~ c*alt2_xb alt3_xb ~~ c*alt3_xb FX ~~ FX Y1 ~~ Y1 Y2 ~~ Y2 size2 ~~ size2</span></span>
+<span id="cb24-61"><a href="#cb24-61"></a><span class="co"># #covariances Y1 ~~ Y2 alt1_xa ~~ d*alt1_xb alt2_xa ~~ d*alt2_xb alt3_xa ~~ d*alt3_xb #regression</span></span>
+<span id="cb24-62"><a href="#cb24-62"></a><span class="co"># model Y1 ~ FX + size2 Y1 ~ 1 FX ~ size2 Y2 ~ FX + size2 Y2 ~ 1 #intercepts/means alt1_xa ~ e*1</span></span>
+<span id="cb24-63"><a href="#cb24-63"></a><span class="co"># alt2_xa ~ e*1 alt3_xa ~ e*1 alt1_xb ~ f*1 alt2_xb ~ f*1 alt3_xb ~ f*1 &#39; fit2 &lt;- lavaan(model, data</span></span>
+<span id="cb24-64"><a href="#cb24-64"></a><span class="co"># = data_wide, fixed.x=FALSE, ordered=c(&#39;size2&#39;))</span></span>
+<span id="cb24-65"><a href="#cb24-65"></a></span>
+<span id="cb24-66"><a href="#cb24-66"></a><span class="kw">summary</span>(fit1)</span>
+<span id="cb24-67"><a href="#cb24-67"></a></span>
+<span id="cb24-68"><a href="#cb24-68"></a><span class="co"># summary(fit2)</span></span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 105 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                         30
+##   Number of equality constraints                    12
+##                                                       
+##   Number of observations                          1000
+##   Number of missing patterns                         8
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                              3027.830
+##   Degrees of freedom                                36
+##   P-value (Chi-square)                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Observed
+##   Observed information based on                Hessian
+## 
+## Latent Variables:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   FX =~                                               
+##     alt1_xa           1.000                           
+##     alt2_xa           1.000                           
+##     alt3_xa           1.000                           
+##     alt1_xb    (a)    0.407    0.011   36.042    0.000
+##     alt2_xb    (a)    0.407    0.011   36.042    0.000
+##     alt3_xb    (a)    0.407    0.011   36.042    0.000
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   Y1 ~                                                
+##     FX                5.095    0.107   47.609    0.000
+##     size             -0.914    0.341   -2.683    0.007
+##   FX ~                                                
+##     size              0.117    0.110    1.070    0.285
+##   Y2 ~                                                
+##     FX                7.937    0.137   57.834    0.000
+##     size             -0.755    0.436   -1.733    0.083
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .Y1 ~~                                               
+##    .Y2               -1.255    1.547   -0.812    0.417
+##  .alt1_xa ~~                                          
+##    .alt1_xb    (d)    0.094    0.024    3.969    0.000
+##  .alt2_xa ~~                                          
+##    .alt2_xb    (d)    0.094    0.024    3.969    0.000
+##  .alt3_xa ~~                                          
+##    .alt3_xb    (d)    0.094    0.024    3.969    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .Y1                1.003    1.560    0.643    0.520
+##    .Y2               -0.666    2.295   -0.290    0.772
+##    .alt1_xa    (e)   -0.306    0.293   -1.045    0.296
+##    .alt2_xa    (e)   -0.306    0.293   -1.045    0.296
+##    .alt3_xa    (e)   -0.306    0.293   -1.045    0.296
+##    .alt1_xb    (f)   -0.102    0.121   -0.844    0.399
+##    .alt2_xb    (f)   -0.102    0.121   -0.844    0.399
+##    .alt3_xb    (f)   -0.102    0.121   -0.844    0.399
+##     size              0.000                           
+##    .FX                0.000                           
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .alt1_xa    (b)    1.001    0.035   28.771    0.000
+##    .alt2_xa    (b)    1.001    0.035   28.771    0.000
+##    .alt3_xa    (b)    1.001    0.035   28.771    0.000
+##    .alt1_xb    (c)    1.098    0.032   34.764    0.000
+##    .alt2_xb    (c)    1.098    0.032   34.764    0.000
+##    .alt3_xb    (c)    1.098    0.032   34.764    0.000
+##    .FX                3.675    0.182   20.148    0.000
+##    .Y1               26.210    1.637   16.008    0.000
+##    .Y2               31.545    2.600   12.131    0.000
+##     size              7.028    0.314   22.361    0.000</code></pre>
+<p>Please note that the estimated variance (model implied variance) of the <code>size</code> variable is way too large. In reality the variance is <code>0.35</code>. This indicates we have a misspecified model.</p>
+</div>
+<div id="assignment-7" class="section level2">
+<h2><span class="header-section-number">8.3</span> Assignment 7</h2>
+<p>Unfortunately, in Lavaan it is not implemented to include an interaction term with a latent variable into the structural part of the model. We have to fall back on a two-step approach. For some literature on the differences between a one-step and two-step approach see Anderson and Gerbing (1988).<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>But here it goes…</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># credits where credits are due:</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co"># https://stackoverflow.com/questions/24399353/r-lavaan-coding-latent-variable-interactions</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co"># 1. set up our measurement model</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>model2 &lt;-<span class="st"> &quot;</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="st">  #latent variable</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="st">  FX =~ 1*alt1_xa</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="st">  FX =~ 1*alt2_xa</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="st">  FX =~ 1*alt3_xa</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="st">  </span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="st">  FX =~ a*alt1_xb</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="st">  FX =~ a*alt2_xb</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="st">  FX =~ a*alt3_xb</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="st">  </span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="st">  #variances</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="st">  alt1_xa ~~ b*alt1_xa</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="st">  alt2_xa ~~ b*alt2_xa</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="st">  alt3_xa ~~ b*alt3_xa</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="st">  </span></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="st">  alt1_xb ~~ c*alt1_xb</span></span>
+<span id="cb26-21"><a href="#cb26-21"></a><span class="st">  alt2_xb ~~ c*alt2_xb</span></span>
+<span id="cb26-22"><a href="#cb26-22"></a><span class="st">  alt3_xb ~~ c*alt3_xb</span></span>
+<span id="cb26-23"><a href="#cb26-23"></a><span class="st">  </span></span>
+<span id="cb26-24"><a href="#cb26-24"></a><span class="st">  FX ~~ FX</span></span>
+<span id="cb26-25"><a href="#cb26-25"></a><span class="st">  &quot;</span></span>
+<span id="cb26-26"><a href="#cb26-26"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb26-27"><a href="#cb26-27"></a></span>
+<span id="cb26-28"><a href="#cb26-28"></a><span class="co"># 2. extract the predicted values of the cfa and add them to new dataframe data_wide2</span></span>
+<span id="cb26-29"><a href="#cb26-29"></a>data_wide2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data_wide, <span class="kw">predict</span>(fit))</span>
+<span id="cb26-30"><a href="#cb26-30"></a></span>
+<span id="cb26-31"><a href="#cb26-31"></a><span class="co"># 3. create a new variable with the interaction of FX and size</span></span>
+<span id="cb26-32"><a href="#cb26-32"></a>data_wide2<span class="op">$</span>FXsize &lt;-<span class="st"> </span>data_wide2<span class="op">$</span>FX <span class="op">*</span><span class="st"> </span>data_wide2<span class="op">$</span>size</span>
+<span id="cb26-33"><a href="#cb26-33"></a></span>
+<span id="cb26-34"><a href="#cb26-34"></a><span class="co"># 3. now set up the structural model and add the predefined interaction</span></span>
+<span id="cb26-35"><a href="#cb26-35"></a></span>
+<span id="cb26-36"><a href="#cb26-36"></a>model2 &lt;-<span class="st"> &quot;</span></span>
+<span id="cb26-37"><a href="#cb26-37"></a><span class="st">  </span></span>
+<span id="cb26-38"><a href="#cb26-38"></a><span class="st">  FX ~~ FX</span></span>
+<span id="cb26-39"><a href="#cb26-39"></a><span class="st">  Y1 ~~ Y1</span></span>
+<span id="cb26-40"><a href="#cb26-40"></a><span class="st">  Y2 ~~ Y2</span></span>
+<span id="cb26-41"><a href="#cb26-41"></a><span class="st">  size ~~ 0.35*size #I am fixing the variance to the observed variance. </span></span>
+<span id="cb26-42"><a href="#cb26-42"></a><span class="st">  FXsize ~~ FXsize</span></span>
+<span id="cb26-43"><a href="#cb26-43"></a><span class="st">  </span></span>
+<span id="cb26-44"><a href="#cb26-44"></a><span class="st">  #covariances</span></span>
+<span id="cb26-45"><a href="#cb26-45"></a><span class="st">  Y1 ~~ Y2</span></span>
+<span id="cb26-46"><a href="#cb26-46"></a><span class="st"> </span></span>
+<span id="cb26-47"><a href="#cb26-47"></a><span class="st">  #regression model</span></span>
+<span id="cb26-48"><a href="#cb26-48"></a><span class="st">  Y1 ~ FX + size + FXsize</span></span>
+<span id="cb26-49"><a href="#cb26-49"></a><span class="st">  Y1 ~ 1</span></span>
+<span id="cb26-50"><a href="#cb26-50"></a><span class="st">  FX ~ size</span></span>
+<span id="cb26-51"><a href="#cb26-51"></a><span class="st">  Y2 ~ FX + size + FXsize</span></span>
+<span id="cb26-52"><a href="#cb26-52"></a><span class="st">  Y2 ~ 1</span></span>
+<span id="cb26-53"><a href="#cb26-53"></a><span class="st">   </span></span>
+<span id="cb26-54"><a href="#cb26-54"></a><span class="st">  </span></span>
+<span id="cb26-55"><a href="#cb26-55"></a><span class="st">&quot;</span></span>
+<span id="cb26-56"><a href="#cb26-56"></a></span>
+<span id="cb26-57"><a href="#cb26-57"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide2, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb26-58"><a href="#cb26-58"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 72 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                         14
+##                                                       
+##   Number of observations                          1000
+##   Number of missing patterns                         2
+##                                                       
+## Model Test User Model:
+##                                                        
+##   Test statistic                              22209.404
+##   Degrees of freedom                                  6
+##   P-value (Chi-square)                            0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Observed
+##   Observed information based on                Hessian
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   Y1 ~                                                
+##     FX                5.165    0.476   10.843    0.000
+##     size             -0.767    0.320   -2.400    0.016
+##     FXsize           -0.062    0.178   -0.349    0.727
+##   FX ~                                                
+##     size              0.008    0.022    0.338    0.736
+##   Y2 ~                                                
+##     FX                1.062    0.547    1.942    0.052
+##     size             -0.366    0.366   -1.001    0.317
+##     FXsize            2.577    0.205   12.587    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .Y1 ~~                                               
+##    .Y2               12.511    1.319    9.485    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .Y1                2.132    0.849    2.513    0.012
+##    .Y2                0.602    0.971    0.619    0.536
+##    .FX                0.000                           
+##     size              0.000                           
+##     FXsize            0.000                           
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .FX                3.471    0.155   22.354    0.000
+##    .Y1               34.789    1.557   22.345    0.000
+##    .Y2               45.446    2.034   22.347    0.000
+##     size              0.350                           
+##     FXsize           24.736    1.106   22.358    0.000</code></pre>
+</div>
+<div id="final-model" class="section level2">
+<h2><span class="header-section-number">8.4</span> final model?</h2>
+<p>Let us assume that based on the literature, I don’t expect that size would lead to my latent variable (e.g. network-happiness).
+I do not expect that people (egos) with larger networks have networks in which the alters are on average happier. Thus I don’t want to include this direct path in my model. I also do not expect that network size by itself is related to my happiness. I thus also would like to exclude this path from the model.
+I just have very good reasons (ahum) to think that each alter contributes uniquely to my happiness, there is an additive effect. This implies an interaction between network size and our latent variable. Let us estimate this more ‘theoretical’ model.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="st">  </span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="st">  FX ~~ FX</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="st">  Y1 ~~ Y1</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="st">  Y2 ~~ Y2</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="st">  FXsize ~~ FXsize</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="st">  </span></span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="st">  #covariances</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="st">  Y1 ~~ Y2</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="st"> </span></span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="st">  #regression model</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a><span class="st">  Y1 ~ FX + FXsize</span></span>
+<span id="cb28-13"><a href="#cb28-13"></a><span class="st">  Y1 ~ 1</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a><span class="st">  Y2 ~ FX + FXsize</span></span>
+<span id="cb28-15"><a href="#cb28-15"></a><span class="st">  Y2 ~ 1</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a><span class="st">   </span></span>
+<span id="cb28-17"><a href="#cb28-17"></a><span class="st">  </span></span>
+<span id="cb28-18"><a href="#cb28-18"></a><span class="st">&quot;</span></span>
+<span id="cb28-19"><a href="#cb28-19"></a></span>
+<span id="cb28-20"><a href="#cb28-20"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> data_wide2, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb28-21"><a href="#cb28-21"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 61 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                         11
+##                                                       
+##   Number of observations                          1000
+##   Number of missing patterns                         2
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                              3127.833
+##   Degrees of freedom                                 3
+##   P-value (Chi-square)                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Observed
+##   Observed information based on                Hessian
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##   Y1 ~                                                
+##     FX                5.107    0.476   10.729    0.000
+##     FXsize           -0.043    0.178   -0.240    0.810
+##   Y2 ~                                                
+##     FX                1.032    0.546    1.890    0.059
+##     FXsize            2.587    0.205   12.652    0.000
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##  .Y1 ~~                                               
+##    .Y2               12.606    1.324    9.522    0.000
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##    .Y1                0.146    0.187    0.779    0.436
+##    .Y2               -0.346    0.214   -1.622    0.105
+##     FX                0.000                           
+##     FXsize            0.000                           
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)
+##     FX                3.472    0.155   22.353    0.000
+##    .Y1               34.985    1.566   22.344    0.000
+##    .Y2               45.493    2.036   22.347    0.000
+##     FXsize           24.735    1.106   22.358    0.000</code></pre>
+<p>We would conclude that my line of reasoning holds true with respect to Y2 but not with respect to Y1.</p>
+</div>
+</div>
+<div id="alternative-approaches" class="section level1">
+<h1><span class="header-section-number">9</span> Alternative Approaches</h1>
+<p>The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén <a href="%22www.statmodel.com%22">www.statmodel.com</a>. If you have Mplus installed on your computer, you may use the R package <code>MplusAutomation</code> to estimate models with Mplus within R. Below you may find two examples with Mplus: one demonstrating the persons as variable approach, the other demonstrating the multi-level approach.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Images adapted from: Bennink, M., Croon, M. A., Kroon, B., &amp; Vermunt, J. K. (2016). Micro–macro multilevel latent class models with multiple discrete individual-level variables. <em>Advances in Data Analysis and Classification, 10</em>(2), 139-154.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Anderson, J. C., &amp; Gerbing, D. W. (1988). Structural equation modeling in practice: A review and recommended two-step approach. <em>Psychological bulletin, 103</em>(3), 411.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>

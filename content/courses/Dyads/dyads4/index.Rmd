@@ -54,6 +54,9 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 
 <button onclick="window.location.href='static/index.Rmd';">download code.Rmd</button>
 
+![](static/presentatie1.png) 
+**Figure:** Basic APIM model
+
 
 # Introduction
 
