@@ -647,4 +647,6 @@ We would conclude that my line of reasoning holds true with respect to Y2 but no
 
 The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén [www.statmodel.com]("www.statmodel.com"). If you have Mplus installed on your computer, you may use the R package  `MplusAutomation` to estimate models with Mplus within R. Below you may find two examples with Mplus: one demonstrating the persons as variable approach, the other demonstrating the multi-level approach. 
 
+Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
 
+Please email any comments to: j.tolsma@ru.nl

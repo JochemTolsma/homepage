@@ -22,9 +22,9 @@ weight: 50
 1.	**Egocentric networks: Consequences-Period Trends**  
 **A.**	What is meant by raw homophily rates, structural/baseline homophily and taste/inbreeding homophily?  
 **B.**  What is mean by network size, network composition, network structure, network stability?   
-**C.**	Please formulate an hypothesis with respect to period trends in the size of core discussion networks. Motivate your answer by explaining how you applied the GTF.  
-**D.**	Please formulate an hypothesis with respect to period trends in the homophily rates within friendship networks. Motivate your answer by explaining how you applied the GTF.     
-**E.**	Please formulate an hypothesis with respect to period trends in the stability of acquaintance networks. Motivate your answer by explaining how you applied the GTF.  
+**C.**	Please formulate a hypothesis with respect to period trends in the size of core discussion networks. Motivate your answer by explaining how you applied the GTF.  
+**D.**	Please formulate a hypothesis with respect to period trends in the homophily rates within friendship networks. Motivate your answer by explaining how you applied the GTF.     
+**E.**	Please formulate a hypothesis with respect to period trends in the stability of acquaintance networks. Motivate your answer by explaining how you applied the GTF.  
 **F.**	Do a ‘quick’ literature search and see if there is already empirical evidence for C, D and E. Please cite the literature used. Motivate your answer.   
 
 2.	**Egocentric networks: Consequences-Lifecourse trends**  
