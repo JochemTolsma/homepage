@@ -17,7 +17,7 @@ editor_options:
 
 
 
-
+ 
 # Small worlds
 
 A complete, full, or sociocentric network is a network within a sampled context or foci of which we know all nodes and all connections between nodes. The boundaries of the network are thus a priori defined and the contexts in which nodes are present are the sampled units. 
@@ -35,7 +35,7 @@ Now, suppose we live in a world, called "Smallworld", of 105 persons (a small wo
 
 
 
-<iframe src="smallworld.html" width="500" height="780" style="border: none;"></iframe>
+<iframe src="smallworld.html" width="780" height="780" style="border: none;"></iframe>
 
 Play with the small world network of Smallworld. Zoom in and out, turn it around and click on some nodes. How would you describe the structure of the network in Smallworld. Well, I would describe it as a network with a: (1) **relatively low density**; (2) **relatively high degree of clustering** and (3) **a relatively low average degree of separation (or path length)**. These three characteristics are defining features of small world networks. But what does density, clustering and path length mean?, and what do we mean with 'relatively', that does not sound very scientific does it?! 
 
@@ -45,9 +45,11 @@ Density is defined as all observed relations divided by all possible relations. 
 
 
 
+<a name="networks"></a>
+
 ![](test.png)  
 
-The density in Smallworld turns out to be 0.1358974. For comparison, if we look at friendship networks among pupils in classrooms, we generally observe a density within the range of .2 and .4. 
+The density in Smallworld turns out to be 0.14. For comparison, if we look at friendship networks among pupils in classrooms, we generally observe a density within the range of .2 and .4. 
 
 ### Centrality 
 
@@ -56,36 +58,36 @@ Closely related to density is the concept of degree. The number of ingoing, outg
 
 People in a network with relatively many degree are called more central and (normalized) degree centrality is formally defined as:  
 
-$ C_D(v_i) = \frac{deg(v_i) - max(deg(v))}  {max(deg(v)) - min(deg(v))} $ 
+$$ C_D(v_i) = \frac{deg(v_i) - max(deg(v))}  {max(deg(v)) - min(deg(v))} $$ 
 
 , where $ C_D(v_i) $ is degree centrality of $ v_i $, vertex i, and 'deg' stands for 'degree'.
 
 Closely related to degree centrality is (normalized) 'closeness centrality':  
 
-$ C_C(v_i) = \frac{N}{\sum_{j}d(v_j, vi)} $  
+$$ C_C(v_i) = \frac{N}{\sum_{j}d(v_j, vi)} $$  
 
 , with N the number of nodes and 'd' stands for distance.
 
 A final important measure of centrality is called betweenness. It is defined as:  
 
-$ C_B(v_i) = \frac{\sigma_{vj,vk}(v_i)}{\sum_{j\neq k\neq i}\sigma(vj,vk)} $  
+$$ C_B(v_i) = \frac{\sigma_{v_j,v_k}(v_i)}{\sum_{j\neq k\neq i}\sigma(v_j,v_k)} $$   
 
-, where $ \sigma(vj,vk) $ is the number of shortest paths between vertices j and k, $ \sigma_{vj,vk}(v_i) $, are the number of these shortest paths that pass through vertex i. One way to normalize this measure is as follows:  
+, where $ \sigma(v_j,v_k) $ is the number of shortest paths between vertices j and k, $ \sigma_{v_j,v_k}(v_i) $, are the number of these shortest paths that pass through vertex i. One way to normalize this measure is as follows:  
 
-$ C_{B_{normalized}}(v_i) =  \frac{C_B(v_i) - min(C_B(v))}{max(C_B(v))-min(C_B(v))} $  
+$$ C_{B_{normalized}}(v_i) =  \frac{C_B(v_i) - min(C_B(v))}{max(C_B(v))-min(C_B(v))} $$  
 
 
 
 
 ## Path Length 
 
-According to wiki, average path length is defined as the average number of steps along the shortest paths for all possible pairs of network nodes. Thus the length of a path is the number of edges the path contains. Some pairs of nodes (dyads) may not be connected at all. How to deal with those? Well we could calculate the average path length of all connected nodes. See for example the network below. 
+According to wiki, average shortest path length is defined as the average number of steps along the shortest paths for all possible pairs of network nodes. Thus the length of a path is the number of edges the path contains. Some pairs of nodes (dyads) may not be connected at all. How to deal with those? Well we could calculate the average path length of all connected nodes. See for example the network below. 
 
  
 <img src="/courses/Complete-Networks/_index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 This is a directed graph, thus node 3 is connected to node 4 (path length 2) but 4 is not connected to 3. What is the average path length? ... It is: 1.33. 
-The average path length in Smallworld is very low considering the size and density, it is: 2. 
-Since path length excludes disconnected nodes, it does not necessarily tells us something about the 'degrees of separation'. Let us instead calculate for each path length the proportion of nodes each (connected) node can reach and take the average value of that. 
+The average path length in Smallworld is very low considering the size and density, it is: 2.12. 
+Since path length excludes disconnected nodes, it does not necessarily tells us something about the 'degrees of separation'. Let us instead calculate for each path length the proportion of nodes each node can reach and take the average value of that. 
 
 
 
@@ -103,7 +105,7 @@ We already came across the six-degrees-of-separation phenomenon. This is the obs
 
 Clustering is an interesting concept. We have immediately an intuitive understanding of it, people lump together in separate groups. But how should we go about defining it more formally? 
 The clustering coefficient for $ v_i $ is defined as the observed ties between all direct neighbors of $ v_i $. Direct neighbours are connected to $ v_i $ via an ingoing and/or outgoing relation. For undirected networks, the clustering coefficient is the same as the transitivity index (the number of transitive triads divided by all possible transitive triads, see here). For directed graphs not so.  
-Before we can start calculating the average (or global) clustering index we have to take a decision about what to do with vertices without neighbours. We may set their clustering index to zero and include them, or set them at NaN and exclude them.  
+Before we can start calculating the average (or global) clustering index we have to take a decision about what to do with vertices without neighbours. We may set their clustering index to zero and include them, or set them at NaN and exclude them (my prefernce).  
 The clustering coefficient of Smallworld is 0.34
 
 ## Relatively scientific 
@@ -114,7 +116,7 @@ Let us make 1000 random graphs with size 105 (just as in Smallworld) and with a 
 
 The values of Smallworld are plotted in red. Smallworld indeed has a very high degree of clustering. However, we see that the random graphs have a low average shortest path length and the average path length of Smallworld is actually even relatively high compared to random graphs. Based on these observations we may now calculate the smallworldlyness of Smallworld. One definition is:  
 
-$ \sigma = \frac{C/C_r}{L/L_r} $    
+$$ \sigma = \frac{C/C_r}{L/L_r} $$    
 
 , where C is the average clustering of the observed graph and $ C_ r $ is the clustering of the random graph, L is the average shortest path length of the observed graph and $ L_r $ is the average shortest path length of the random graph. With $ \sigma > 1 $  the network is a small-world network. The smallworldness of Smallworld is 2.16. 
     
@@ -162,7 +164,10 @@ Ripley, R.M., Snijders, T.A.B., Boda, Z., Vörös, A. & Preciado, P. (2020). Man
 5. The study of Tolsma et al. (2013) has been critized for not taking into account the multiplexity of social networks in classrooms.  
 (A) What is meant by multiplexity?  
 (B) Which other relations do you think Tolsma et al. should have taken into account in their study on interethnic bullying? Motivate your answer and draw your hypothesis in a figure. 
-6. In the study of Tolsma et al. (2013) no theoretical and empirical distinction is being made between the creation and dissolution of bullying relations. Whether you observe a relation at a specific time is of course the consequence of both creation and dissolution rates. Please give an argument why the mechanisms behind the creation and dissolution of a bully relation may be different. 
+6. In the study of Tolsma et al. (2013) no theoretical and empirical distinction is being made between the creation and dissolution of bullying relations. Whether you observe a relation at a specific time is of course the consequence of both creation and dissolution rates. Please give an argument why the mechanisms behind the creation and dissolution of a bully relation may be different.  
+7. Calculate the density of the networks that make up the first row and first column. See [here](#networks). 
+8. Calculate the degree centrality of the nodes in same networks as Q7.  
+9. Now do the same as Q8 but than with respect to closeness centrality. 
 
 
 

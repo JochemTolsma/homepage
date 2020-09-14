@@ -15,18 +15,17 @@ lastmod: '2020-08-19T08:27:34+02:00'
 type: book
 weight: 40
 
- 
 output:
   blogdown::html_page:
+    toc: yes
     highlight: "haddock"
     number_sections: yes
     self_contained: no
-    toc: true
     fig_width: 6
     dev: "svg"
 
 ---
-
+ 
 
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}

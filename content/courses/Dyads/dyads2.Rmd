@@ -26,7 +26,7 @@ output:
     dev: "svg"
 
 ---
-
+   s
 
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}
@@ -35,7 +35,7 @@ opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, mess
 options(width = 100)
 ```
 
-
+ 
 <!--copy to clipboard-->
 ```{r klippy, echo=FALSE, include=TRUE}
 require(klippy)
