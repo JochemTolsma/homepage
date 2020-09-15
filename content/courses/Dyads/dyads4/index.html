@@ -131,6 +131,55 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 https://www.w3schools.com/w3css/w3css_buttons.asp
 https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
 --->
+<!---
+<script type="text/javascript">
+function changeText(text)
+{
+  var toc = $("#TOC");
+    if (toc.length === 0) {
+      return;
+    }  
+ elem = document.getElementByClassName('d-none d-xl-block col-xl-2 docs-toc');
+ elem.innerHTML = text;
+}
+</script>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    
+    // Find TOC
+    var toc = $("#TOC");
+    if (toc.length === 0) {
+      return;
+    }
+
+
+});
+
+
+
+function changeText(text)
+{
+   
+ elem = document.getElementById('textid');
+ elem.innerHTML = text;
+}
+
+changeText('test')
+
+</script>
+
+
+
+<div id='textid'>I'm a Text</div>
+<button onclick="changeText('Mkyong1');">Mkyong1</button>
+<button onclick="changeText(toc);">Mkyong2</button>
+
+
+
+--->
 <button onclick="window.location.href=&#39;static/index.Rmd&#39;;">
 download code.Rmd
 </button>
@@ -899,7 +948,7 @@ We observe clear actor and partner effects:</p>
 ## 
 ## Number of Observations: 2000
 ## Number of Groups: 1000</code></pre>
-<p>Latest Version: 13-09-2020</p>
+<p>Latest Version: 15-09-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
 </div>
