@@ -1,0 +1,405 @@
+---
+title: plotting social networks
+author: JochemTolsma
+date: '2020-09-07'
+slug: socio5
+categories:
+  - R
+  - Social Networks
+tags: []
+linktitle: plotting social networks
+
+summary: "igraph, social networks, plotting, tutorial, R, Lavaan"
+lastmod: '2020-09-15T08:27:34+02:00'
+
+type: book
+weight: 40
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: yes
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", eval=FALSE)
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy()
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<button onclick="window.location.href='static/index.Rmd';">download code</button>
+
+
+# Introduction
+
+In this assignment/tutorial I will demonstrate how to plot networks with the [igraph](http://igraph.org/) package. During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do.  
+Someone who also knows more than I do, especially with respect to plotting of Social Networks is **Katya Ognyanova** (aka Kateto). Please visit her [site](https://kateto.net/).
+
+{{% alert warning %}}
+In the upper left and right corner of the code blocks you will find copy-to-clipboard buttons. Use these buttons to copy the code to your own editor. 
+{{% /alert %}}
+
+
+# Before you start
+
+Before you start, check whether you run the latest RStudio version (from the Help menu, pick 'check for updates' and whether you need to update R. 
+
+```{r update, eval=FALSE}
+install.packages("installr")  #you  first install packages
+require(installr)  #then you will need to activate packages. 
+updateR() #run the function to start the update process
+```
+
+
+Give your script a nice name. Include the author, and data when you last modified the script. Include a lot of comments in your script! Don't forget, always start with cleaning up your workspace. 
+
+```{r cleanup}
+###Author: JOCHEM TOLSMA###
+###Lastmod: 31-08-2020###
+
+#cleanup workspace
+rm (list = ls( )) 
+```
+
+And set your working directory. 
+```{r setwd, eval=FALSE}
+#set working directory
+setwd("C:\\YOURDIR\\YOURSUBDIR\\YOURSUBSUBDIR\\")  #change to your own workdirectory
+```
+
+Install the packages you will need. 
+
+```{r packages, eval=FALSE}
+#install packages
+library(igraph)
+```
+
+
+# Data 
+
+We are going to play with Twitter Networks among Dutch MPs. 
+
+Download data [here](static/twitter_20190919.Rdata). 
+Load the Robject and have a look at it. Save the list elements in separate objects. 
+
+```{r,  attr.source = '.numberLines', results='hold'}
+load("static/twitter_20190919.RData")
+str(twitter_20190919,1)
+keyf <- twitter_20190919[[1]]
+mydata <- twitter_20190919[[2]]
+seats <- twitter_20190919[[3]]
+
+```
+So, what do we have? 
+
+- keyf: a data.frame on 147 Dutch MPs. 
+- mydata: This an object which is ready to analyze in RSiena. It is actually a quite complicated object. For now three things are important:  
+  1. The nodes in mydata are the same as in keyf and in seats.  
+  2. It contains the twitter data at three timepoints (in `mydata$depvars`). We have three layers: 
+    - fnet: who follows whom
+    - atmnet: who atmentions whom
+    - rtnet: who retweats whom  
+  3. It also contains timeinvariant information on the nodes (in `mydata$cCovars`)
+- seats: a dataset which contains the coordinates of the seats in the House of Parliament in the Netherlands. 
+
+So lets go fishing some data: 
+
+```{r}
+fnet <- mydata$depvars$fnet
+atmnet <- mydata$depvars$atmnet
+rtnet <- mydata$depvars$rtnet
+
+vrouw <- mydata$cCovars$vrouw
+partij <- mydata$cCovars$partij
+ethminz <- mydata$cCovars$ethminz
+lft <- mydata$cCovars$lft
+
+#if you construct an object for RSiena, covariates are mean centerad by default. I would like to have the original values again. 
+ethminz <- ethminz + attributes(ethminz)$mean
+partij <- partij + attributes(partij)$mean
+vrouw <- vrouw + attributes(vrouw)$mean
+lft <- lft + attributes(lft)$mean
+
+```
+
+Have a look at the network data. What are we a looking at? 
+
+```{r}
+str(fnet)
+#It is just a 'sienaDependent' something [1:147,1:147,1:3]
+
+fnet1 <- fnet[,,1]
+atmnet1 <- atmnet[,,1]
+```
+
+It is just a 'sienaDependent' something `[1:147,1:147,1:3]` but with a lot of attributes which we mag ignore for now. It is an array. In this array our nominations are stored in  adjacency matrices. I selected the friendship relations and the atmention relations of the first wave. 
+
+{{% alert note %}}
+You may wonder why we only have 147 nodes (of MPs) in our data. Well that is because at the time of writing three MPs did not have a twitter account or at least we could not find it. 
+{{% /alert %}}
+
+
+One final thing before we can go and play with the data. We have to replace the missing values of RSiena `10` into `NA` as well. 
+
+```{r}
+
+# table(fnet1, useNA="always") #uncomment if you want
+fnet1[fnet1==10] <- NA
+# table(fnet1, useNA="always") #uncomment if you want
+
+atmnet1[atmnet1==10] <- NA
+
+
+```
+
+
+# First plots
+```{r}
+library(igraph)
+
+G1 <- igraph::graph_from_adjacency_matrix(atmnet1, mode = "directed", weighted = NULL, diag = TRUE,  add.colnames = NA, add.rownames = NA)
+```
+
+Suppose you would like to add the data to this graph. 
+```{r}
+require(igraph) 
+#we need to retrieve the edges. 
+edges <- as_data_frame(G1, what="edges")
+
+#the first variable of the data we can attach needs to be some id, thus reorder columns of keyf
+keyf <- cbind(keyf$EGOid, keyf[,names(keyf)!="EGOid"])
+
+#rebuild the graph. 
+G1 <- graph_from_data_frame(edges, directed=TRUE, vertices=keyf)
+
+```
+
+But know let us start plotting. 
+
+```{r}
+plot(G1)
+```
+
+
+I cant see anything!! |:-(  
+Would `simplify` help? 
+
+```{r}
+G1 <- simplify(G1) 
+plot(G1)
+
+```
+Still way too dense. What is the density of the network??
+
+```{r}
+edge_density(G1)
+```
+Actually, not very high at all. 
+
+# From directed to undirected
+
+But let us try to plot only the reciprocated ties. 
+
+```{r}
+
+#define undirected network 
+atmnet1_un <- atmnet1 ==1 & t(atmnet1)==1
+G2 <- graph_from_adjacency_matrix(atmnet1_un, mode = "undirected", weighted = NULL, diag = TRUE,  add.colnames = NA, add.rownames = NA)
+
+#attach data if you want
+edges <- as_data_frame(G2, what="edges")
+G2 <- graph_from_data_frame(edges, directed=FALSE, vertices=keyf)
+plot(G2)
+
+```
+Mmm, It looks like MPs do like to mention themselves! Let simplify again. 
+
+```{r}
+G2 <- simplify(G2) 
+plot(G2, mode="undirected")
+```
+# Select nodes to plot. 
+
+Suppose we want to remove the isolates. 
+
+```{r}
+#first make sure we don't end up with MPS who only mention themselves
+diag(atmnet1_un) <- 0
+
+#lets find the noisolates
+noisolates <- rowSums(atmnet1_un, na.rm=T)>0
+#length(noisolates)
+#sum(noisolates) 
+#if you select, select both correct nomination network as ego characteristics
+atmnet1_un_sel <- atmnet1_un[noisolates,noisolates]
+#if you are going to use the dataset to add characteristics to plot, make sure to run the correct selection as well!!!
+keyf_sel<- keyf[noisolates,]
+
+G2_sel <- graph_from_adjacency_matrix(atmnet1_un_sel, mode = "undirected", weighted = NULL, diag = TRUE,  add.colnames = NA, add.rownames = NA)
+G2_sel <- simplify(G2_sel) 
+plot(G2_sel, mode = "undirected")
+```
+The same logic of course applies if you would like to select on node attributes (e.g. gender, party).
+
+# Change Vertices
+
+Okay, lets go back and change some stuff. 
+
+## size
+```{r}
+
+#changing V
+V(G2)$size= degree(G2)*1.05 
+plot(G2, mode = "undirected")
+
+```
+
+## color
+```{r}
+#bit clumsy but I want my original EGOdata back
+keyf <- twitter_20190919[[1]]
+
+V(G2)$label=as.character(keyf$Naam2)
+V(G2)$label.cex=1
+V(G2)$color <- ifelse(keyf$Geslacht == "vrouw", "red", "green")
+plot(G2, mode = "undirected")
+```
+# changing edges
+
+## arrow size and curvature
+
+```{r}
+#changing E
+E(G2)$arrow.size=.4
+E(G2)$curved=.3
+plot(G2, mode = "undirected")
+```
+
+# Add a legend
+```{r}
+#adding legend
+# because I am working in Rmarkdown I need some {}
+{plot.igraph(G2, margin=0)
+legend(x=-1, y=-1, c("Female","Male"), pch=21,
+       col="#777777", pt.bg=c("red", "green"), pt.cex=2, cex=.8, bty="n", ncol=1)
+}
+
+```
+
+# coordinates
+Lets puts the MPs where they belong. 
+
+```{r}
+#lets have a look first
+plot(keyf$X, keyf$Y, xlim=c(-18,18), ylim=c(-18,18), col=keyf$Partij_col, pch=16)
+```
+In case you wonder. The empty seats are the MPs without a Twitter account. 
+Lets assign these coordinates to our MPs
+
+```{r, results="hold", fig.width=9}
+#give nodes coler of their party
+V(G2)$color <- keyf$Partij_col
+
+#change node size a bit
+V(G2)$size= degree(G2)*1.05 + 5
+
+#remove the labels
+V(G2)$label=""
+
+#less curvature
+E(G2)$curved=.1
+
+owncoords <- cbind(keyf$X, keyf$Y)
+owncoords <- owncoords/8
+owncoords[,1] <- (owncoords[,1] - mean(owncoords[,1]))
+owncoords[,2] <- (owncoords[,2] - mean(owncoords[,2]))
+plot.igraph(G2, mode="undirected", layout=owncoords, rescale=F, margin=c(0,0,0,0), xlim=c(min(owncoords[,1]),max(owncoords[,1])),  ylim=c(min(owncoords[,2]),max(owncoords[,2])))
+#it really depends on your plotting window (size, resolution etc.) to get consistent results you need to define this beforehand. won't do that now. 
+```
+# change color of edges
+
+```{r,fig.width=9}
+
+#let us make them the color of the nodes if it is between nodes from same party. 
+#let us make them red if between parties
+
+edges <- get.adjacency(G2)
+edges_mat <- matrix(as.numeric(edges), nrow=nrow(edges))
+#edges_mat
+
+#because we have undirected, we only need the edges once ...I know ...
+edges_mat[lower.tri(edges_mat)] <- 0
+#table(keyf$Geslacht)
+
+# teller <- 1
+# coloredges <- NA
+# for (i in 1:nrow(edges)) {
+#   for (j in 1:ncol(edges)) {
+#     if (edges_mat[i,j]==1) {
+#       if (keyf$Geslacht[i] == "vrouw" & keyf$Geslacht[j] == "vrouw") {coloredges[teller] <- "pink"}
+#       if (keyf$Geslacht[i] == "vrouw" & keyf$Geslacht[j] != "man") {coloredges[teller] <- "black"}
+#       if (keyf$Geslacht[i] != "man" & keyf$Geslacht[j] == "vrouw") {coloredges[teller] <- "black"}
+#       if (keyf$Geslacht[i] != "man" & keyf$Geslacht[j] != "man") {coloredges[teller] <- "blue"}
+#       teller <- teller + 1	  
+#     }
+#   }
+# }
+
+teller <- 1
+coloredges <- NA
+for (i in 1:nrow(edges)) {
+  for (j in 1:ncol(edges)) {
+    if (edges_mat[i,j]==1) {
+      if (keyf$Partij_col[i] == keyf$Partij_col[j]) {coloredges[teller] <- keyf$Partij_col[i]}
+      if (keyf$Partij_col[i] != keyf$Partij_col[j]) {coloredges[teller] <- "black"}
+      teller <- teller + 1
+    }
+  }
+}
+
+
+
+
+E(G2)$color=coloredges
+plot.igraph(G2, mode="undirected", layout=owncoords, rescale=F, margin=c(0,0,0,0), xlim=c(min(owncoords[,1]),max(owncoords[,1])),  ylim=c(min(owncoords[,2]),max(owncoords[,2])))
+```` 
+I hope you like the plot![^2]
+
+[^2]: When I run my code in R everything looks how I would like it to look. Unfortunately, when I render the code to a hugo website, the plot becomes a directed plot again. I am flabbergasted why this is the case. 
+
+# Assignment
+1. Make a nice plot!  
+ - show you are able to change edge / vertices attributes / use different attributes as in example  
+ - show you are able to select part of network (e.g only one party)  
+ - add a legend  
+ - change background colors (hint look at ?par)  
+- add title to figure (hint: look at ?plot) 
+- save as pdf, png or html (hint: look at ?png)   
+
+
+
+Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
+
+Please email any comments to: j.tolsma@ru.nl

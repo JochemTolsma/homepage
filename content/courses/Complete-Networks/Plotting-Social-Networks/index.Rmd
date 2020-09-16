@@ -203,7 +203,8 @@ plot(G1)
 ```
 
 
-I cant see anything!! |:-(
+I cant see anything!! |:-(  
+Would `simplify` help? 
 
 ```{r}
 G1 <- simplify(G1) 
@@ -217,6 +218,8 @@ edge_density(G1)
 ```
 Actually, not very high at all. 
 
+# From directed to undirected
+
 But let us try to plot only the reciprocated ties. 
 
 ```{r}
@@ -224,17 +227,20 @@ But let us try to plot only the reciprocated ties.
 #define undirected network 
 atmnet1_un <- atmnet1 ==1 & t(atmnet1)==1
 G2 <- graph_from_adjacency_matrix(atmnet1_un, mode = "undirected", weighted = NULL, diag = TRUE,  add.colnames = NA, add.rownames = NA)
+
+#attach data if you want
 edges <- as_data_frame(G2, what="edges")
-G2 <- graph_from_data_frame(edges, directed=TRUE, vertices=keyf)
+G2 <- graph_from_data_frame(edges, directed=FALSE, vertices=keyf)
 plot(G2)
 
 ```
-Mmm, It looks like MPs do like to mention themselves! 
+Mmm, It looks like MPs do like to mention themselves! Let simplify again. 
 
 ```{r}
 G2 <- simplify(G2) 
-plot(G2)
+plot(G2, mode="undirected")
 ```
+# Select nodes to plot. 
 
 Suppose we want to remove the isolates. 
 
@@ -253,40 +259,42 @@ keyf_sel<- keyf[noisolates,]
 
 G2_sel <- graph_from_adjacency_matrix(atmnet1_un_sel, mode = "undirected", weighted = NULL, diag = TRUE,  add.colnames = NA, add.rownames = NA)
 G2_sel <- simplify(G2_sel) 
-plot(G2_sel)
+plot(G2_sel, mode = "undirected")
 ```
-And why do we still see isolates??!! ... 
+The same logic of course applies if you would like to select on node attributes (e.g. gender, party).
 
-Dont know. After havig inspect the degrees etc. There are no isolates. 
+# Change Vertices
 
 Okay, lets go back and change some stuff. 
+
+## size
 ```{r}
 
 #changing V
 V(G2)$size= degree(G2)*1.05 
-plot(G2)
+plot(G2, mode = "undirected")
 
 ```
+
+## color
 ```{r}
-#bit clumsy but I want my data back
+#bit clumsy but I want my original EGOdata back
 keyf <- twitter_20190919[[1]]
 
 V(G2)$label=as.character(keyf$Naam2)
 V(G2)$label.cex=1
 V(G2)$color <- ifelse(keyf$Geslacht == "vrouw", "red", "green")
-plot(G2)
+plot(G2, mode = "undirected")
 ```
+# changing edges
+
+## arrow size and curvature
+
 ```{r}
 #changing E
 E(G2)$arrow.size=.4
 E(G2)$curved=.3
-plot(G2)
-```
-```{r}
-
-#chaning other stuff
-#lets change the margins a bit. 
-plot.igraph(G2, margin=0)
+plot(G2, mode = "undirected")
 ```
 
 # Add a legend
@@ -310,24 +318,34 @@ plot(keyf$X, keyf$Y, xlim=c(-18,18), ylim=c(-18,18), col=keyf$Partij_col, pch=16
 In case you wonder. The empty seats are the MPs without a Twitter account. 
 Lets assign these coordinates to our MPs
 
-```{r}
+```{r, results="hold", fig.width=9}
+#give nodes coler of their party
+V(G2)$color <- keyf$Partij_col
+
+#change node size a bit
+V(G2)$size= degree(G2)*1.05 + 5
+
+#remove the labels
+V(G2)$label=""
+
+#less curvature
+E(G2)$curved=.1
+
 owncoords <- cbind(keyf$X, keyf$Y)
 owncoords <- owncoords/8
 owncoords[,1] <- (owncoords[,1] - mean(owncoords[,1]))
 owncoords[,2] <- (owncoords[,2] - mean(owncoords[,2]))
-plot.igraph(G2, layout=owncoords, rescale=F, margin=0)
+plot.igraph(G2, mode="undirected", layout=owncoords, rescale=F, margin=c(0,0,0,0), xlim=c(min(owncoords[,1]),max(owncoords[,1])),  ylim=c(min(owncoords[,2]),max(owncoords[,2])))
 #it really depends on your plotting window (size, resolution etc.) to get consistent results you need to define this beforehand. won't do that now. 
 ```
 # change color of edges
 
-```{r}
+```{r,fig.width=9}
 
-#bonus how to  change color of edges. 
-#let us make them pink for women women; blue for men men and black otherwise
+#let us make them the color of the nodes if it is between nodes from same party. 
+#let us make them red if between parties
+
 edges <- get.adjacency(G2)
-#edges
-#nrow(edges)
-#as.numeric(edges)
 edges_mat <- matrix(as.numeric(edges), nrow=nrow(edges))
 #edges_mat
 
@@ -335,32 +353,50 @@ edges_mat <- matrix(as.numeric(edges), nrow=nrow(edges))
 edges_mat[lower.tri(edges_mat)] <- 0
 #table(keyf$Geslacht)
 
+# teller <- 1
+# coloredges <- NA
+# for (i in 1:nrow(edges)) {
+#   for (j in 1:ncol(edges)) {
+#     if (edges_mat[i,j]==1) {
+#       if (keyf$Geslacht[i] == "vrouw" & keyf$Geslacht[j] == "vrouw") {coloredges[teller] <- "pink"}
+#       if (keyf$Geslacht[i] == "vrouw" & keyf$Geslacht[j] != "man") {coloredges[teller] <- "black"}
+#       if (keyf$Geslacht[i] != "man" & keyf$Geslacht[j] == "vrouw") {coloredges[teller] <- "black"}
+#       if (keyf$Geslacht[i] != "man" & keyf$Geslacht[j] != "man") {coloredges[teller] <- "blue"}
+#       teller <- teller + 1	  
+#     }
+#   }
+# }
+
 teller <- 1
 coloredges <- NA
 for (i in 1:nrow(edges)) {
   for (j in 1:ncol(edges)) {
     if (edges_mat[i,j]==1) {
-      if (keyf$Geslacht[i] == "vrouw" & keyf$Geslacht[j] == "vrouw") {coloredges[teller] <- "pink"}
-      if (keyf$Geslacht[i] == "vrouw" & keyf$Geslacht[j] != "vrouw") {coloredges[teller] <- "black"}
-      if (keyf$Geslacht[i] != "vrouw" & keyf$Geslacht[j] == "vrouw") {coloredges[teller] <- "black"}
-      if (keyf$Geslacht[i] != "vrouw" & keyf$Geslacht[j] != "vrouw") {coloredges[teller] <- "blue"}
-      teller <- teller + 1	  
+      if (keyf$Partij_col[i] == keyf$Partij_col[j]) {coloredges[teller] <- keyf$Partij_col[i]}
+      if (keyf$Partij_col[i] != keyf$Partij_col[j]) {coloredges[teller] <- "black"}
+      teller <- teller + 1
     }
   }
 }
 
+
+
+
 E(G2)$color=coloredges
-plot.igraph(G2, layout=owncoords, rescale=F, margin=0)
-# I guess it worked
+plot.igraph(G2, mode="undirected", layout=owncoords, rescale=F, margin=c(0,0,0,0), xlim=c(min(owncoords[,1]),max(owncoords[,1])),  ylim=c(min(owncoords[,2]),max(owncoords[,2])))
 ```` 
+I hope you like the plot![^2]
+
+[^2]: When I run my code in R everything looks how I would like it to look. Unfortunately, when I render the code to a hugo website, the plot becomes a directed plot again. I am flabbergasted why this is the case. 
+
 # Assignment
 1. Make a nice plot!  
  - show you are able to change edge / vertices attributes / use different attributes as in example  
  - show you are able to select part of network (e.g only one party)  
  - add a legend  
  - change background colors (hint look at ?par)  
-- add title to figure  
-- save as pdf, png or html   
+- add title to figure (hint: look at ?plot) 
+- save as pdf, png or html (hint: look at ?png)   
 
 
 
