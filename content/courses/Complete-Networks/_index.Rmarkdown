@@ -26,11 +26,6 @@ library(igraph)
  
 # Small worlds
 
-![](Slide1.PNG) 
-
-
-
-
 A complete, full, or sociocentric network is a network within a sampled context or foci of which we know all nodes and all connections between nodes. The boundaries of the network are thus a priori defined and the contexts in which nodes are present are the sampled units. 
 We may for example sample a classroom, neighborhood, university or country and collect all relations between all nodes within this context.  
 
