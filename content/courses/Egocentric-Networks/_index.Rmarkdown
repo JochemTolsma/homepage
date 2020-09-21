@@ -147,7 +147,7 @@ E(g6)$color="black"
 V(g6)$shape <- V(g4)$shape[subnet]
 plot(g6,layout=l5[subnet,], rescale=F)
 ```
-In the lower-left corner we see a closed *Triad*. For more information on Triads jump to this [section]({{< ref "../Intermezzo-I-Triads" >}}) 
+In the lower-left corner we see a closed *Triad*. For more information on Triads jump to this [section]({{< ref "../Complete-Networks/socio2#Triad-level" >}}) 
 
 
 ### 2.0 degree network

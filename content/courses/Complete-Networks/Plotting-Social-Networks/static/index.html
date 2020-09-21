@@ -8,13 +8,10 @@ categories:
   - Social Networks
 tags: []
 linktitle: plotting social networks
-
 summary: "igraph, social networks, plotting, tutorial, R, Lavaan"
 lastmod: '2020-09-15T08:27:34+02:00'
-
 type: book
 weight: 40
-
  
 output:
   blogdown::html_page:
@@ -24,7 +21,8 @@ output:
     toc: true
     fig_width: 6
     dev: "svg"
-
+editor_options: 
+  chunk_output_type: console
 ---
 
 <script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
@@ -96,17 +94,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#data"><span class="toc-section-number">3</span> Data</a></li>
 <li><a href="#first-plots"><span class="toc-section-number">4</span> First plots</a></li>
 <li><a href="#from-directed-to-undirected"><span class="toc-section-number">5</span> From directed to undirected</a></li>
-<li><a href="#select-nodes-to-plot."><span class="toc-section-number">6</span> Select nodes to plot.</a></li>
+<li><a href="#select-nodes-to-plot"><span class="toc-section-number">6</span> Select nodes to plot</a></li>
 <li><a href="#change-vertices"><span class="toc-section-number">7</span> Change Vertices</a><ul>
 <li><a href="#size"><span class="toc-section-number">7.1</span> size</a></li>
 <li><a href="#color"><span class="toc-section-number">7.2</span> color</a></li>
 </ul></li>
-<li><a href="#changing-edges"><span class="toc-section-number">8</span> changing edges</a><ul>
-<li><a href="#arrow-size-and-curvature"><span class="toc-section-number">8.1</span> arrow size and curvature</a></li>
+<li><a href="#changing-edges"><span class="toc-section-number">8</span> Changing edges</a><ul>
+<li><a href="#arrow-size-and-curvature"><span class="toc-section-number">8.1</span> Arrow size and curvature</a></li>
 </ul></li>
 <li><a href="#add-a-legend"><span class="toc-section-number">9</span> Add a legend</a></li>
-<li><a href="#coordinates"><span class="toc-section-number">10</span> coordinates</a></li>
-<li><a href="#change-color-of-edges"><span class="toc-section-number">11</span> change color of edges</a></li>
+<li><a href="#coordinates"><span class="toc-section-number">10</span> Coordinates</a></li>
+<li><a href="#change-edges"><span class="toc-section-number">11</span> Change edges</a><ul>
+<li><a href="#preperation"><span class="toc-section-number">11.1</span> preperation</a></li>
+<li><a href="#changing-edge-width-based-on-weight."><span class="toc-section-number">11.2</span> changing edge width based on weight.</a></li>
+<li><a href="#change-edge-width-based-on-dyad-charactersitics"><span class="toc-section-number">11.3</span> change edge width based on dyad charactersitics</a></li>
+</ul></li>
 <li><a href="#assignment"><span class="toc-section-number">12</span> Assignment</a></li>
 </ul>
 </div>
@@ -120,6 +122,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <button onclick="window.location.href=&#39;static/index.Rmd&#39;;">
 download code
 </button>
+<p><img src="MPplot.png" /></p>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>In this assignment/tutorial I will demonstrate how to plot networks with the <a href="http://igraph.org/">igraph</a> package. During the workgroup I will explain all code. For those of you who don’t attend the workgroups, google knows way more than I do.<br />
@@ -149,9 +152,9 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <div id="data" class="section level1">
 <h1><span class="header-section-number">3</span> Data</h1>
 <p>We are going to play with Twitter Networks among Dutch MPs.</p>
-<p>Download data <a href="static/twitter_20190919.Rdata">here</a>.
-Load the Robject and have a look at it. Save the list elements in separate objects.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">load</span>(<span class="st">&quot;static/twitter_20190919.RData&quot;</span>)</span>
+<p><strong>Download data <a href="static/twitter_20190919.Rdata">here</a>.</strong></p>
+<p>Load the Robject and have a look at it. Save the list elements in separate objects.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">load</span>(<span class="st">&quot;static/twitter_20190919.RData&quot;</span>)  <span class="co">#change to your working directory</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">str</span>(twitter_<span class="dv">20190919</span>, <span class="dv">1</span>)</span>
 <span id="cb5-3"><a href="#cb5-3"></a>keyf &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">1</span>]]</span>
 <span id="cb5-4"><a href="#cb5-4"></a>mydata &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">2</span>]]</span>
@@ -176,7 +179,10 @@ Load the Robject and have a look at it. Save the list elements in separate objec
 </ol></li>
 <li>seats: a dataset which contains the coordinates of the seats in the House of Parliament in the Netherlands.</li>
 </ul>
-<p>So lets go fishing some data:</p>
+<p>{{% alert note %}}</p>
+<p>We are going to focus on the atmentions of politicians. This is most closely related to political discussion. Thus who is having discussions with whom on Twitter?</p>
+<p>{{% / alert %}}</p>
+<p>Let us go fishing for some data:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>fnet</span>
 <span id="cb6-2"><a href="#cb6-2"></a>atmnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>atmnet</span>
 <span id="cb6-3"><a href="#cb6-3"></a>rtnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>rtnet</span>
@@ -186,7 +192,7 @@ Load the Robject and have a look at it. Save the list elements in separate objec
 <span id="cb6-7"><a href="#cb6-7"></a>ethminz &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>ethminz</span>
 <span id="cb6-8"><a href="#cb6-8"></a>lft &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>lft</span>
 <span id="cb6-9"><a href="#cb6-9"></a></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># if you construct an object for RSiena, covariates are mean centerad by default. I would like to</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># if you construct an object for RSiena, covariates are mean centered by default. I would like to</span></span>
 <span id="cb6-11"><a href="#cb6-11"></a><span class="co"># have the original values again.</span></span>
 <span id="cb6-12"><a href="#cb6-12"></a>ethminz &lt;-<span class="st"> </span>ethminz <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(ethminz)<span class="op">$</span>mean</span>
 <span id="cb6-13"><a href="#cb6-13"></a>partij &lt;-<span class="st"> </span>partij <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(partij)<span class="op">$</span>mean</span>
@@ -197,20 +203,25 @@ Load the Robject and have a look at it. Save the list elements in separate objec
 <span id="cb7-2"><a href="#cb7-2"></a><span class="co"># It is just a &#39;sienaDependent&#39; something [1:147,1:147,1:3]</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a></span>
 <span id="cb7-4"><a href="#cb7-4"></a>fnet1 &lt;-<span class="st"> </span>fnet[, , <span class="dv">1</span>]</span>
-<span id="cb7-5"><a href="#cb7-5"></a>atmnet1 &lt;-<span class="st"> </span>atmnet[, , <span class="dv">1</span>]</span></code></pre></div>
-<p>It is just a ‘sienaDependent’ something <code>[1:147,1:147,1:3]</code> but with a lot of attributes which we mag ignore for now. It is an array. In this array our nominations are stored in adjacency matrices. I selected the friendship relations and the atmention relations of the first wave.</p>
+<span id="cb7-5"><a href="#cb7-5"></a>atmnet1 &lt;-<span class="st"> </span>atmnet[, , <span class="dv">1</span>]</span>
+<span id="cb7-6"><a href="#cb7-6"></a>atmnet2 &lt;-<span class="st"> </span>atmnet[, , <span class="dv">2</span>]</span>
+<span id="cb7-7"><a href="#cb7-7"></a>atmnet3 &lt;-<span class="st"> </span>atmnet[, , <span class="dv">3</span>]</span></code></pre></div>
+<p>It is just a ‘sienaDependent’ something <code>[1:147,1:147,1:3]</code> but with a lot of attributes which we may ignore for now. It is an array. In this array our nominations are stored in adjacency matrices. I selected the friendship relations and the atmention relations of the first wave.</p>
 <p>{{% alert note %}}
 You may wonder why we only have 147 nodes (of MPs) in our data. Well that is because at the time of writing three MPs did not have a twitter account or at least we could not find it.
 {{% /alert %}}</p>
-<p>One final thing before we can go and play with the data. We have to replace the missing values of RSiena <code>10</code> into <code>NA</code> as well.</p>
+<p>One final thing before we can go and play with the data. We have to replace the missing values of RSiena <code>10</code> (structural zeros) into <code>0</code> (or <code>NA</code>) as well.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># table(fnet1, useNA=&#39;always&#39;) #uncomment if you want</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>fnet1[fnet1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>fnet1[fnet1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="co"># table(fnet1, useNA=&#39;always&#39;) #uncomment if you want</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a>atmnet1[atmnet1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a>atmnet1[atmnet1 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>atmnet2[atmnet2 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>atmnet3[atmnet3 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span></code></pre></div>
 </div>
 <div id="first-plots" class="section level1">
 <h1><span class="header-section-number">4</span> First plots</h1>
+<p>The first step is to make a ‘graph object’.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(igraph)</span>
 <span id="cb9-2"><a href="#cb9-2"></a></span>
 <span id="cb9-3"><a href="#cb9-3"></a>G1 &lt;-<span class="st"> </span>igraph<span class="op">::</span><span class="kw">graph_from_adjacency_matrix</span>(atmnet1, <span class="dt">mode =</span> <span class="st">&quot;directed&quot;</span>, <span class="dt">weighted =</span> <span class="ot">NULL</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>, <span class="dt">add.colnames =</span> <span class="ot">NA</span>, </span>
@@ -222,10 +233,18 @@ You may wonder why we only have 147 nodes (of MPs) in our data. Well that is bec
 <span id="cb10-4"><a href="#cb10-4"></a></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="co"># the first variable of the data we can attach needs to be some id, thus reorder columns of keyf</span></span>
 <span id="cb10-6"><a href="#cb10-6"></a>keyf &lt;-<span class="st"> </span><span class="kw">cbind</span>(keyf<span class="op">$</span>EGOid, keyf[, <span class="kw">names</span>(keyf) <span class="op">!=</span><span class="st"> &quot;EGOid&quot;</span>])</span>
-<span id="cb10-7"><a href="#cb10-7"></a></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co"># rebuild the graph.</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a>G1 &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(edges, <span class="dt">directed =</span> <span class="ot">TRUE</span>, <span class="dt">vertices =</span> keyf)</span></code></pre></div>
-<p>But know let us start plotting.</p>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co"># the name has been changed as well. Lets correct this</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="kw">names</span>(keyf)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;EGOid&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co"># rebuild the graph.</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>G1 &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(edges, <span class="dt">directed =</span> <span class="ot">TRUE</span>, <span class="dt">vertices =</span> keyf)</span>
+<span id="cb10-12"><a href="#cb10-12"></a></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co"># I am a bit puzzled where the data is stored exactly but the same data as in keyf is now attached to</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co"># the vertices.</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="co"># thus to find the names of our MPs we could now do this:</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="kw">V</span>(G1)<span class="op">$</span>Naam</span></code></pre></div>
+<p>But now let us start plotting.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">plot</span>(G1)</span></code></pre></div>
 <p>I cant see anything!! |:-(<br />
 Would <code>simplify</code> help?</p>
@@ -251,8 +270,8 @@ Would <code>simplify</code> help?</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>G2 &lt;-<span class="st"> </span><span class="kw">simplify</span>(G2)</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
 </div>
-<div id="select-nodes-to-plot." class="section level1">
-<h1><span class="header-section-number">6</span> Select nodes to plot.</h1>
+<div id="select-nodes-to-plot" class="section level1">
+<h1><span class="header-section-number">6</span> Select nodes to plot</h1>
 <p>Suppose we want to remove the isolates.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># first make sure we don&#39;t end up with MPS who only mention themselves</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="kw">diag</span>(atmnet1_un) &lt;-<span class="st"> </span><span class="dv">0</span></span>
@@ -262,8 +281,8 @@ Would <code>simplify</code> help?</p>
 <span id="cb16-6"><a href="#cb16-6"></a><span class="co"># length(noisolates) sum(noisolates) if you select, select both correct nomination network as ego</span></span>
 <span id="cb16-7"><a href="#cb16-7"></a><span class="co"># characteristics</span></span>
 <span id="cb16-8"><a href="#cb16-8"></a>atmnet1_un_sel &lt;-<span class="st"> </span>atmnet1_un[noisolates, noisolates]</span>
-<span id="cb16-9"><a href="#cb16-9"></a><span class="co"># if you are going to use the dataset to add characteristics to plot, make sure to run the correct</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="co"># selection as well!!!</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co"># if you are going to use the dataset keyf to add characteristics to the plot later, make sure to run</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co"># the correct selection as well!!!</span></span>
 <span id="cb16-11"><a href="#cb16-11"></a>keyf_sel &lt;-<span class="st"> </span>keyf[noisolates, ]</span>
 <span id="cb16-12"><a href="#cb16-12"></a></span>
 <span id="cb16-13"><a href="#cb16-13"></a>G2_sel &lt;-<span class="st"> </span><span class="kw">graph_from_adjacency_matrix</span>(atmnet1_un_sel, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">weighted =</span> <span class="ot">NULL</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>, </span>
@@ -271,117 +290,183 @@ Would <code>simplify</code> help?</p>
 <span id="cb16-15"><a href="#cb16-15"></a>G2_sel &lt;-<span class="st"> </span><span class="kw">simplify</span>(G2_sel)</span>
 <span id="cb16-16"><a href="#cb16-16"></a><span class="kw">plot</span>(G2_sel, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
 <p>The same logic of course applies if you would like to select on node attributes (e.g. gender, party).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># option 1: see above.  only select MPs from the liberal party</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>selection &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij <span class="op">==</span><span class="st"> &quot;VVD&quot;</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co"># build new adjacency matrix</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>atmnet1_un_sel2 &lt;-<span class="st"> </span>atmnet1_un[selection, selection]</span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co"># etc.</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># option 2. Suppose we have attached our dataset to our graph object.  only select MPs from the</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co"># liberal party</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>selection &lt;-<span class="st"> </span><span class="kw">V</span>(G2)<span class="op">$</span>Partij <span class="op">==</span><span class="st"> &quot;VVD&quot;</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>selection_id &lt;-<span class="st"> </span><span class="kw">which</span>(selection)  <span class="co"># this gives us a numeric variable</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a>G_sel &lt;-<span class="st"> </span><span class="kw">induced_subgraph</span>(G2, <span class="dt">v =</span> selection_id)</span>
+<span id="cb17-12"><a href="#cb17-12"></a><span class="kw">plot</span>(G_sel)</span></code></pre></div>
 </div>
 <div id="change-vertices" class="section level1">
 <h1><span class="header-section-number">7</span> Change Vertices</h1>
 <p>Okay, lets go back and change some stuff.</p>
 <div id="size" class="section level2">
 <h2><span class="header-section-number">7.1</span> size</h2>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># changing V</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">V</span>(G2)<span class="op">$</span>size =<span class="st"> </span><span class="kw">degree</span>(G2) <span class="op">*</span><span class="st"> </span><span class="fl">1.05</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># changing V</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">V</span>(G2)<span class="op">$</span>size =<span class="st"> </span><span class="kw">degree</span>(G2) <span class="op">*</span><span class="st"> </span><span class="fl">1.05</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
 </div>
 <div id="color" class="section level2">
 <h2><span class="header-section-number">7.2</span> color</h2>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># bit clumsy but I want my original EGOdata back</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>keyf &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">1</span>]]</span>
-<span id="cb18-3"><a href="#cb18-3"></a></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="kw">V</span>(G2)<span class="op">$</span>label =<span class="st"> </span><span class="kw">as.character</span>(keyf<span class="op">$</span>Naam2)</span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="kw">V</span>(G2)<span class="op">$</span>label.cex =<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="kw">V</span>(G2)<span class="op">$</span>color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(keyf<span class="op">$</span>Geslacht <span class="op">==</span><span class="st"> &quot;vrouw&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>)</span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">V</span>(G2)<span class="op">$</span>label =<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">V</span>(G2)<span class="op">$</span>Naam2)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">V</span>(G2)<span class="op">$</span>label.cex =<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="kw">V</span>(G2)<span class="op">$</span>color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(G2)<span class="op">$</span>Geslacht <span class="op">==</span><span class="st"> &quot;vrouw&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>)</span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="changing-edges" class="section level1">
-<h1><span class="header-section-number">8</span> changing edges</h1>
+<h1><span class="header-section-number">8</span> Changing edges</h1>
 <div id="arrow-size-and-curvature" class="section level2">
-<h2><span class="header-section-number">8.1</span> arrow size and curvature</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># changing E</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">E</span>(G2)<span class="op">$</span>arrow.size =<span class="st"> </span><span class="fl">0.4</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="kw">E</span>(G2)<span class="op">$</span>curved =<span class="st"> </span><span class="fl">0.3</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
+<h2><span class="header-section-number">8.1</span> Arrow size and curvature</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># changing E</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">E</span>(G2)<span class="op">$</span>arrow.size =<span class="st"> </span><span class="fl">0.4</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="kw">E</span>(G2)<span class="op">$</span>curved =<span class="st"> </span><span class="fl">0.3</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="add-a-legend" class="section level1">
 <h1><span class="header-section-number">9</span> Add a legend</h1>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># adding legend because I am working in Rmarkdown I need some {}</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>{</span>
-<span id="cb20-3"><a href="#cb20-3"></a>    <span class="kw">plot.igraph</span>(G2, <span class="dt">margin =</span> <span class="dv">0</span>)</span>
-<span id="cb20-4"><a href="#cb20-4"></a>    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="dv">-1</span>, <span class="dt">y =</span> <span class="dv">-1</span>, <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>), <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;#777777&quot;</span>, <span class="dt">pt.bg =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
-<span id="cb20-5"><a href="#cb20-5"></a>        <span class="dt">pt.cex =</span> <span class="dv">2</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>)</span>
-<span id="cb20-6"><a href="#cb20-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># adding legend because I am working in Rmarkdown I need some {}</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>{</span>
+<span id="cb21-3"><a href="#cb21-3"></a>    <span class="kw">plot.igraph</span>(G2, <span class="dt">margin =</span> <span class="dv">0</span>, <span class="dt">mode =</span> <span class="st">&quot;udirected&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="dv">-1</span>, <span class="dt">y =</span> <span class="dv">-1</span>, <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>), <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;#777777&quot;</span>, <span class="dt">pt.bg =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
+<span id="cb21-5"><a href="#cb21-5"></a>        <span class="dt">pt.cex =</span> <span class="dv">2</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb21-6"><a href="#cb21-6"></a>}</span></code></pre></div>
 </div>
 <div id="coordinates" class="section level1">
-<h1><span class="header-section-number">10</span> coordinates</h1>
+<h1><span class="header-section-number">10</span> Coordinates</h1>
 <p>Lets puts the MPs where they belong.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># lets have a look first</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">plot</span>(keyf<span class="op">$</span>X, keyf<span class="op">$</span>Y, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">18</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">18</span>), <span class="dt">col =</span> keyf<span class="op">$</span>Partij_col, <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># lets have a look first</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">plot</span>(keyf<span class="op">$</span>X, keyf<span class="op">$</span>Y, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">18</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">18</span>), <span class="dt">col =</span> keyf<span class="op">$</span>Partij_col, <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p>In case you wonder. The empty seats are the MPs without a Twitter account.
 Lets assign these coordinates to our MPs</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># give nodes coler of their party</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">V</span>(G2)<span class="op">$</span>color &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij_col</span>
-<span id="cb22-3"><a href="#cb22-3"></a></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="co"># change node size a bit</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="kw">V</span>(G2)<span class="op">$</span>size =<span class="st"> </span><span class="kw">degree</span>(G2) <span class="op">*</span><span class="st"> </span><span class="fl">1.05</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="co"># remove the labels</span></span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="kw">V</span>(G2)<span class="op">$</span>label =<span class="st"> &quot;&quot;</span></span>
-<span id="cb22-9"><a href="#cb22-9"></a></span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="co"># less curvature</span></span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="kw">E</span>(G2)<span class="op">$</span>curved =<span class="st"> </span><span class="fl">0.1</span></span>
-<span id="cb22-12"><a href="#cb22-12"></a></span>
-<span id="cb22-13"><a href="#cb22-13"></a>owncoords &lt;-<span class="st"> </span><span class="kw">cbind</span>(keyf<span class="op">$</span>X, keyf<span class="op">$</span>Y)</span>
-<span id="cb22-14"><a href="#cb22-14"></a>owncoords &lt;-<span class="st"> </span>owncoords<span class="op">/</span><span class="dv">8</span></span>
-<span id="cb22-15"><a href="#cb22-15"></a>owncoords[, <span class="dv">1</span>] &lt;-<span class="st"> </span>(owncoords[, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(owncoords[, <span class="dv">1</span>]))</span>
-<span id="cb22-16"><a href="#cb22-16"></a>owncoords[, <span class="dv">2</span>] &lt;-<span class="st"> </span>(owncoords[, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(owncoords[, <span class="dv">2</span>]))</span>
-<span id="cb22-17"><a href="#cb22-17"></a><span class="kw">plot.igraph</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
-<span id="cb22-18"><a href="#cb22-18"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span>
-<span id="cb22-19"><a href="#cb22-19"></a><span class="co"># it really depends on your plotting window (size, resolution etc.) to get consistent results you</span></span>
-<span id="cb22-20"><a href="#cb22-20"></a><span class="co"># need to define this beforehand. won&#39;t do that now.</span></span></code></pre></div>
-</div>
-<div id="change-color-of-edges" class="section level1">
-<h1><span class="header-section-number">11</span> change color of edges</h1>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># let us make them the color of the nodes if it is between nodes from same party.  let us make them</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># red if between parties</span></span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># it really depends on your plotting window (size, resolution etc.) to get consistent results you</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co"># need to define this beforehand. won&#39;t do that now.</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a></span>
-<span id="cb23-4"><a href="#cb23-4"></a>edges &lt;-<span class="st"> </span><span class="kw">get.adjacency</span>(G2)</span>
-<span id="cb23-5"><a href="#cb23-5"></a>edges_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">as.numeric</span>(edges), <span class="dt">nrow =</span> <span class="kw">nrow</span>(edges))</span>
-<span id="cb23-6"><a href="#cb23-6"></a><span class="co"># edges_mat</span></span>
-<span id="cb23-7"><a href="#cb23-7"></a></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># because we have undirected, we only need the edges once ...I know ...</span></span>
-<span id="cb23-9"><a href="#cb23-9"></a>edges_mat[<span class="kw">lower.tri</span>(edges_mat)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb23-10"><a href="#cb23-10"></a><span class="co"># table(keyf$Geslacht)</span></span>
-<span id="cb23-11"><a href="#cb23-11"></a></span>
-<span id="cb23-12"><a href="#cb23-12"></a><span class="co"># teller &lt;- 1 coloredges &lt;- NA for (i in 1:nrow(edges)) { for (j in 1:ncol(edges)) { if</span></span>
-<span id="cb23-13"><a href="#cb23-13"></a><span class="co"># (edges_mat[i,j]==1) { if (keyf$Geslacht[i] == &#39;vrouw&#39; &amp; keyf$Geslacht[j] == &#39;vrouw&#39;)</span></span>
-<span id="cb23-14"><a href="#cb23-14"></a><span class="co"># {coloredges[teller] &lt;- &#39;pink&#39;} if (keyf$Geslacht[i] == &#39;vrouw&#39; &amp; keyf$Geslacht[j] != &#39;man&#39;)</span></span>
-<span id="cb23-15"><a href="#cb23-15"></a><span class="co"># {coloredges[teller] &lt;- &#39;black&#39;} if (keyf$Geslacht[i] != &#39;man&#39; &amp; keyf$Geslacht[j] == &#39;vrouw&#39;)</span></span>
-<span id="cb23-16"><a href="#cb23-16"></a><span class="co"># {coloredges[teller] &lt;- &#39;black&#39;} if (keyf$Geslacht[i] != &#39;man&#39; &amp; keyf$Geslacht[j] != &#39;man&#39;)</span></span>
-<span id="cb23-17"><a href="#cb23-17"></a><span class="co"># {coloredges[teller] &lt;- &#39;blue&#39;} teller &lt;- teller + 1 } } }</span></span>
-<span id="cb23-18"><a href="#cb23-18"></a></span>
-<span id="cb23-19"><a href="#cb23-19"></a>teller &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb23-20"><a href="#cb23-20"></a>coloredges &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb23-21"><a href="#cb23-21"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(edges)) {</span>
-<span id="cb23-22"><a href="#cb23-22"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(edges)) {</span>
-<span id="cb23-23"><a href="#cb23-23"></a>        <span class="cf">if</span> (edges_mat[i, j] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
-<span id="cb23-24"><a href="#cb23-24"></a>            <span class="cf">if</span> (keyf<span class="op">$</span>Partij_col[i] <span class="op">==</span><span class="st"> </span>keyf<span class="op">$</span>Partij_col[j]) {</span>
-<span id="cb23-25"><a href="#cb23-25"></a>                coloredges[teller] &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij_col[i]</span>
-<span id="cb23-26"><a href="#cb23-26"></a>            }</span>
-<span id="cb23-27"><a href="#cb23-27"></a>            <span class="cf">if</span> (keyf<span class="op">$</span>Partij_col[i] <span class="op">!=</span><span class="st"> </span>keyf<span class="op">$</span>Partij_col[j]) {</span>
-<span id="cb23-28"><a href="#cb23-28"></a>                coloredges[teller] &lt;-<span class="st"> &quot;black&quot;</span></span>
-<span id="cb23-29"><a href="#cb23-29"></a>            }</span>
-<span id="cb23-30"><a href="#cb23-30"></a>            teller &lt;-<span class="st"> </span>teller <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb23-31"><a href="#cb23-31"></a>        }</span>
-<span id="cb23-32"><a href="#cb23-32"></a>    }</span>
-<span id="cb23-33"><a href="#cb23-33"></a>}</span>
-<span id="cb23-34"><a href="#cb23-34"></a></span>
-<span id="cb23-35"><a href="#cb23-35"></a></span>
-<span id="cb23-36"><a href="#cb23-36"></a></span>
-<span id="cb23-37"><a href="#cb23-37"></a></span>
-<span id="cb23-38"><a href="#cb23-38"></a><span class="kw">E</span>(G2)<span class="op">$</span>color =<span class="st"> </span>coloredges</span>
-<span id="cb23-39"><a href="#cb23-39"></a><span class="kw">plot.igraph</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
-<span id="cb23-40"><a href="#cb23-40"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
-<p>I hope you like the plot!<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co"># combine atment nets. and make weighted graph.  #replace missing values with 0 not with NA</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co"># fnet1[fnet1==10] &lt;- 0 atmnet1[atmnet1==10] &lt;- 0 #combine the graphs Gtes &lt;-</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="co"># igraph::graph_from_adjacency_matrix(atmnet1 + fnet1, mode = &#39;directed&#39;, weighted = TRUE, diag =</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co"># TRUE, add.colnames = NA, add.rownames = NA) #save the weight of the edges edges_data &lt;-</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># as_data_frame(Gtes, what=&#39;edges&#39;) #set width of edge E(Gtes)$width &lt;- edges_data$weight #and plot</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co"># plot(Gtes)</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a></span>
+<span id="cb23-11"><a href="#cb23-11"></a><span class="co"># give nodes coler of their party</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="kw">V</span>(G2)<span class="op">$</span>color &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij_col</span>
+<span id="cb23-13"><a href="#cb23-13"></a></span>
+<span id="cb23-14"><a href="#cb23-14"></a><span class="co"># change node size a bit</span></span>
+<span id="cb23-15"><a href="#cb23-15"></a><span class="kw">V</span>(G2)<span class="op">$</span>size =<span class="st"> </span><span class="kw">degree</span>(G2) <span class="op">*</span><span class="st"> </span><span class="fl">1.05</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span></span>
+<span id="cb23-16"><a href="#cb23-16"></a></span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="co"># remove the labels</span></span>
+<span id="cb23-18"><a href="#cb23-18"></a><span class="kw">V</span>(G2)<span class="op">$</span>label =<span class="st"> &quot;&quot;</span></span>
+<span id="cb23-19"><a href="#cb23-19"></a></span>
+<span id="cb23-20"><a href="#cb23-20"></a><span class="co"># less curvature</span></span>
+<span id="cb23-21"><a href="#cb23-21"></a><span class="kw">E</span>(G2)<span class="op">$</span>curved =<span class="st"> </span><span class="fl">0.1</span></span>
+<span id="cb23-22"><a href="#cb23-22"></a></span>
+<span id="cb23-23"><a href="#cb23-23"></a>owncoords &lt;-<span class="st"> </span><span class="kw">cbind</span>(keyf<span class="op">$</span>X, keyf<span class="op">$</span>Y)</span>
+<span id="cb23-24"><a href="#cb23-24"></a>owncoords &lt;-<span class="st"> </span>owncoords<span class="op">/</span><span class="dv">8</span></span>
+<span id="cb23-25"><a href="#cb23-25"></a>owncoords[, <span class="dv">1</span>] &lt;-<span class="st"> </span>(owncoords[, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(owncoords[, <span class="dv">1</span>]))</span>
+<span id="cb23-26"><a href="#cb23-26"></a>owncoords[, <span class="dv">2</span>] &lt;-<span class="st"> </span>(owncoords[, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(owncoords[, <span class="dv">2</span>]))</span>
+<span id="cb23-27"><a href="#cb23-27"></a><span class="kw">plot.igraph</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
+<span id="cb23-28"><a href="#cb23-28"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
+</div>
+<div id="change-edges" class="section level1">
+<h1><span class="header-section-number">11</span> Change edges</h1>
+<div id="preperation" class="section level2">
+<h2><span class="header-section-number">11.1</span> preperation</h2>
+<p>We can change the edges based on dyad charactersitics but if we have a weighted adjacency matrix also on the weights of the edges.
+To demonstrate this I first make a weighted atmention network. I simply sum wheter MPs have mentioned each other in t1, t2 and t3.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># construct adjacency matrix first define the recipricated atmentions in each wave</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>atmnet1_un &lt;-<span class="st"> </span>atmnet1 <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">t</span>(atmnet1) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>atmnet2_un &lt;-<span class="st"> </span>atmnet2 <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">t</span>(atmnet2) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>atmnet3_un &lt;-<span class="st"> </span>atmnet3 <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span><span class="kw">t</span>(atmnet3) <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a></span>
+<span id="cb24-6"><a href="#cb24-6"></a>atmnet_weighted &lt;-<span class="st"> </span>atmnet1_un <span class="op">+</span><span class="st"> </span>atmnet2_un <span class="op">+</span><span class="st"> </span>atmnet3_un</span>
+<span id="cb24-7"><a href="#cb24-7"></a></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co"># contstruct graph / let us keep the loops</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a>G_w &lt;-<span class="st"> </span>igraph<span class="op">::</span><span class="kw">graph_from_adjacency_matrix</span>(atmnet_weighted, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">weighted =</span> <span class="ot">TRUE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb24-10"><a href="#cb24-10"></a>    <span class="dt">add.colnames =</span> <span class="ot">NA</span>, <span class="dt">add.rownames =</span> <span class="ot">NA</span>)</span>
+<span id="cb24-11"><a href="#cb24-11"></a></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="co"># attach data</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a>edges &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(G_w, <span class="dt">what =</span> <span class="st">&quot;edges&quot;</span>)</span>
+<span id="cb24-14"><a href="#cb24-14"></a></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co"># rebuild the graph.</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a>G_w &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(edges, <span class="dt">directed =</span> <span class="ot">FALSE</span>, <span class="dt">vertices =</span> keyf)</span>
+<span id="cb24-17"><a href="#cb24-17"></a></span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="co"># add changes as above</span></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="kw">V</span>(G_w)<span class="op">$</span>color &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij_col</span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="kw">V</span>(G_w)<span class="op">$</span>size =<span class="st"> </span><span class="kw">degree</span>(G_w) <span class="op">*</span><span class="st"> </span><span class="fl">1.05</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span></span>
+<span id="cb24-21"><a href="#cb24-21"></a><span class="kw">V</span>(G_w)<span class="op">$</span>label =<span class="st"> &quot;&quot;</span></span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="kw">E</span>(G2)<span class="op">$</span>curved =<span class="st"> </span><span class="fl">0.1</span></span>
+<span id="cb24-23"><a href="#cb24-23"></a></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="kw">plot.igraph</span>(G_w, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
+<span id="cb24-25"><a href="#cb24-25"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
+</div>
+<div id="changing-edge-width-based-on-weight." class="section level2">
+<h2><span class="header-section-number">11.2</span> changing edge width based on weight.</h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># save the weight of the edges</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>edges_data &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(G_w, <span class="dt">what =</span> <span class="st">&quot;edges&quot;</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="co"># set width of edge edges_data$weight better yet just in one go</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="kw">E</span>(G_w)<span class="op">$</span>width &lt;-<span class="st"> </span><span class="kw">E</span>(G_w)<span class="op">$</span>weight</span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="kw">plot.igraph</span>(G_w, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
+<span id="cb25-6"><a href="#cb25-6"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
+</div>
+<div id="change-edge-width-based-on-dyad-charactersitics" class="section level2">
+<h2><span class="header-section-number">11.3</span> change edge width based on dyad charactersitics</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># let us make them the color of the nodes if it is between nodes from same party.  let us make them</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co"># red if between parties</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a>edges &lt;-<span class="st"> </span><span class="kw">get.adjacency</span>(G_w)</span>
+<span id="cb26-5"><a href="#cb26-5"></a>edges_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">as.numeric</span>(edges), <span class="dt">nrow =</span> <span class="kw">nrow</span>(edges))</span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co"># edges_mat</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co"># because we have undirected, we only need the edges once ...I know ...</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a>edges_mat[<span class="kw">lower.tri</span>(edges_mat)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co"># table(keyf$Geslacht)</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a></span>
+<span id="cb26-12"><a href="#cb26-12"></a>teller &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a>coloredges &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(edges)) {</span>
+<span id="cb26-15"><a href="#cb26-15"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(edges)) {</span>
+<span id="cb26-16"><a href="#cb26-16"></a>        <span class="cf">if</span> (edges_mat[i, j] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb26-17"><a href="#cb26-17"></a>            <span class="cf">if</span> (keyf<span class="op">$</span>Partij_col[i] <span class="op">==</span><span class="st"> </span>keyf<span class="op">$</span>Partij_col[j]) {</span>
+<span id="cb26-18"><a href="#cb26-18"></a>                coloredges[teller] &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij_col[i]</span>
+<span id="cb26-19"><a href="#cb26-19"></a>            }</span>
+<span id="cb26-20"><a href="#cb26-20"></a>            <span class="cf">if</span> (keyf<span class="op">$</span>Partij_col[i] <span class="op">!=</span><span class="st"> </span>keyf<span class="op">$</span>Partij_col[j]) {</span>
+<span id="cb26-21"><a href="#cb26-21"></a>                coloredges[teller] &lt;-<span class="st"> &quot;black&quot;</span></span>
+<span id="cb26-22"><a href="#cb26-22"></a>            }</span>
+<span id="cb26-23"><a href="#cb26-23"></a>            teller &lt;-<span class="st"> </span>teller <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb26-24"><a href="#cb26-24"></a>        }</span>
+<span id="cb26-25"><a href="#cb26-25"></a>    }</span>
+<span id="cb26-26"><a href="#cb26-26"></a>}</span>
+<span id="cb26-27"><a href="#cb26-27"></a></span>
+<span id="cb26-28"><a href="#cb26-28"></a><span class="kw">E</span>(G_w)<span class="op">$</span>color =<span class="st"> </span>coloredges</span>
+<span id="cb26-29"><a href="#cb26-29"></a></span>
+<span id="cb26-30"><a href="#cb26-30"></a><span class="co"># prepare a legend</span></span>
+<span id="cb26-31"><a href="#cb26-31"></a>Party_names &lt;-<span class="st"> </span><span class="kw">unique</span>(keyf<span class="op">$</span>Partij)</span>
+<span id="cb26-32"><a href="#cb26-32"></a>Party_cols &lt;-<span class="st"> </span><span class="kw">unique</span>(keyf<span class="op">$</span>Partij_col)</span>
+<span id="cb26-33"><a href="#cb26-33"></a></span>
+<span id="cb26-34"><a href="#cb26-34"></a><span class="kw">png</span>(<span class="st">&quot;MPplot.png&quot;</span>, <span class="dt">width =</span> <span class="dv">900</span>, <span class="dt">height =</span> <span class="dv">900</span>)</span>
+<span id="cb26-35"><a href="#cb26-35"></a>{</span>
+<span id="cb26-36"><a href="#cb26-36"></a>    <span class="kw">plot.igraph</span>(G_w, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
+<span id="cb26-37"><a href="#cb26-37"></a>        <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])), <span class="dt">main =</span> <span class="st">&quot;Reciprocated @mention relations between Dutch MPs (2017)&quot;</span>)</span>
+<span id="cb26-38"><a href="#cb26-38"></a>    </span>
+<span id="cb26-39"><a href="#cb26-39"></a>    <span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">legend =</span> Party_names, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;#777777&quot;</span>, <span class="dt">pt.bg =</span> Party_cols, <span class="dt">pt.cex =</span> <span class="dv">2</span>, </span>
+<span id="cb26-40"><a href="#cb26-40"></a>        <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb26-41"><a href="#cb26-41"></a>    </span>
+<span id="cb26-42"><a href="#cb26-42"></a>    <span class="kw">text</span>(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">-1.2</span>, <span class="st">&quot;Note 1: Node size based on degree&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb26-43"><a href="#cb26-43"></a>    <span class="kw">text</span>(<span class="op">-</span><span class="fl">2.2</span>, <span class="fl">-1.3</span>, <span class="st">&quot;Note 2: Edge colar based on Party of MPs, black if MPs from different party&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>, </span>
+<span id="cb26-44"><a href="#cb26-44"></a>        <span class="dt">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb26-45"><a href="#cb26-45"></a>}</span>
+<span id="cb26-46"><a href="#cb26-46"></a><span class="kw">dev.off</span>()</span></code></pre></div>
+<p><img src="MPplot.png" /></p>
+<p>I hope you like the plot!</p>
+</div>
 </div>
 <div id="assignment" class="section level1">
 <h1><span class="header-section-number">12</span> Assignment</h1>
@@ -401,12 +486,6 @@ Lets assign these coordinates to our MPs</p>
 <li>add title to figure (hint: look at ?plot)</li>
 <li>save as pdf, png or html (hint: look at ?png)</li>
 </ul>
-<p>Latest Version: 16-09-2020</p>
+<p>Latest Version: 19-09-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
-</div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>When I run my code in R everything looks how I would like it to look. Unfortunately, when I render the code to a hugo website, the plot becomes a directed plot again. I am flabbergasted why this is the case.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>

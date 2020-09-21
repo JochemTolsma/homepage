@@ -26,6 +26,11 @@ library(igraph)
  
 # Small worlds
 
+![](Slide1.PNG) 
+
+
+
+
 A complete, full, or sociocentric network is a network within a sampled context or foci of which we know all nodes and all connections between nodes. The boundaries of the network are thus a priori defined and the contexts in which nodes are present are the sampled units. 
 We may for example sample a classroom, neighborhood, university or country and collect all relations between all nodes within this context.  
 
@@ -326,17 +331,7 @@ Ripley, R.M., Snijders, T.A.B., Boda, Z., Vörös, A. & Preciado, P. (2020). Man
 
 ## <i class="fas fa-lightbulb"></i> SELF-TEST <i class="fas fa-lightbulb"></i> 
 
-1.	Tolsma et al. (2013) applied a social network perspective in interethnic bullying research. What were their main criticism on previous research?  
-2.	Please summarize the hypotheses of Tolsma et al. (2013) with regard to the four ethnicity effects (ego, alter, dyad, context)? 
-3. In Tolsma et al. (2013) only the density parameter is being modelled. Would you expect the same four ethnicity effects to explain the reciprocity parameter (or effect)?
-4. After having read this page and studied chapter 5 and paragraph 12.1.1 of the RSiena manual, you know that networks can have a lot of higher order structures (structures in which more than two nodes are involved, such as transitivity). What other network structures (or effects or statistics or parameters) do you think Tolsma et al. should have taken into account in their study on interethnic bullying? Motivate your answer and draw your hypothesis in a figure. 
-5. The study of Tolsma et al. (2013) has been critized for not taking into account the multiplexity of social networks in classrooms.  
-(A) What is meant by multiplexity?  
-(B) Which other relations do you think Tolsma et al. should have taken into account in their study on interethnic bullying? Motivate your answer and draw your hypothesis in a figure. 
-6. In the study of Tolsma et al. (2013) no theoretical and empirical distinction is being made between the creation and dissolution of bullying relations. Whether you observe a relation at a specific time is of course the consequence of both creation and dissolution rates. Please give an argument why the mechanisms behind the creation and dissolution of a bully relation may be different.  
-7. Calculate the density of the networks that make up the first row and first column. See [here](#networks). 
-8. Calculate the degree centrality of the nodes in same networks as Q7.  
-9. Now do the same as Q8 but than with respect to closeness centrality. 
+Each chapter ends with a **SELF-TEST**. Using what you learned in this chapter you should be able to answer both the theoretical and methodological part of this [SELF-TEST]({{< ref "/socio5.md" >}}).
 
 
 
