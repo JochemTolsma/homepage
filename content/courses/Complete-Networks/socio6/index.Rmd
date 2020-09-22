@@ -155,7 +155,8 @@ print(paste("total time:", time, sep=" "))
 
 ```
 
-We would find there are 8 opportunities for change. Thus the larger the rate parameter the more opportunities for change per actor there are within a given time period. And in RSiena the optimal value for the rate parameter is estimated. The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be $ \frac{1/rate_parameter} $ and thus that the estimated number
+We would find there are 8 opportunities for change. Thus **the larger the rate parameter the more opportunities for change per actor there are within a given time period**. And in RSiena the optimal value for the rate parameter is estimated.  
+The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be $\frac{1/rate_parameter}$ and thus that the estimated number
 of opportunities for change per actor in a time period will be the estimated value of the rate_parameter. 
 
 ## Interpretation of parameters
