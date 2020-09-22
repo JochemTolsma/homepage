@@ -20,9 +20,17 @@ editor_options:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, results = "hide",message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(echo = TRUE, results = "hide",message = FALSE, warning = FALSE, attr.source = ".numberLines", class.source="highlightt")
 ```
 
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
 
 ```{r message=FALSE, warning=FALSE , echo=FALSE}
 library(threejs)

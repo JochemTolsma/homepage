@@ -22,6 +22,9 @@ editor_options:
 
 
 
+<!--copy to clipboard-->
+
+
 
 
  
@@ -75,7 +78,7 @@ Some nodes, or people in the network will have a higher outdegree than others. S
 
 We could use the function `degree` in `igraph` to find the outdegree of each node. See below for an example. 
 
-```r
+```{.r .highlightt .numberLines}
 hist(igraph::degree(G1, mode="out", loops=FALSE), xlab="outdegree", main="histogram of outdegree atmention network Dutch MPs")
 ```
 
@@ -92,7 +95,7 @@ Similarly as outdegree, some nodes, or people, in the network will have a higher
 
 We could use the function `degree` in `igraph` to find the indegree of each node. See below for an example. 
 
-```r
+```{.r .highlightt .numberLines}
 hist(igraph::degree(G1, mode="in", loops=FALSE), xlab="indegree", main="histogram of indegree atmention network Dutch MPs")
 ```
 
@@ -131,7 +134,7 @@ When there is a tie from *i* to *j* and vice versa, we call this a reciprocated 
 We could use igraph to make a dyad count, which is called a dyad census. See below: 
 
 
-```r
+```{.r .highlightt .numberLines}
 dyadcount <- dyad.census(G1)
 dyadcount$total <- (vcount(G1)*(vcount(G1)-1))/2 # to add the number of dyads in the graph
 dyadcount
@@ -153,7 +156,7 @@ dyadcount
 We could compare these values with a random graph of the same size with the same density. 
 
 
-```r
+```{.r .highlightt .numberLines}
 dens <- graph.density(G1)
 size <- vcount(G1)
 trial <- 1000

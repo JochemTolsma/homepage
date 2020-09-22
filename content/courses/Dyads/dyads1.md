@@ -32,7 +32,7 @@ For more background reading on the multi-level framework (aka "Coleman-boat", "C
 - Coleman, J.S. (1990). *Foundations of Social Theory.* Cambridge, MA: Harvard University Press.  
 - Raub, W. Buskens, V. & Van Assen, M.A. (2011). Mircro-macro links and microfoundations in sociology. *The Journal of Mathematical Sociology, 35*(1-3), 1-25. [**Especially paragraph 4.4**]  
 
-The GTF is a framework, is not a theory from which you can deduce hypotheses. Before we can do that, we need to fill in the blanks. That is, we need to make the social contexts (brige assumptions) explicit. We need a Theory of Action. We need to think of the interdependencies and how they impact the aggregation mechanism.  
+The GTF is a framework, is not a theory from which you can deduce hypotheses. Before we can do that, we need to fill in the blanks. That is, we need to make the social contexts (bridge assumptions) explicit. We need a Theory of Action. We need to think of the interdependencies and how they impact the aggregation mechanism.  
 So, let's get started...
   
 ## Social context effects  

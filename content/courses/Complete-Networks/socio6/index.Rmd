@@ -1,0 +1,168 @@
+---
+title: RSiena
+author: JochemTolsma
+date: '2020-09-22'
+slug: socio6
+categories:
+  - R
+  - Social Networks
+tags: []
+linktitle: RSiena
+summary: "igraph, social networks, plotting, tutorial, R, Lavaan"
+lastmod: '2020-09-15T08:27:34+02:00'
+type: book
+weight: 45
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: yes
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy()
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<button onclick="window.location.href='static/index.Rmd';">download code</button>
+
+
+# RSiena
+
+## Assumptions
+
+- ministep: one actor per time step (no coordination), one tie change per time step  
+- no memory: the same choice set is evaluated the same each time.
+- no strategic action: actors do not anticipate that one (negatively evaluated) tie change at t1 may open up the opportunity for a (very positively) tie change at t2. 
+- local networks: actors base their decisions only on the evaluation of their own local network (no altruism). 
+
+## Rate function
+
+We find the rate function in the manual on page 43:
+
+$$ \lambda_+(x^0)=\Sigma_i \lambda_i (x^0)$$ 
+But what does this mean?  
+
+- $x^0$ is simply the current network.  
+- $\lambda_i$ is the waiting time of actor *i*.  
+
+But how do we determine the waiting time of actor *i*? Well these waiting times are exponentially distributed with a rate parameter, which, if the network is very large, is  $\lambda_+$ , the sum of all individual waiting times: $\Sigma_i \lambda_i (x^0)$. See below for two examples: 
+
+```{r}
+par(mfrow=c(1,2))
+
+dist_5 <- rexp(10000, rate = 5)
+hist(dist_5, main="rate parameter = 5", freq=FALSE, xlab="lambda_i", xlim=c(0,2), ylim=c(0,9))
+
+dist_10 <- rexp(10000, rate = 10)
+hist(dist_10, main="rate parameter = 10", freq=FALSE, xlab="lambda_i", xlim=c(0,2), ylim=c(0,9))
+
+```
+
+The expected waiting time is simply the mean of all individual waiting times $lambda_i$. We saved all waiting times in `dist_5` and in `dist_10`. 
+
+Thus:  
+
+- `mean(dist_5)`= `r mean(dist_5)`  $\approx$ $ \frac{1}{\lambda_+} $ = 1/5 = 0.2  
+- `mean(dist_10)`= `r mean(dist_10)` $\approx$ $ \frac{1}{\lambda_+} $ = 1/10 = 0.1
+
+Thus each actor gets a waiting time $\lambda_i$ sampled from the exponential distribution with the specified rate parameter. Based on these waiting times, the probability is determined that actor *i* will be next: 
+
+
+ $$ \frac{\lambda_i(x^0)}{\lambda_+(x^0)} $$
+{{% alert warning %}}
+To be honest, I think waiting time is a wrong label. Because nodes with the longest waiting time have the highest probability to be chosen!  
+{{% /alert %}}
+
+Let us make this more concrete. Suppose we have a network of 4 nodes and the rate parameter is 5. 
+
+The individual waiting times are:  
+
+```{r}
+set.seed(34647)
+waitingtimes <-  rexp(4, rate = 5)
+print(paste("waitingtime", 1:4, round(waitingtimes,2), sep=" "))
+```
+
+Thus $\lambda_+(x^0)$ = `sum(waitingtimes)` = `r sum(waitingtimes)`
+
+Which makes for the following probabilities: 
+
+```{r}
+waitingtimes/sum(waitingtimes)
+```
+
+And whose turn will it be?
+
+```{r}
+actor <- sample( 1:4, 1, prob=waitingtimes)
+print(paste("chosen actor:", actor, sep=" "))
+```
+
+Now let us repeat this process a couple of times: 
+
+```{r}
+set.seed(245651)
+time <- 0 
+for (steps in 1:5) {
+waitingtimes <-  rexp(4, rate = 5)
+probabilities <- waitingtimes/sum(waitingtimes)
+actor <- sample( 1:4, 1, prob=waitingtimes)
+print(paste("chosen actor:", actor, sep=" "))
+time <- time + waitingtimes[actor]
+print(paste("total time:", time, sep=" "))
+}
+
+```
+
+So how many opportunities for change do we have before the total time exceeds 1? Well 4. 
+If we repeat the process but with a rate parameter of 10. What would we find? 
+
+```{r}
+set.seed(245651)
+time <- 0 
+for (steps in 1:10) {
+waitingtimes <-  rexp(4, rate = 10)
+probabilities <- waitingtimes/sum(waitingtimes)
+actor <- sample( 1:4, 1, prob=waitingtimes)
+print(paste("chosen actor:", actor, sep=" "))
+time <- time + waitingtimes[actor]
+print(paste("total time:", time, sep=" "))
+}
+
+```
+
+We would find there are 8 opportunities for change. Thus the larger the rate parameter the more opportunities for change per actor there are within a given time period. And in RSiena the optimal value for the rate parameter is estimated. The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be $ \frac{1/rate_parameter} $ and thus that the estimated number
+of opportunities for change per actor in a time period will be the estimated value of the rate_parameter. 
+
+## Interpretation of parameters
+
+- to do
+
+
+Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
+
+Please email any comments to: j.tolsma@ru.nl
