@@ -1,5 +1,5 @@
 ---
-title: RSiena
+title: RSiena I (causes)
 author: JochemTolsma
 date: '2020-09-22'
 slug: socio6
@@ -7,8 +7,8 @@ categories:
   - R
   - Social Networks
 tags: []
-linktitle: RSiena
-summary: "igraph, social networks, plotting, tutorial, R, Lavaan"
+linktitle: Socionets-Causes-Methods
+summary: "RSiena, twitter, social networks, plotting, tutorial, R, Lavaan"
 lastmod: '2020-09-15T08:27:34+02:00'
 type: book
 weight: 45
@@ -93,11 +93,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
 <div id="TOC">
 <ul>
-<li><a href="#rsiena"><span class="toc-section-number">1</span> RSiena</a><ul>
-<li><a href="#assumptions"><span class="toc-section-number">1.1</span> Assumptions</a></li>
-<li><a href="#rate-function"><span class="toc-section-number">1.2</span> Rate function</a></li>
-<li><a href="#interpretation-of-parameters"><span class="toc-section-number">1.3</span> Interpretation of parameters</a></li>
-</ul></li>
+<li><a href="#introduction---rsiena"><span class="toc-section-number">1</span> Introduction - RSiena</a></li>
+<li><a href="#assumptions"><span class="toc-section-number">2</span> Assumptions</a></li>
+<li><a href="#rate-function"><span class="toc-section-number">3</span> Rate function</a></li>
+<li><a href="#interpretation-of-parameters"><span class="toc-section-number">4</span> Interpretation of parameters</a></li>
 </ul>
 </div>
 
@@ -117,20 +116,51 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <button onclick="window.location.href=&#39;static/index.Rmd&#39;;">
 download code
 </button>
-<div id="rsiena" class="section level1">
-<h1><span class="header-section-number">1</span> RSiena</h1>
-<div id="assumptions" class="section level2">
-<h2><span class="header-section-number">1.1</span> Assumptions</h2>
-<ul>
-<li>ministep: one actor per time step (no coordination), one tie change per time step<br />
+<div id="introduction---rsiena" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction - RSiena</h1>
+<p>This page introduces the R package RSiena. This week/page we will estimate our first RSiena models to explain the structure of the network and how the network structure evolves. With respect to the latter we only focus this week on ‘tie evolution’ and ‘selection processes’. Thus, we are focusing on the causes. Next week (this page) we will focus on node evolution and influence processes.<br />
+Please visit the RSiena homepage <a href="https://www.stats.ox.ac.uk/~snijders/siena/">here</a>. On the website you may find the exceptionally well written manual. But the RSiena website also contains all kind of useful RSiena scripts and ‘lab exercises’.<br />
+Before we start with our own lab exercise, I would like you to:</p>
+<ol style="list-style-type: decimal">
+<li>walk through script number 4, and 5.<br />
 </li>
-<li>no memory: the same choice set is evaluated the same each time.</li>
-<li>no strategic action: actors do not anticipate that one (negatively evaluated) tie change at t1 may open up the opportunity for a (very positively) tie change at t2.</li>
+<li>walk through script number 1 and make the first assignment.<br />
+</li>
+<li>make the first lab exercise on the RSiena website ‘sex segregation of friendship networks’.</li>
+</ol>
+<p>My own lab exercise can be found at the bottom of this page. [go to lab exercise]</p>
+<p>Having taught the course social networks for a couple of years now to the students of the Research Master Social and Cultural Sciences, I think there are a couple of aspects that deserve a little bit more attention than they get in the manual and on the website. Namely,…</p>
+<ol style="list-style-type: decimal">
+<li>model assumptions that refer to the ‘Theory of Action’<br />
+</li>
+<li>the interpretation of the (estimated) rate parameter<br />
+</li>
+<li>the interpretation of the (estimated) coefficients within the evaluation function<br />
+</li>
+<li>how to build subsequent models in RSiena</li>
+</ol>
+</div>
+<div id="assumptions" class="section level1">
+<h1><span class="header-section-number">2</span> Assumptions</h1>
+<ul>
+<li>ministep:
+<ol style="list-style-type: lower-alpha">
+<li>one actor per time step (no coordination)<br />
+</li>
+<li>one tie change per time step<br />
+</li>
+<li>gradual behavioral change (one unit increase per time step)<br />
+</li>
+</ol></li>
+<li>no memory: the same choice set is evaluated the same each time.<br />
+</li>
+<li>no strategic action: actors do not anticipate that one (negatively evaluated) tie change at T1 may open up the opportunity for a (very positively) tie change at T2.<br />
+</li>
 <li>local networks: actors base their decisions only on the evaluation of their own local network (no altruism).</li>
 </ul>
 </div>
-<div id="rate-function" class="section level2">
-<h2><span class="header-section-number">1.2</span> Rate function</h2>
+<div id="rate-function" class="section level1">
+<h1><span class="header-section-number">3</span> Rate function</h1>
 <p>We find the rate function in the manual on page 43:</p>
 <p><span class="math display">\[ \lambda_+(x^0)=\Sigma_i \lambda_i (x^0)\]</span>
 But what does this mean?</p>
@@ -150,7 +180,7 @@ But what does this mean?</p>
 <span id="cb1-8"><a href="#cb1-8"></a><span class="kw">hist</span>(dist_<span class="dv">10</span>, <span class="dt">main =</span> <span class="st">&quot;rate parameter = 10&quot;</span>, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;lambda_i&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, </span>
 <span id="cb1-9"><a href="#cb1-9"></a>    <span class="dv">9</span>))</span></code></pre></div>
 <p><img src="/courses/Complete-Networks/socio6/index_files/figure-html/unnamed-chunk-1-1.svg" width="576" /></p>
-<p>The expected waiting time is simply the mean of all individual waiting times <span class="math inline">\(lambda_i\)</span>. We saved all waiting times in <code>dist_5</code> and in <code>dist_10</code>.</p>
+<p>The expected waiting time is simply the mean of all individual waiting times <span class="math inline">\(\lambda_i\)</span>. We saved all waiting times in <code>dist_5</code> and in <code>dist_10</code>.</p>
 <p>Thus:</p>
 <ul>
 <li><code>mean(dist_5)</code>= 0.1991519 <span class="math inline">\(\approx\)</span> $  $ = 1/5 = 0.2<br />
@@ -166,12 +196,12 @@ To be honest, I think waiting time is a wrong label. Because nodes with the long
 <p>The individual waiting times are:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">set.seed</span>(<span class="dv">34647</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>waitingtimes &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">4</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;waitingtime&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="kw">round</span>(waitingtimes, <span class="dv">2</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span></code></pre></div>
-<pre><code>## [1] &quot;waitingtime 1 0.45&quot; &quot;waitingtime 2 0.13&quot; &quot;waitingtime 3 0.52&quot; &quot;waitingtime 4 0.21&quot;</code></pre>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;waitingtime&quot;</span>, <span class="kw">as.factor</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="st">&quot;:&quot;</span>, <span class="kw">round</span>(waitingtimes, <span class="dv">2</span>), <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;waitingtime1:0.45&quot; &quot;waitingtime2:0.13&quot; &quot;waitingtime3:0.52&quot; &quot;waitingtime4:0.21&quot;</code></pre>
 <p>Thus <span class="math inline">\(\lambda_+(x^0)\)</span> = <code>sum(waitingtimes)</code> = 1.3174602</p>
 <p>Which makes for the following probabilities:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes)</span></code></pre></div>
-<pre><code>## [1] 0.3426805 0.1016378 0.3933320 0.1623498</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">round</span>(waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 0.34 0.10 0.39 0.16</code></pre>
 <p>And whose turn will it be?</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>actor &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dt">prob =</span> waitingtimes)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;chosen actor:&quot;</span>, actor, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span></code></pre></div>
@@ -180,13 +210,17 @@ To be honest, I think waiting time is a wrong label. Because nodes with the long
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">set.seed</span>(<span class="dv">245651</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>time &lt;-<span class="st"> </span><span class="dv">0</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="cf">for</span> (steps <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
-<span id="cb8-4"><a href="#cb8-4"></a>    waitingtimes &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">4</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>    probabilities &lt;-<span class="st"> </span>waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>    actor &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dt">prob =</span> waitingtimes)</span>
-<span id="cb8-7"><a href="#cb8-7"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;chosen actor:&quot;</span>, actor, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    time &lt;-<span class="st"> </span>time <span class="op">+</span><span class="st"> </span>waitingtimes[actor]</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;total time:&quot;</span>, time, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb8-10"><a href="#cb8-10"></a>}</span></code></pre></div>
+<span id="cb8-4"><a href="#cb8-4"></a>    <span class="co"># sample the waiting times from the exponential distribution</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    waitingtimes &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">4</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="co"># calculate the probabilities</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    probabilities &lt;-<span class="st"> </span>waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes)</span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="co"># pick the actor which has an opportunity for change</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    actor &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dt">prob =</span> waitingtimes)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="co"># show results</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;chosen actor:&quot;</span>, actor, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
+<span id="cb8-12"><a href="#cb8-12"></a>    time &lt;-<span class="st"> </span>time <span class="op">+</span><span class="st"> </span>waitingtimes[actor]</span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;total time:&quot;</span>, time, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
+<span id="cb8-14"><a href="#cb8-14"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;chosen actor: 4&quot;
 ## [1] &quot;total time: 0.188847544408383&quot;
 ## [1] &quot;chosen actor: 2&quot;
@@ -230,15 +264,35 @@ If we repeat the process but with a rate parameter of 10. What would we find?</p
 ## [1] &quot;chosen actor: 4&quot;
 ## [1] &quot;total time: 1.18615504420682&quot;</code></pre>
 <p>We would find there are 8 opportunities for change. Thus <strong>the larger the rate parameter the more opportunities for change per actor there are within a given time period</strong>. And in RSiena the optimal value for the rate parameter is estimated.<br />
-The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be <span class="math inline">\(\frac{1/rate_parameter}\)</span> and thus that the estimated number
-of opportunities for change per actor in a time period will be the estimated value of the rate_parameter.</p>
+The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be <span class="math inline">\(\frac{1}{\lambda_+}\)</span> and thus that <strong>the estimated number of opportunities for change per actor in a time period will be the estimated value of the rate_parameter</strong>.</p>
 </div>
-<div id="interpretation-of-parameters" class="section level2">
-<h2><span class="header-section-number">1.3</span> Interpretation of parameters</h2>
-<ul>
-<li>to do</li>
-</ul>
-<p>Latest Version: 22-09-2020</p>
+<div id="interpretation-of-parameters" class="section level1">
+<h1><span class="header-section-number">4</span> Interpretation of parameters</h1>
+<p>The evaluation function is defined as:</p>
+<p><span class="math display">\[ f^{net}_i(x) = \Sigma_k \beta^{net}_ks_{ik}^{net}(x) \]</span>
+Thus <span class="math inline">\(f^{net}\)</span> is the evaluation function. And it attaches a value/number to the <em>attractiveness</em> of the network, <span class="math inline">\(x\)</span>. The subscript <em>i</em> refers to the agent, thus each agent will get its own value of the evaluation function. <span class="math inline">\(\beta^{net}_k\)</span> refers to our estimated parameters. These are what the results will spit out. And for each network effect <em>k</em>, <span class="math inline">\(s^{net}_{ik}\)</span>, we will obtain a separate estimate. Each agent evaluates the attractiveness of its local network environment. This is why <span class="math inline">\(s_i\)</span> has a subscript <em>i</em>. We as scientists have ideas about which network effects (or statistics) <span class="math inline">\(s^{net}_{ik}\)</span> may play a role in the evaluation of the local networks. Based on the mathematical definition of <span class="math inline">\(s^{net}_{ik}\)</span> the value of statistic <em>k</em> will be determined for agent <em>i</em>. The RSiena software will then estimate the parameters <span class="math inline">\(\beta^{net}_k\)</span> for which it is most likely to obtain the network observed at T2 given the network observed at T1. More precisely, to observe a network at T2 with similar network structures as the actual network observed at T2.</p>
+<p>Now, let us suppose that actor <em>i</em> has an opportunity for change at that after a ministep three possible networks could occur. Or stated otherwise, the choice set consists of three networks for actor <em>i</em>. See below.</p>
+<p><img src="eva1.PNG" /></p>
+<p><strong>Figure:</strong> Choice set for actor <em>i</em>.</p>
+<p>How actor <em>i</em> evaluates these networks depends on the <span class="math inline">\(s^{net}_{ik}\)</span> in the evaluation function. Let us suppose only the outdegree effect is part of the evaluation function. Thus:</p>
+<p><span class="math display">\[ f^{net}_i(x) = \beta^{net}_1s_{i1}^{net}(x) \]</span>
+where</p>
+<p><span class="math display">\[ s_{i1}^{net}(x) = \Sigma_jx_{ij}\]</span>
+and given the networks above:</p>
+<p><span class="math display">\[ s_{i1}^{net}(x_a) = 0 , s_{i1}^{net}(x_b) = 1, s_{i1}^{net}(x_c) = 1\]</span>
+and hence:</p>
+<p><span class="math display">\[ f^{net}_i(x_a) = 0, f^{net}_i(x_b) = \beta^{net}_1, f^{net}_i(x_c) = \beta^{net}_1 \]</span>
+The probability that <span class="math inline">\(x_b\)</span> will be chosen is given by:</p>
+<p><span class="math display">\[ P(X= x_b) = \frac{exp(f^{net}_i(x_b))}{exp(f^{net}_i(x_a))+exp(f^{net}_i(x_b))+exp(f^{net}_i(x_c))} \]</span></p>
+<p>For the interpretation is much easier to interpret the ratio of two probabilities:</p>
+<p><span class="math display">\[ \frac{P(X= x_b)}{P(X= x_a)} = \frac{exp(f^{net}_i(x_b))}{exp(f^{net}_i(x_a))} = exp(f^{net}_i(x_b) - f^{net}_i(x_a) ) = exp(\beta^{net}_1)\]</span>
+Let us assume that <span class="math inline">\(\beta^{net}_1 = -2\)</span>
+This would imply that:</p>
+<p><span class="math display">\[ P(X= x_b) = exp(-2)* P(X= x_a) \approx 0.14*P(X= x_a) \]</span></p>
+<p>Thus the probability to observe a tie between <em>i</em> and <em>j</em> is 14% the probability to observe no tie between <em>i</em> and <em>j</em>.</p>
+<p>{{% alert note %}}
+Is it possible to deduce the density of the network from this formula? Well let suppose actor <em>i</em> would only have options <span class="math inline">\(x_a\)</span> and <span class="math inline">\(x_b\)</span> then the probabilities would need to sum to 1. And this would imply a density of approximately .12 (0.12=0.14*.88 and .12 + .88 = 1).<br />
+{{% /alert %}}</p>
+<p>Latest Version: 25-09-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
-</div>
 </div>

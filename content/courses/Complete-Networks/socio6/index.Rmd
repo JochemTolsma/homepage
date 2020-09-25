@@ -1,5 +1,5 @@
 ---
-title: RSiena
+title: RSiena I (causes)
 author: JochemTolsma
 date: '2020-09-22'
 slug: socio6
@@ -7,8 +7,8 @@ categories:
   - R
   - Social Networks
 tags: []
-linktitle: RSiena
-summary: "igraph, social networks, plotting, tutorial, R, Lavaan"
+linktitle: Socionets-Causes-Methods
+summary: "RSiena, twitter, social networks, plotting, tutorial, R, Lavaan"
 lastmod: '2020-09-15T08:27:34+02:00'
 type: book
 weight: 45
@@ -50,16 +50,37 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <button onclick="window.location.href='static/index.Rmd';">download code</button>
 
 
-# RSiena
+# Introduction - RSiena
+This page introduces the R package RSiena. This week/page we will estimate our first RSiena models to explain the structure of the network and how the network structure evolves. With respect to the latter we only focus this week on 'tie evolution' and 'selection processes'. Thus, we are focusing on the causes. Next week (this page) we will focus on node evolution and influence processes.   
+Please visit the RSiena homepage [here](https://www.stats.ox.ac.uk/~snijders/siena/). On the website you may find the exceptionally well written manual. But the RSiena website also contains all kind of useful RSiena scripts and 'lab exercises'.  
+Before we start with our own lab exercise, I would like you to:  
 
-## Assumptions
+1. walk through script number 4, and 5.  
+2. walk through script number 1 and make the first assignment.  
+3. make the first lab exercise on the RSiena website 'sex segregation of friendship networks'.  
 
-- ministep: one actor per time step (no coordination), one tie change per time step  
-- no memory: the same choice set is evaluated the same each time.
-- no strategic action: actors do not anticipate that one (negatively evaluated) tie change at t1 may open up the opportunity for a (very positively) tie change at t2. 
+My own lab exercise can be found at the bottom of this page. [go to lab exercise]  
+
+Having taught the course social networks for a couple of years now to the students of the Research Master Social and Cultural Sciences, I think there are a couple of aspects that deserve a little bit more attention than they get in the manual and on the website. Namely,...  
+
+1. model assumptions that refer to the 'Theory of Action'  
+2. the interpretation of the (estimated) rate parameter  
+3. the interpretation of the (estimated) coefficients within the evaluation function  
+4. how to build subsequent models in RSiena
+
+ 
+
+# Assumptions
+
+- ministep:  
+  a. one actor per time step (no coordination)  
+  b. one tie change per time step  
+  c. gradual behavioral change (one unit increase per time step)  
+- no memory: the same choice set is evaluated the same each time.  
+- no strategic action: actors do not anticipate that one (negatively evaluated) tie change at T1 may open up the opportunity for a (very positively) tie change at T2.   
 - local networks: actors base their decisions only on the evaluation of their own local network (no altruism). 
 
-## Rate function
+# Rate function
 
 We find the rate function in the manual on page 43:
 
@@ -82,7 +103,7 @@ hist(dist_10, main="rate parameter = 10", freq=FALSE, xlab="lambda_i", xlim=c(0,
 
 ```
 
-The expected waiting time is simply the mean of all individual waiting times $lambda_i$. We saved all waiting times in `dist_5` and in `dist_10`. 
+The expected waiting time is simply the mean of all individual waiting times $\lambda_i$. We saved all waiting times in `dist_5` and in `dist_10`. 
 
 Thus:  
 
@@ -104,7 +125,7 @@ The individual waiting times are:
 ```{r}
 set.seed(34647)
 waitingtimes <-  rexp(4, rate = 5)
-print(paste("waitingtime", 1:4, round(waitingtimes,2), sep=" "))
+print(paste("waitingtime", as.factor(1:4), ":", round(waitingtimes,2), sep=""))
 ```
 
 Thus $\lambda_+(x^0)$ = `sum(waitingtimes)` = `r sum(waitingtimes)`
@@ -112,7 +133,7 @@ Thus $\lambda_+(x^0)$ = `sum(waitingtimes)` = `r sum(waitingtimes)`
 Which makes for the following probabilities: 
 
 ```{r}
-waitingtimes/sum(waitingtimes)
+round(waitingtimes/sum(waitingtimes),2)
 ```
 
 And whose turn will it be?
@@ -128,9 +149,13 @@ Now let us repeat this process a couple of times:
 set.seed(245651)
 time <- 0 
 for (steps in 1:5) {
+#sample the waiting times from the exponential distribution
 waitingtimes <-  rexp(4, rate = 5)
+#calculate the probabilities
 probabilities <- waitingtimes/sum(waitingtimes)
+#pick the actor which has an opportunity for change
 actor <- sample( 1:4, 1, prob=waitingtimes)
+#show results
 print(paste("chosen actor:", actor, sep=" "))
 time <- time + waitingtimes[actor]
 print(paste("total time:", time, sep=" "))
@@ -156,12 +181,51 @@ print(paste("total time:", time, sep=" "))
 ```
 
 We would find there are 8 opportunities for change. Thus **the larger the rate parameter the more opportunities for change per actor there are within a given time period**. And in RSiena the optimal value for the rate parameter is estimated.  
-The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be $\frac{1/rate_parameter}$ and thus that the estimated number
-of opportunities for change per actor in a time period will be the estimated value of the rate_parameter. 
+The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be $\frac{1}{\lambda_+}$ and thus that **the estimated number of opportunities for change per actor in a time period will be the estimated value of the rate_parameter**. 
 
-## Interpretation of parameters
+# Interpretation of parameters
 
-- to do
+The evaluation function is defined as: 
+
+$$ f^{net}_i(x) = \Sigma_k \beta^{net}_ks_{ik}^{net}(x) $$
+Thus $f^{net}$ is the evaluation function. And it attaches a value/number to the *attractiveness* of the network, $x$. The subscript *i* refers to the agent, thus each agent will get its own value of the evaluation function. $\beta^{net}_k$ refers to our estimated parameters. These are what the results will spit out. And for each network effect *k*, $s^{net}_{ik}$, we will obtain a separate estimate. Each agent evaluates the attractiveness of its local network environment. This is why $s_i$ has a subscript *i*. We as scientists have ideas about which network effects (or statistics) $s^{net}_{ik}$ may play a role in the evaluation of the local networks. Based on the mathematical definition of $s^{net}_{ik}$ the value of statistic *k* will be determined for agent *i*. The RSiena software will then estimate the parameters $\beta^{net}_k$ for which it is most likely to obtain the network observed at T2 given the network observed at T1. More precisely, to observe a network at T2 with similar network structures as the actual network observed at T2.       
+
+Now, let us suppose that actor *i* has an opportunity for change at that after a ministep three possible networks could occur. Or stated otherwise, the choice set consists of three networks for actor *i*. See below. 
+
+![](eva1.PNG)  
+
+**Figure:** Choice set for actor *i*.  
+
+How actor *i* evaluates these networks depends on the $s^{net}_{ik}$ in the evaluation function. Let us suppose only the outdegree effect is part of the evaluation function. Thus: 
+
+$$ f^{net}_i(x) = \beta^{net}_1s_{i1}^{net}(x) $$
+where 
+
+$$ s_{i1}^{net}(x) = \Sigma_jx_{ij}$$
+and given the networks above: 
+
+$$ s_{i1}^{net}(x_a) = 0 , s_{i1}^{net}(x_b) = 1, s_{i1}^{net}(x_c) = 1$$
+and hence: 
+
+$$ f^{net}_i(x_a) = 0, f^{net}_i(x_b) = \beta^{net}_1, f^{net}_i(x_c) = \beta^{net}_1 $$
+The probability that $x_b$ will be chosen is given by:
+
+$$ P(X= x_b) = \frac{exp(f^{net}_i(x_b))}{exp(f^{net}_i(x_a))+exp(f^{net}_i(x_b))+exp(f^{net}_i(x_c))} $$
+
+For the interpretation is much easier to interpret the ratio of two probabilities: 
+
+$$ \frac{P(X= x_b)}{P(X= x_a)} = \frac{exp(f^{net}_i(x_b))}{exp(f^{net}_i(x_a))} = exp(f^{net}_i(x_b) - f^{net}_i(x_a) ) = exp(\beta^{net}_1)$$
+Let us assume that $\beta^{net}_1 = -2$
+This would imply that: 
+
+$$ P(X= x_b) = exp(-2)* P(X= x_a) \approx 0.14*P(X= x_a) $$ 
+
+Thus the probability to observe a tie between *i* and *j* is 14% the probability to observe no tie between *i* and *j*.  
+
+{{% alert note %}}
+Is it possible to deduce the density of the network from this formula? Well let suppose actor *i* would only have options $x_a$ and $x_b$ then the probabilities would need to sum to 1. And this would imply a density of approximately .12 (0.12=0.14*.88 and .12 + .88 = 1).  
+{{% /alert %}}
+
 
 
 Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
