@@ -26,7 +26,13 @@ weight: 50
 (A) What is meant by multiplexity?  
 (B) Which other relations do you think Tolsma et al. should have taken into account in their study on interethnic bullying? Motivate your answer and draw your hypothesis in a figure. 
 6. In the study of Tolsma et al. (2013) no theoretical and empirical distinction is being made between the creation and dissolution of bullying relations. Whether you observe a relation at a specific time is of course the consequence of both creation and dissolution rates. Please give an argument why the mechanisms behind the creation and dissolution of a bully relation may be different.  
-7. Calculate the density of the networks that make up the first row and first column. See [here](../socio4#networks). 
-8. Calculate the degree centrality of the nodes in same networks as Q7.  
-9. Now do the same as Q8 but than with respect to closeness centrality. 
+7. Calculate the density of the networks that make up the first row and first column of the figure at the bottom of this page. 
+8. Calculate the degree centrality of the nodes in the networks that make up the first row and first column of the figure at the bottom of this page. 
+9. Now do the same as Q8 but than with respect to closeness centrality.  
+
+
+![](test.png)  
+
+Figure. Social networks  
+
 

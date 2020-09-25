@@ -26,6 +26,7 @@ toc: true  # Show table of contents? true/false
 type: book  # Do not modify.
 ---> 
 
+<!---
 <script type="text/javascript">
 
 function changeText(text)
@@ -42,7 +43,7 @@ function changeText(text)
 <div id='textid'>I'm a Text</div>
 <button onclick="changeText('Mkyong1');">Mkyong1</button>
 <button onclick="changeText(toc.html());">Mkyong2</button>
-
+--->
 
 ## Network degree  
 
