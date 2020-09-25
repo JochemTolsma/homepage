@@ -16,7 +16,7 @@ type: book
 weight: 50
 ---
 
-## <i class="fas fa-lightbulb"></i> SELF-TEST <i class="fas fa-lightbulb"></i> 
+
 
 1.	Tolsma et al. (2013) applied a social network perspective in interethnic bullying research. What were their main criticism on previous research?  
 2.	Please summarize the hypotheses of Tolsma et al. (2013) with regard to the four ethnicity effects (ego, alter, dyad, context)? 
@@ -31,8 +31,14 @@ weight: 50
 9. Now do the same as Q8 but than with respect to closeness centrality.  
 
 
-![](test.png)  
+![](test2.png)  
 
 Figure. Social networks  
 
-
+<!---
+This is probably better for cross-referencing. 
+<div class="figure">
+<img src="test2.png" alt="A caption" width="100%" />
+<p class="caption">(\#fig:pressure)A caption</p>
+</div>
+--> 
