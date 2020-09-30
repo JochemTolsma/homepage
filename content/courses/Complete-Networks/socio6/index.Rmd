@@ -22,7 +22,7 @@ output:
     fig_width: 6
     dev: "svg"
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 
@@ -31,6 +31,9 @@ editor_options:
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
 options(width = 100)
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/Administrator/Documents/GitHub/homepage/content/courses/Complete-Networks/socio6')
 ```
 
 
@@ -66,7 +69,8 @@ Having taught the course social networks for a couple of years now to the studen
 1. model assumptions that refer to the 'Theory of Action'  
 2. the interpretation of the (estimated) rate parameter  
 3. the interpretation of the (estimated) coefficients within the evaluation function  
-4. how to build subsequent models in RSiena
+4. the difference between a $ s^{net} $ effect and an $ s^{el} $ effect.  
+5. how to build subsequent models in RSiena
 
  
 
@@ -107,8 +111,8 @@ The expected waiting time is simply the mean of all individual waiting times $\l
 
 Thus:  
 
-- `mean(dist_5)`= `r mean(dist_5)`  $\approx$ $ \frac{1}{\lambda_+} $ = 1/5 = 0.2  
-- `mean(dist_10)`= `r mean(dist_10)` $\approx$ $ \frac{1}{\lambda_+} $ = 1/10 = 0.1
+- `mean(dist_5)`= `r mean(dist_5)`  $\approx$ $\frac{1}{\lambda_+}$ = 1/5 = 0.2  
+- `mean(dist_10)`= `r mean(dist_10)` $\approx$ $\frac{1}{\lambda_+}$ = 1/10 = 0.1
 
 Thus each actor gets a waiting time $\lambda_i$ sampled from the exponential distribution with the specified rate parameter. Based on these waiting times, the probability is determined that actor *i* will be next: 
 
@@ -188,7 +192,7 @@ The time period in RSiena is set to be the size of the network. This leads to a 
 The evaluation function is defined as: 
 
 $$ f^{net}_i(x) = \Sigma_k \beta^{net}_ks_{ik}^{net}(x) $$
-Thus $f^{net}$ is the evaluation function. And it attaches a value/number to the *attractiveness* of the network, $x$. The subscript *i* refers to the agent, thus each agent will get its own value of the evaluation function. $\beta^{net}_k$ refers to our estimated parameters. These are what the results will spit out. And for each network effect *k*, $s^{net}_{ik}$, we will obtain a separate estimate. Each agent evaluates the attractiveness of its local network environment. This is why $s_i$ has a subscript *i*. We as scientists have ideas about which network effects (or statistics) $s^{net}_{ik}$ may play a role in the evaluation of the local networks. Based on the mathematical definition of $s^{net}_{ik}$ the value of statistic *k* will be determined for agent *i*. The RSiena software will then estimate the parameters $\beta^{net}_k$ for which it is most likely to obtain the network observed at T2 given the network observed at T1. More precisely, to observe a network at T2 with similar network structures as the actual network observed at T2.       
+Thus $f^{net}$ is the evaluation function. And it attaches a value/number to the *attractiveness* of the network, $x$. The subscript *i* refers to the agent, thus each agent will get its own value of the evaluation function. $\beta^{net}_k$ refers to our estimated parameters. These are what the results will spit out. And for each network effect *k*, $s^{net}_{ik}$, we will obtain a separate estimate. Each agent evaluates the attractiveness of its local network environment. This is why $s_i$ has a subscript *i*. We as scientists have ideas about which network effects $s^{net}_{ik}$ may play a role in the evaluation of the local networks. Based on the mathematical definition of $s^{net}_{ik}$ the value of statistic *k* will be determined for each of the possible networks that may result after a ministep of agent *i*. Agent *i* is most likely to take a ministep that will result in the network with the highest attractiveness value. The RSiena software will then estimate the parameters $\beta^{net}_k$ for which it is most likely to obtain the network observed at T2 given the network observed at T1. More precisely, to observe a network at T2 with similar network structures as the actual network observed at T2.       
 
 Now, let us suppose that actor *i* has an opportunity for change at that after a ministep three possible networks could occur. Or stated otherwise, the choice set consists of three networks for actor *i*. See below. 
 
@@ -220,13 +224,446 @@ This would imply that:
 
 $$ P(X= x_b) = exp(-2)* P(X= x_a) \approx 0.14*P(X= x_a) $$ 
 
-Thus the probability to observe a tie between *i* and *j* is 14% the probability to observe no tie between *i* and *j*.  
+Thus the probability to observe a tie between *i* and *j* (network $x_b$) is 14% the probability to observe no tie between *i* and *j* (network $x_a$).  
 
 {{% alert note %}}
 Is it possible to deduce the density of the network from this formula? Well let suppose actor *i* would only have options $x_a$ and $x_b$ then the probabilities would need to sum to 1. And this would imply a density of approximately .12 (0.12=0.14*.88 and .12 + .88 = 1).  
 {{% /alert %}}
 
+# lab exercise
 
+We are going to use the same dataset we used in the lab exercise on plotting social networks. 
+
+During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do.  
+
+
+{{% alert warning %}}
+In the upper left and right corner of the code blocks you will find copy-to-clipboard buttons. Use these buttons to copy the code to your own editor. 
+{{% /alert %}}
+
+
+## Before you start
+
+Before you start, check whether you run the latest RStudio version (from the Help menu, pick 'check for updates' and whether you need to update R. 
+
+```{r update, eval=FALSE}
+install.packages("installr")  #you  first install packages
+require(installr)  #then you will need to activate packages. 
+updateR() #run the function to start the update process
+```
+
+
+Give your script a nice name. Include the author, and data when you last modified the script. Include a lot of comments in your script! Don't forget, always start with cleaning up your workspace. 
+
+```{r cleanup}
+###Author: JOCHEM TOLSMA###
+###Lastmod: 31-08-2020###
+
+#cleanup workspace
+rm (list = ls( )) 
+```
+
+And set your working directory. 
+```{r setwd, eval=FALSE}
+#set working directory
+setwd("C:\\YOURDIR\\YOURSUBDIR\\YOURSUBSUBDIR\\")  #change to your own workdirectory
+```
+
+Install the packages you will need. 
+
+```{r packages, eval=FALSE}
+#install packages
+library(RSiena)
+```
+
+Define your custom build functions. 
+
+```{r functions, attr.source = '.numberLines', results='hold'}
+#density: observed relations divided by possible relations
+fdensity <- function(x) { 
+	#x is your nomination network
+	#make sure diagonal cells are NA
+	diag(x) <- NA
+	#take care of RSiena structural zeros, set as missing. 
+	x[x==10] <- NA
+	sum(x==1, na.rm=T) / (sum(x==1 | x==0, na.rm=T))
+}
+
+#calculate intragroup density
+fdensityintra <- function(x, A) { 
+	#A is matrix indicating whether nodes in dyad have same node attributes 
+	diag(x) <- NA
+	x[x==10] <- NA
+	diag(A) <- NA
+	sum(x==1 & A==1, na.rm=T) / (sum((x==1 | x==0) & A==1, na.rm=T))
+}
+
+#calculate intragroup density
+fdensityinter <- function(x, A) { 
+	#A is matrix indicating whether nodes in dyad have same node attributes 
+	diag(x) <- NA
+	x[x==10] <- NA
+	diag(A) <- NA
+	sum(x==1 & A!=1, na.rm=T) / (sum((x==1 | x==0) & A!=1, na.rm=T))
+}
+
+#construct dyadcharacteristic whether nodes are similar/homogenous
+fhomomat <- function(x) {
+#x is a vector of node-covariate
+  xmat <- matrix(x, nrow=length(x), ncol=length(x))
+xmatt <- t(xmat)
+xhomo <- xmat==xmatt
+return(xhomo)
+}
+
+# a function to calculate all valid dyads. 
+fndyads <- function(x) {
+	diag(x) <- NA
+	x[x==10] <- NA
+	(sum((x==1 | x==0) , na.rm=T))
+}
+
+# a function to calculate all valid intragroupdyads.
+fndyads2 <- function(x, A) {
+	diag(x) <- NA
+	x[x==10] <- NA
+	diag(A) <- NA
+	(sum((x==1 | x==0) & A==1, na.rm=T))
+}
+
+
+fscolnet <- function(network, ccovar) {
+#Calculate coleman on network level: https://reader.elsevier.com/reader/sd/pii/S0378873314000239?token=A42F99FF6E2B750436DD2CB0DB7B1F41BDEC16052A45683C02644DAF88215A3379636B2AA197B65941D6373E9E2EE413
+
+	fhomomat <- function(x) {
+	xmat <- matrix(x, nrow=length(x), ncol=length(x))
+	xmatt <- t(xmat)
+	xhomo <- xmat==xmatt
+	return(xhomo)
+	}
+
+	fsumintra <- function(x, A) { 
+	#A is matrix indicating whether nodes constituting dyad have same characteristics
+	diag(x) <- NA
+	x[x==10] <- NA
+	diag(A) <- NA
+	sum(x==1 & A==1, na.rm=T) 
+	}
+
+	#expecation w*=sum_g sum_i (ni((ng-1)/(N-1)))
+	network[network==10] <- NA
+	ni <- rowSums(network, na.rm=T)
+	ng <- NA
+	for (i in 1:length(ccovar)) {ng[i] <- table(ccovar)[rownames(table(ccovar))==ccovar[i]]}
+	N <- length(ccovar)
+	wexp <- sum(ni*((ng-1)/(N-1)), na.rm=T)
+
+	#wgg1 how many intragroup ties
+	w <- fsumintra(network, fhomomat(ccovar)) 
+	
+	Scol_net <- ifelse(w>=wexp, (w-wexp) / (sum(ni, na.rm=T) - wexp), (w - wexp)/wexp)
+	return(Scol_net)
+
+}
+
+
+```
+
+## Data
+
+We are going to play with Twitter Networks among Dutch MPs. 
+
+**Download data [here](static/twitter_20190919.Rdata).**
+
+Load the Robject and have a look at it. Save the list elements in separate objects. 
+
+```{r,  attr.source = '.numberLines', results='hold'}
+getwd()
+load("static/twitter_20190919.RData") #change to your working directory
+str(twitter_20190919,1)
+keyf <- twitter_20190919[[1]]
+mydata <- twitter_20190919[[2]]
+seats <- twitter_20190919[[3]]
+
+```
+So, what do we have? 
+
+- keyf: a data.frame on 147 Dutch MPs. 
+- mydata: This an object which is ready to analyze in RSiena. It is actually a quite complicated object. For now three things are important:  
+  1. The nodes in mydata are the same as in keyf and in seats.  
+  2. It contains the twitter data at three timepoints (in `mydata$depvars`). We have three layers: 
+    - fnet: who follows whom
+    - atmnet: who atmentions whom
+    - rtnet: who retweats whom  
+  3. It also contains timeinvariant information on the nodes (in `mydata$cCovars`)
+- seats: a dataset which contains the coordinates of the seats in the House of Parliament in the Netherlands. 
+
+{{% alert note %}}
+
+We are going to focus on the retweet relations of politicians. This is most closely related to a positive  or helping relation. Thus who is retweeting ('helping') whom on Twitter? 
+
+{{% / alert %}}
+
+## Research questions
+
+1. To what extent do we observer segregation along party affiliation in the retweet network among Dutch MPs.  
+2. To what extent is the presumed segregation along party affiliation in the retweet network among Dutch MPs the byproduct of segregation along other social dimensions such as sex, age?  
+3. To what extent is the presumed segregation along party affiliation in the retweet network among Dutch MPs the result of propinquity?    
+4. To what extent is the presumed segregation along party affiliation in the retweet network among Dutch MPs the result of network effects?  
+
+## Descriptive statistics  
+
+### densities
+
+Let us first describe the total density and intra- and intergroup densities. Don't be scared of the long script. I just do it for all kind of dimensions and for all three layers in the twitter network. 
+
+```{r desdensities,  attr.source = '.numberLines', results='hold'}
+#retrieve nominationdata from rsiena object
+fnet <- mydata$depvars$fnet
+atmnet <- mydata$depvars$atmnet
+rtnet <- mydata$depvars$rtnet
+
+#retrieve node-attributes from rsiena object
+vrouw <- mydata$cCovars$vrouw
+partij <- mydata$cCovars$partij
+ethminz <- mydata$cCovars$ethminz
+lft <- mydata$cCovars$lft
+
+#de-mean-center node attributes
+ethminz <- ethminz + attributes(ethminz)$mean
+partij <- partij + attributes(partij)$mean
+vrouw <- vrouw + attributes(vrouw)$mean
+lft <- lft + attributes(lft)$mean
+
+#construct matrices for similarity for each dimension (dyad characteristics)
+vrouwm <- fhomomat(vrouw)
+partijm <- fhomomat(partij)
+ethminzm <- fhomomat(ethminz)
+
+#just for fun, make dyad characteristic indicating whether both nodes are ethnic minorities
+xmat <- matrix(ethminz, nrow=length(ethminz), ncol=length(ethminz))
+xmatt <- t(xmat)
+minoritym <- xmat==1 & xmatt==1
+
+#for age max 5 year difference / for descriptives
+xmat <- matrix(lft, nrow=length(lft), ncol=length(lft))
+xmatt <- t(xmat)
+lftm <- (abs(xmat - xmatt) < 6)
+
+#calculate all possible similar dyads, not the focus of this exercise. 
+# fndyads2(fnet[,,1], vrouwm)
+# fndyads2(fnet[,,3], vrouwm)
+# fndyads2(fnet[,,1], partijm)
+# fndyads2(fnet[,,3], partijm)
+# fndyads2(fnet[,,1], ethminzm)
+# fndyads2(fnet[,,3], ethminzm)
+
+#make a big object to store all results
+desmat <- matrix(NA, nrow=10, ncol=9)
+
+#lets start using our functions
+desmat[1,1] <- fdensity(fnet[,,1])
+desmat[1,2] <- fdensity(fnet[,,2])
+desmat[1,3] <- fdensity(fnet[,,3])
+desmat[2,1] <- fdensityintra(fnet[,,1], vrouwm)
+desmat[2,2] <- fdensityintra(fnet[,,2], vrouwm)
+desmat[2,3] <- fdensityintra(fnet[,,3], vrouwm)
+desmat[3,1] <- fdensityinter(fnet[,,1], vrouwm)
+desmat[3,2] <- fdensityinter(fnet[,,2], vrouwm)
+desmat[3,3] <- fdensityinter(fnet[,,3], vrouwm)
+desmat[4,1] <- fdensityintra(fnet[,,1], partijm)
+desmat[4,2] <- fdensityintra(fnet[,,2], partijm)
+desmat[4,3] <- fdensityintra(fnet[,,3], partijm)
+desmat[5,1] <- fdensityinter(fnet[,,1], partijm)
+desmat[5,2] <- fdensityinter(fnet[,,2], partijm)
+desmat[5,3] <- fdensityinter(fnet[,,3], partijm)
+desmat[6,1] <- fdensityintra(fnet[,,1], ethminzm)
+desmat[6,2] <- fdensityintra(fnet[,,2], ethminzm)
+desmat[6,3] <- fdensityintra(fnet[,,3], ethminzm)
+desmat[7,1] <- fdensityinter(fnet[,,1], ethminzm)
+desmat[7,2] <- fdensityinter(fnet[,,2], ethminzm)
+desmat[7,3] <- fdensityinter(fnet[,,3], ethminzm)
+desmat[8,1] <- fdensityinter(fnet[,,1], minoritym)
+desmat[8,2] <- fdensityinter(fnet[,,2], minoritym)
+desmat[8,3] <- fdensityinter(fnet[,,3], minoritym)
+desmat[9,1] <- fdensityintra(fnet[,,1], lftm)
+desmat[9,2] <- fdensityintra(fnet[,,2], lftm)
+desmat[9,3] <- fdensityintra(fnet[,,3], lftm)
+desmat[10,1] <- fdensityinter(fnet[,,1], lftm)
+desmat[10,2] <- fdensityinter(fnet[,,2], lftm)
+desmat[10,3] <- fdensityinter(fnet[,,3], lftm)
+
+desmat[1,1 +3] <- fdensity(atmnet[,,1])
+desmat[1,2+3] <- fdensity(atmnet[,,2])
+desmat[1,3+3] <- fdensity(atmnet[,,3])
+desmat[2,1+3] <- fdensityintra(atmnet[,,1], vrouwm)
+desmat[2,2+3] <- fdensityintra(atmnet[,,2], vrouwm)
+desmat[2,3+3] <- fdensityintra(atmnet[,,3], vrouwm)
+desmat[3,1+3] <- fdensityinter(atmnet[,,1], vrouwm)
+desmat[3,2+3] <- fdensityinter(atmnet[,,2], vrouwm)
+desmat[3,3+3] <- fdensityinter(atmnet[,,3], vrouwm)
+desmat[4,1+3] <- fdensityintra(atmnet[,,1], partijm)
+desmat[4,2+3] <- fdensityintra(atmnet[,,2], partijm)
+desmat[4,3+3] <- fdensityintra(atmnet[,,3], partijm)
+desmat[5,1+3] <- fdensityinter(atmnet[,,1], partijm)
+desmat[5,2+3] <- fdensityinter(atmnet[,,2], partijm)
+desmat[5,3+3] <- fdensityinter(atmnet[,,3], partijm)
+desmat[6,1+3] <- fdensityintra(atmnet[,,1], ethminzm)
+desmat[6,2+3] <- fdensityintra(atmnet[,,2], ethminzm)
+desmat[6,3+3] <- fdensityintra(atmnet[,,3], ethminzm)
+desmat[7,1+3] <- fdensityinter(atmnet[,,1], ethminzm)
+desmat[7,2+3] <- fdensityinter(atmnet[,,2], ethminzm)
+desmat[7,3+3] <- fdensityinter(atmnet[,,3], ethminzm)
+desmat[8,1+3] <- fdensityinter(atmnet[,,1], minoritym)
+desmat[8,2+3] <- fdensityinter(atmnet[,,2], minoritym)
+desmat[8,3+3] <- fdensityinter(atmnet[,,3], minoritym)
+desmat[9,1+3] <- fdensityintra(atmnet[,,1], lftm)
+desmat[9,2+3] <- fdensityintra(atmnet[,,2], lftm)
+desmat[9,3+3] <- fdensityintra(atmnet[,,3], lftm)
+desmat[10,1+3] <- fdensityinter(atmnet[,,1], lftm)
+desmat[10,2+3] <- fdensityinter(atmnet[,,2], lftm)
+desmat[10,3+3] <- fdensityinter(atmnet[,,3], lftm)
+
+desmat[1,1 +6] <- fdensity(rtnet[,,1])
+desmat[1,2+6] <- fdensity(rtnet[,,2])
+desmat[1,3+6] <- fdensity(rtnet[,,3])
+desmat[2,1+6] <- fdensityintra(rtnet[,,1], vrouwm)
+desmat[2,2+6] <- fdensityintra(rtnet[,,2], vrouwm)
+desmat[2,3+6] <- fdensityintra(rtnet[,,3], vrouwm)
+desmat[3,1+6] <- fdensityinter(rtnet[,,1], vrouwm)
+desmat[3,2+6] <- fdensityinter(rtnet[,,2], vrouwm)
+desmat[3,3+6] <- fdensityinter(rtnet[,,3], vrouwm)
+desmat[4,1+6] <- fdensityintra(rtnet[,,1], partijm)
+desmat[4,2+6] <- fdensityintra(rtnet[,,2], partijm)
+desmat[4,3+6] <- fdensityintra(rtnet[,,3], partijm)
+desmat[5,1+6] <- fdensityinter(rtnet[,,1], partijm)
+desmat[5,2+6] <- fdensityinter(rtnet[,,2], partijm)
+desmat[5,3+6] <- fdensityinter(rtnet[,,3], partijm)
+desmat[6,1+6] <- fdensityintra(rtnet[,,1], ethminzm)
+desmat[6,2+6] <- fdensityintra(rtnet[,,2], ethminzm)
+desmat[6,3+6] <- fdensityintra(rtnet[,,3], ethminzm)
+desmat[7,1+6] <- fdensityinter(rtnet[,,1], ethminzm)
+desmat[7,2+6] <- fdensityinter(rtnet[,,2], ethminzm)
+desmat[7,3+6] <- fdensityinter(rtnet[,,3], ethminzm)
+desmat[8,1+6] <- fdensityinter(rtnet[,,1], minoritym)
+desmat[8,2+6] <- fdensityinter(rtnet[,,2], minoritym)
+desmat[8,3+6] <- fdensityinter(rtnet[,,3], minoritym)
+desmat[9,1+6] <- fdensityintra(rtnet[,,1], lftm)
+desmat[9,2+6] <- fdensityintra(rtnet[,,2], lftm)
+desmat[9,3+6] <- fdensityintra(rtnet[,,3], lftm)
+desmat[10,1+6] <- fdensityinter(rtnet[,,1], lftm)
+desmat[10,2+6] <- fdensityinter(rtnet[,,2], lftm)
+desmat[10,3+6] <- fdensityinter(rtnet[,,3], lftm)
+
+colnames(desmat) <- c("friends w1", "friends w2", "friends w3","atmentions w1","atmentions w2","atmentions w3","retweets w1","retweets w2","retweets w3") 
+rownames(desmat) <- c("total", "same sex", "different sex", "same party", "different party", "same ethnicity", "different ethnicity", "both minority", "same age (<6)", "different age (>5)")
+desmat
+
+```
+
+In general we observe quite some homophily in our dyads. Most importantly, we observe that the density is higher within political parties than between political parties. Homophily across social dimensions is, at first sight, not very pronounced. 
+
+## Coleman Homophily index.
+
+Because the sizes of the different subgroups vary (e.g. the political parties have different seats) and the number of out-degrees differs between MPs, within party densities may also be higher when MPs randomly select a partner/alter. That is, segregation will be in part structurally induced by differences in relative group sizes and activity on twitter (i.e. outdegrees). A measure of segregation that takes relative group sizes and differences in outdegrees into account is the Coleman’s Homophily Index. In this measure a value of 0 would indicate that the observed number of within-group ties is the same as would be expected under random choice. A value of 1 would indicate maximum segregation and a value of -1 indicates the unlikely case that MPs maximally avoid within group relations.  
+
+```{r descoleman}
+colmat <- matrix(NA, nrow=3, ncol=9)
+
+colmat[1,1] <- fscolnet(fnet[,,1], partij) 
+colmat[1,2] <- fscolnet(fnet[,,2], partij) 
+colmat[1,3] <- fscolnet(fnet[,,3], partij) 
+colmat[1,4] <- fscolnet(atmnet[,,1], partij) 
+colmat[1,5] <- fscolnet(atmnet[,,2], partij) 
+colmat[1,6] <- fscolnet(atmnet[,,3], partij) 
+colmat[1,7] <- fscolnet(rtnet[,,1], partij) 
+colmat[1,8] <- fscolnet(rtnet[,,2], partij) 
+colmat[1,9] <- fscolnet(rtnet[,,3], partij) 
+
+colmat[2,1] <- fscolnet(fnet[,,1], vrouw) 
+colmat[2,2] <- fscolnet(fnet[,,2], vrouw) 
+colmat[2,3] <- fscolnet(fnet[,,3], vrouw) 
+colmat[2,4] <- fscolnet(atmnet[,,1], vrouw) 
+colmat[2,5] <- fscolnet(atmnet[,,2], vrouw) 
+colmat[2,6] <- fscolnet(atmnet[,,3], vrouw) 
+colmat[2,7] <- fscolnet(rtnet[,,1], vrouw) 
+colmat[2,8] <- fscolnet(rtnet[,,2], vrouw) 
+colmat[2,9] <- fscolnet(rtnet[,,3], vrouw) 
+
+colmat[3,1] <- fscolnet(fnet[,,1], ethminz) 
+colmat[3,2] <- fscolnet(fnet[,,2], ethminz) 
+colmat[3,3] <- fscolnet(fnet[,,3], ethminz) 
+colmat[3,4] <- fscolnet(atmnet[,,1], ethminz) 
+colmat[3,5] <- fscolnet(atmnet[,,2], ethminz) 
+colmat[3,6] <- fscolnet(atmnet[,,3], ethminz) 
+colmat[3,7] <- fscolnet(rtnet[,,1], ethminz) 
+colmat[3,8] <- fscolnet(rtnet[,,2], ethminz) 
+colmat[3,9] <- fscolnet(rtnet[,,3], ethminz) 
+
+colnames(colmat) <- c("friends w1", "friends w2", "friends w3","atmentions w1","atmentions w2","atmentions w3","retweets w1","retweets w2","retweets w3") 
+rownames(colmat) <- c("party", "sex", "ethnicity")
+colmat
+```
+
+Well? YES, we observe segregation. Especially within the retweet-network and especially along the party-dimension. 
+
+
+## RSiena models
+
+### step 1: Data
+
+Done! Our RSiena object is `mydata`. 
+We are focussing on the retweetnetwork and do not yet take into account multiplexity. 
+
+### step 2: define myeff object. 
+```{r }
+library(RSiena)
+myeff <- getEffects( mydata )
+myeff
+myeff_m1 <- myeff
+myeff_m1 <- includeEffects(myeff_m1, sameX, interaction1 = "partij", name="rtnet" )
+```
+
+### step 3: create alogrithm
+
+```{r}
+#I used a seed so you will probably see the same results
+myalgorithm <- sienaAlgorithmCreate( projname = 'test', seed=345654)
+```
+Have a look at the created file!!
+
+
+### step 4: estimate model
+I generally estimate the model three times to start with. Gives me the opportunity to grab a cup of coffee. Depending on the results I will decide whether or not I need to rerun the model and with which results I want to continue later. 
+
+I :heart: <i class="fas fa-mug-hot"></i>!! :smile:
+
+
+
+```{r, eval=FALSE}
+#to speed things up a bit, I am using more cores. 
+ansM1 <- siena07( myalgorithm, data = mydata, effects = myeff_m1, useCluster=TRUE, nbrNodes=4, initC=TRUE, batch=TRUE)
+ansM1b <- siena07( myalgorithm, data = mydata, prevAns=ansM1, effects = myeff_m1, useCluster=TRUE, nbrNodes=4, initC=TRUE, batch=TRUE)
+ansM1c <- siena07( myalgorithm, data = mydata, prevAns=ansM1b, effects = myeff_m1, useCluster=TRUE, nbrNodes=4, initC=TRUE, batch=TRUE)
+
+save(ansM1, file="ansM1a.RData")
+save(ansM1b, file="ansM1b.RData")
+save(ansM1c, file="ansM1c.RData")
+```
+
+Let us have a look at the data. 
+
+```{r}
+load("static/ansM1a.RData")
+load("static/ansM1b.RData")
+load("static/ansM1c.RData")
+ansM1
+ansM1b
+ansM1c
+```
+
+
+So, do we have an answer to our first research question? It is up to you answer the other research questions. 
 
 Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
 

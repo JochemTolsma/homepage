@@ -24,9 +24,22 @@
   weight = 40
 
 [[main]]
+  identifier = "tutorials"
+  name = "Tutorials"
+  url = "/tutorials"
+  weight = 45
+
+[[main]]
   name = "Courses"
   url = "courses/"
   weight = 50
+
+[[main]]
+  #identifier = "demo2"
+  name = "demo2"
+  url = "/tutorials/demo2/"
+  parent = "tutorials"
+  weight = 10
 
 [[main]]
   name = "Contact"

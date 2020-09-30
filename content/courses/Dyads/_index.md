@@ -8,6 +8,7 @@ weight: 1
 title: Dyads
 date: "2018-09-09T00:00:00Z"
 lastmod: "2018-09-09T00:00:00Z"
+commentable: true
 draft: false  # Is this a draft? true/false
 toc: true  # Show table of contents? true/false
 type: book  # Do not modify.

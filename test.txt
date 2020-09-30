@@ -1,0 +1,435 @@
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 29/09/2020 21:39:03
+New results follow.
+-----------------------------------
+
+RSiena version 1.2-23 (12 jan 20)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 345654.
+Effects object used: myeff_m1 
+Model Type:
+Network 1 fnet : 
+Network 2 atmnet : 
+Network 3 rtnet : 
+Estimation method: unconditional moment estimation.
+
+Time duration for simulations in each period is 1.0.
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.4000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  1. rate:  constant fnet rate (period 1)                   7.2202
+  2. rate:  constant fnet rate (period 2)                   3.7957
+  3. eval:  fnet: outdegree (density)                       0.0000
+  4. eval:  fnet: reciprocity                               0.0000
+  5. rate:  constant atmnet rate (period 1)                16.2609
+  6. rate:  constant atmnet rate (period 2)                 9.1790
+  7. eval:  atmnet: outdegree (density)                    -1.7614
+  8. eval:  atmnet: reciprocity                             0.0000
+  9. rate:  constant rtnet rate (period 1)                 10.9872
+ 10. rate:  constant rtnet rate (period 2)                  9.3982
+ 11. eval:  rtnet: outdegree (density)                     -1.6139
+ 12. eval:  rtnet: reciprocity                              0.0000
+ 13. eval:  rtnet: same partij                              0.0000
+
+
+Observed values of target statistics are
+  1. Amount of network change in period 1                               527.0000
+  2. Amount of network change in period 2                               277.0000
+  3. fnet: Number of ties                                              11887.0000
+  4. fnet: Number of reciprocated ties                                 6712.0000
+  5. Amount of network change in period 1                              1187.0000
+  6. Amount of network change in period 2                               670.0000
+  7. atmnet: Number of ties                                            1030.0000
+  8. atmnet: Number of reciprocated ties                                376.0000
+  9. Amount of network change in period 1                               802.0000
+ 10. Amount of network change in period 2                               686.0000
+ 11. rtnet: Number of ties                                             1454.0000
+ 12. rtnet: Number of reciprocated ties                                 638.0000
+ 13. rtnet: Same values on partij                                      1238.0000
+
+ 13 parameters, 13 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2158 iterations.
+Parameter estimates based on 1158 iterations,
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   1.7780  22.1734   0.0802 
+  2.  -0.5360  16.3136  -0.0329 
+  3.   0.6800  27.1588   0.0250 
+  4.  -0.4000  30.0177  -0.0133 
+  5.   0.4790  21.7770   0.0220 
+  6.   0.2090  21.2725   0.0098 
+  7.  -3.0600  32.6969  -0.0936 
+  8.  -1.3580  23.5218  -0.0577 
+  9.   0.3080  23.1485   0.0133 
+ 10.   0.0500  20.7198   0.0024 
+ 11.  -0.1540  33.0046  -0.0047 
+ 12.   0.8960  29.2076   0.0307 
+ 13.   1.2780  29.9494   0.0427 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1963 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2158 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+ 1. rate:  constant fnet rate (period 1)                           3.7091  (   0.1678)
+ 2. rate:  constant fnet rate (period 2)                           1.9690  (   0.1206)
+ 3. eval:  fnet: outdegree (density)                              -0.6588  (   0.0876)
+ 4. eval:  fnet: reciprocity                                       0.8762  (   0.0907)
+ 5. rate:  constant atmnet rate (period 1)                        25.7496  (   1.8713)
+ 6. rate:  constant atmnet rate (period 2)                         9.6467  (   0.6387)
+ 7. eval:  atmnet: outdegree (density)                            -2.3452  (   0.0321)
+ 8. eval:  atmnet: reciprocity                                     1.7004  (   0.0727)
+ 9. rate:  constant rtnet rate (period 1)                         13.4141  (   0.8603)
+10. rate:  constant rtnet rate (period 2)                         12.1080  (   0.9050)
+11. eval:  rtnet: outdegree (density)                             -2.8349  (   0.0465)
+12. eval:  rtnet: reciprocity                                      0.8781  (   0.0643)
+13. eval:  rtnet: same partij                                      1.8582  (   0.0583)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.028      0.000     -0.001      0.000      0.010      0.000      0.000      0.000      0.007     -0.001      0.001      0.000     -0.001
+    -0.002      0.015      0.000      0.000     -0.001     -0.003      0.000      0.000     -0.001      0.004      0.000      0.000      0.000
+    -0.045      0.011      0.008     -0.003     -0.003     -0.002      0.000      0.000     -0.002      0.002      0.000      0.000      0.000
+     0.018     -0.007     -0.418      0.008     -0.012     -0.003      0.000      0.000     -0.003      0.000      0.000      0.000      0.000
+     0.033     -0.005     -0.020     -0.069      3.502     -0.180      0.006      0.016      0.400     -0.090      0.011      0.006     -0.007
+     0.002     -0.034     -0.039     -0.045     -0.150      0.408      0.002     -0.002     -0.019      0.016     -0.004     -0.001      0.005
+    -0.035     -0.008     -0.120      0.062      0.100      0.090      0.001     -0.001      0.003      0.003      0.000      0.000      0.000
+     0.009     -0.019      0.023     -0.023      0.116     -0.037     -0.611      0.005     -0.004     -0.010      0.000      0.000      0.000
+     0.050     -0.006     -0.030     -0.033      0.249     -0.035      0.099     -0.062      0.740     -0.010      0.009      0.004     -0.004
+    -0.006      0.038      0.023      0.005     -0.053      0.027      0.114     -0.152     -0.013      0.819      0.006      0.004     -0.007
+     0.104      0.023     -0.088      0.042      0.130     -0.138     -0.061      0.035      0.217      0.142      0.002      0.000     -0.002
+     0.003      0.023      0.016     -0.038      0.049     -0.033      0.125     -0.097      0.077      0.065     -0.036      0.004     -0.001
+    -0.073     -0.034      0.055      0.003     -0.065      0.123      0.061     -0.025     -0.084     -0.136     -0.780     -0.315      0.003
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 612.78 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 29/09/2020 21:49:16
+New results follow.
+-----------------------------------
+
+RSiena version 1.2-23 (12 jan 20)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 345654.
+Effects object used: myeff_m1 
+Model Type:
+Network 1 fnet : 
+Network 2 atmnet : 
+Network 3 rtnet : 
+Estimation method: unconditional moment estimation.
+
+Time duration for simulations in each period is 1.0.
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.4000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  1. rate:  constant fnet rate (period 1)                   3.7091
+  2. rate:  constant fnet rate (period 2)                   1.9690
+  3. eval:  fnet: outdegree (density)                      -0.6588
+  4. eval:  fnet: reciprocity                               0.8762
+  5. rate:  constant atmnet rate (period 1)                25.7496
+  6. rate:  constant atmnet rate (period 2)                 9.6467
+  7. eval:  atmnet: outdegree (density)                    -2.3452
+  8. eval:  atmnet: reciprocity                             1.7004
+  9. rate:  constant rtnet rate (period 1)                 13.4141
+ 10. rate:  constant rtnet rate (period 2)                 12.1080
+ 11. eval:  rtnet: outdegree (density)                     -2.8349
+ 12. eval:  rtnet: reciprocity                              0.8781
+ 13. eval:  rtnet: same partij                              1.8582
+
+
+Observed values of target statistics are
+  1. Amount of network change in period 1                               527.0000
+  2. Amount of network change in period 2                               277.0000
+  3. fnet: Number of ties                                              11887.0000
+  4. fnet: Number of reciprocated ties                                 6712.0000
+  5. Amount of network change in period 1                              1187.0000
+  6. Amount of network change in period 2                               670.0000
+  7. atmnet: Number of ties                                            1030.0000
+  8. atmnet: Number of reciprocated ties                                376.0000
+  9. Amount of network change in period 1                               802.0000
+ 10. Amount of network change in period 2                               686.0000
+ 11. rtnet: Number of ties                                             1454.0000
+ 12. rtnet: Number of reciprocated ties                                 638.0000
+ 13. rtnet: Same values on partij                                      1238.0000
+
+ 13 parameters, 13 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2104 iterations.
+Parameter estimates based on 1104 iterations,
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   1.1300  22.3671   0.0505 
+  2.  -0.5810  16.6188  -0.0350 
+  3.  -0.0710  27.2634  -0.0026 
+  4.   0.1820  30.0088   0.0061 
+  5.   1.2910  22.8673   0.0565 
+  6.  -0.4050  21.2675  -0.0190 
+  7.  -1.5880  33.6732  -0.0472 
+  8.  -0.0280  24.1415  -0.0012 
+  9.   0.8550  21.1866   0.0404 
+ 10.   0.1510  21.1118   0.0072 
+ 11.  -0.6240  32.9058  -0.0190 
+ 12.  -0.8260  29.0079  -0.0285 
+ 13.   0.5290  29.6466   0.0178 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1857 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2104 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+ 1. rate:  constant fnet rate (period 1)                           3.7037  (   0.1701)
+ 2. rate:  constant fnet rate (period 2)                           1.9687  (   0.1205)
+ 3. eval:  fnet: outdegree (density)                              -0.6541  (   0.0844)
+ 4. eval:  fnet: reciprocity                                       0.8756  (   0.0841)
+ 5. rate:  constant atmnet rate (period 1)                        25.7211  (   1.8487)
+ 6. rate:  constant atmnet rate (period 2)                         9.6449  (   0.5197)
+ 7. eval:  atmnet: outdegree (density)                            -2.3452  (   0.0297)
+ 8. eval:  atmnet: reciprocity                                     1.7000  (   0.0703)
+ 9. rate:  constant rtnet rate (period 1)                         13.3847  (   0.8180)
+10. rate:  constant rtnet rate (period 2)                         12.0998  (   0.7632)
+11. eval:  rtnet: outdegree (density)                             -2.8343  (   0.0503)
+12. eval:  rtnet: reciprocity                                      0.8758  (   0.0614)
+13. eval:  rtnet: same partij                                      1.8582  (   0.0601)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.029     -0.001     -0.001     -0.001      0.065     -0.005      0.000      0.000      0.008     -0.004      0.000      0.000      0.000
+    -0.026      0.015      0.000      0.000      0.004      0.000      0.000      0.000      0.000     -0.011     -0.001      0.000      0.000
+    -0.042     -0.004      0.007     -0.003     -0.006     -0.002      0.000      0.000     -0.005     -0.002      0.000      0.000      0.000
+    -0.041      0.004     -0.383      0.007      0.021      0.000      0.000      0.000      0.001      0.006      0.000      0.000      0.000
+     0.206      0.019     -0.036      0.136      3.418     -0.164      0.010      0.020     -0.006      0.035     -0.001      0.011      0.001
+    -0.058      0.006     -0.047     -0.008     -0.171      0.270      0.000      0.001     -0.005      0.009      0.001     -0.002      0.001
+     0.036     -0.028      0.004      0.021      0.178      0.018      0.001     -0.001      0.001      0.000      0.000      0.000      0.000
+    -0.012      0.036      0.004     -0.021      0.152      0.015     -0.548      0.005      0.002     -0.001      0.000      0.000      0.000
+     0.057      0.004     -0.071      0.017     -0.004     -0.012      0.049      0.031      0.669     -0.049      0.012      0.001     -0.008
+    -0.034     -0.124     -0.031      0.099      0.025      0.023      0.010     -0.014     -0.078      0.582      0.007      0.001     -0.006
+     0.029     -0.086     -0.029      0.015     -0.013      0.031      0.133     -0.100      0.290      0.186      0.003      0.000     -0.002
+    -0.034      0.031      0.031     -0.028      0.101     -0.052     -0.005      0.061      0.020      0.019     -0.045      0.004     -0.001
+     0.008      0.060      0.010      0.012      0.006      0.024     -0.087      0.075     -0.160     -0.136     -0.787     -0.329      0.004
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 584.45 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 29/09/2020 21:59:00
+New results follow.
+-----------------------------------
+
+RSiena version 1.2-23 (12 jan 20)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 345654.
+Effects object used: myeff_m1 
+Model Type:
+Network 1 fnet : 
+Network 2 atmnet : 
+Network 3 rtnet : 
+Estimation method: unconditional moment estimation.
+
+Time duration for simulations in each period is 1.0.
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.4000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  1. rate:  constant fnet rate (period 1)                   3.7037
+  2. rate:  constant fnet rate (period 2)                   1.9687
+  3. eval:  fnet: outdegree (density)                      -0.6541
+  4. eval:  fnet: reciprocity                               0.8756
+  5. rate:  constant atmnet rate (period 1)                25.7211
+  6. rate:  constant atmnet rate (period 2)                 9.6449
+  7. eval:  atmnet: outdegree (density)                    -2.3452
+  8. eval:  atmnet: reciprocity                             1.7000
+  9. rate:  constant rtnet rate (period 1)                 13.3847
+ 10. rate:  constant rtnet rate (period 2)                 12.0998
+ 11. eval:  rtnet: outdegree (density)                     -2.8343
+ 12. eval:  rtnet: reciprocity                              0.8758
+ 13. eval:  rtnet: same partij                              1.8582
+
+
+Observed values of target statistics are
+  1. Amount of network change in period 1                               527.0000
+  2. Amount of network change in period 2                               277.0000
+  3. fnet: Number of ties                                              11887.0000
+  4. fnet: Number of reciprocated ties                                 6712.0000
+  5. Amount of network change in period 1                              1187.0000
+  6. Amount of network change in period 2                               670.0000
+  7. atmnet: Number of ties                                            1030.0000
+  8. atmnet: Number of reciprocated ties                                376.0000
+  9. Amount of network change in period 1                               802.0000
+ 10. Amount of network change in period 2                               686.0000
+ 11. rtnet: Number of ties                                             1454.0000
+ 12. rtnet: Number of reciprocated ties                                 638.0000
+ 13. rtnet: Same values on partij                                      1238.0000
+
+ 13 parameters, 13 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2078 iterations.
+Parameter estimates based on 1078 iterations,
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.6190  22.8864  -0.0270 
+  2.   0.9220  15.9326   0.0579 
+  3.  -0.9890  28.0860  -0.0352 
+  4.  -1.5440  30.4065  -0.0508 
+  5.  -0.0300  22.2332  -0.0013 
+  6.   0.7920  20.0605   0.0395 
+  7.  -0.7720  32.8497  -0.0235 
+  8.   0.1180  23.6528   0.0050 
+  9.   1.1720  22.4228   0.0523 
+ 10.  -0.0100  20.6530  -0.0005 
+ 11.  -0.6400  32.5563  -0.0197 
+ 12.   0.3900  29.4077   0.0133 
+ 13.   0.2850  29.5013   0.0097 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1471 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2078 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+ 1. rate:  constant fnet rate (period 1)                           3.7053  (   0.1674)
+ 2. rate:  constant fnet rate (period 2)                           1.9683  (   0.1254)
+ 3. eval:  fnet: outdegree (density)                              -0.6570  (   0.0852)
+ 4. eval:  fnet: reciprocity                                       0.8753  (   0.0933)
+ 5. rate:  constant atmnet rate (period 1)                        25.7437  (   1.4522)
+ 6. rate:  constant atmnet rate (period 2)                         9.6502  (   0.5618)
+ 7. eval:  atmnet: outdegree (density)                            -2.3453  (   0.0304)
+ 8. eval:  atmnet: reciprocity                                     1.7011  (   0.0645)
+ 9. rate:  constant rtnet rate (period 1)                         13.3964  (   0.8279)
+10. rate:  constant rtnet rate (period 2)                         12.0945  (   0.8603)
+11. eval:  rtnet: outdegree (density)                             -2.8322  (   0.0500)
+12. eval:  rtnet: reciprocity                                      0.8779  (   0.0625)
+13. eval:  rtnet: same partij                                      1.8551  (   0.0569)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.028      0.000     -0.001      0.001     -0.048      0.003      0.000     -0.001      0.002     -0.006      0.000      0.001      0.000
+    -0.008      0.016     -0.001      0.000     -0.006      0.009      0.000      0.000      0.002     -0.004      0.000      0.000      0.000
+    -0.059     -0.054      0.007     -0.003      0.010      0.001      0.000      0.000      0.004     -0.006      0.000      0.000      0.000
+     0.045      0.020     -0.399      0.009     -0.017      0.000      0.000      0.000     -0.006      0.004      0.000      0.000      0.000
+    -0.199     -0.035      0.083     -0.123      2.109     -0.139      0.010      0.004      0.123      0.020      0.005     -0.005     -0.004
+     0.030      0.129      0.030      0.007     -0.171      0.316      0.003     -0.002     -0.007     -0.078     -0.002      0.000      0.001
+    -0.023      0.018      0.107     -0.081      0.219      0.187      0.001     -0.001      0.001      0.000      0.000      0.000      0.000
+    -0.057     -0.042     -0.074     -0.009      0.040     -0.064     -0.511      0.004      0.000     -0.001      0.000      0.000      0.000
+     0.017      0.020      0.051     -0.071      0.102     -0.014      0.031     -0.008      0.685     -0.015      0.010      0.002     -0.007
+    -0.039     -0.034     -0.081      0.050      0.016     -0.161     -0.002     -0.018     -0.022      0.740      0.007      0.002     -0.008
+    -0.039     -0.017     -0.011     -0.010      0.066     -0.071      0.040      0.010      0.244      0.169      0.002     -0.001     -0.002
+     0.057     -0.021     -0.040      0.040     -0.060     -0.014     -0.062      0.037      0.036      0.030     -0.162      0.004     -0.001
+     0.005      0.033      0.019     -0.005     -0.043      0.045     -0.032     -0.022     -0.141     -0.159     -0.783     -0.241      0.003
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 585.74 seconds.
