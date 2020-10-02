@@ -230,6 +230,10 @@ Thus the probability to observe a tie between *i* and *j* (network $x_b$) is 14%
 Is it possible to deduce the density of the network from this formula? Well let suppose actor *i* would only have options $x_a$ and $x_b$ then the probabilities would need to sum to 1. And this would imply a density of approximately .12 (0.12=0.14*.88 and .12 + .88 = 1).  
 {{% /alert %}}
 
+The interpretation of the parameters thus resembles the interpretation of a logistic regression: if one covariate $x_k$ increases only with one step and the parameter estimate of this covariate is $\beta_k$, the odds $\frac{p_{x_k=1}}{1-p_{x_k=1}}$ is exp($\beta_k$)*$\frac{p_{x_k=0}}{1-p_{x_k=0}}$[^1]
+
+[^1]: $$p = P(Y=1) = \frac{exp(\beta_kx_k)}{1+exp(\beta_kx_k)}$$ 
+
 # lab exercise
 
 We are going to use the same dataset we used in the lab exercise on plotting social networks. 

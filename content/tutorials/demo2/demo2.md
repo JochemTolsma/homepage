@@ -8,7 +8,7 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 15  # Order that this section will appear.
 
-title = "demo2"
+title = "Introduction to R"
 subtitle = ""
 
 [design]
@@ -50,7 +50,9 @@ subtitle = ""
  css_class = ""
 +++
 
-<iframe src="https://www.jtolsma.nl/TutorialCSR/" width="100%" height="600" allowfullscreen="allowfullscreen"></iframe>
+For full screen click  <a href="https://www.jtolsma.nl/TutorialCSR/" target="_blank">here</a> 
+
+<iframe src="https://www.jtolsma.nl/TutorialCSR/" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
 
 
 <!---
