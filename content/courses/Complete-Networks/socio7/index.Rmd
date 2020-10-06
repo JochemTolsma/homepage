@@ -1,0 +1,644 @@
+---
+title: RSiena II (consequences)
+author: JochemTolsma
+date: '2020-09-22'
+slug: socio7
+categories:
+  - R
+  - Social Networks
+tags: []
+linktitle: Socionets-Consequences-Methods
+summary: "RSiena, twitter, social networks, plotting, tutorial, R, Lavaan"
+lastmod: '2020-09-15T08:27:34+02:00'
+type: book
+weight: 47
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: yes
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, results='hide', warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
+options(width = 100)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<button onclick="window.location.href='static/index.Rmd';">download code</button>
+
+
+# Introduction - RSiena behaviour
+This page will teach you how to use the R package RSiena for modeling behavioral change. Thus on this page we will focus on node evolution and influence processes.   
+Please visit the RSiena homepage [here](https://www.stats.ox.ac.uk/~snijders/siena/). On the website you may find the exceptionally well written manual. But the RSiena website also contains all kind of useful RSiena scripts and 'lab exercises'. 
+When we model both tie-evolution (which is what we almost without exception do with RSiena) and node-evolution, we also call this a co-evolution model. 
+Before we start with our own lab exercise, I would like you to:  
+
+1. walk through script number 6 on the RSiena website (which is called [Rscript04SienaBehaviour.R](https://www.stats.ox.ac.uk/~snijders/siena/Rscript04SienaBehaviour.R)).  
+
+My own lab exercise can be found [below](#lab-exercise).  
+
+
+
+# RSiena - some additional explanations
+
+Having taught the course social networks for a couple of years now to the students of the Research Master Social and Cultural Sciences, I think there are a couple of aspects that deserve a little bit more attention than they get in the manual and on the RSiena website. Namely,...  
+
+1. How do we model node evolution and are results similar to 'normal' regression models?  
+2. What is the difference between an average alter effect and a total alter effect? 
+3. Can senders only influence receivers or also vice versa? Do we need both in our models? 
+
+## modelling node evolution
+
+### RSiena-linear and quad effects
+
+### Multi-level hybrid model
+
+
+## avAlt and totAlt effects  
+I think this question deserves a knowledge clip. Please watch the video below. 
+
+{{% alert note %}}
+After having watched the video you have learned:  
+
+1. What I understand by a dyad network effect, an egocentric network effect, a complete network effect and a context effect (for what its worth).  
+2. The difference between average alter and total alter effects.  
+3. That (positive) influence may also mean that you become similar to an alter with a specific node attribute but thereby become less similar to more other alters. 
+{{% /alert %}}
+
+To summarize. 
+
+
+```{r influence, echo=FALSE, fig.cap="Average Alter Effect", out.width = '100%'}
+knitr::include_graphics("plot2.png")
+```
+
+```{r influence2, echo=FALSE, fig.cap="Total Alter Effect", out.width = '100%'}
+knitr::include_graphics("plot3.png")
+```
+
+
+## ...Alt versus ...InAlt effects
+
+Have a look at the picture below. 
+
+```{r influence3, echo=FALSE, fig.cap="Who is influencing whom?", out.width = '100%'}
+knitr::include_graphics("plot1.png")
+```
+* Undirectied tie: The direction of influence does not depend on the direction tie. In RSiena who is influenced depends on who has the opportunity for change (thus by the behavioral rate function)  
+* Directed tie *i* --> *j*. Actor *j* may assimilate to *i* because of an incoming tie. In RSiena these effects are ...inAlt effects (e.g. effects $s^{beh}_{i20}$ and $s^{beh}_{i21}$). Example 1a: I teach you how to apply a social network perspective in your research, you come to value a social network perspective and your research behavior becomes more similar to mine.  
+* Directed tie *i* --> *j*. Actor *i* may assimilate to *j* because of an outgoing tie. In RSiena these effects are ...Alt effects (e.g. effects $s^{beh}_{i18}$ and $s^{beh}_{i19}$). Example 2a: I name you as my friend and therefore I will mimic your behavior. 
+
+Naturally, the influence may also be negative: 
+Example 1b: I teach you how to apply a social network perspective in your research, you come to dislike a social network perspective and your research behavior becomes less similar to mine.     
+Example 2b: I name you as my foe and therefore I will behave as different as possible from you.  
+
+The question is, can we tease these processes apart and can we tell which one is more important? To be honest, I am not sure. But we will try below.  
+
+
+# lab exercise 
+We are going to use data collected among primary and secondary school pupils in the Netherlands during the [MyMovez](http://mymovez.eu/) project.  
+
+During the workgroup I will explain all code. For those of you who don't attend the workgroups, google knows way more than I do.  
+
+{{% alert warning %}}
+In the upper left and right corner of the code blocks you will find copy-to-clipboard buttons. Use these buttons to copy the code to your own editor. 
+{{% /alert %}}
+
+
+## Before you start
+
+Before you start, check whether you run the latest RStudio version (from the Help menu, pick 'check for updates' and whether you need to update R. 
+
+```{r update, eval=FALSE}
+install.packages("installr")  #you  first install packages
+require(installr)  #then you will need to activate packages. 
+updateR() #run the function to start the update process
+```
+
+
+Give your script a nice name. Include the author, and data when you last modified the script. Include a lot of comments in your script! Don't forget, always start with cleaning up your workspace. 
+
+```{r cleanup}
+###Author: JOCHEM TOLSMA###
+###Lastmod: 31-08-2020###
+
+#cleanup workspace
+rm (list = ls( )) 
+```
+
+And set your working directory. 
+```{r setwd, eval=FALSE}
+#set working directory
+setwd("C:\\YOURDIR\\YOURSUBDIR\\YOURSUBSUBDIR\\")  #change to your own workdirectory
+```
+
+Install the packages you will need. 
+
+```{r packages, eval=TRUE}
+library(RSiena)
+library(sna)
+library(ape)
+library(network)
+```
+
+Define your custom build functions. 
+
+`fMoran.I`:
+```{r fMoran.I}
+fMoran.I <- function (x, weight, scaled = FALSE, na.rm = FALSE, alternative = "two.sided", rowstandardize = TRUE) 
+{
+ if (rowstandardize) {
+    if (dim(weight)[1] != dim(weight)[2]) 
+        stop("'weight' must be a square matrix")
+    n <- length(x)
+    if (dim(weight)[1] != n) 
+        stop("'weight' must have as many rows as observations in 'x'")
+    ei <- -1/(n - 1)
+    nas <- is.na(x)
+    if (any(nas)) {
+        if (na.rm) {
+            x <- x[!nas]
+            n <- length(x)
+            weight <- weight[!nas, !nas]
+        }
+        else {
+            warning("'x' has missing values: maybe you wanted to set na.rm = TRUE?")
+            return(list(observed = NA, expected = ei, sd = NA, 
+                p.value = NA))
+        }
+    }
+    ROWSUM <- rowSums(weight)
+    ROWSUM[ROWSUM == 0] <- 1
+    weight <- weight/ROWSUM
+    s <- sum(weight)
+    m <- mean(x)
+    y <- x - m
+    cv <- sum(weight * y %o% y)
+    v <- sum(y^2)
+    obs <- (n/s) * (cv/v)
+    if (scaled) {
+        i.max <- (n/s) * (sd(rowSums(weight) * y)/sqrt(v/(n - 
+            1)))
+        obs <- obs/i.max
+    }
+    S1 <- 0.5 * sum((weight + t(weight))^2)
+    S2 <- sum((apply(weight, 1, sum) + apply(weight, 2, sum))^2)
+    s.sq <- s^2
+    k <- (sum(y^4)/n)/(v/n)^2
+    sdi <- sqrt((n * ((n^2 - 3 * n + 3) * S1 - n * S2 + 3 * s.sq) - 
+        k * (n * (n - 1) * S1 - 2 * n * S2 + 6 * s.sq))/((n - 
+        1) * (n - 2) * (n - 3) * s.sq) - 1/((n - 1)^2))
+    alternative <- match.arg(alternative, c("two.sided", 
+        "less", "greater"))
+    pv <- pnorm(obs, mean = ei, sd = sdi)
+    if (alternative == "two.sided") 
+        pv <- if (obs <= ei) 
+            2 * pv
+        else 2 * (1 - pv)
+    if (alternative == "greater") 
+        pv <- 1 - pv
+    list(observed = obs, expected = ei, sd = sdi, p.value = pv)
+ } else {
+    if (dim(weight)[1] != dim(weight)[2]) 
+        stop("'weight' must be a square matrix")
+    n <- length(x)
+    if (dim(weight)[1] != n) 
+        stop("'weight' must have as many rows as observations in 'x'")
+    ei <- -1/(n - 1)
+    nas <- is.na(x)
+    if (any(nas)) {
+        if (na.rm) {
+            x <- x[!nas]
+            n <- length(x)
+            weight <- weight[!nas, !nas]
+        }
+        else {
+            warning("'x' has missing values: maybe you wanted to set na.rm = TRUE?")
+            return(list(observed = NA, expected = ei, sd = NA, 
+                p.value = NA))
+        }
+    }
+    #ROWSUM <- rowSums(weight)
+    #ROWSUM[ROWSUM == 0] <- 1
+    #weight <- weight/ROWSUM
+    s <- sum(weight)
+    m <- mean(x)
+    y <- x - m
+    cv <- sum(weight * y %o% y)
+    v <- sum(y^2)
+    obs <- (n/s) * (cv/v)
+    if (scaled) {
+        i.max <- (n/s) * (sd(rowSums(weight) * y)/sqrt(v/(n - 
+            1)))
+        obs <- obs/i.max
+    }
+    S1 <- 0.5 * sum((weight + t(weight))^2)
+    S2 <- sum((apply(weight, 1, sum) + apply(weight, 2, sum))^2)
+    s.sq <- s^2
+    k <- (sum(y^4)/n)/(v/n)^2
+    sdi <- sqrt((n * ((n^2 - 3 * n + 3) * S1 - n * S2 + 3 * s.sq) - 
+        k * (n * (n - 1) * S1 - 2 * n * S2 + 6 * s.sq))/((n - 
+        1) * (n - 2) * (n - 3) * s.sq) - 1/((n - 1)^2))
+    alternative <- match.arg(alternative, c("two.sided", 
+        "less", "greater"))
+    pv <- pnorm(obs, mean = ei, sd = sdi)
+    if (alternative == "two.sided") 
+        pv <- if (obs <= ei) 
+            2 * pv
+        else 2 * (1 - pv)
+    if (alternative == "greater") 
+        pv <- 1 - pv
+    list(observed = obs, expected = ei, sd = sdi, p.value = pv)
+ }
+ 
+ 
+}
+```
+
+`fanscsv`:
+```{r fanscsv}
+fanscsv <- function(ans=ans, filename="ans.csv", write=TRUE) {
+	ans1_mat <- matrix(NA, nrow=length(ans$effects[,2]),ncol=3)
+	row.names(ans1_mat) <- ans$effects[,2]
+	ans1_mat[,1] <- (ans$theta)
+	ans1_mat[,2] <- (ans$se)
+	ans1_mat[,3] <- (ans$tconv)
+	ans1_mat <- rbind(ans1_mat, c(ans$tconv.max))
+	row.names(ans1_mat)[length(row.names(ans1_mat))] <- "Overall maximum convergence ratio:"
+	colnames(ans1_mat) <- c("Estimate", "Standard Error", "Convergence t-ratio")
+	print(ans1_mat)
+	if (write) {write.csv(ans1_mat, filename)}
+}
+```
+
+## Data
+
+We are going to play with a subsample of the MyMovez data. The original data are stored at the [Data Archiving and Networked Services](https://doi.org/10.17026/dans-zz9-gn44).   
+
+
+**Download data [here](beh_data.Rdata).**
+
+Load the Robject and have a look at it. 
+
+```{r,  attr.source = '.numberLines', results='hold'}
+load("beh_data.RData") #change to your working directory
+str(ExData,1)
+str(ExData$depvars,1)
+```
+
+What do we have? 
+
+- Data on 7 classes. See below how to play with just one class. 
+- friendship: dependent tie-variable: who are your friends
+- advice: dependent tie-variable: I am not telling you if it is 'to whom do you give advice?' or 'from whom do you receive advice?' that would make for a nice question on the exam.  
+- mvpa_y: behavioral dependent variable 'moderate to vigorous physical activity' measured via FitBit. I made five categories (from low to high)
+- ethnicNLNA: a covariate (including missing values) on ethnicity of pupils: 0 is native Dutch; 1 is other ethnic background. 
+- sex: sex of pupils: 0 is boys; 1 is girls. 
+- lft: age of pupils (measured in years)
+- primary: primary school (grade 8) or secondary school (grade 9)
+- mvpa_x: please ignore this variable for now. 
+
+## Descriptive statistics of similarity in behavior
+
+On the [previous page](../socio6) we focused on tie evolution and selection processes. We started the lab exercise with descriptive statistics on homophily and segregation. Are similar people more likely to be connected. We now take a slightly different angle. We want to know if nodes who are closer to one another in the network are more a like.  
+ "Hey, that sounds like some sort of correlation!" Yup, we need some spatial autocorrelation measure. Let us use Moran's I for this.    
+We will start with a calculation of the correlation between the score of actor i and the (total/mean) score of the alters of i to whom i is connected directly.
+
+Spatial autocorrelation measures are actually quite complex. A lot of build in functions in different packages of R are not very clear on all the defaults. With respect to Moran's I, its values are actually quite difficult to compare across different spatial/network settings. Results may depend heavily on whether or not you demean your variables of interest, the chosen neighborhood/weight matrix (and hence on distance decay functions and type of standardization of the weight matrix). Anyways, lets get started. 
+
+### formula
+
+Moran's I is given by: 
+
+$$ I= \gamma \Sigma_i\Sigma_jw_{ij}z_iz_j,$$
+where $w_{ij}$ is the weight matrix $z_i$ and $z_j$ are the scores in deviations from the mean. And, 
+
+$$ \gamma= S_0 * m_2 = \Sigma_i\Sigma_jw_{ij} * \frac{\Sigma_iz_i^2}{n},  $$
+Thus $S_0$ is the sum of the weight matrix and $m_2$ is an estimate of the variance. For more information see [Anselin 1995](https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1538-4632.1995.tb00338.x).  
+
+### Moran's autocorrelation for outgoing ties: RSiena build-in dataset
+ 
+We need two packages, if we not want to define all functions ourselves: `sna` and `ape`.[^1]
+
+[^1]: I quite frequently need to calculate Moran's I and related statistics in my work/hobby. I commonly use the functions in the R package `spdep`. 
+
+Let us first demonstrate the concept on the build-in dataset of RSiena and then apply it to our own data. 
+
+First use `sna`. And give alters a weight of 1 if they are part of the 1.0 degree egocentric network. 
+```{r}
+library(network)
+    friend.data.w1 <- s501
+    friend.data.w2 <- s502
+    friend.data.w3 <- s503
+    drink <- s50a
+    smoke <- s50s
+
+    net1 <- network::as.network(friend.data.w1)
+    net2 <- network::as.network(friend.data.w2)
+    net3 <- network::as.network(friend.data.w3)
+
+#nacf does not row standardize!    
+snam1<- nacf(net1, drink[, 1], type="moran", neighborhood.type='out', demean = TRUE)
+snam1[2] #the first order matrix is stored in second list-element
+
+```
+
+Lets calculate the same thing with `ape`. 
+```{r}
+geodistances <- geodist(net1, count.paths = TRUE)
+geodistances <- geodistances$gdist
+
+#first define a nb based on distance 1. 
+weights1 <- geodistances==1
+
+#this function rowstandardizes by default
+ape::Moran.I(drink[,1], scaled=FALSE, weight=weights1, na.rm=TRUE)
+```
+Close but not the same value!
+
+Lets use 'my own' function, don't rowstandardize
+```{r}
+
+fMoran.I(drink[,1], scaled=FALSE, weight=weights1, na.rm=TRUE, rowstandardize=FALSE)
+```
+
+Same result as nacf function!  
+
+What does rowstandardization mean??  
+
+- **rowstandardize**: We assume that each node *i* is influenced equally by its neighbourhood regardless on how large it. You could compare this to the average alter effect in RSiena)  
+- **not rowstandardize**: We assume that each alter *j* has the same influence on *i* (if at the same distance). You could compare this to the total alter effect in RSiena.  
+
+To not standardize is default in `sna::nacf`, to standardize is default in `apa::Moran.I`. This bugs me. I thus made a small adaption to `apa::Moran.I` and now in the function `fMoran.I` you can choose if you want to rowstandardize or not.
+
+But...  
+
+> "What you really, really want  
+> I wanna, (ha) I wanna, (ha)  
+> I wanna, (ha) I wanna, (ha)  
+> I wanna really, really, really   
+> Wanna zigazig ah"  
+> --- Spice Girls - Wannabe
+
+What I really would like to see is a correlation between actor *i* and all the alters to whom it is connected (direct or indirectly) and where alters at a larger distances (longer shortest path lengths) are weighted less. 
+
+step 1: for each acter *i* determine the distances (shortest path lengths) to all other nodes in the network. 
+step 2: based on these distances decide on how we want to weigh. That is, determine a distance decay function.   
+step 3: decide whether or not we want to row-standardize.
+
+```{r}
+#step 1: calculate distances
+geodistances <- geodist(net1, count.paths = TRUE)
+geodistances <- geodistances$gdist
+#set the distance to yourself as Inf
+diag(geodistances) <- Inf
+
+
+#step 2: define a distance decay function. This one is pretty standard in the spatial autocorrelation literature but actually pretty arbitrary. 
+weights2 <- exp(-geodistances)
+
+#step 3: I dont want to rowstandardize. 
+fMoran.I(drink[,1], scaled=FALSE, weight=weights2, na.rm=TRUE, rowstandardize = FALSE)
+
+``` 
+Conclusion: Yes pupils closer to one another are more a like! And 'closer' here means a shorter shortest path length. You also observe that the correlation is lower than we calculated previously. Apparently, we are a like to alters very close by (path length one) and less so (or even dissimilar) to alters furter off.vvv  
+
+### Moran's autocorrelation for outgoing ties: MyMovez dataset
+
+Let's repeat the exercise but now on our own data. The tie variable we will use are the friendship relations. 
+
+```{r}
+#step 1: calculate distances
+fnet <- ExData$depvars$friendship[,,1]
+fnet[fnet==10] <- 0
+
+geodistances <- geodist(fnet, count.paths = TRUE)
+geodistances <- geodistances$gdist
+#set the distance to yourself as Inf
+diag(geodistances) <- Inf
+#head(geodistances) #have a look for yourself. 
+
+#step 2: define a distance decay function. This one is pretty standard in the spatial autocorrelation literature but actually pretty arbitrary. 
+weights2 <- exp(-geodistances)
+
+#step 3: In this case I do want to rowstandardize because I think the influence is by the total class but class sizes vary. 
+fMoran.I(ExData$depvars$mvpa_y[,,1], scaled=FALSE, weight=weights2, na.rm=TRUE, rowstandardize = TRUE)
+```
+
+Thus Yes, If we look at all classes together we see that pupils who are closer to one another are more a like with respect to physical activity. But the correlations is quite small! 
+
+Do we see the same within each class? 
+
+```{r}
+#some background info:
+nclass <- c(28, 18, 18, 18, 18, 25, 24)
+classid <- rep(1:7, times=nclass)
+
+print("Moran's I: class 1")
+fMoran.I(ExData$depvars$mvpa_y[,,1][1:28], scaled=FALSE, weight=weights2[1:28,1:28], na.rm=TRUE, rowstandardize = TRUE)
+
+print("Moran's I: class 2")
+fMoran.I(ExData$depvars$mvpa_y[,,1][29:46], scaled=FALSE, weight=weights2[29:46,29:46], na.rm=TRUE, rowstandardize = TRUE)
+
+```
+
+Correlations within classes are somewhat lower and/or not significant. Probably there is thus also similarity beween pupils because they are in the same class (might be due to selection and influence processes, or class/context effects of course). 
+
+## A quick co-evolution RSiena model to check. 
+
+{{% alert note %}}
+
+Please be aware that in co-evolution models (as in multiplex models) the variables defined as dependent variables in your RSiena data object can be both a 'cause' (or independent variable) and a 'consequence' (or dependent variable). In this influence effect: `includeEffects(myEff, name = "drinkingbeh", outdeg,	interaction1= "friendship" )` the dependent variable "drinkingbeh" is define by `name`, the independent networkvariable "friendship" by `interaction`. 
+{{% / alert %}}
+
+```{r, results='hold'}
+#Step 1: DATA
+        friend.data.w1 <- s501
+        friend.data.w2 <- s502
+        friend.data.w3 <- s503
+        drink <- s50a
+        smoke <- s50s
+
+friendship <- sienaDependent( array( c( friend.data.w1, friend.data.w2,	friend.data.w3 ),	dim = c( 50, 50, 3 ) ) )# create tie-dependent variable
+
+drinkingbeh <- sienaDependent( drink, type = "behavior" ) # create behavior-dependent variable
+
+smoke1 <- coCovar( smoke[ , 1 ] ) #covariate
+
+# Define the data set and obtain the basic effects object
+myCoEvolutionData <- sienaDataCreate( friendship, smoke1, drinkingbeh )
+
+#STEP 2: have a look at data. 
+print01Report( myCoEvolutionData, modelname = 's50_3_CoEvinit' )
+#look at the created file!!
+
+#STEP 3: Define effects
+myCoEvolutionEff <- getEffects( myCoEvolutionData )
+# effectsDocumentation(myCoEvolutionEff)
+
+# structural effects 
+myCoEvolutionEff <- includeEffects( myCoEvolutionEff, transTrip, cycle3)
+
+#homophily effect for the constant covariate smoking
+myCoEvolutionEff <- includeEffects( myCoEvolutionEff, simX,
+											interaction1 = "smoke1" )
+
+# selection effect related to drinking behavior? 
+myCoEvolutionEff <- includeEffects(myCoEvolutionEff, egoX, altX, simX, interaction1 = "drinkingbeh" )
+
+# INFLUENCE PART!! inline with the above I use totAlt
+		myCoEvolutionEff <- includeEffects( myCoEvolutionEff,
+								name = "drinkingbeh",
+								  totAlt,interaction1 = "friendship" )
+
+# Check what effects you have decided to include:
+
+		myCoEvolutionEff
+
+#STEP 4: define algorithm
+		myCoEvAlgorithm <- sienaAlgorithmCreate( projname = 's50CoEv_3' )
+
+#STEP 5: estimate the model
+(ans <- siena07( myCoEvAlgorithm, data = myCoEvolutionData,
+                        effects = myCoEvolutionEff ))
+
+#use this function if you want to save as excel
+# fanscsv(ans, write=FALSE) #uncomment if you want. 
+```
+
+What would you conclude?  
+
+- Yes, we observe selection based on drinking.  
+- Yes, we observe influence via the drinking behavior of befriended alters.  
+
+# Assignment
+
+**Assignment:** Formulate at least three research questions with respect to selection and influence effects among pupils with respect to physical activity. Test these effects on the MyMovez dataset.  
+
+- start with descriptive statistics  
+- estimate subsequent models (at least three) and please motivate the order by which you include additional effects/variables    
+- include at least two multiplex effects    
+- include/try at least four behavioral-evolution effects  
+
+## testing and finding optimal model
+You probably need to estimate quite some models. To speed things up, you may want to tweak your algorithm by `sienaAlgorithm` or you may want to run you models on a subsample first. 
+
+### sienaAlgorithm
+Have a look at the function: `?sienaAlgorithm`. You could change n3 to 500 and nsub to 2. 
+
+
+### select only one class
+
+You may want to test your models first on one class only. When you are satisfied, you could run your models on the total class pool. In the code snippet below, you see how to select one class and make a new RSiena dataobject.  
+
+```{r}
+#these are the respective class sizes. 
+nclass <- c(28, 18, 18, 18, 18, 25, 24)
+classid <- rep(1:7, times=nclass)
+
+test <- ExData[classid==1] #change classid to select a different class. 
+#because everything needs to be mean centered again also make sure to run the next command
+class1 <- sienaDataCreate(test$depvars$friendship, test$depvars$advice, test$depvars$mvpa_y, test$cCovars$ethnicNLNA, test$cCovars$sex, test$cCovars$lft, test$cCovars$primary, test$vCovars$mvpa_x)
+
+```
+
+## An example on the MyMovez dataset
+
+```{r, resuls='hold'}
+require(RSiena)
+require(xtable) # for some html output
+
+#Step 1: DATA
+load("beh_data.RData")
+mydata <- ExData
+
+#Stept 2: some first summary
+print01Report(mydata, modelname="segtest1")
+#look at the printed doc!!
+
+#Step 3: set algorithm
+myalgorithm <- sienaAlgorithmCreate(projname = 'segtest1' )
+
+#Step 4: set effects
+NBeff <- getEffects( mydata )
+#have a look at all possible effects
+#effectsDocumentation(NBeff) #uncomment if you want to have a look
+
+#possible order? 
+#a: uncontrolled for network structure effects
+#b: controlled for network structure effects
+#M1a/b: selection: homophily tendencies demographics: simsex, simethnic,  
+#M2a/b: selection: homophily tendencies health: MVPA_y
+#M3a/b: influence: on health
+#M4: total 
+
+#I am just estimating the total model in this example. 
+
+#Structural effects
+#only focus on friendship network in this example, thus specifying 'name' argument is not necessary. 
+NBeff <- includeEffects( NBeff, inPop, transTrip, transRecTrip )
+
+#selection effects
+NBeff <- includeEffects( NBeff, egoX, altX, egoXaltX, interaction1 = "ethnicNLNA" )
+NBeff <- includeEffects( NBeff, egoX, altX, sameX, interaction1 = "sex" )
+NBeff <- includeEffects( NBeff, egoX, altX, absDiffX, interaction1 = "mvpa_y" )
+
+
+#behavioral model: node effects
+NBeff <- includeEffects( NBeff, effFrom, name="mvpa_y", interaction1 = "sex" )
+NBeff <- includeEffects( NBeff, effFrom, name="mvpa_y", interaction1 = "lft" )
+NBeff <- includeEffects( NBeff, effFrom, name="mvpa_y", interaction1 = "ethnicNLNA" )
+
+
+#influence effects
+NBeff <- includeEffects( NBeff, totSimRecip, name="mvpa_y", interaction1 = "friendship" )
+
+#look at all effects
+NBeff
+
+#Please uncomment this section. I just don't want to reestimate the model. It does take a while. 
+#(ans <- siena07( myalgorithm, data = ExData, effects = NBeff))
+#save(ans, file="ans.RData")
+#siena.table(ans, type="html", tstat=T, d=2, sig=T)
+load("ans.RData")
+ans
+```
+What would you conclude?
+
+- The selection variable of interest is in the predicted direction but does not reach significance.  
+  * Should we model friendship selection based on mvpa_y with a different statistic/effect?  
+  * Would we observe the same with respect to advice relations?  
+- The influenc variable of interest is in the predicted direction but does not reach significance.  
+  * Should we model network influence on mvpa_y with a different statistic/effect?  
+  * Would we observe the same with respect to advice relations? 
+  
+Hopefully, this example gives you enough pointers to make the assignment. 
+
+
+Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
+
+Please email any comments to: j.tolsma@ru.nl

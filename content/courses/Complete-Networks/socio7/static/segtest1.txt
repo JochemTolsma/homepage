@@ -1,0 +1,722 @@
+							************************
+									 segtest1.txt
+							************************
+
+Filename is segtest1.txt.
+
+This file contains primary output for SIENA project <<segtest1>>.
+
+Date and time: 06/10/2020 12:03:37 
+
+RSiena version 1.2-23 (12 01 2020)
+
+
+@1
+Data input.
+===========
+
+3 observations,
+149 actors,
+2 dependent network variables,
+0 dependent bipartite variables,
+1 dependent discrete behavior variables,
+0 dependent continuous behavior variables,
+4 constant actor covariates,
+1 exogenous changing actor covariates,
+0 constant dyadic covariates,
+0 exogenous changing dyadic covariates,
+0 no files with times of composition change.
+
+
+@2
+Reading network variables.
+--------------------------
+
+Name of this network variable: friendship.
+oneMode network.
+For observation moment 1, degree distributions are as follows:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+out-degrees
+  2   7  10  12   7  13   7   9  20   5  10  14   7   7   5 
+  4   6  18  24  27  13  21   9   9  13   4   7  16   0   0 
+  0   4   7   0   1  11   4   5  12   5   4  17   6   4  13 
+  8   0   8   1   6   9   4  17  15   4  17   0  10   0  13 
+  0   2   8   8   5  12   5   6   3  12   5   9   7   5   6 
+  5   8  10   0   1   5  10   8   1   0   7   0   3   0  14 
+ 11   2   9   0   3   0  12   7   0   0   6   8   7   7  10 
+  5  10   3   4   4   0   5   0   0   4   6   5   0   6   6 
+  5  11   0   5   4  10   7   5   2   0   6   0   5   8   4 
+  0   5  12   6   4   0   4   5  10  12   6   0   3   5
+in-degrees
+  9  11  10  13   4  10  12  14  13  11   9  11  13   6   8 
+  8  14   9  11  16  14  11  14  12  11  12  10  10   4   5 
+  6   8   3   2   4   7   8   7   8   7   7   5   7   5   5 
+  3   5   8   4   9   5   6   5   7   9   9   7   5   5   5 
+  7   9   8   9   9   6   8   7   4   7   8   5   6   6   7 
+  8   9   5   3   7   2   7   3   0   8   5   3   8   3   4 
+  5   7   3   5   1   4   5   4   4   5   6   6   5   6   6 
+  4   4   7   3   3   4   3   6   6   5   2   8   0   6   4 
+  4   2   9   6   6   8   6   6   7   0   7   4   3   6   7 
+  1   7   5   2   5   2   5   4   5   7   9   2   5   6
+
+The input file contains codes for structurally determined values:
+  18920 structural zeros were found (code 10).
+  0 structural one was found (code 11).
+
+For observation moment 1, number of missing values are:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+missing in rows
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0  17  17 
+ 17   0   0  17   0   0   0   0   0   0   0   0   0   0   0 
+  0  17   0   0   0   0   0   0   0   0   0  17   0  17   0 
+ 17   0   0   0   0   0   0   0   0   0  12   0   0   0   0 
+  0   0   0  17   0   0   0   0   0  17   0  17   0  17   0 
+  0   0   0  17   0  17   0   0  17  17   0   0   0   0   0 
+  0   0   0   0   0  24   0  24  24   0   0   0   0   0   0 
+  0   0  24   0   0   0   0   0   0  23   0  23   0   0   0 
+ 23   0   0   0   0  23   0   0   0   0   0   0   0   0
+missing in columns
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   3   3 
+  3   4   4   3   4   4   4   4   4   4   4   4   4   4   4 
+  4   3   4   4   4   4   4   4   4   4   4   3   4   3   4 
+  3   4   4   4   2   2   2   2   2   2   1   2   1   1   1 
+  1   2   2   1   2   2   1   7   7   6   7   6   7   6   7 
+  7   7   7   6   7   6   7   7   6   6   4   4   4   4   4 
+  4   4   4   4   4   3   4   3   3   4   4   4   4   4   4 
+  4   4   3   4   4   4   4   4   4   3   4   3   4   4   4 
+  3   4   4   4   4   3   4   4   4   4   4   4   4   4
+Total number of missing data: 472, corresponding to a fraction of 0.021.
+
+For observation moment 2, degree distributions are as follows:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+out-degrees
+  9  11   0  12  27  24   9  11  11   6  15  14  27   8  14 
+  6  21   6  27  24   6  27   7  19  13   7   4  13   0   0 
+  0   3   7   0   0   7   3   5  14   2   6   8  13   3  13 
+  3   0   8   8   8  17   8  14   0   2  15   0   9   3  16 
+ 16   5   8   3   3   7   9  10   5  11   5  17  17   8   5 
+ 13   7   8   0   3   4   8   9   1   0  15   0   4   0  12 
+ 11   1   9   0   3   0  15   5   0   0   3   8  11   8   6 
+  6   9   5   2   2   0   6   0   0   4   6  11   3  10   5 
+  5   8   0   8   4  10   5   6   7   0   6   0   6   5   4 
+  0   7   7   7   5   0   3   5   9  15   8  13   5   9
+in-degrees
+ 10  12  13  14  10  10  13  15  15  13  10  13  14   7  11 
+ 10  12  12  17  19  14  16  19  14  14  18  13  20   3   3 
+  6   6   4   2   5   6   7   5   4   6   5   5   6   6   5 
+  3   6   9   5  10   7   8   7  10  10  10   6   5   6   6 
+  6  10   9  10  11   9   9   8   5  10   9   6   7   6   9 
+  6  12   7   4  12   4   6   2   1   8   5   4   7   4   5 
+  6   7   3   6   4   4   5   3   5   6   7   7   4   7   6 
+  5   5   6   3   2   4   5   6   6   4   4   7   1   6   6 
+  4   5   9   5   6  11   6   5   5   1   6   5   5   6   9 
+  1   6   6   4   5   3   6   4   6  10  11   7   7   7
+
+The input file contains codes for structurally determined values:
+  18920 structural zeros were found (code 10).
+  0 structural one was found (code 11).
+
+For observation moment 2, number of missing values are:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+missing in rows
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0  17  17 
+ 17   0   0  17   0   0   0   0   0   0   0   0   0   0   0 
+  0  17   0   0   0   0   0   0  17   0   0  17   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0  17   0   0   0   0   0  17   0  17   0  17   0 
+  0   0   0  17   0  17   0   0  17  17   0   0   0   0   0 
+  0   0   0   0   0  24   0  24  24   0   0   0   0   0   0 
+  0   0  24   0   0   0   0   0   0  23   0  23   0   0   0 
+ 23   0   0   0   0  23   0   0   0   0   0   0   0   0
+missing in columns
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   3   3 
+  3   4   4   3   4   4   4   4   4   4   4   4   4   4   4 
+  4   2   3   3   3   3   3   3   2   3   3   2   3   3   3 
+  3   3   3   3   1   1   1   1   1   1   1   1   1   1   1 
+  1   1   1   0   1   1   1   7   7   6   7   6   7   6   7 
+  7   7   7   6   7   6   7   7   6   6   4   4   4   4   4 
+  4   4   4   4   4   3   4   3   3   4   4   4   4   4   4 
+  4   4   3   4   4   4   4   4   4   3   4   3   4   4   4 
+  3   4   4   4   4   3   4   4   4   4   4   4   4   4
+Total number of missing data: 443, corresponding to a fraction of 0.020.
+In reported in- and outdegrees, missings are not counted.
+
+For observation moment 3, degree distributions are as follows:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+out-degrees
+ 12  14   5   8   7  21  19   6  26   8   9   8  18   3   7 
+  3  27  15  27  22  10  27   9   9  12   8   3   5   0   0 
+  0   3   6   0   0  13   4   5   1   3   4   8   8   6  11 
+ 16   0  17   7   8   6  16   7   0   1  17   0   3   0  17 
+  8   6   7   7   2   1   6  10   5   0   6   9  13   9   4 
+ 10   8   1   0   8   3   9   9   1   0  10   0   2   0  16 
+ 11   1   7   0   4   0  15   7   0   0   0   5   0   0   6 
+  6   9   4   3   0   0   6   0   0   4  11  14   0  18   7 
+  5   7   0   4   3  14   7   0   6   0   6   0   7   5   4 
+  0   6   6   2   0   0   3   6   6  11   4   7   5   0
+in-degrees
+ 10  13   8  15   9  13  12  12  16  13  11  14  15   6  10 
+ 10  14  10  15  17  14  12  15  14  10  14  15  11   5   3 
+  6   4   6   1   3   6   7   5   7   6   4   6   7   6   4 
+  2   8   5   6   8   8   7   7   8   8   7   7   8   7   6 
+  7   7   6   7  10   9   6   7   4  10   7   5   5   5   8 
+  5   7   4   1   4   2   5   3   0   7   5   4   8   4   6 
+  5   5   3   6   4   4   6   3   5   5   7   4   4   7   6 
+  4   4   4   3   2   5   4   5   5   4   2   4   0   5   5 
+  5   3   9   6   5  10   6   3   6   0   5   3   2   6   5 
+  1   5   4   3   3   1   5   2   6   8   8   6   3   4
+
+The input file contains codes for structurally determined values:
+  18920 structural zeros were found (code 10).
+  0 structural one was found (code 11).
+
+For observation moment 3, number of missing values are:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+missing in rows
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0  17  17 
+ 17   0   0  17   0   0   0   0   0   0   0   0   0   0   0 
+  0  17   0   0   0   0   0   0  17   0   0  17   0  17   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0  17   0   0   0   0   0  17   0  17   0  17   0 
+  0   0   0  17  13  17   0   0  17  17   0   0   0   0   0 
+  0   0   0   0   0  24   0  24  24   0   0   0   0   0   0 
+  0   0  24   0   0   0   0   0   0  23   0  23   0   0   0 
+ 23   0   0   0   0  23   0   0   0   0   0   0   0   0
+missing in columns
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   3   3 
+  3   4   4   3   4   4   4   4   4   4   4   4   4   4   4 
+  4   3   4   4   4   4   4   4   3   4   4   3   4   3   4 
+  4   4   4   4   1   1   1   1   1   1   1   1   1   1   1 
+  1   1   1   0   1   1   1   7   8   7   8   7   8   7   8 
+  7   8   8   6   7   7   7   8   7   7   4   4   4   4   4 
+  4   4   4   4   4   3   4   3   3   4   4   4   4   4   4 
+  4   4   3   4   4   4   4   4   4   3   4   3   4   4   4 
+  3   4   4   4   4   3   4   4   4   4   4   4   4   4
+Total number of missing data: 473, corresponding to a fraction of 0.021.
+In reported in- and outdegrees, missings are not counted.
+
+There are missing data for this network variable,
+and the <<carry missings forward>> option is active.
+This means that for each tie variable,
+the last previous nonmissing value (if any) is imputed.
+If there is no previous nonmissing value, the value 0 is imputed.
+
+Name of this network variable: advice.
+oneMode network.
+For observation moment 1, degree distributions are as follows:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+out-degrees
+  4   4   4   2   2   2   6   1   2   1   2   2  10   5   3 
+  2   4   1   3   1   1   1   2   8   1   2   7   5   0   0 
+  0   4   5   0   1   4   1   4   3   6   4   1  17   1   1 
+  1   0   1   3   0   6   2  16   0   4   4   0  10   0   1 
+  0   2   4   0   2   5   1   9   1   0   1   4   1   1   2 
+  1   2   1   0   1   2   1   1   1   0   1   0   2   0   1 
+  1   0   2   0   5   0   1   2   0   0   1   3   6  10   4 
+  1   2   4   3   0   0   2   0   0   1   3   3   1   1   6 
+  1   4   0   4   1   2   1   3   3   0   1   0   4   3   2 
+  0   5   1   3   4   0   2   1   4  10   3   0   2   1
+in-degrees
+  2   7   1   7   4   4   4   0   1   1   1   6   6   0   1 
+  2   5   2   3   6   3   2   5   6   1   3   3   2   1   2 
+  2   7   2   1   2   5   3   4   2   5   5   2   1   3   3 
+  3   3   2   1   3   2   4   2   3   2   4   2   3   3   3 
+  3   5   3   5   3   2   3   2   3   3   3   0   1   2   3 
+  3   2   0   2   2   0   1   1   0   2   1   2   3   0   1 
+  2   1   1   0   1   0   1   1   0   0   4   1   2   2   5 
+  3   0   4   1   2   2   4   2   4   0   1   3   0   5   2 
+  4   1   6   2   1   5   5   3   5   0   3   3   2   3   1 
+  0   5   2   1   2   0   1   1   1   5   3   1   1   2
+
+The input file contains codes for structurally determined values:
+  18920 structural zeros were found (code 10).
+  0 structural one was found (code 11).
+
+For observation moment 1, number of missing values are:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+missing in rows
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0  17  17 
+ 17   0   0  17   0   0   0   0   0   0   0   0   0   0   0 
+  0  17   0   0   0   0   0   0   0   0   0  17   0  17   0 
+ 17   0   0   0   0   0   0   0   0   0  16   0   0   0   0 
+  0   0   0  17   0   0   0   0   0  17   0  17   0  17   0 
+  0   0   0  17   0  17   0   0  17  17   0   0   0   0   0 
+  0   0   0   0   0  24   0  24  24   0   0   0   0   0   0 
+  0   0  24   0   0   0   0   0   0  23   0  23   0   0   0 
+ 23   0   0   0   0  23   0   0   0   0   0   0   0   0
+missing in columns
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   3   3 
+  3   4   4   3   4   4   4   4   4   4   4   4   4   4   4 
+  4   3   4   4   4   4   4   4   4   4   4   3   4   3   4 
+  3   4   4   4   2   2   2   2   2   2   1   2   2   1   2 
+  2   2   2   1   2   2   2   7   7   6   7   6   7   6   7 
+  7   7   7   6   7   6   7   7   6   6   4   4   4   4   4 
+  4   4   4   4   4   3   4   3   3   4   4   4   4   4   4 
+  4   4   3   4   4   4   4   4   4   3   4   3   4   4   4 
+  3   4   4   4   4   3   4   4   4   4   4   4   4   4
+Total number of missing data: 476, corresponding to a fraction of 0.022.
+
+For observation moment 2, degree distributions are as follows:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+out-degrees
+  2   3   0   2   3   8   1   1   8   0   1   1   5   6   1 
+  3  27   1   1   1   1  27   1   4   1   3   5   1   0   0 
+  0   3   2   0   0   4   1   1  10   3   1   0   2   1   1 
+  1   0   0   1   2   1   1   0   0  17  11   0   0   0   1 
+  0   1   1   0   0   4   1   1   0   0   1   6   1   3   2 
+  4   0   0   0   0   2   1   1   1   0   1   0   1   0   1 
+  1   0   2   0   1   0   1   2   0   0   0   1   3   0   1 
+  1   2   3   1   0   0   6   0   0   3   2   1   0   1   0 
+  1   9   0   2   1   1   1   0   2   0   1   0   2   5   1 
+  0   3   1   1   2   0   2   1   3   2   3   1   1   1
+in-degrees
+  2   7   2   9   4   4   6   4   2   2   3   5   4   2   2 
+  6   3   3   3   6   3   4   7   7   3   5   5   5   1   2 
+  0   4   2   0   1   2   4   2   1   2   3   1   1   2   2 
+  0   3   3   1   3   3   1   2   2   1   1   1   2   1   1 
+  2   2   3   4   2   1   1   0   2   2   2   1   4   3   1 
+  1   3   3   0   0   0   0   2   0   1   2   1   1   0   0 
+  1   0   1   0   0   0   2   1   0   0   4   1   2   3   1 
+  3   0   1   1   2   0   2   2   2   0   0   3   0   4   1 
+  0   0   2   2   2   2   3   3   2   0   4   3   0   3   1 
+  0   2   3   0   0   0   1   0   1   5   0   0   0   1
+
+The input file contains codes for structurally determined values:
+  18920 structural zeros were found (code 10).
+  0 structural one was found (code 11).
+
+For observation moment 2, number of missing values are:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+missing in rows
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0  17  17 
+ 17   0   0  17   0   0   0   0   0   0   0   0   0   0   0 
+  0  17   0   0   0   0   0   0  17   0   0  17   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0  17   0   0   0   0   0  17   0  17   0  17   0 
+  0   0   0  17   0  17   0   0  17  17   0   0   0   0   0 
+  0   0   0   0   0  24   0  24  24   0   0   0   0   0   0 
+  0   0  24   0   0   0   0   0   0  23   0  23   0   0   0 
+ 23   0   0   0   0  23   0   0   0   0   0   0   0   0
+missing in columns
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   3   3 
+  3   4   4   3   4   4   4   4   4   4   4   4   4   4   4 
+  4   2   3   3   3   3   3   3   2   3   3   2   3   3   3 
+  3   3   3   3   1   1   1   1   1   1   1   1   1   1   1 
+  1   1   1   0   1   1   1   7   7   6   7   6   7   6   7 
+  7   7   7   6   7   6   7   7   6   6   4   4   4   4   4 
+  4   4   4   4   4   3   4   3   3   4   4   4   4   4   4 
+  4   4   3   4   4   4   4   4   4   3   4   3   4   4   4 
+  3   4   4   4   4   3   4   4   4   4   4   4   4   4
+Total number of missing data: 443, corresponding to a fraction of 0.020.
+In reported in- and outdegrees, missings are not counted.
+
+For observation moment 3, degree distributions are as follows:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+out-degrees
+  2   1   0   4   2  13   1   1   1   0   6   1   5   2   1 
+  5   1   1   1   6   1   3   2   1   0   1   1   3   0   0 
+  0   0   1   0   0   1   1   3   1   1   2   0   0   1   0 
+  0   0   0   0   0   0   0   0   0  17   0   0   0   0  15 
+  0   0   0   0   0   1   0   0   6   0   1   2   1   1   0 
+  1   7   0   0   0   0   2   1   0   0   2   0   2   0   1 
+  1   0   1   0   2   0   1   1   0   0   0   1   0   0   1 
+  0   1   3   3   0   0   8   0   0   3   0   2   1   1   1 
+  1   0   0   0   1   3   2   0   3   0   1   0   3   6   1 
+  0   0   1   1   0   0   1   1   1   0   1   1   5   0
+in-degrees
+  3   9   1   3   1   2   2   0   2   1   2   3   3   3   1 
+  2   3   1   2   2   1   5   4   3   1   3   2   1   2   1 
+  0   2   0   0   0   0   1   1   0   2   1   0   0   1   0 
+  0   2   2   2   2   2   2   2   2   1   2   2   2   2   1 
+  2   1   1   2   2   1   2   2   1   3   1   1   0   0   1 
+  3   0   0   1   1   1   2   1   0   3   1   0   2   0   0 
+  2   0   1   0   0   0   1   1   0   0   2   1   2   1   4 
+  0   0   1   1   1   0   1   1   1   0   0   1   0   2   1 
+  1   0   2   2   2   2   2   3   1   0   3   1   0   3   1 
+  0   3   2   0   0   1   0   0   1   2   1   2   1   2
+
+The input file contains codes for structurally determined values:
+  18920 structural zeros were found (code 10).
+  0 structural one was found (code 11).
+
+For observation moment 3, number of missing values are:
+Nodes
+  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 
+ 16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 
+ 31  32  33  34  35  36  37  38  39  40  41  42  43  44  45 
+ 46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
+ 61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
+ 76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149
+missing in rows
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0  17  17 
+ 17   0   0  17   0   0   0   0   0   0   0   0   0   0   0 
+  0  17   0   0   0   0   0   0  17   0   0  17   0  17   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0  17   0   0   0   0   0  17   0  17   0  17   0 
+  0   0   0  17  15  17   0   0  17  17   0   0   0   0   0 
+  0   0   0   0   0  24   0  24  24   0   0   0   0   0   0 
+  0   0  24   0   0   0   0   0   0  23   0  23   0   0   0 
+ 23   0   0   0   0  23   0   0   0   0   0   0   0   0
+missing in columns
+  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   0   3   3 
+  3   4   4   3   4   4   4   4   4   4   4   4   4   4   4 
+  4   3   4   4   4   4   4   4   3   4   4   3   4   3   4 
+  4   4   4   4   1   1   1   1   1   1   1   1   1   1   1 
+  1   1   1   0   1   1   1   7   8   7   8   7   8   7   8 
+  7   8   8   7   7   7   8   8   7   7   4   4   4   4   4 
+  4   4   4   4   4   3   4   3   3   4   4   4   4   4   4 
+  4   4   3   4   4   4   4   4   4   3   4   3   4   4   4 
+  3   4   4   4   4   3   4   4   4   4   4   4   4   4
+Total number of missing data: 475, corresponding to a fraction of 0.022.
+In reported in- and outdegrees, missings are not counted.
+
+There are missing data for this network variable,
+and the <<carry missings forward>> option is active.
+This means that for each tie variable,
+the last previous nonmissing value (if any) is imputed.
+If there is no previous nonmissing value, the value 0 is imputed.
+
+
+
+
+@2
+Reading dependent actor variables.
+----------------------------------
+
+1st dependent actor variable named mvpa_y.
+Maximum and minimum rounded values are 1 and 5.
+Missing values in this actor variable are imputed by the mode per observation.
+But if there is a previous (or later) nonmissing value, this is used as the imputed value.
+Modal values:
+Observation	   1    2    3 
+Modes           2    4    1
+
+
+A total of 1 dependent actor variable.
+
+Number of missing cases per observation:
+ observation         1         2         3		overall
+mvpa_y              47        36        59       142	  (31.8 %)
+
+Means per observation:
+ observation         1         2         3		overall
+mvpa_y             2.569     3.177     2.756     2.834
+
+@2
+Reading constant actor covariates.
+----------------------------------
+
+4 variables, named:
+ethnicNLNA      
+sex             
+lft             
+primary         
+
+A total of 4 non-changing individual covariates.
+
+Number of missing cases:
+ethnicNLNA      23 	( 15.4 %)
+sex             23 	( 15.4 %)
+lft             23 	( 15.4 %)
+primary         0 	( 0.0 %)
+
+Information about covariates:
+               minimum  maximum	  mean  centered 
+ethnicNLNA      0.0     1.0      0.667    Y 
+sex             0.0     1.0      0.468    Y 
+lft             9.0    14.0     10.706    Y 
+primary         0.0     1.0      0.550    Y 
+The mean values are subtracted from the covariates.
+
+
+@2
+Reading exogenous changing actor covariates.
+--------------------------------------------
+
+1 variable, named:
+mvpa_x          
+
+A total of 1 exogenous changing actor covariate.
+
+Number of missing cases per period:
+ period                    1       2     overall
+mvpa_x                    47      36       83 	   ( 27.9 %)
+
+Information about changing covariates:
+
+               minimum  maximum	  mean  centered 
+mvpa_x                                     Y 
+	period   1     0.0     5.5      3.220 
+	period   2     0.0     5.3      3.526 
+Overall                            3.381 
+
+The mean value is subtracted from the centered covariate.
+
+
+
+There are missing data for network variable friendship.
+There are missing data for network variable advice.
+There are missing data for behavior variable mvpa_y.
+The mean structural dissimilarity values subtracted in the
+balance calculations are
+for network friendship          0.0908.
+for network advice              0.0300.
+
+For the similarity variable calculated from each actor covariate,
+the mean is subtracted.
+These means are:
+Similarity ethnicNLNA               :       0.5520 
+Similarity sex                      :       0.4980 
+Similarity lft                      :       0.6942 
+Similarity primary                  :       0.5017 
+Similarity mvpa_y                   :       0.6223 
+Similarity mvpa_x                   :       0.7908 
+
+
+
+@1
+Initial data description.
+=========================
+
+
+@2
+Change in networks:
+-------------------
+
+
+@3
+Network: friendship
+                   
+For the following statistics, missing values (if any) are not counted.
+Further, structurally determined entries are treated as observed entries,
+except for calculating the distances, where missings and structurally determined entries
+at the beginning or end of a period are disregarded.
+This may imply that the columns 0 => 1 and 1 => 0 do not add up to the distance column.
+
+Network density indicators:
+observation time              1      2      3
+density                    0.044  0.051  0.045
+average degree             6.584  7.548  6.632
+number of ties               960   1102    967
+missing fraction           0.021  0.020  0.021
+
+The average degree is 6.921 
+
+
+Tie changes between subsequent observations:
+ periods        0 =>  0   0 =>  1   1 =>  0   1 =>  1   Distance Jaccard   Missing
+  1 ==>   2     20286       332       195       750       527     0.587       489 (2%)
+  2 ==>   3     20283       198       329       769       527     0.593       473 (2%)
+
+Directed dyad Counts:
+ observation    total    mutual    asymm.     null
+     1.         21200      556       586     20058
+     2.         21250      638       704     19908
+     3.         21208      536       638     20034
+
+Standard values for initial parameter values
+-------------------------------------------------
+
+constant friendship rate (period 1)     7.2842 
+constant friendship rate (period 2)     7.2788 
+friendship: outdegree (density)                   -1.2598 
+
+@3
+Network: advice
+               
+For the following statistics, missing values (if any) are not counted.
+Further, structurally determined entries are treated as observed entries,
+except for calculating the distances, where missings and structurally determined entries
+at the beginning or end of a period are disregarded.
+This may imply that the columns 0 => 1 and 1 => 0 do not add up to the distance column.
+
+Network density indicators:
+observation time              1      2      3
+density                    0.017  0.014  0.009
+average degree             2.483  2.014  1.379
+number of ties               362    294    201
+missing fraction           0.022  0.020  0.022
+
+The average degree is 1.958 
+
+
+Tie changes between subsequent observations:
+ periods        0 =>  0   0 =>  1   1 =>  0   1 =>  1   Distance Jaccard   Missing
+  1 ==>   2     21036       161       229       133       390     0.254       493 (2%)
+  2 ==>   3     21182       101       194       100       295     0.253       475 (2%)
+
+Directed dyad Counts:
+ observation    total    mutual    asymm.     null
+     1.         21192      126       388     20678
+     2.         21250       76       396     20778
+     3.         21206       52       256     20898
+
+Standard values for initial parameter values
+-------------------------------------------------
+
+constant advice rate (period 1)         5.3919 
+constant advice rate (period 2)         4.0754 
+advice: outdegree (density)                       -1.7355 
+
+
+
+@2
+Dependent discrete actor variables:
+-----------------------------------
+
+mvpa_y 
+
+
+@3
+Marginal distribution
+                     
+                Observations
+values               1     2     3
+                ------------------
+  1                 25    19    23
+  2                 28    21    20
+  3                 23    19    18
+  4                 18    29    14
+  5                  8    25    15
+missing             47    36    59
+
+(fraction missing  0.32  0.24  0.40  )
+
+
+
+@3
+Changes
+       
+ periods    actors:  down   up   constant  missing  ;   steps:   down    up  total
+  1  =>  2            15    48      27        59                   26    79   105
+  2  =>  3            40    23      17        69                   71    38   109
+
+For this variable, the standard initial behavioral tendency parameter is   0.0429
+
+Initialisation of project <<segtest1>> executed succesfully.
