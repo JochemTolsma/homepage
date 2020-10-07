@@ -81,16 +81,10 @@ Having taught the course social networks for a couple of years now to the studen
 ## avAlt and totAlt effects  
 I think this question deserves a knowledge clip. Please watch the video below. 
 
-![](https://vimeo.com/465727691)
-
-
-test2
-![](https://player.vimeo.com/video/465727691)
+<iframe src="https://player.vimeo.com/video/465727691" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 
 
-
-{autoplay="true" title="Influence processes" } 
 
 {{% alert note %}}
 After having watched the video you have learned: 
