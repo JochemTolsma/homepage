@@ -26,10 +26,6 @@ editor_options:
 ---
 
 <script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
-<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
-<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
 <style type="text/css">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -124,14 +120,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
 <!--set global settings-->
 <!--copy to clipboard-->
-<p><script>
-  addClassKlippyTo("pre.r, pre.markdown");
-  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
-</script>
 <!---
 https://www.w3schools.com/w3css/w3css_buttons.asp
 https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
----></p>
+--->
 <button onclick="window.location.href=&#39;static/index.Rmd&#39;;">
 download code
 </button>
@@ -167,44 +159,21 @@ Before we start with our own lab exercise, I would like you to:</p>
 <div id="avalt-and-totalt-effects" class="section level2">
 <h2><span class="header-section-number">2.2</span> avAlt and totAlt effects</h2>
 <p>I think this question deserves a knowledge clip. Please watch the video below.</p>
-<p><img src="https://vimeo.com/465727691" /></p>
-<p>test2
-<img src="https://player.vimeo.com/video/465727691" /></p>
-<p>{autoplay=“true” title=“Influence processes” }</p>
 <p>{{% alert note %}}
 After having watched the video you have learned:</p>
 <ol style="list-style-type: decimal">
-<li>You may be influenced by (the absence of) ties in the network, regardless of the node attributes.<br />
-</li>
-<li>You may be influenced by others to whom you are connected via an undirected tie, an outgoing tie, and an ingoing tie.<br />
+<li>What I understand by a dyad network effect, an egocentric network effect, a complete network effect and a context effect (for what its worth).<br />
 </li>
 <li>The difference between average alter and total alter effects.<br />
 </li>
-<li>That (positive) influence may also mean that you become similar to an alter to which you are connected with a specific node attribute but thereby become less similar to more other alters to which you are also connected.
+<li>That (positive) influence may also mean that you become similar to an alter with a specific node attribute but thereby become less similar to more other alters.
 {{% /alert %}}</li>
 </ol>
-<div class="figure"><span id="fig:influence"></span>
-<img src="Plot2.PNG" alt="Average Alter Effect" width="100%" />
-<p class="caption">
-Figure 2.1: Average Alter Effect
-</p>
-</div>
-<div class="figure"><span id="fig:influence2"></span>
-<img src="Plot3.PNG" alt="Total Alter Effect" width="100%" />
-<p class="caption">
-Figure 2.2: Total Alter Effect
-</p>
-</div>
+<p>To summarize.</p>
 </div>
 <div id="alt-versus-inalt-effects" class="section level2">
 <h2><span class="header-section-number">2.3</span> …Alt versus …InAlt effects</h2>
 <p>Have a look at the picture below.</p>
-<div class="figure"><span id="fig:influence3"></span>
-<img src="plot1.PNG" alt="Who is influencing whom?" width="100%" />
-<p class="caption">
-Figure 2.3: Who is influencing whom?
-</p>
-</div>
 <ul>
 <li>Undirectied tie: The direction of influence does not depend on the direction tie. In RSiena who is influenced depends on who has the opportunity for change (thus by the behavioral rate function)<br />
 </li>
@@ -363,115 +332,6 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">load</span>(<span class="st">&quot;beh_data.RData&quot;</span>)  <span class="co">#change to your working directory</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="kw">str</span>(ExData, <span class="dv">1</span>)</span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="kw">str</span>(ExData<span class="op">$</span>depvars, <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## List of 8
-##  $ nodeSets         :List of 1
-##  $ observations     : int 3
-##  $ depvars          :List of 3
-##  $ cCovars          :List of 4
-##  $ vCovars          :List of 1
-##  $ dycCovars        : list()
-##  $ dyvCovars        : list()
-##  $ compositionChange: list()
-##  - attr(*, &quot;higher&quot;)= Named logi [1:9] FALSE FALSE FALSE FALSE FALSE FALSE ...
-##   ..- attr(*, &quot;names&quot;)= chr [1:9] &quot;friendship,friendship&quot; &quot;advice,friendship&quot; &quot;mvpa_y,friendship&quot; &quot;friendship,advice&quot; ...
-##  - attr(*, &quot;disjoint&quot;)= Named logi [1:9] FALSE FALSE FALSE FALSE FALSE FALSE ...
-##   ..- attr(*, &quot;names&quot;)= chr [1:9] &quot;friendship,friendship&quot; &quot;advice,friendship&quot; &quot;mvpa_y,friendship&quot; &quot;friendship,advice&quot; ...
-##  - attr(*, &quot;atLeastOne&quot;)= Named logi [1:9] FALSE FALSE FALSE FALSE FALSE FALSE ...
-##   ..- attr(*, &quot;names&quot;)= chr [1:9] &quot;friendship,friendship&quot; &quot;advice,friendship&quot; &quot;mvpa_y,friendship&quot; &quot;friendship,advice&quot; ...
-##  - attr(*, &quot;class&quot;)= chr &quot;siena&quot;
-## List of 3
-##  $ friendship: &#39;sienaDependent&#39; num [1:149, 1:149, 1:3] 0 1 0 1 1 1 0 0 0 0 ...
-##   ..- attr(*, &quot;type&quot;)= chr &quot;oneMode&quot;
-##   ..- attr(*, &quot;sparse&quot;)= logi FALSE
-##   ..- attr(*, &quot;nodeSet&quot;)= chr &quot;Actors&quot;
-##   ..- attr(*, &quot;netdims&quot;)= int [1:3] 149 149 3
-##   ..- attr(*, &quot;allowOnly&quot;)= logi TRUE
-##   ..- attr(*, &quot;uponly&quot;)= logi [1:2] FALSE FALSE
-##   ..- attr(*, &quot;downonly&quot;)= logi [1:2] FALSE FALSE
-##   ..- attr(*, &quot;distance&quot;)= int [1:2] 527 527
-##   ..- attr(*, &quot;vals&quot;)=List of 3
-##   ..- attr(*, &quot;nval&quot;)= int [1:3] 21580 21609 21579
-##   ..- attr(*, &quot;noMissing&quot;)= num [1:3] 472 443 473
-##   ..- attr(*, &quot;noMissingEither&quot;)= num [1:2] 489 473
-##   ..- attr(*, &quot;nonMissingEither&quot;)= num [1:2] 21563 21579
-##   ..- attr(*, &quot;balmean&quot;)= num 0.0908
-##   ..- attr(*, &quot;structmean&quot;)= num 0.0902
-##   ..- attr(*, &quot;simMean&quot;)= logi NA
-##   ..- attr(*, &quot;symmetric&quot;)= logi FALSE
-##   ..- attr(*, &quot;missing&quot;)= logi TRUE
-##   ..- attr(*, &quot;structural&quot;)= logi TRUE
-##   ..- attr(*, &quot;range2&quot;)= num [1:2] 0 1
-##   ..- attr(*, &quot;ones&quot;)= Named int [1:3] 960 1102 967
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;1&quot; &quot;1&quot;
-##   ..- attr(*, &quot;density&quot;)= Named num [1:3] 0.0445 0.051 0.0448
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;1&quot; &quot;1&quot;
-##   ..- attr(*, &quot;degree&quot;)= Named num [1:3] 6.58 7.55 6.63
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;1&quot; &quot;1&quot;
-##   ..- attr(*, &quot;averageOutDegree&quot;)= num 6.92
-##   ..- attr(*, &quot;averageInDegree&quot;)= num 6.92
-##   ..- attr(*, &quot;maxObsOutDegree&quot;)= num [1:3] 27 27 27
-##   ..- attr(*, &quot;missings&quot;)= num [1:3] 0.0214 0.0201 0.0214
-##   ..- attr(*, &quot;name&quot;)= chr &quot;friendship&quot;
-##  $ advice    : &#39;sienaDependent&#39; num [1:149, 1:149, 1:3] 0 0 0 0 0 0 0 0 0 0 ...
-##   ..- attr(*, &quot;type&quot;)= chr &quot;oneMode&quot;
-##   ..- attr(*, &quot;sparse&quot;)= logi FALSE
-##   ..- attr(*, &quot;nodeSet&quot;)= chr &quot;Actors&quot;
-##   ..- attr(*, &quot;netdims&quot;)= int [1:3] 149 149 3
-##   ..- attr(*, &quot;allowOnly&quot;)= logi TRUE
-##   ..- attr(*, &quot;uponly&quot;)= logi [1:2] FALSE FALSE
-##   ..- attr(*, &quot;downonly&quot;)= logi [1:2] FALSE FALSE
-##   ..- attr(*, &quot;distance&quot;)= int [1:2] 390 295
-##   ..- attr(*, &quot;vals&quot;)=List of 3
-##   ..- attr(*, &quot;nval&quot;)= int [1:3] 21576 21609 21577
-##   ..- attr(*, &quot;noMissing&quot;)= num [1:3] 476 443 475
-##   ..- attr(*, &quot;noMissingEither&quot;)= num [1:2] 493 475
-##   ..- attr(*, &quot;nonMissingEither&quot;)= num [1:2] 21559 21577
-##   ..- attr(*, &quot;balmean&quot;)= num 0.03
-##   ..- attr(*, &quot;structmean&quot;)= num 0.0297
-##   ..- attr(*, &quot;simMean&quot;)= logi NA
-##   ..- attr(*, &quot;symmetric&quot;)= logi FALSE
-##   ..- attr(*, &quot;missing&quot;)= logi TRUE
-##   ..- attr(*, &quot;structural&quot;)= logi TRUE
-##   ..- attr(*, &quot;range2&quot;)= num [1:2] 0 1
-##   ..- attr(*, &quot;ones&quot;)= Named int [1:3] 362 294 201
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;1&quot; &quot;1&quot;
-##   ..- attr(*, &quot;density&quot;)= Named num [1:3] 0.01678 0.01361 0.00932
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;1&quot; &quot;1&quot;
-##   ..- attr(*, &quot;degree&quot;)= Named num [1:3] 2.48 2.01 1.38
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;1&quot; &quot;1&quot; &quot;1&quot;
-##   ..- attr(*, &quot;averageOutDegree&quot;)= num 1.96
-##   ..- attr(*, &quot;averageInDegree&quot;)= num 1.96
-##   ..- attr(*, &quot;maxObsOutDegree&quot;)= num [1:3] 17 27 17
-##   ..- attr(*, &quot;missings&quot;)= num [1:3] 0.0216 0.0201 0.0215
-##   ..- attr(*, &quot;name&quot;)= chr &quot;advice&quot;
-##  $ mvpa_y    : &#39;sienaDependent&#39; num [1:149, 1, 1:3] 1 NA 4 NA 2 1 NA 1 2 3 ...
-##   ..- attr(*, &quot;type&quot;)= chr &quot;behavior&quot;
-##   ..- attr(*, &quot;sparse&quot;)= logi FALSE
-##   ..- attr(*, &quot;nodeSet&quot;)= chr &quot;Actors&quot;
-##   ..- attr(*, &quot;netdims&quot;)= int [1:3] 149 1 3
-##   ..- attr(*, &quot;allowOnly&quot;)= logi TRUE
-##   ..- attr(*, &quot;uponly&quot;)= logi [1:2] FALSE FALSE
-##   ..- attr(*, &quot;downonly&quot;)= logi [1:2] FALSE FALSE
-##   ..- attr(*, &quot;distance&quot;)= num [1:2] 105 109
-##   ..- attr(*, &quot;vals&quot;)=List of 3
-##   ..- attr(*, &quot;nval&quot;)= int [1:3] 102 113 90
-##   ..- attr(*, &quot;noMissing&quot;)= int [1:3] 47 36 59
-##   ..- attr(*, &quot;noMissingEither&quot;)= num [1:2] 59 69
-##   ..- attr(*, &quot;nonMissingEither&quot;)= num [1:2] 90 80
-##   ..- attr(*, &quot;symmetric&quot;)= logi NA
-##   ..- attr(*, &quot;poszvar&quot;)= logi TRUE
-##   ..- attr(*, &quot;range&quot;)= num 4
-##   ..- attr(*, &quot;range2&quot;)= num [1:2] 1 5
-##   ..- attr(*, &quot;moreThan2&quot;)= logi TRUE
-##   ..- attr(*, &quot;modes&quot;)= num [1:3] 2 4 1
-##   ..- attr(*, &quot;missing&quot;)= logi TRUE
-##   ..- attr(*, &quot;simMean&quot;)= num 0.622
-##   ..- attr(*, &quot;structural&quot;)= logi FALSE
-##   ..- attr(*, &quot;balmean&quot;)= logi NA
-##   ..- attr(*, &quot;structmean&quot;)= logi NA
-##   ..- attr(*, &quot;name&quot;)= chr &quot;mvpa_y&quot;
-##   ..- attr(*, &quot;simMeans&quot;)= Named num [1:2] 0.849 0.773
-##   .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;friendship&quot; &quot;advice&quot;</code></pre>
 <p>What do we have?</p>
 <ul>
 <li>Data on 7 classes. See below how to play with just one class.</li>
@@ -505,56 +365,32 @@ Thus <span class="math inline">\(S_0\)</span> is the sum of the weight matrix an
 <p>We need two packages, if we not want to define all functions ourselves: <code>sna</code> and <code>ape</code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>Let us first demonstrate the concept on the build-in dataset of RSiena and then apply it to our own data.</p>
 <p>First use <code>sna</code>. And give alters a weight of 1 if they are part of the 1.0 degree egocentric network.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">library</span>(network)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>friend.data.w1 &lt;-<span class="st"> </span>s501</span>
-<span id="cb9-3"><a href="#cb9-3"></a>friend.data.w2 &lt;-<span class="st"> </span>s502</span>
-<span id="cb9-4"><a href="#cb9-4"></a>friend.data.w3 &lt;-<span class="st"> </span>s503</span>
-<span id="cb9-5"><a href="#cb9-5"></a>drink &lt;-<span class="st"> </span>s50a</span>
-<span id="cb9-6"><a href="#cb9-6"></a>smoke &lt;-<span class="st"> </span>s50s</span>
-<span id="cb9-7"><a href="#cb9-7"></a></span>
-<span id="cb9-8"><a href="#cb9-8"></a>net1 &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">as.network</span>(friend.data.w1)</span>
-<span id="cb9-9"><a href="#cb9-9"></a>net2 &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">as.network</span>(friend.data.w2)</span>
-<span id="cb9-10"><a href="#cb9-10"></a>net3 &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">as.network</span>(friend.data.w3)</span>
-<span id="cb9-11"><a href="#cb9-11"></a></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co"># nacf does not row standardize!</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a>snam1 &lt;-<span class="st"> </span><span class="kw">nacf</span>(net1, drink[, <span class="dv">1</span>], <span class="dt">type =</span> <span class="st">&quot;moran&quot;</span>, <span class="dt">neighborhood.type =</span> <span class="st">&quot;out&quot;</span>, <span class="dt">demean =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb9-14"><a href="#cb9-14"></a>snam1[<span class="dv">2</span>]  <span class="co">#the first order matrix is stored in second list-element</span></span></code></pre></div>
-<pre><code>##         1 
-## 0.4331431</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(network)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>friend.data.w1 &lt;-<span class="st"> </span>s501</span>
+<span id="cb8-3"><a href="#cb8-3"></a>friend.data.w2 &lt;-<span class="st"> </span>s502</span>
+<span id="cb8-4"><a href="#cb8-4"></a>friend.data.w3 &lt;-<span class="st"> </span>s503</span>
+<span id="cb8-5"><a href="#cb8-5"></a>drink &lt;-<span class="st"> </span>s50a</span>
+<span id="cb8-6"><a href="#cb8-6"></a>smoke &lt;-<span class="st"> </span>s50s</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a>net1 &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">as.network</span>(friend.data.w1)</span>
+<span id="cb8-9"><a href="#cb8-9"></a>net2 &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">as.network</span>(friend.data.w2)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>net3 &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">as.network</span>(friend.data.w3)</span>
+<span id="cb8-11"><a href="#cb8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co"># nacf does not row standardize!</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>snam1 &lt;-<span class="st"> </span><span class="kw">nacf</span>(net1, drink[, <span class="dv">1</span>], <span class="dt">type =</span> <span class="st">&quot;moran&quot;</span>, <span class="dt">neighborhood.type =</span> <span class="st">&quot;out&quot;</span>, <span class="dt">demean =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-14"><a href="#cb8-14"></a>snam1[<span class="dv">2</span>]  <span class="co">#the first order matrix is stored in second list-element</span></span></code></pre></div>
 <p>Lets calculate the same thing with <code>ape</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>geodistances &lt;-<span class="st"> </span><span class="kw">geodist</span>(net1, <span class="dt">count.paths =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>geodistances &lt;-<span class="st"> </span>geodistances<span class="op">$</span>gdist</span>
-<span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># first define a nb based on distance 1.</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>weights1 &lt;-<span class="st"> </span>geodistances <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># this function rowstandardizes by default</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>ape<span class="op">::</span><span class="kw">Moran.I</span>(drink[, <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights1, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## $observed
-## [1] 0.486134
-## 
-## $expected
-## [1] -0.02040816
-## 
-## $sd
-## [1] 0.132727
-## 
-## $p.value
-## [1] 0.000135401</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>geodistances &lt;-<span class="st"> </span><span class="kw">geodist</span>(net1, <span class="dt">count.paths =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>geodistances &lt;-<span class="st"> </span>geodistances<span class="op">$</span>gdist</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># first define a nb based on distance 1.</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>weights1 &lt;-<span class="st"> </span>geodistances <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="co"># this function rowstandardizes by default</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>ape<span class="op">::</span><span class="kw">Moran.I</span>(drink[, <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights1, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Close but not the same value!</p>
 <p>Lets use ‘my own’ function, don’t rowstandardize</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">fMoran.I</span>(drink[, <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights1, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">rowstandardize =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
-<pre><code>## $observed
-## [1] 0.4331431
-## 
-## $expected
-## [1] -0.02040816
-## 
-## $sd
-## [1] 0.1181079
-## 
-## $p.value
-## [1] 0.000122962</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">fMoran.I</span>(drink[, <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights1, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">rowstandardize =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>Same result as nacf function!</p>
 <p>What does rowstandardization mean??</p>
 <ul>
@@ -576,99 +412,54 @@ Wanna zigazig ah”<br />
 <p>step 1: for each acter <em>i</em> determine the distances (shortest path lengths) to all other nodes in the network.
 step 2: based on these distances decide on how we want to weigh. That is, determine a distance decay function.<br />
 step 3: decide whether or not we want to row-standardize.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># step 1: calculate distances</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>geodistances &lt;-<span class="st"> </span><span class="kw">geodist</span>(net1, <span class="dt">count.paths =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>geodistances &lt;-<span class="st"> </span>geodistances<span class="op">$</span>gdist</span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co"># set the distance to yourself as Inf</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="kw">diag</span>(geodistances) &lt;-<span class="st"> </span><span class="ot">Inf</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a></span>
-<span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># step 2: define a distance decay function. This one is pretty standard in the spatial</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co"># autocorrelation literature but actually pretty arbitrary.</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a>weights2 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>geodistances)</span>
-<span id="cb15-11"><a href="#cb15-11"></a></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co"># step 3: I dont want to rowstandardize.</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="kw">fMoran.I</span>(drink[, <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">rowstandardize =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
-<pre><code>## $observed
-## [1] 0.2817188
-## 
-## $expected
-## [1] -0.02040816
-## 
-## $sd
-## [1] 0.07532918
-## 
-## $p.value
-## [1] 6.052458e-05</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># step 1: calculate distances</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>geodistances &lt;-<span class="st"> </span><span class="kw">geodist</span>(net1, <span class="dt">count.paths =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a>geodistances &lt;-<span class="st"> </span>geodistances<span class="op">$</span>gdist</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co"># set the distance to yourself as Inf</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="kw">diag</span>(geodistances) &lt;-<span class="st"> </span><span class="ot">Inf</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a></span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co"># step 2: define a distance decay function. This one is pretty standard in the spatial</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co"># autocorrelation literature but actually pretty arbitrary.</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>weights2 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>geodistances)</span>
+<span id="cb11-11"><a href="#cb11-11"></a></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co"># step 3: I dont want to rowstandardize.</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="kw">fMoran.I</span>(drink[, <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">rowstandardize =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>Conclusion: Yes pupils closer to one another are more a like! And ‘closer’ here means a shorter shortest path length. You also observe that the correlation is lower than we calculated previously. Apparently, we are a like to alters very close by (path length one) and less so (or even dissimilar) to alters furter off.vvv</p>
 </div>
 <div id="morans-autocorrelation-for-outgoing-ties-mymovez-dataset" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> Moran’s autocorrelation for outgoing ties: MyMovez dataset</h3>
 <p>Let’s repeat the exercise but now on our own data. The tie variable we will use are the friendship relations.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># step 1: calculate distances</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>fnet &lt;-<span class="st"> </span>ExData<span class="op">$</span>depvars<span class="op">$</span>friendship[, , <span class="dv">1</span>]</span>
-<span id="cb17-3"><a href="#cb17-3"></a>fnet[fnet <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a></span>
-<span id="cb17-5"><a href="#cb17-5"></a>geodistances &lt;-<span class="st"> </span><span class="kw">geodist</span>(fnet, <span class="dt">count.paths =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb17-6"><a href="#cb17-6"></a>geodistances &lt;-<span class="st"> </span>geodistances<span class="op">$</span>gdist</span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="co"># set the distance to yourself as Inf</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="kw">diag</span>(geodistances) &lt;-<span class="st"> </span><span class="ot">Inf</span></span>
-<span id="cb17-9"><a href="#cb17-9"></a><span class="co"># head(geodistances) #have a look for yourself.</span></span>
-<span id="cb17-10"><a href="#cb17-10"></a></span>
-<span id="cb17-11"><a href="#cb17-11"></a><span class="co"># step 2: define a distance decay function. This one is pretty standard in the spatial</span></span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="co"># autocorrelation literature but actually pretty arbitrary.</span></span>
-<span id="cb17-13"><a href="#cb17-13"></a>weights2 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>geodistances)</span>
-<span id="cb17-14"><a href="#cb17-14"></a></span>
-<span id="cb17-15"><a href="#cb17-15"></a><span class="co"># step 3: In this case I do want to rowstandardize because I think the influence is by the total</span></span>
-<span id="cb17-16"><a href="#cb17-16"></a><span class="co"># class but class sizes vary.</span></span>
-<span id="cb17-17"><a href="#cb17-17"></a><span class="kw">fMoran.I</span>(ExData<span class="op">$</span>depvars<span class="op">$</span>mvpa_y[, , <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">rowstandardize =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## $observed
-## [1] 0.07961828
-## 
-## $expected
-## [1] -0.006756757
-## 
-## $sd
-## [1] 0.04212021
-## 
-## $p.value
-## [1] 0.04029821</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># step 1: calculate distances</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>fnet &lt;-<span class="st"> </span>ExData<span class="op">$</span>depvars<span class="op">$</span>friendship[, , <span class="dv">1</span>]</span>
+<span id="cb12-3"><a href="#cb12-3"></a>fnet[fnet <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a>geodistances &lt;-<span class="st"> </span><span class="kw">geodist</span>(fnet, <span class="dt">count.paths =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb12-6"><a href="#cb12-6"></a>geodistances &lt;-<span class="st"> </span>geodistances<span class="op">$</span>gdist</span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co"># set the distance to yourself as Inf</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="kw">diag</span>(geodistances) &lt;-<span class="st"> </span><span class="ot">Inf</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co"># head(geodistances) #have a look for yourself.</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co"># step 2: define a distance decay function. This one is pretty standard in the spatial</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="co"># autocorrelation literature but actually pretty arbitrary.</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>weights2 &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>geodistances)</span>
+<span id="cb12-14"><a href="#cb12-14"></a></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co"># step 3: In this case I do want to rowstandardize because I think the influence is by the total</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co"># class but class sizes vary.</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="kw">fMoran.I</span>(ExData<span class="op">$</span>depvars<span class="op">$</span>mvpa_y[, , <span class="dv">1</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">rowstandardize =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Thus Yes, If we look at all classes together we see that pupils who are closer to one another are more a like with respect to physical activity. But the correlations is quite small!</p>
 <p>Do we see the same within each class?</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># some background info:</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>nclass &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">24</span>)</span>
-<span id="cb19-3"><a href="#cb19-3"></a>classid &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">times =</span> nclass)</span>
-<span id="cb19-4"><a href="#cb19-4"></a></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="kw">print</span>(<span class="st">&quot;Moran&#39;s I: class 1&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Moran&#39;s I: class 1&quot;</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">fMoran.I</span>(ExData<span class="op">$</span>depvars<span class="op">$</span>mvpa_y[, , <span class="dv">1</span>][<span class="dv">1</span><span class="op">:</span><span class="dv">28</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2[<span class="dv">1</span><span class="op">:</span><span class="dv">28</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">28</span>], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb21-2"><a href="#cb21-2"></a>    <span class="dt">rowstandardize =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## $observed
-## [1] -0.03002763
-## 
-## $expected
-## [1] -0.03703704
-## 
-## $sd
-## [1] 0.02435121
-## 
-## $p.value
-## [1] 0.7734643</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">print</span>(<span class="st">&quot;Moran&#39;s I: class 2&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Moran&#39;s I: class 2&quot;</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">fMoran.I</span>(ExData<span class="op">$</span>depvars<span class="op">$</span>mvpa_y[, , <span class="dv">1</span>][<span class="dv">29</span><span class="op">:</span><span class="dv">46</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2[<span class="dv">29</span><span class="op">:</span><span class="dv">46</span>, <span class="dv">29</span><span class="op">:</span><span class="dv">46</span>], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb25-2"><a href="#cb25-2"></a>    <span class="dt">rowstandardize =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## $observed
-## [1] 0.04152623
-## 
-## $expected
-## [1] -0.05882353
-## 
-## $sd
-## [1] 0.053813
-## 
-## $p.value
-## [1] 0.06221135</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># some background info:</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>nclass &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">24</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>classid &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">times =</span> nclass)</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="kw">print</span>(<span class="st">&quot;Moran&#39;s I: class 1&quot;</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="kw">fMoran.I</span>(ExData<span class="op">$</span>depvars<span class="op">$</span>mvpa_y[, , <span class="dv">1</span>][<span class="dv">1</span><span class="op">:</span><span class="dv">28</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2[<span class="dv">1</span><span class="op">:</span><span class="dv">28</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">28</span>], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb13-7"><a href="#cb13-7"></a>    <span class="dt">rowstandardize =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="kw">print</span>(<span class="st">&quot;Moran&#39;s I: class 2&quot;</span>)</span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="kw">fMoran.I</span>(ExData<span class="op">$</span>depvars<span class="op">$</span>mvpa_y[, , <span class="dv">1</span>][<span class="dv">29</span><span class="op">:</span><span class="dv">46</span>], <span class="dt">scaled =</span> <span class="ot">FALSE</span>, <span class="dt">weight =</span> weights2[<span class="dv">29</span><span class="op">:</span><span class="dv">46</span>, <span class="dv">29</span><span class="op">:</span><span class="dv">46</span>], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb13-11"><a href="#cb13-11"></a>    <span class="dt">rowstandardize =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Correlations within classes are somewhat lower and/or not significant. Probably there is thus also similarity beween pupils because they are in the same class (might be due to selection and influence processes, or class/context effects of course).</p>
 </div>
 </div>
@@ -677,109 +468,54 @@ step 3: decide whether or not we want to row-standardize.</p>
 <p>{{% alert note %}}</p>
 <p>Please be aware that in co-evolution models (as in multiplex models) the variables defined as dependent variables in your RSiena data object can be both a ‘cause’ (or independent variable) and a ‘consequence’ (or dependent variable). In this influence effect: <code>includeEffects(myEff, name = "drinkingbeh", outdeg,    interaction1= "friendship" )</code> the dependent variable “drinkingbeh” is define by <code>name</code>, the independent networkvariable “friendship” by <code>interaction</code>.
 {{% / alert %}}</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Step 1: DATA</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>friend.data.w1 &lt;-<span class="st"> </span>s501</span>
-<span id="cb27-3"><a href="#cb27-3"></a>friend.data.w2 &lt;-<span class="st"> </span>s502</span>
-<span id="cb27-4"><a href="#cb27-4"></a>friend.data.w3 &lt;-<span class="st"> </span>s503</span>
-<span id="cb27-5"><a href="#cb27-5"></a>drink &lt;-<span class="st"> </span>s50a</span>
-<span id="cb27-6"><a href="#cb27-6"></a>smoke &lt;-<span class="st"> </span>s50s</span>
-<span id="cb27-7"><a href="#cb27-7"></a></span>
-<span id="cb27-8"><a href="#cb27-8"></a>friendship &lt;-<span class="st"> </span><span class="kw">sienaDependent</span>(<span class="kw">array</span>(<span class="kw">c</span>(friend.data.w1, friend.data.w2, friend.data.w3), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, </span>
-<span id="cb27-9"><a href="#cb27-9"></a>    <span class="dv">3</span>)))  <span class="co"># create tie-dependent variable</span></span>
-<span id="cb27-10"><a href="#cb27-10"></a></span>
-<span id="cb27-11"><a href="#cb27-11"></a>drinkingbeh &lt;-<span class="st"> </span><span class="kw">sienaDependent</span>(drink, <span class="dt">type =</span> <span class="st">&quot;behavior&quot;</span>)  <span class="co"># create behavior-dependent variable</span></span>
-<span id="cb27-12"><a href="#cb27-12"></a></span>
-<span id="cb27-13"><a href="#cb27-13"></a>smoke1 &lt;-<span class="st"> </span><span class="kw">coCovar</span>(smoke[, <span class="dv">1</span>])  <span class="co">#covariate</span></span>
-<span id="cb27-14"><a href="#cb27-14"></a></span>
-<span id="cb27-15"><a href="#cb27-15"></a><span class="co"># Define the data set and obtain the basic effects object</span></span>
-<span id="cb27-16"><a href="#cb27-16"></a>myCoEvolutionData &lt;-<span class="st"> </span><span class="kw">sienaDataCreate</span>(friendship, smoke1, drinkingbeh)</span>
-<span id="cb27-17"><a href="#cb27-17"></a></span>
-<span id="cb27-18"><a href="#cb27-18"></a><span class="co"># STEP 2: have a look at data.</span></span>
-<span id="cb27-19"><a href="#cb27-19"></a><span class="kw">print01Report</span>(myCoEvolutionData, <span class="dt">modelname =</span> <span class="st">&quot;s50_3_CoEvinit&quot;</span>)</span>
-<span id="cb27-20"><a href="#cb27-20"></a><span class="co"># look at the created file!!</span></span>
-<span id="cb27-21"><a href="#cb27-21"></a></span>
-<span id="cb27-22"><a href="#cb27-22"></a><span class="co"># STEP 3: Define effects</span></span>
-<span id="cb27-23"><a href="#cb27-23"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">getEffects</span>(myCoEvolutionData)</span>
-<span id="cb27-24"><a href="#cb27-24"></a><span class="co"># effectsDocumentation(myCoEvolutionEff)</span></span>
-<span id="cb27-25"><a href="#cb27-25"></a></span>
-<span id="cb27-26"><a href="#cb27-26"></a><span class="co"># structural effects</span></span>
-<span id="cb27-27"><a href="#cb27-27"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, transTrip, cycle3)</span>
-<span id="cb27-28"><a href="#cb27-28"></a></span>
-<span id="cb27-29"><a href="#cb27-29"></a><span class="co"># homophily effect for the constant covariate smoking</span></span>
-<span id="cb27-30"><a href="#cb27-30"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, simX, <span class="dt">interaction1 =</span> <span class="st">&quot;smoke1&quot;</span>)</span>
-<span id="cb27-31"><a href="#cb27-31"></a></span>
-<span id="cb27-32"><a href="#cb27-32"></a><span class="co"># selection effect related to drinking behavior?</span></span>
-<span id="cb27-33"><a href="#cb27-33"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, egoX, altX, simX, <span class="dt">interaction1 =</span> <span class="st">&quot;drinkingbeh&quot;</span>)</span>
-<span id="cb27-34"><a href="#cb27-34"></a></span>
-<span id="cb27-35"><a href="#cb27-35"></a><span class="co"># INFLUENCE PART!! inline with the above I use totAlt</span></span>
-<span id="cb27-36"><a href="#cb27-36"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, <span class="dt">name =</span> <span class="st">&quot;drinkingbeh&quot;</span>, totAlt, <span class="dt">interaction1 =</span> <span class="st">&quot;friendship&quot;</span>)</span>
-<span id="cb27-37"><a href="#cb27-37"></a></span>
-<span id="cb27-38"><a href="#cb27-38"></a><span class="co"># Check what effects you have decided to include:</span></span>
-<span id="cb27-39"><a href="#cb27-39"></a></span>
-<span id="cb27-40"><a href="#cb27-40"></a>myCoEvolutionEff</span>
-<span id="cb27-41"><a href="#cb27-41"></a></span>
-<span id="cb27-42"><a href="#cb27-42"></a><span class="co"># STEP 4: define algorithm</span></span>
-<span id="cb27-43"><a href="#cb27-43"></a>myCoEvAlgorithm &lt;-<span class="st"> </span><span class="kw">sienaAlgorithmCreate</span>(<span class="dt">projname =</span> <span class="st">&quot;s50CoEv_3&quot;</span>)</span>
-<span id="cb27-44"><a href="#cb27-44"></a></span>
-<span id="cb27-45"><a href="#cb27-45"></a><span class="co"># STEP 5: estimate the model</span></span>
-<span id="cb27-46"><a href="#cb27-46"></a>(ans &lt;-<span class="st"> </span><span class="kw">siena07</span>(myCoEvAlgorithm, <span class="dt">data =</span> myCoEvolutionData, <span class="dt">effects =</span> myCoEvolutionEff))</span>
-<span id="cb27-47"><a href="#cb27-47"></a></span>
-<span id="cb27-48"><a href="#cb27-48"></a><span class="co"># use this function if you want to save as excel fanscsv(ans, write=FALSE) #uncomment if you want.</span></span></code></pre></div>
-<pre><code>##   effectName          include fix   test  initialValue parm
-## 1 transitive triplets TRUE    FALSE FALSE          0   0   
-## 2 3-cycles            TRUE    FALSE FALSE          0   0   
-##   effectName        include fix   test  initialValue parm
-## 1 smoke1 similarity TRUE    FALSE FALSE          0   0   
-##   effectName             include fix   test  initialValue parm
-## 1 drinkingbeh alter      TRUE    FALSE FALSE          0   0   
-## 2 drinkingbeh ego        TRUE    FALSE FALSE          0   0   
-## 3 drinkingbeh similarity TRUE    FALSE FALSE          0   0   
-##   effectName              include fix   test  initialValue parm
-## 1 drinkingbeh total alter TRUE    FALSE FALSE          0   0   
-##    name        effectName                          include fix   test  initialValue parm
-## 1  friendship  constant friendship rate (period 1) TRUE    FALSE FALSE    4.69604   0   
-## 2  friendship  constant friendship rate (period 2) TRUE    FALSE FALSE    4.32885   0   
-## 3  friendship  outdegree (density)                 TRUE    FALSE FALSE   -1.46770   0   
-## 4  friendship  reciprocity                         TRUE    FALSE FALSE    0.00000   0   
-## 5  friendship  transitive triplets                 TRUE    FALSE FALSE    0.00000   0   
-## 6  friendship  3-cycles                            TRUE    FALSE FALSE    0.00000   0   
-## 7  friendship  smoke1 similarity                   TRUE    FALSE FALSE    0.00000   0   
-## 8  friendship  drinkingbeh alter                   TRUE    FALSE FALSE    0.00000   0   
-## 9  friendship  drinkingbeh ego                     TRUE    FALSE FALSE    0.00000   0   
-## 10 friendship  drinkingbeh similarity              TRUE    FALSE FALSE    0.00000   0   
-## 11 drinkingbeh rate drinkingbeh (period 1)         TRUE    FALSE FALSE    0.70571   0   
-## 12 drinkingbeh rate drinkingbeh (period 2)         TRUE    FALSE FALSE    0.84939   0   
-## 13 drinkingbeh drinkingbeh linear shape            TRUE    FALSE FALSE    0.32237   0   
-## 14 drinkingbeh drinkingbeh quadratic shape         TRUE    FALSE FALSE    0.00000   0   
-## 15 drinkingbeh drinkingbeh total alter             TRUE    FALSE FALSE    0.00000   0   
-## siena07 will create an output file s50CoEv_3.txt .
-## Estimates, standard errors and convergence t-ratios
-## 
-##                                                Estimate   Standard   Convergence 
-##                                                             Error      t-ratio   
-## Network Dynamics 
-##    1. rate constant friendship rate (period 1)  6.4595  ( 1.1400   )   -0.0332   
-##    2. rate constant friendship rate (period 2)  5.1454  ( 0.8587   )   -0.0329   
-##    3. eval outdegree (density)                 -2.7678  ( 0.1423   )   -0.0091   
-##    4. eval reciprocity                          2.3911  ( 0.2345   )    0.0122   
-##    5. eval transitive triplets                  0.6494  ( 0.1444   )   -0.0041   
-##    6. eval 3-cycles                            -0.0804  ( 0.2977   )   -0.0053   
-##    7. eval smoke1 similarity                    0.1727  ( 0.2177   )   -0.0013   
-##    8. eval drinkingbeh alter                   -0.0433  ( 0.1178   )    0.0428   
-##    9. eval drinkingbeh ego                      0.0698  ( 0.1225   )    0.0213   
-##   10. eval drinkingbeh similarity               1.3784  ( 0.6041   )    0.0789   
-## 
-## Behavior Dynamics
-##   11. rate rate drinkingbeh (period 1)          1.3094  ( 0.3706   )    0.0287   
-##   12. rate rate drinkingbeh (period 2)          1.8060  ( 0.5042   )   -0.0094   
-##   13. eval drinkingbeh linear shape             0.4047  ( 0.2081   )   -0.0340   
-##   14. eval drinkingbeh quadratic shape         -0.5210  ( 0.2257   )    0.0389   
-##   15. eval drinkingbeh total alter              0.4095  ( 0.2031   )    0.0331   
-## 
-## Overall maximum convergence ratio:    0.1449 
-## 
-## 
-## Total of 3266 iteration steps.</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Step 1: DATA</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>friend.data.w1 &lt;-<span class="st"> </span>s501</span>
+<span id="cb14-3"><a href="#cb14-3"></a>friend.data.w2 &lt;-<span class="st"> </span>s502</span>
+<span id="cb14-4"><a href="#cb14-4"></a>friend.data.w3 &lt;-<span class="st"> </span>s503</span>
+<span id="cb14-5"><a href="#cb14-5"></a>drink &lt;-<span class="st"> </span>s50a</span>
+<span id="cb14-6"><a href="#cb14-6"></a>smoke &lt;-<span class="st"> </span>s50s</span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a>friendship &lt;-<span class="st"> </span><span class="kw">sienaDependent</span>(<span class="kw">array</span>(<span class="kw">c</span>(friend.data.w1, friend.data.w2, friend.data.w3), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, </span>
+<span id="cb14-9"><a href="#cb14-9"></a>    <span class="dv">3</span>)))  <span class="co"># create tie-dependent variable</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a></span>
+<span id="cb14-11"><a href="#cb14-11"></a>drinkingbeh &lt;-<span class="st"> </span><span class="kw">sienaDependent</span>(drink, <span class="dt">type =</span> <span class="st">&quot;behavior&quot;</span>)  <span class="co"># create behavior-dependent variable</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a></span>
+<span id="cb14-13"><a href="#cb14-13"></a>smoke1 &lt;-<span class="st"> </span><span class="kw">coCovar</span>(smoke[, <span class="dv">1</span>])  <span class="co">#covariate</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a></span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="co"># Define the data set and obtain the basic effects object</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a>myCoEvolutionData &lt;-<span class="st"> </span><span class="kw">sienaDataCreate</span>(friendship, smoke1, drinkingbeh)</span>
+<span id="cb14-17"><a href="#cb14-17"></a></span>
+<span id="cb14-18"><a href="#cb14-18"></a><span class="co"># STEP 2: have a look at data.</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a><span class="kw">print01Report</span>(myCoEvolutionData, <span class="dt">modelname =</span> <span class="st">&quot;s50_3_CoEvinit&quot;</span>)</span>
+<span id="cb14-20"><a href="#cb14-20"></a><span class="co"># look at the created file!!</span></span>
+<span id="cb14-21"><a href="#cb14-21"></a></span>
+<span id="cb14-22"><a href="#cb14-22"></a><span class="co"># STEP 3: Define effects</span></span>
+<span id="cb14-23"><a href="#cb14-23"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">getEffects</span>(myCoEvolutionData)</span>
+<span id="cb14-24"><a href="#cb14-24"></a><span class="co"># effectsDocumentation(myCoEvolutionEff)</span></span>
+<span id="cb14-25"><a href="#cb14-25"></a></span>
+<span id="cb14-26"><a href="#cb14-26"></a><span class="co"># structural effects</span></span>
+<span id="cb14-27"><a href="#cb14-27"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, transTrip, cycle3)</span>
+<span id="cb14-28"><a href="#cb14-28"></a></span>
+<span id="cb14-29"><a href="#cb14-29"></a><span class="co"># homophily effect for the constant covariate smoking</span></span>
+<span id="cb14-30"><a href="#cb14-30"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, simX, <span class="dt">interaction1 =</span> <span class="st">&quot;smoke1&quot;</span>)</span>
+<span id="cb14-31"><a href="#cb14-31"></a></span>
+<span id="cb14-32"><a href="#cb14-32"></a><span class="co"># selection effect related to drinking behavior?</span></span>
+<span id="cb14-33"><a href="#cb14-33"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, egoX, altX, simX, <span class="dt">interaction1 =</span> <span class="st">&quot;drinkingbeh&quot;</span>)</span>
+<span id="cb14-34"><a href="#cb14-34"></a></span>
+<span id="cb14-35"><a href="#cb14-35"></a><span class="co"># INFLUENCE PART!! inline with the above I use totAlt</span></span>
+<span id="cb14-36"><a href="#cb14-36"></a>myCoEvolutionEff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myCoEvolutionEff, <span class="dt">name =</span> <span class="st">&quot;drinkingbeh&quot;</span>, totAlt, <span class="dt">interaction1 =</span> <span class="st">&quot;friendship&quot;</span>)</span>
+<span id="cb14-37"><a href="#cb14-37"></a></span>
+<span id="cb14-38"><a href="#cb14-38"></a><span class="co"># Check what effects you have decided to include:</span></span>
+<span id="cb14-39"><a href="#cb14-39"></a></span>
+<span id="cb14-40"><a href="#cb14-40"></a>myCoEvolutionEff</span>
+<span id="cb14-41"><a href="#cb14-41"></a></span>
+<span id="cb14-42"><a href="#cb14-42"></a><span class="co"># STEP 4: define algorithm</span></span>
+<span id="cb14-43"><a href="#cb14-43"></a>myCoEvAlgorithm &lt;-<span class="st"> </span><span class="kw">sienaAlgorithmCreate</span>(<span class="dt">projname =</span> <span class="st">&quot;s50CoEv_3&quot;</span>)</span>
+<span id="cb14-44"><a href="#cb14-44"></a></span>
+<span id="cb14-45"><a href="#cb14-45"></a><span class="co"># STEP 5: estimate the model</span></span>
+<span id="cb14-46"><a href="#cb14-46"></a>(ans &lt;-<span class="st"> </span><span class="kw">siena07</span>(myCoEvAlgorithm, <span class="dt">data =</span> myCoEvolutionData, <span class="dt">effects =</span> myCoEvolutionEff))</span>
+<span id="cb14-47"><a href="#cb14-47"></a></span>
+<span id="cb14-48"><a href="#cb14-48"></a><span class="co"># use this function if you want to save as excel fanscsv(ans, write=FALSE) #uncomment if you want.</span></span></code></pre></div>
 <p>What would you conclude?</p>
 <ul>
 <li>Yes, we observe selection based on drinking.<br />
@@ -810,153 +546,70 @@ step 3: decide whether or not we want to row-standardize.</p>
 <div id="select-only-one-class" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> select only one class</h3>
 <p>You may want to test your models first on one class only. When you are satisfied, you could run your models on the total class pool. In the code snippet below, you see how to select one class and make a new RSiena dataobject.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># these are the respective class sizes.</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>nclass &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">24</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a>classid &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">times =</span> nclass)</span>
-<span id="cb29-4"><a href="#cb29-4"></a></span>
-<span id="cb29-5"><a href="#cb29-5"></a>test &lt;-<span class="st"> </span>ExData[classid <span class="op">==</span><span class="st"> </span><span class="dv">1</span>]  <span class="co">#change classid to select a different class. </span></span>
-<span id="cb29-6"><a href="#cb29-6"></a><span class="co"># because everything needs to be mean centered again also make sure to run the next command</span></span>
-<span id="cb29-7"><a href="#cb29-7"></a>class1 &lt;-<span class="st"> </span><span class="kw">sienaDataCreate</span>(test<span class="op">$</span>depvars<span class="op">$</span>friendship, test<span class="op">$</span>depvars<span class="op">$</span>advice, test<span class="op">$</span>depvars<span class="op">$</span>mvpa_y, test<span class="op">$</span>cCovars<span class="op">$</span>ethnicNLNA, </span>
-<span id="cb29-8"><a href="#cb29-8"></a>    test<span class="op">$</span>cCovars<span class="op">$</span>sex, test<span class="op">$</span>cCovars<span class="op">$</span>lft, test<span class="op">$</span>cCovars<span class="op">$</span>primary, test<span class="op">$</span>vCovars<span class="op">$</span>mvpa_x)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># these are the respective class sizes.</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>nclass &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">24</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>classid &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">times =</span> nclass)</span>
+<span id="cb15-4"><a href="#cb15-4"></a></span>
+<span id="cb15-5"><a href="#cb15-5"></a>test &lt;-<span class="st"> </span>ExData[classid <span class="op">==</span><span class="st"> </span><span class="dv">1</span>]  <span class="co">#change classid to select a different class. </span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co"># because everything needs to be mean centered again also make sure to run the next command</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>class1 &lt;-<span class="st"> </span><span class="kw">sienaDataCreate</span>(test<span class="op">$</span>depvars<span class="op">$</span>friendship, test<span class="op">$</span>depvars<span class="op">$</span>advice, test<span class="op">$</span>depvars<span class="op">$</span>mvpa_y, test<span class="op">$</span>cCovars<span class="op">$</span>ethnicNLNA, </span>
+<span id="cb15-8"><a href="#cb15-8"></a>    test<span class="op">$</span>cCovars<span class="op">$</span>sex, test<span class="op">$</span>cCovars<span class="op">$</span>lft, test<span class="op">$</span>cCovars<span class="op">$</span>primary, test<span class="op">$</span>vCovars<span class="op">$</span>mvpa_x)</span></code></pre></div>
 </div>
 </div>
 <div id="an-example-on-the-mymovez-dataset" class="section level2">
 <h2><span class="header-section-number">4.2</span> An example on the MyMovez dataset</h2>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">require</span>(RSiena)</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">require</span>(xtable)  <span class="co"># for some html output</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="co"># Step 1: DATA</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="kw">load</span>(<span class="st">&quot;beh_data.RData&quot;</span>)</span>
-<span id="cb30-6"><a href="#cb30-6"></a>mydata &lt;-<span class="st"> </span>ExData</span>
-<span id="cb30-7"><a href="#cb30-7"></a></span>
-<span id="cb30-8"><a href="#cb30-8"></a><span class="co"># Stept 2: some first summary</span></span>
-<span id="cb30-9"><a href="#cb30-9"></a><span class="kw">print01Report</span>(mydata, <span class="dt">modelname =</span> <span class="st">&quot;segtest1&quot;</span>)</span>
-<span id="cb30-10"><a href="#cb30-10"></a><span class="co"># look at the printed doc!!</span></span>
-<span id="cb30-11"><a href="#cb30-11"></a></span>
-<span id="cb30-12"><a href="#cb30-12"></a><span class="co"># Step 3: set algorithm</span></span>
-<span id="cb30-13"><a href="#cb30-13"></a>myalgorithm &lt;-<span class="st"> </span><span class="kw">sienaAlgorithmCreate</span>(<span class="dt">projname =</span> <span class="st">&quot;segtest1&quot;</span>)</span></code></pre></div>
-<pre><code>## siena07 will create an output file segtest1.txt .</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Step 4: set effects</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>NBeff &lt;-<span class="st"> </span><span class="kw">getEffects</span>(mydata)</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="co"># have a look at all possible effects effectsDocumentation(NBeff) #uncomment if you want to have a</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a><span class="co"># look</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a></span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="co"># possible order?  a: uncontrolled for network structure effects b: controlled for network structure</span></span>
-<span id="cb32-7"><a href="#cb32-7"></a><span class="co"># effects M1a/b: selection: homophily tendencies demographics: simsex, simethnic, M2a/b: selection:</span></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="co"># homophily tendencies health: MVPA_y M3a/b: influence: on health M4: total</span></span>
-<span id="cb32-9"><a href="#cb32-9"></a></span>
-<span id="cb32-10"><a href="#cb32-10"></a><span class="co"># I am just estimating the total model in this example.</span></span>
-<span id="cb32-11"><a href="#cb32-11"></a></span>
-<span id="cb32-12"><a href="#cb32-12"></a><span class="co"># Structural effects only focus on friendship network in this example, thus specifying &#39;name&#39;</span></span>
-<span id="cb32-13"><a href="#cb32-13"></a><span class="co"># argument is not necessary.</span></span>
-<span id="cb32-14"><a href="#cb32-14"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, inPop, transTrip, transRecTrip)</span></code></pre></div>
-<pre><code>##   effectName                              include fix   test  initialValue parm
-## 1 friendship: transitive triplets         TRUE    FALSE FALSE          0   0   
-## 2 friendship: transitive recipr. triplets TRUE    FALSE FALSE          0   0   
-## 3 friendship: indegree - popularity       TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># selection effects</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, egoX, altX, egoXaltX, <span class="dt">interaction1 =</span> <span class="st">&quot;ethnicNLNA&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName                                    include fix   test  initialValue parm
-## 1 friendship: ethnicNLNA alter                  TRUE    FALSE FALSE          0   0   
-## 2 friendship: ethnicNLNA ego                    TRUE    FALSE FALSE          0   0   
-## 3 friendship: ethnicNLNA ego x ethnicNLNA alter TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, egoX, altX, sameX, <span class="dt">interaction1 =</span> <span class="st">&quot;sex&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName            include fix   test  initialValue parm
-## 1 friendship: sex alter TRUE    FALSE FALSE          0   0   
-## 2 friendship: sex ego   TRUE    FALSE FALSE          0   0   
-## 3 friendship: same sex  TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, egoX, altX, absDiffX, <span class="dt">interaction1 =</span> <span class="st">&quot;mvpa_y&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName                         include fix   test  initialValue parm
-## 1 friendship: mvpa_y alter           TRUE    FALSE FALSE          0   0   
-## 2 friendship: mvpa_y ego             TRUE    FALSE FALSE          0   0   
-## 3 friendship: mvpa_y abs. difference TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># behavioral model: node effects</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, effFrom, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;sex&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName              include fix   test  initialValue parm
-## 1 mvpa_y: effect from sex TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, effFrom, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;lft&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName              include fix   test  initialValue parm
-## 1 mvpa_y: effect from lft TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, effFrom, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;ethnicNLNA&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName                     include fix   test  initialValue parm
-## 1 mvpa_y: effect from ethnicNLNA TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># influence effects</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, totSimRecip, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;friendship&quot;</span>)</span></code></pre></div>
-<pre><code>##   effectName                                  include fix   test  initialValue parm
-## 1 mvpa_y tot. sim. x reciprocity (friendship) TRUE    FALSE FALSE          0   0</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># look at all effects</span></span>
-<span id="cb48-2"><a href="#cb48-2"></a>NBeff</span></code></pre></div>
-<pre><code>##    name       effectName                                    include fix   test  initialValue parm
-## 1  friendship constant friendship rate (period 1)           TRUE    FALSE FALSE    7.28417   0   
-## 2  friendship constant friendship rate (period 2)           TRUE    FALSE FALSE    7.27877   0   
-## 3  friendship friendship: outdegree (density)               TRUE    FALSE FALSE   -1.25979   0   
-## 4  friendship friendship: reciprocity                       TRUE    FALSE FALSE    0.00000   0   
-## 5  friendship friendship: transitive triplets               TRUE    FALSE FALSE    0.00000   0   
-## 6  friendship friendship: transitive recipr. triplets       TRUE    FALSE FALSE    0.00000   0   
-## 7  friendship friendship: indegree - popularity             TRUE    FALSE FALSE    0.00000   0   
-## 8  friendship friendship: ethnicNLNA alter                  TRUE    FALSE FALSE    0.00000   0   
-## 9  friendship friendship: ethnicNLNA ego                    TRUE    FALSE FALSE    0.00000   0   
-## 10 friendship friendship: ethnicNLNA ego x ethnicNLNA alter TRUE    FALSE FALSE    0.00000   0   
-## 11 friendship friendship: sex alter                         TRUE    FALSE FALSE    0.00000   0   
-## 12 friendship friendship: sex ego                           TRUE    FALSE FALSE    0.00000   0   
-## 13 friendship friendship: same sex                          TRUE    FALSE FALSE    0.00000   0   
-## 14 friendship friendship: mvpa_y alter                      TRUE    FALSE FALSE    0.00000   0   
-## 15 friendship friendship: mvpa_y ego                        TRUE    FALSE FALSE    0.00000   0   
-## 16 friendship friendship: mvpa_y abs. difference            TRUE    FALSE FALSE    0.00000   0   
-## 17 advice     constant advice rate (period 1)               TRUE    FALSE FALSE    5.39192   0   
-## 18 advice     constant advice rate (period 2)               TRUE    FALSE FALSE    4.07544   0   
-## 19 advice     advice: outdegree (density)                   TRUE    FALSE FALSE   -1.73553   0   
-## 20 advice     advice: reciprocity                           TRUE    FALSE FALSE    0.00000   0   
-## 21 mvpa_y     rate mvpa_y (period 1)                        TRUE    FALSE FALSE    2.17740   0   
-## 22 mvpa_y     rate mvpa_y (period 2)                        TRUE    FALSE FALSE    2.87832   0   
-## 23 mvpa_y     mvpa_y linear shape                           TRUE    FALSE FALSE    0.04291   0   
-## 24 mvpa_y     mvpa_y quadratic shape                        TRUE    FALSE FALSE    0.00000   0   
-## 25 mvpa_y     mvpa_y tot. sim. x reciprocity (friendship)   TRUE    FALSE FALSE    0.00000   0   
-## 26 mvpa_y     mvpa_y: effect from ethnicNLNA                TRUE    FALSE FALSE    0.00000   0   
-## 27 mvpa_y     mvpa_y: effect from sex                       TRUE    FALSE FALSE    0.00000   0   
-## 28 mvpa_y     mvpa_y: effect from lft                       TRUE    FALSE FALSE    0.00000   0</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="co"># Please uncomment this section. I just don&#39;t want to reestimate the model. It does take a while.</span></span>
-<span id="cb50-2"><a href="#cb50-2"></a><span class="co"># (ans &lt;- siena07( myalgorithm, data = ExData, effects = NBeff)) save(ans, file=&#39;ans.RData&#39;)</span></span>
-<span id="cb50-3"><a href="#cb50-3"></a><span class="co"># siena.table(ans, type=&#39;html&#39;, tstat=T, d=2, sig=T)</span></span>
-<span id="cb50-4"><a href="#cb50-4"></a><span class="kw">load</span>(<span class="st">&quot;ans.RData&quot;</span>)</span>
-<span id="cb50-5"><a href="#cb50-5"></a>ans</span></code></pre></div>
-<pre><code>## Estimates, standard errors and convergence t-ratios
-## 
-##                                                          Estimate   Standard   Convergence 
-##                                                                       Error      t-ratio   
-## Network Dynamics 
-##    1. rate constant friendship rate (period 1)            5.2601  ( 0.3035   )   -0.0635   
-##    2. rate constant friendship rate (period 2)            5.8955  ( 0.4876   )   -0.0676   
-##    3. eval friendship: outdegree (density)                2.7341  ( 2.2175   )   -0.0638   
-##    4. eval friendship: reciprocity                        2.9414  ( 1.8683   )   -0.1328   
-##    5. eval friendship: transitive triplets                0.9225  ( 0.4882   )   -0.0978   
-##    6. eval friendship: transitive recipr. triplets       -0.8119  ( 0.5046   )   -0.1375   
-##    7. eval friendship: indegree - popularity             -0.2624  ( 0.1349   )   -0.0828   
-##    8. eval friendship: ethnicNLNA alter                  -0.1208  ( 0.3393   )    0.0060   
-##    9. eval friendship: ethnicNLNA ego                     0.0291  ( 0.3723   )   -0.0137   
-##   10. eval friendship: ethnicNLNA ego x ethnicNLNA alter  0.0181  ( 0.9868   )   -0.0493   
-##   11. eval friendship: mvpa_y alter                       0.0624  ( 0.5220   )    0.0570   
-##   12. eval friendship: mvpa_y ego                        -0.3947  ( 0.3123   )   -0.0445   
-##   13. eval friendship: mvpa_y abs. difference            -3.6551  ( 2.5637   )   -0.0319   
-##   14. rate constant advice rate (period 1)                7.3773  ( 0.8998   )    0.0094   
-##   15. rate constant advice rate (period 2)                5.4382  ( 0.5426   )   -0.0753   
-##   16. eval advice: outdegree (density)                   -1.6276  ( 0.0679   )   -0.0297   
-##   17. eval advice: reciprocity                            0.9398  ( 0.1646   )   -0.0359   
-## 
-## Behavior Dynamics
-##   18. rate rate mvpa_y (period 1)                         8.6516  ( 3.4273   )   -0.0135   
-##   19. rate rate mvpa_y (period 2)                        25.8909  ( 8.7388   )   -0.0022   
-##   20. eval mvpa_y linear shape                           -0.0155  ( 0.0547   )    0.0096   
-##   21. eval mvpa_y quadratic shape                         0.0934  ( 0.0701   )   -0.0931   
-##   22. eval mvpa_y tot. sim. x reciprocity (friendship)    0.1675  ( 0.1606   )    0.0369   
-##   23. eval mvpa_y: effect from ethnicNLNA                 0.2842  ( 0.0969   )    0.0263   
-##   24. eval mvpa_y: effect from sex                       -0.1610  ( 0.0993   )   -0.0041   
-##   25. eval mvpa_y: effect from lft                       -0.0595  ( 0.0309   )   -0.0271   
-## 
-## Overall maximum convergence ratio:    0.2810 
-## 
-## 
-## Total of 3944 iteration steps.</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">require</span>(RSiena)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">require</span>(xtable)  <span class="co"># for some html output</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># Step 1: DATA</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="kw">load</span>(<span class="st">&quot;beh_data.RData&quot;</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>mydata &lt;-<span class="st"> </span>ExData</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="co"># Stept 2: some first summary</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="kw">print01Report</span>(mydata, <span class="dt">modelname =</span> <span class="st">&quot;segtest1&quot;</span>)</span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="co"># look at the printed doc!!</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="co"># Step 3: set algorithm</span></span>
+<span id="cb16-13"><a href="#cb16-13"></a>myalgorithm &lt;-<span class="st"> </span><span class="kw">sienaAlgorithmCreate</span>(<span class="dt">projname =</span> <span class="st">&quot;segtest1&quot;</span>)</span>
+<span id="cb16-14"><a href="#cb16-14"></a></span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="co"># Step 4: set effects</span></span>
+<span id="cb16-16"><a href="#cb16-16"></a>NBeff &lt;-<span class="st"> </span><span class="kw">getEffects</span>(mydata)</span>
+<span id="cb16-17"><a href="#cb16-17"></a><span class="co"># have a look at all possible effects effectsDocumentation(NBeff) #uncomment if you want to have a</span></span>
+<span id="cb16-18"><a href="#cb16-18"></a><span class="co"># look</span></span>
+<span id="cb16-19"><a href="#cb16-19"></a></span>
+<span id="cb16-20"><a href="#cb16-20"></a><span class="co"># possible order?  a: uncontrolled for network structure effects b: controlled for network structure</span></span>
+<span id="cb16-21"><a href="#cb16-21"></a><span class="co"># effects M1a/b: selection: homophily tendencies demographics: simsex, simethnic, M2a/b: selection:</span></span>
+<span id="cb16-22"><a href="#cb16-22"></a><span class="co"># homophily tendencies health: MVPA_y M3a/b: influence: on health M4: total</span></span>
+<span id="cb16-23"><a href="#cb16-23"></a></span>
+<span id="cb16-24"><a href="#cb16-24"></a><span class="co"># I am just estimating the total model in this example.</span></span>
+<span id="cb16-25"><a href="#cb16-25"></a></span>
+<span id="cb16-26"><a href="#cb16-26"></a><span class="co"># Structural effects only focus on friendship network in this example, thus specifying &#39;name&#39;</span></span>
+<span id="cb16-27"><a href="#cb16-27"></a><span class="co"># argument is not necessary.</span></span>
+<span id="cb16-28"><a href="#cb16-28"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, inPop, transTrip, transRecTrip)</span>
+<span id="cb16-29"><a href="#cb16-29"></a></span>
+<span id="cb16-30"><a href="#cb16-30"></a><span class="co"># selection effects</span></span>
+<span id="cb16-31"><a href="#cb16-31"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, egoX, altX, egoXaltX, <span class="dt">interaction1 =</span> <span class="st">&quot;ethnicNLNA&quot;</span>)</span>
+<span id="cb16-32"><a href="#cb16-32"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, egoX, altX, sameX, <span class="dt">interaction1 =</span> <span class="st">&quot;sex&quot;</span>)</span>
+<span id="cb16-33"><a href="#cb16-33"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, egoX, altX, absDiffX, <span class="dt">interaction1 =</span> <span class="st">&quot;mvpa_y&quot;</span>)</span>
+<span id="cb16-34"><a href="#cb16-34"></a></span>
+<span id="cb16-35"><a href="#cb16-35"></a></span>
+<span id="cb16-36"><a href="#cb16-36"></a><span class="co"># behavioral model: node effects</span></span>
+<span id="cb16-37"><a href="#cb16-37"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, effFrom, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;sex&quot;</span>)</span>
+<span id="cb16-38"><a href="#cb16-38"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, effFrom, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;lft&quot;</span>)</span>
+<span id="cb16-39"><a href="#cb16-39"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, effFrom, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;ethnicNLNA&quot;</span>)</span>
+<span id="cb16-40"><a href="#cb16-40"></a></span>
+<span id="cb16-41"><a href="#cb16-41"></a></span>
+<span id="cb16-42"><a href="#cb16-42"></a><span class="co"># influence effects</span></span>
+<span id="cb16-43"><a href="#cb16-43"></a>NBeff &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(NBeff, totSimRecip, <span class="dt">name =</span> <span class="st">&quot;mvpa_y&quot;</span>, <span class="dt">interaction1 =</span> <span class="st">&quot;friendship&quot;</span>)</span>
+<span id="cb16-44"><a href="#cb16-44"></a></span>
+<span id="cb16-45"><a href="#cb16-45"></a><span class="co"># look at all effects</span></span>
+<span id="cb16-46"><a href="#cb16-46"></a>NBeff</span>
+<span id="cb16-47"><a href="#cb16-47"></a></span>
+<span id="cb16-48"><a href="#cb16-48"></a><span class="co"># Please uncomment this section. I just don&#39;t want to reestimate the model. It does take a while.</span></span>
+<span id="cb16-49"><a href="#cb16-49"></a><span class="co"># (ans &lt;- siena07( myalgorithm, data = ExData, effects = NBeff)) save(ans, file=&#39;ans.RData&#39;)</span></span>
+<span id="cb16-50"><a href="#cb16-50"></a><span class="co"># siena.table(ans, type=&#39;html&#39;, tstat=T, d=2, sig=T)</span></span>
+<span id="cb16-51"><a href="#cb16-51"></a><span class="kw">load</span>(<span class="st">&quot;ans.RData&quot;</span>)</span>
+<span id="cb16-52"><a href="#cb16-52"></a>ans</span></code></pre></div>
 <p>What would you conclude?</p>
 <ul>
 <li>The selection variable of interest is in the predicted direction but does not reach significance.

@@ -11,7 +11,7 @@ linktitle: Socionets-Causes-Methods
 summary: "RSiena, twitter, social networks, plotting, tutorial, R, Lavaan"
 lastmod: '2020-09-15T08:27:34+02:00'
 type: book
-weight: 45
+weight: 35
  
 output:
   blogdown::html_page:

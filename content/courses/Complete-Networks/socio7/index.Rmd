@@ -81,16 +81,27 @@ Having taught the course social networks for a couple of years now to the studen
 ## avAlt and totAlt effects  
 I think this question deserves a knowledge clip. Please watch the video below. 
 
-{{% alert note %}}
-After having watched the video you have learned:  
+![](https://vimeo.com/465727691)
 
-1. What I understand by a dyad network effect, an egocentric network effect, a complete network effect and a context effect (for what its worth).  
-2. The difference between average alter and total alter effects.  
-3. That (positive) influence may also mean that you become similar to an alter with a specific node attribute but thereby become less similar to more other alters. 
+
+test2
+![](https://player.vimeo.com/video/465727691)
+
+
+
+
+{autoplay="true" title="Influence processes" } 
+
+{{% alert note %}}
+After having watched the video you have learned: 
+  
+1. You may be influenced by (the absence of) ties in the network, regardless of the node attributes.  
+2. You may be influenced by others to whom you are connected via an undirected tie, an outgoing tie, and an ingoing tie.  
+3. The difference between average alter and total alter effects.  
+4. That (positive) influence may also mean that you become similar to an alter to which you are connected with a specific node attribute but thereby become less similar to more other alters to which you are also connected. 
 {{% /alert %}}
 
-To summarize. 
-
+ 
 
 ```{r influence, echo=FALSE, fig.cap="Average Alter Effect", out.width = '100%'}
 knitr::include_graphics("plot2.png")

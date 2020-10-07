@@ -11,7 +11,7 @@ linktitle: plotting social networks
 summary: "igraph, social networks, plotting, tutorial, R, Lavaan"
 lastmod: '2020-09-15T08:27:34+02:00'
 type: book
-weight: 40
+weight: 49
  
 output:
   blogdown::html_page:
