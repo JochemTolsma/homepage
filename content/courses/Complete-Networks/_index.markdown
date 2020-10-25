@@ -6,7 +6,7 @@ title: Complete Networks
 date: "2018-09-09T00:00:00Z"
 lastmod: "2018-09-09T00:00:00Z"
 draft: false  # Is this a draft? true/false
-toc: false  # Show table of contents? true/false
+toc: true  # Show table of contents? true/false
 type: book  # Do not modify.
 editor_options: 
   chunk_output_type: inline
@@ -53,14 +53,24 @@ The density in Smallworld turns out to be 0.14. For comparison, if we look at fr
 
 ### Centrality 
 
-Closely related to density is the concept of degree. The number of ingoing, outgoing or undirected relations from each node. In real social networks, we generally observe a right-skewed degree distribution (most people have some friends, few people have many friends). In Smallworld the nodes either have 14 or 15 relations, a very uniform and thus unrealistic degree distribution. 
+Closely related to density is the concept of degree. The number of ingoing (indegree), outgoing (outdegree) or undirected (degree) relations from each node. In real social networks, we generally observe a right-skewed degree distribution (most people have some friends, few people have many friends). In Smallworld the nodes either have 14 or 15 relations, a very uniform and thus unrealistic degree distribution.  
+
+{{% alert note %}}
+Centrality measures, like degree, can be measured at the **node-level**. For the graph as a whole, we may calculate the **average centrality score** but every node-level centrality measure also has its specific **graph-level** analogue. In what follows we focus on node-level centrality scores.  
+At the node-level we may calculate the **raw measure** but to facilitate interpretation we will use **normalized measures**. There may be more than one way by which the raw scores can be normalized. If you use an R package to calculate normalized centrality scores (e.g. `igraph`), please be aware of the applied normalization. 
+{{% /alert %}}
+  
+
+
 
 
 People in a network with relatively many degree are called more central and (normalized) degree centrality is formally defined as:  
 
-$$ C_D(v_i) = \frac{deg(v_i) - max(deg(v))}  {max(deg(v)) - min(deg(v))} $$ 
+$$ C_D(v_i) = \frac{deg(v_i) - min(deg(v))}  {max(deg(v)) - min(deg(v))} $$ 
 
-, where $ C_D(v_i) $ is degree centrality of $ v_i $, vertex i, and 'deg' stands for 'degree'.
+, where $ C_D(v_i) $ is degree centrality of $ v_i $, vertex i, and 'deg' stands for 'degree'. $ max(deg(v)) $ is the maximal observed degree. [^degree]
+
+[^degree]: A different normalization approach would be to divide the node degree by the maximum degree (either the theoretical maximum, or the maximal observed degree). 
 
 Closely related to degree centrality is (normalized) 'closeness centrality':  
 
