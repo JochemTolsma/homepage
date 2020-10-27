@@ -66,23 +66,23 @@ At the node-level we may calculate the **raw measure** but to facilitate interpr
 
 People in a network with relatively many degree are called more central and (normalized) degree centrality is formally defined as:  
 
-$$ C_D(v_i) = \frac{deg(v_i) - min(deg(v))}  {max(deg(v)) - min(deg(v))} $$ 
+$$ C_D(v_i) = \frac{deg(v_i) - min(deg(v))}  {max(deg(v)) - min(deg(v))}, $$ 
 
-, where $ C_D(v_i) $ is degree centrality of $ v_i $, vertex i, and 'deg' stands for 'degree'. $ max(deg(v)) $ is the maximal observed degree. [^degree]
+where $ C_D(v_i) $ is degree centrality of $ v_i $, vertex *i*, and 'deg' stands for 'degree'. $ max(deg(v)) $ is the maximal observed degree. $ min(deg(v)) $ is the minimal observed degree.[^degree]
 
 [^degree]: A different normalization approach would be to divide the node degree by the maximum degree (either the theoretical maximum, or the maximal observed degree). 
 
 Closely related to degree centrality is (normalized) 'closeness centrality':  
 
-$$ C_C(v_i) = \frac{N}{\sum_{j}d(v_j, vi)} $$  
+$$ C_C(v_i) = \frac{N}{\sum_{j}d(v_j, v_i)}, $$  
 
-, with N the number of nodes and 'd' stands for distance.
+with N the number of nodes and *d* stands for distance.
 
 A final important measure of centrality is called betweenness. It is defined as:  
 
-$$ C_B(v_i) = \frac{\sigma_{v_j,v_k}(v_i)}{\sum_{j\neq k\neq i}\sigma(v_j,v_k)} $$   
+$$ C_B(v_i) = \frac{\sigma_{v_j,v_k}(v_i)}{\sum_{j\neq k\neq i}\sigma(v_j,v_k)}, $$   
 
-, where $ \sigma(v_j,v_k) $ is the number of shortest paths between vertices j and k, $ \sigma_{v_j,v_k}(v_i) $, are the number of these shortest paths that pass through vertex i. One way to normalize this measure is as follows:  
+where $ \sigma(v_j,v_k) $ is the number of shortest paths between vertices *j* and *k*, $ \sigma_{v_j,v_k}(v_i) $, are the number of these shortest paths that pass through vertex $ v_i $ . One way to normalize this measure is as follows:  
 
 $$ C_{B_{normalized}}(v_i) =  \frac{C_B(v_i) - min(C_B(v))}{max(C_B(v))-min(C_B(v))} $$  
 
@@ -95,7 +95,8 @@ According to wiki, average shortest path length is defined as the average number
 
  
 <img src="/courses/Complete-Networks/_index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
-This is a directed graph, thus node 3 is connected to node 4 (path length 2) but 4 is not connected to 3. What is the average path length? ... It is: 1.33. 
+This is a directed graph, thus node 3 is connected to node 4 (path length 2) but 4 is not connected to 3. What is the average path length? ...  
+It is: 1.33. 
 The average path length in Smallworld is very low considering the size and density, it is: 2.12. 
 Since path length excludes disconnected nodes, it does not necessarily tells us something about the 'degrees of separation'. Let us instead calculate for each path length the proportion of nodes each node can reach and take the average value of that. 
 
@@ -114,8 +115,8 @@ We already came across the six-degrees-of-separation phenomenon. This is the obs
 ## Clustering  
 
 Clustering is an interesting concept. We have immediately an intuitive understanding of it, people lump together in separate groups. But how should we go about defining it more formally? 
-The clustering coefficient for $ v_i $ is defined as the observed ties between all direct neighbors of $ v_i $. Direct neighbours are connected to $ v_i $ via an ingoing and/or outgoing relation. For undirected networks, the clustering coefficient is the same as the transitivity index (the number of transitive triads divided by all possible transitive triads, see here). For directed graphs not so.  
-Before we can start calculating the average (or global) clustering index we have to take a decision about what to do with vertices without neighbours. We may set their clustering index to zero and include them, or set them at NaN and exclude them (my prefernce).  
+The clustering coefficient for $ v_i $ is defined as the observed ties between all direct neighbors of $ v_i $ divided by all possible ties between all direct neighbors of $ v_i $ . Direct neighbours are connected to $ v_i $ via an ingoing and/or outgoing relation. For undirected networks, the clustering coefficient is the same as the transitivity index (the number of transitive triads divided by all possible transitive triads). For directed graphs not so.  
+Before we can start calculating the average (or global) clustering index we have to take a decision about what to do with vertices without neighbors. We may set their clustering index to zero and include them, or set them at NaN and exclude them (my preference).  
 The clustering coefficient of Smallworld is 0.34
 
 ## Relatively scientific 
@@ -126,9 +127,9 @@ Let us make 1000 random graphs with size 105 (just as in Smallworld) and with a 
 
 The values of Smallworld are plotted in red. Smallworld indeed has a very high degree of clustering. However, we see that the random graphs have a low average shortest path length and the average path length of Smallworld is actually even relatively high compared to random graphs. Based on these observations we may now calculate the smallworldlyness of Smallworld. One definition is:  
 
-$$ \sigma = \frac{C/C_r}{L/L_r} $$    
+$$ \sigma = \frac{C/C_r}{L/L_r}, $$    
 
-, where C is the average clustering of the observed graph and $ C_ r $ is the clustering of the random graph, L is the average shortest path length of the observed graph and $ L_r $ is the average shortest path length of the random graph. With $ \sigma > 1 $  the network is a small-world network. The smallworldness of Smallworld is 2.16. 
+where C is the average clustering of the observed graph and $ C_ r $ is the clustering of the random graph, L is the average shortest path length of the observed graph and $ L_r $ is the average shortest path length of the random graph. With $ \sigma > 1 $  the network is a small-world network. The smallworldness of Smallworld is 2.16. 
     
 
 This leaves us with just one thing unexplained: relatively low density. Well if we would flip a coin for each possible tie between two random nodes, the density would be 50%. Thus all networks (with binary relations) with a density lower than 50% have a relatively low density. And there you have it: absolute science again. 
