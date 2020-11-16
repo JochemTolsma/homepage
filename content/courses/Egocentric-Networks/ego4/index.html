@@ -2,7 +2,7 @@
 title: Consequences of Egocentric Networks (methods)
 author: JochemTolsma
 date: '2020-09-07'
-slug: dyads4
+slug: ego4
 categories:
   - R
   - Social Networks
@@ -327,14 +327,15 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <h2><span class="header-section-number">5.1</span> first quickly estimate the previous models in Lavaan.</h2>
 <p>Information of one alter only:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">library</span>(lavaan)</span>
-<span id="cb12-2"><a href="#cb12-2"></a>model1 &lt;-<span class="st"> &quot;</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  Y1 ~ alt1_xa</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="st">  Y1 ~ 1</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  Y1 ~~ Y1</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  &quot;</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a></span>
-<span id="cb12-8"><a href="#cb12-8"></a>fit1 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model1, <span class="dt">data =</span> data_wide)</span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="kw">summary</span>(fit1)</span></code></pre></div>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>model1 &lt;-<span class="st"> &#39;</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="st">  Y1 ~ alt1_xa</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  Y1 ~ 1</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  Y1 ~~ Y1</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="st">  &#39;</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a></span>
+<span id="cb12-9"><a href="#cb12-9"></a>fit1 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model1, <span class="dt">data =</span> data_wide)</span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="kw">summary</span>(fit1)</span></code></pre></div>
 <pre><code>## lavaan 0.6-7 ended normally after 21 iterations
 ## 
 ##   Estimator                                         ML
@@ -1032,7 +1033,7 @@ I just have very good reasons (ahum) to think that each alter contributes unique
 <div id="alternative-approaches" class="section level1">
 <h1><span class="header-section-number">9</span> Alternative Approaches</h1>
 <p>The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén <a href="%22www.statmodel.com%22">www.statmodel.com</a>. If you have Mplus installed on your computer, you may use the R package <code>MplusAutomation</code> to estimate models with Mplus within R. Below you may find two examples with Mplus: one demonstrating the persons as variable approach, the other demonstrating the multi-level approach.</p>
-<p>Latest Version: 10-09-2020</p>
+<p>Latest Version: 27-10-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
 <div class="footnotes">

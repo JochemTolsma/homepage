@@ -175,110 +175,293 @@ Before we start with our own lab exercise, I would like you to:</p>
 </div>
 <div id="rate-function" class="section level1">
 <h1><span class="header-section-number">3</span> Rate function</h1>
-<p>We find the rate function in the manual on page 43:</p>
-<p><span class="math display">\[ \lambda_+(x^0)=\Sigma_i \lambda_i (x^0)\]</span>
-But what does this mean?</p>
+<p>The rate function of actor <em>i</em> is denoted:</p>
+<p><span class="math display">\[ \lambda_i(x) \]</span></p>
+<p>Suppose we have three actors: <em>i</em>, <em>j</em> and <em>k</em>. And suppose that the rate function is a constant, thus the rate function does not depend on the network structure or attributes of the actors. Thus suppose for example:</p>
 <ul>
-<li><span class="math inline">\(x^0\)</span> is simply the current network.<br />
+<li><span class="math inline">\(\lambda_i=5\)</span><br />
 </li>
-<li><span class="math inline">\(\lambda_i\)</span> is the waiting time of actor <em>i</em>.</li>
+<li><span class="math inline">\(\lambda_j=10\)</span><br />
+</li>
+<li><span class="math inline">\(\lambda_k=15\)</span></li>
 </ul>
-<p>But how do we determine the waiting time of actor <em>i</em>? Well these waiting times are exponentially distributed with a rate parameter, which, if the network is very large, is <span class="math inline">\(\lambda_+\)</span> , the sum of all individual waiting times: <span class="math inline">\(\Sigma_i \lambda_i (x^0)\)</span>. See below for two examples:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<p>The waiting times of actors <em>i</em>, <em>j</em> and <em>k</em> are exponentially distributed with rate parameter <span class="math inline">\(\lambda\)</span>.
+What do these exponential distribution look like?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>dist_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10000</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">hist</span>(dist_<span class="dv">5</span>, <span class="dt">main =</span> <span class="st">&quot;rate parameter = 5&quot;</span>, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;lambda_i&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, </span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">hist</span>(dist_<span class="dv">5</span>, <span class="dt">main =</span> <span class="st">&quot;rate = lambda_i = 5&quot;</span>, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;waiting times&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, </span>
 <span id="cb1-5"><a href="#cb1-5"></a>    <span class="dv">9</span>))</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>dist_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10000</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">hist</span>(dist_<span class="dv">10</span>, <span class="dt">main =</span> <span class="st">&quot;rate parameter = 10&quot;</span>, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;lambda_i&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, </span>
-<span id="cb1-9"><a href="#cb1-9"></a>    <span class="dv">9</span>))</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/socio6/index_files/figure-html/unnamed-chunk-1-1.svg" width="576" /></p>
-<p>The expected waiting time is simply the mean of all individual waiting times <span class="math inline">\(\lambda_i\)</span>. We saved all waiting times in <code>dist_5</code> and in <code>dist_10</code>.</p>
-<p>Thus:</p>
-<ul>
-<li><code>mean(dist_5)</code>= 0.1991519 <span class="math inline">\(\approx\)</span> <span class="math inline">\(\frac{1}{\lambda_+}\)</span> = 1/5 = 0.2<br />
-</li>
-<li><code>mean(dist_10)</code>= 0.0985059 <span class="math inline">\(\approx\)</span> <span class="math inline">\(\frac{1}{\lambda_+}\)</span> = 1/10 = 0.1</li>
-</ul>
-<p>Thus each actor gets a waiting time <span class="math inline">\(\lambda_i\)</span> sampled from the exponential distribution with the specified rate parameter. Based on these waiting times, the probability is determined that actor <em>i</em> will be next:</p>
-<p><span class="math display">\[ \frac{\lambda_i(x^0)}{\lambda_+(x^0)} \]</span>
-{{% alert warning %}}
-To be honest, I think waiting time is a wrong label. Because nodes with the longest waiting time have the highest probability to be chosen!<br />
-{{% /alert %}}</p>
-<p>Let us make this more concrete. Suppose we have a network of 4 nodes and the rate parameter is 5.</p>
-<p>The individual waiting times are:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">set.seed</span>(<span class="dv">34647</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>waitingtimes &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">4</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;waitingtime&quot;</span>, <span class="kw">as.factor</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>), <span class="st">&quot;:&quot;</span>, <span class="kw">round</span>(waitingtimes, <span class="dv">2</span>), <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span></code></pre></div>
-<pre><code>## [1] &quot;waitingtime1:0.45&quot; &quot;waitingtime2:0.13&quot; &quot;waitingtime3:0.52&quot; &quot;waitingtime4:0.21&quot;</code></pre>
-<p>Thus <span class="math inline">\(\lambda_+(x^0)\)</span> = <code>sum(waitingtimes)</code> = 1.3174602</p>
-<p>Which makes for the following probabilities:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">round</span>(waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes), <span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 0.34 0.10 0.39 0.16</code></pre>
-<p>And whose turn will it be?</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>actor &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dt">prob =</span> waitingtimes)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;chosen actor:&quot;</span>, actor, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span></code></pre></div>
-<pre><code>## [1] &quot;chosen actor: 3&quot;</code></pre>
-<p>Now let us repeat this process a couple of times:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">set.seed</span>(<span class="dv">245651</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>time &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="cf">for</span> (steps <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
-<span id="cb8-4"><a href="#cb8-4"></a>    <span class="co"># sample the waiting times from the exponential distribution</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>    waitingtimes &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">4</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>    <span class="co"># calculate the probabilities</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>    probabilities &lt;-<span class="st"> </span>waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes)</span>
-<span id="cb8-8"><a href="#cb8-8"></a>    <span class="co"># pick the actor which has an opportunity for change</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a>    actor &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dt">prob =</span> waitingtimes)</span>
-<span id="cb8-10"><a href="#cb8-10"></a>    <span class="co"># show results</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;chosen actor:&quot;</span>, actor, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb8-12"><a href="#cb8-12"></a>    time &lt;-<span class="st"> </span>time <span class="op">+</span><span class="st"> </span>waitingtimes[actor]</span>
-<span id="cb8-13"><a href="#cb8-13"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;total time:&quot;</span>, time, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb8-14"><a href="#cb8-14"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;chosen actor: 4&quot;
-## [1] &quot;total time: 0.188847544408383&quot;
-## [1] &quot;chosen actor: 2&quot;
-## [1] &quot;total time: 0.633620880510578&quot;
-## [1] &quot;chosen actor: 3&quot;
-## [1] &quot;total time: 0.98291679876472&quot;
-## [1] &quot;chosen actor: 3&quot;
-## [1] &quot;total time: 1.22129838765698&quot;
-## [1] &quot;chosen actor: 3&quot;
-## [1] &quot;total time: 1.40387658942681&quot;</code></pre>
-<p>So how many opportunities for change do we have before the total time exceeds 1? Well 4.
-If we repeat the process but with a rate parameter of 10. What would we find?</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">set.seed</span>(<span class="dv">245651</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>time &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="cf">for</span> (steps <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
-<span id="cb10-4"><a href="#cb10-4"></a>    waitingtimes &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">4</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
-<span id="cb10-5"><a href="#cb10-5"></a>    probabilities &lt;-<span class="st"> </span>waitingtimes<span class="op">/</span><span class="kw">sum</span>(waitingtimes)</span>
-<span id="cb10-6"><a href="#cb10-6"></a>    actor &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dt">prob =</span> waitingtimes)</span>
-<span id="cb10-7"><a href="#cb10-7"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;chosen actor:&quot;</span>, actor, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb10-8"><a href="#cb10-8"></a>    time &lt;-<span class="st"> </span>time <span class="op">+</span><span class="st"> </span>waitingtimes[actor]</span>
-<span id="cb10-9"><a href="#cb10-9"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;total time:&quot;</span>, time, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb10-10"><a href="#cb10-10"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;chosen actor: 4&quot;
-## [1] &quot;total time: 0.0944237722041917&quot;
-## [1] &quot;chosen actor: 2&quot;
-## [1] &quot;total time: 0.316810440255289&quot;
-## [1] &quot;chosen actor: 3&quot;
-## [1] &quot;total time: 0.49145839938236&quot;
-## [1] &quot;chosen actor: 3&quot;
-## [1] &quot;total time: 0.610649193828492&quot;
-## [1] &quot;chosen actor: 3&quot;
-## [1] &quot;total time: 0.701938294713407&quot;
-## [1] &quot;chosen actor: 4&quot;
-## [1] &quot;total time: 0.738830435835778&quot;
-## [1] &quot;chosen actor: 1&quot;
-## [1] &quot;total time: 0.898197567791467&quot;
-## [1] &quot;chosen actor: 4&quot;
-## [1] &quot;total time: 1.10614433369982&quot;
-## [1] &quot;chosen actor: 2&quot;
-## [1] &quot;total time: 1.16367037041433&quot;
-## [1] &quot;chosen actor: 4&quot;
-## [1] &quot;total time: 1.18615504420682&quot;</code></pre>
-<p>We would find there are 8 opportunities for change. Thus <strong>the larger the rate parameter the more opportunities for change per actor there are within a given time period</strong>. And in RSiena the optimal value for the rate parameter is estimated.<br />
-The time period in RSiena is set to be the size of the network. This leads to a nice interpretation of the estimated rate parameter. From the above we know that the mean waiting time for any actor will be <span class="math inline">\(\frac{1}{\lambda_+}\)</span> and thus that <strong>the estimated number of opportunities for change per actor in a time period will be the estimated value of the rate_parameter</strong>.</p>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>dist_<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10000</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">hist</span>(dist_<span class="dv">10</span>, <span class="dt">main =</span> <span class="st">&quot;rate= lambda_j = 10&quot;</span>, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;waiting times&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, </span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="dv">9</span>))</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>dist_<span class="dv">15</span> &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10000</span>, <span class="dt">rate =</span> <span class="dv">15</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="kw">hist</span>(dist_<span class="dv">10</span>, <span class="dt">main =</span> <span class="st">&quot;rate = lambda_k = 15&quot;</span>, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;waiting times&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, </span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="dv">9</span>))</span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">15</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="/courses/Complete-Networks/socio6/index_files/figure-html/dists-1.svg" width="576" /></p>
+<p>We now want to determine who will be allowed to take the next ministep. We thus need to sample a waiting time for each actor. Thus each actor gets a waiting time sampled from the exponential distribution with the specified rate parameter:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">set.seed</span>(<span class="dv">34641</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>waitingtimes &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>waitingtimes[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>waitingtimes[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>waitingtimes[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">15</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;waitingtime_&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;i: &quot;</span>, <span class="st">&quot;j: &quot;</span>, <span class="st">&quot;k: &quot;</span>), <span class="kw">round</span>(waitingtimes, <span class="dv">3</span>), <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;waitingtime_i: 0.264&quot; &quot;waitingtime_j: 0.414&quot; &quot;waitingtime_k: 0.028&quot;</code></pre>
+<p>Actor <em>k</em> has the shortest waiting time and is allowed to take a ministep.
+In the example above we only took one draw out of each exponential distribution. If we would take many draws the expected value of the waiting time is <span class="math inline">\(\frac{1}{\lambda}\)</span> and these values are added as vertical lines in the figure above. Thus with a higher rate parameter <span class="math inline">\(\lambda\)</span> the shorter the expected waiting time.</p>
+<p>Now let us repeat this process of determining who is allowed to take a ministep a couple of times and keep track of who will make the ministep and the time that has passed:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">set.seed</span>(<span class="dv">245651</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>sam_waitingtimes &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>time &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="cf">for</span> (ministeps <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>) {</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    waitingtimes &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    waitingtimes[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    waitingtimes[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    waitingtimes[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">15</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    actor &lt;-<span class="st"> </span><span class="kw">which</span>(waitingtimes <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(waitingtimes))</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    time &lt;-<span class="st"> </span>time <span class="op">+</span><span class="st"> </span>waitingtimes[actor]</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    sam_waitingtimes[ministeps] &lt;-<span class="st"> </span>waitingtimes[actor]</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;ministep nr.: &quot;</span>, ministeps, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;waitingtime_&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;i: &quot;</span>, <span class="st">&quot;j: &quot;</span>, <span class="st">&quot;k: &quot;</span>)[actor], <span class="kw">round</span>(waitingtimes, <span class="dv">3</span>)[actor], <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb4-14"><a href="#cb4-14"></a>    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;time past: &quot;</span>, <span class="kw">round</span>(time, <span class="dv">3</span>), <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb4-15"><a href="#cb4-15"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;ministep nr.: 1&quot;
+## [1] &quot;waitingtime_i: 0.012&quot;
+## [1] &quot;time past: 0.012&quot;
+## [1] &quot;ministep nr.: 2&quot;
+## [1] &quot;waitingtime_k: 0.003&quot;
+## [1] &quot;time past: 0.014&quot;
+## [1] &quot;ministep nr.: 3&quot;
+## [1] &quot;waitingtime_k: 0.013&quot;
+## [1] &quot;time past: 0.027&quot;
+## [1] &quot;ministep nr.: 4&quot;
+## [1] &quot;waitingtime_i: 0&quot;
+## [1] &quot;time past: 0.027&quot;
+## [1] &quot;ministep nr.: 5&quot;
+## [1] &quot;waitingtime_j: 0.052&quot;
+## [1] &quot;time past: 0.08&quot;
+## [1] &quot;ministep nr.: 6&quot;
+## [1] &quot;waitingtime_j: 0.073&quot;
+## [1] &quot;time past: 0.153&quot;
+## [1] &quot;ministep nr.: 7&quot;
+## [1] &quot;waitingtime_k: 0.054&quot;
+## [1] &quot;time past: 0.207&quot;
+## [1] &quot;ministep nr.: 8&quot;
+## [1] &quot;waitingtime_i: 0.016&quot;
+## [1] &quot;time past: 0.223&quot;
+## [1] &quot;ministep nr.: 9&quot;
+## [1] &quot;waitingtime_k: 0.006&quot;
+## [1] &quot;time past: 0.229&quot;
+## [1] &quot;ministep nr.: 10&quot;
+## [1] &quot;waitingtime_k: 0.019&quot;
+## [1] &quot;time past: 0.248&quot;
+## [1] &quot;ministep nr.: 11&quot;
+## [1] &quot;waitingtime_k: 0.044&quot;
+## [1] &quot;time past: 0.292&quot;
+## [1] &quot;ministep nr.: 12&quot;
+## [1] &quot;waitingtime_k: 0.024&quot;
+## [1] &quot;time past: 0.316&quot;
+## [1] &quot;ministep nr.: 13&quot;
+## [1] &quot;waitingtime_i: 0.022&quot;
+## [1] &quot;time past: 0.338&quot;
+## [1] &quot;ministep nr.: 14&quot;
+## [1] &quot;waitingtime_k: 0.038&quot;
+## [1] &quot;time past: 0.376&quot;
+## [1] &quot;ministep nr.: 15&quot;
+## [1] &quot;waitingtime_i: 0.027&quot;
+## [1] &quot;time past: 0.403&quot;
+## [1] &quot;ministep nr.: 16&quot;
+## [1] &quot;waitingtime_k: 0.002&quot;
+## [1] &quot;time past: 0.405&quot;
+## [1] &quot;ministep nr.: 17&quot;
+## [1] &quot;waitingtime_i: 0.045&quot;
+## [1] &quot;time past: 0.45&quot;
+## [1] &quot;ministep nr.: 18&quot;
+## [1] &quot;waitingtime_k: 0.023&quot;
+## [1] &quot;time past: 0.473&quot;
+## [1] &quot;ministep nr.: 19&quot;
+## [1] &quot;waitingtime_i: 0&quot;
+## [1] &quot;time past: 0.474&quot;
+## [1] &quot;ministep nr.: 20&quot;
+## [1] &quot;waitingtime_i: 0.024&quot;
+## [1] &quot;time past: 0.498&quot;
+## [1] &quot;ministep nr.: 21&quot;
+## [1] &quot;waitingtime_k: 0.013&quot;
+## [1] &quot;time past: 0.511&quot;
+## [1] &quot;ministep nr.: 22&quot;
+## [1] &quot;waitingtime_j: 0.018&quot;
+## [1] &quot;time past: 0.529&quot;
+## [1] &quot;ministep nr.: 23&quot;
+## [1] &quot;waitingtime_j: 0.027&quot;
+## [1] &quot;time past: 0.556&quot;
+## [1] &quot;ministep nr.: 24&quot;
+## [1] &quot;waitingtime_j: 0.061&quot;
+## [1] &quot;time past: 0.617&quot;
+## [1] &quot;ministep nr.: 25&quot;
+## [1] &quot;waitingtime_k: 0.018&quot;
+## [1] &quot;time past: 0.635&quot;
+## [1] &quot;ministep nr.: 26&quot;
+## [1] &quot;waitingtime_j: 0.097&quot;
+## [1] &quot;time past: 0.732&quot;
+## [1] &quot;ministep nr.: 27&quot;
+## [1] &quot;waitingtime_j: 0.007&quot;
+## [1] &quot;time past: 0.739&quot;
+## [1] &quot;ministep nr.: 28&quot;
+## [1] &quot;waitingtime_j: 0.009&quot;
+## [1] &quot;time past: 0.748&quot;
+## [1] &quot;ministep nr.: 29&quot;
+## [1] &quot;waitingtime_k: 0.001&quot;
+## [1] &quot;time past: 0.75&quot;
+## [1] &quot;ministep nr.: 30&quot;
+## [1] &quot;waitingtime_j: 0.009&quot;
+## [1] &quot;time past: 0.759&quot;
+## [1] &quot;ministep nr.: 31&quot;
+## [1] &quot;waitingtime_i: 0.012&quot;
+## [1] &quot;time past: 0.77&quot;
+## [1] &quot;ministep nr.: 32&quot;
+## [1] &quot;waitingtime_i: 0.056&quot;
+## [1] &quot;time past: 0.826&quot;
+## [1] &quot;ministep nr.: 33&quot;
+## [1] &quot;waitingtime_k: 0.031&quot;
+## [1] &quot;time past: 0.857&quot;
+## [1] &quot;ministep nr.: 34&quot;
+## [1] &quot;waitingtime_j: 0.051&quot;
+## [1] &quot;time past: 0.908&quot;
+## [1] &quot;ministep nr.: 35&quot;
+## [1] &quot;waitingtime_k: 0.014&quot;
+## [1] &quot;time past: 0.923&quot;
+## [1] &quot;ministep nr.: 36&quot;
+## [1] &quot;waitingtime_j: 0.021&quot;
+## [1] &quot;time past: 0.943&quot;
+## [1] &quot;ministep nr.: 37&quot;
+## [1] &quot;waitingtime_k: 0.021&quot;
+## [1] &quot;time past: 0.965&quot;
+## [1] &quot;ministep nr.: 38&quot;
+## [1] &quot;waitingtime_k: 0.059&quot;
+## [1] &quot;time past: 1.024&quot;
+## [1] &quot;ministep nr.: 39&quot;
+## [1] &quot;waitingtime_k: 0.029&quot;
+## [1] &quot;time past: 1.053&quot;
+## [1] &quot;ministep nr.: 40&quot;
+## [1] &quot;waitingtime_j: 0.013&quot;
+## [1] &quot;time past: 1.065&quot;
+## [1] &quot;ministep nr.: 41&quot;
+## [1] &quot;waitingtime_j: 0.044&quot;
+## [1] &quot;time past: 1.11&quot;
+## [1] &quot;ministep nr.: 42&quot;
+## [1] &quot;waitingtime_k: 0.069&quot;
+## [1] &quot;time past: 1.178&quot;
+## [1] &quot;ministep nr.: 43&quot;
+## [1] &quot;waitingtime_i: 0.066&quot;
+## [1] &quot;time past: 1.244&quot;
+## [1] &quot;ministep nr.: 44&quot;
+## [1] &quot;waitingtime_j: 0.003&quot;
+## [1] &quot;time past: 1.248&quot;
+## [1] &quot;ministep nr.: 45&quot;
+## [1] &quot;waitingtime_j: 0.01&quot;
+## [1] &quot;time past: 1.258&quot;
+## [1] &quot;ministep nr.: 46&quot;
+## [1] &quot;waitingtime_k: 0.086&quot;
+## [1] &quot;time past: 1.343&quot;
+## [1] &quot;ministep nr.: 47&quot;
+## [1] &quot;waitingtime_k: 0.046&quot;
+## [1] &quot;time past: 1.389&quot;
+## [1] &quot;ministep nr.: 48&quot;
+## [1] &quot;waitingtime_k: 0.031&quot;
+## [1] &quot;time past: 1.42&quot;
+## [1] &quot;ministep nr.: 49&quot;
+## [1] &quot;waitingtime_i: 0.007&quot;
+## [1] &quot;time past: 1.427&quot;
+## [1] &quot;ministep nr.: 50&quot;
+## [1] &quot;waitingtime_j: 0.066&quot;
+## [1] &quot;time past: 1.493&quot;</code></pre>
+<p>I know you are wondering what the distribution of sampled waiting times look like, don’t you?
+Well let’s sample some more and plot them.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">set.seed</span>(<span class="dv">245651</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>sam_waitingtimes &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="cf">for</span> (ministeps <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5000</span>) {</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    waitingtimes &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>    waitingtimes[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    waitingtimes[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    waitingtimes[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">15</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    actor &lt;-<span class="st"> </span><span class="kw">which</span>(waitingtimes <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(waitingtimes))</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    sam_waitingtimes[ministeps] &lt;-<span class="st"> </span>waitingtimes[actor]</span>
+<span id="cb6-10"><a href="#cb6-10"></a>}</span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="kw">hist</span>(sam_waitingtimes, <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;waiting times&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;sampled waiting times&quot;</span>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">mean</span>(sam_waitingtimes), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="kw">hist</span>(<span class="kw">rexp</span>(<span class="dv">5000</span>, <span class="dt">rate =</span> <span class="dv">30</span>), <span class="dt">freq =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;waiting times&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;rate=30&quot;</span>)</span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">30</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="/courses/Complete-Networks/socio6/index_files/figure-html/unnamed-chunk-3-1.svg" width="576" />
+The distribution of the sampled waiting times is plotted in the figure above on the left. As you see this distribution is ‘identical’ to the exponential distribution with a rate parameter <span class="math inline">\(\lambda\)</span> of 30 (which is plotted on the right). And the expected waiting time, plotted in red, is 1/30. This leads us to page 43 of the RSiena manual:</p>
+<blockquote>
+<p>The time duration until the next opportunity of change is exponentially distributed with parameter:<br />
+<span class="math display">\[ \lambda_+(x^0)=\Sigma_i \lambda_i (x^0) \]</span></p>
+</blockquote>
+<p>Remember, the waiting times for each actor <em>i</em> are exponentially distributed with parameter <span class="math inline">\(\lambda_i\)</span>. The observed time duration until the next ministeps are exponentially distributed with parameter <span class="math inline">\(\lambda_+\)</span>.</p>
+<p>If an actor has a higher rate parameter, the expected sampled waiting time is shorter. And since the actor with the shortest waiting time will make the ministep, actors with the highest rate parameter have the highest probability to have an opportunity for change. Thus <strong>the larger the rate parameter the more opportunities for change there are within a given time period</strong>.</p>
+<p>So how many opportunities for change do we have before the total time exceeds 1? Please have a look above with the example of actors <em>i</em>, <em>j</em> and <em>k</em> with rate parameters of 5, 10 and 15 respectively. We see that after ministep 38 time exceeds 1. Of course this was only one run. We could repeat the simulation a couple of times and keep track of the total ministeps and the ministeps for each actor. Let us plot the number of ministeps for actors <em>i</em>, <em>j</em> and <em>k</em> for 1000 simulations.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">set.seed</span>(<span class="dv">245651</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>results &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="cf">for</span> (nsim <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>) {</span>
+<span id="cb7-5"><a href="#cb7-5"></a>    time &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>    steps_tot &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>    steps_i &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    steps_j &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>    steps_k &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>    actors &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>    <span class="cf">while</span> (time <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb7-12"><a href="#cb7-12"></a>        steps_tot &lt;-<span class="st"> </span>steps_tot <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>        waitingtimes &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>        waitingtimes[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">5</span>)</span>
+<span id="cb7-15"><a href="#cb7-15"></a>        waitingtimes[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>)</span>
+<span id="cb7-16"><a href="#cb7-16"></a>        waitingtimes[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">15</span>)</span>
+<span id="cb7-17"><a href="#cb7-17"></a>        actor &lt;-<span class="st"> </span><span class="kw">which</span>(waitingtimes <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(waitingtimes))</span>
+<span id="cb7-18"><a href="#cb7-18"></a>        time &lt;-<span class="st"> </span>time <span class="op">+</span><span class="st"> </span>waitingtimes[actor]</span>
+<span id="cb7-19"><a href="#cb7-19"></a>        actors[steps_tot] &lt;-<span class="st"> </span>actor</span>
+<span id="cb7-20"><a href="#cb7-20"></a>    }</span>
+<span id="cb7-21"><a href="#cb7-21"></a>    results[[nsim]] &lt;-<span class="st"> </span>actors</span>
+<span id="cb7-22"><a href="#cb7-22"></a>}</span>
+<span id="cb7-23"><a href="#cb7-23"></a></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co"># sum(results[[1]]==1) hist(sapply(results, length))</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb7-27"><a href="#cb7-27"></a>{</span>
+<span id="cb7-28"><a href="#cb7-28"></a>    <span class="kw">hist</span>(<span class="kw">sapply</span>(results, <span class="cf">function</span>(x) {</span>
+<span id="cb7-29"><a href="#cb7-29"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb7-30"><a href="#cb7-30"></a>    }), <span class="dt">xlab =</span> <span class="st">&quot;nsteps&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;actor i: lambda=5&quot;</span>)</span>
+<span id="cb7-31"><a href="#cb7-31"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">mean</span>(<span class="kw">sapply</span>(results, <span class="cf">function</span>(x) {</span>
+<span id="cb7-32"><a href="#cb7-32"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb7-33"><a href="#cb7-33"></a>    })), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb7-34"><a href="#cb7-34"></a>}</span>
+<span id="cb7-35"><a href="#cb7-35"></a></span>
+<span id="cb7-36"><a href="#cb7-36"></a>{</span>
+<span id="cb7-37"><a href="#cb7-37"></a>    <span class="kw">hist</span>(<span class="kw">sapply</span>(results, <span class="cf">function</span>(x) {</span>
+<span id="cb7-38"><a href="#cb7-38"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb7-39"><a href="#cb7-39"></a>    }), <span class="dt">xlab =</span> <span class="st">&quot;nsteps&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;actor j: lambda=10&quot;</span>)</span>
+<span id="cb7-40"><a href="#cb7-40"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">mean</span>(<span class="kw">sapply</span>(results, <span class="cf">function</span>(x) {</span>
+<span id="cb7-41"><a href="#cb7-41"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span>
+<span id="cb7-42"><a href="#cb7-42"></a>    })), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb7-43"><a href="#cb7-43"></a>}</span>
+<span id="cb7-44"><a href="#cb7-44"></a></span>
+<span id="cb7-45"><a href="#cb7-45"></a>{</span>
+<span id="cb7-46"><a href="#cb7-46"></a>    <span class="kw">hist</span>(<span class="kw">sapply</span>(results, <span class="cf">function</span>(x) {</span>
+<span id="cb7-47"><a href="#cb7-47"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb7-48"><a href="#cb7-48"></a>    }), <span class="dt">xlab =</span> <span class="st">&quot;nsteps&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;actor k: lambda=15&quot;</span>)</span>
+<span id="cb7-49"><a href="#cb7-49"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">mean</span>(<span class="kw">sapply</span>(results, <span class="cf">function</span>(x) {</span>
+<span id="cb7-50"><a href="#cb7-50"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb7-51"><a href="#cb7-51"></a>    })), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb7-52"><a href="#cb7-52"></a>}</span></code></pre></div>
+<p><img src="/courses/Complete-Networks/socio6/index_files/figure-html/unnamed-chunk-4-1.svg" width="576" /></p>
+<p>Thus <strong>the larger the rate parameter the more opportunities for change per actor there are within a given time period</strong>. And in RSiena the optimal value for the rate parameter <span class="math inline">\(\lambda_i\)</span> is estimated. And from the figure above we see that the estimated parameter has a nice interpretation: <strong>the estimated rate parameter refers to the expected number of opportunities for change in a time period</strong>.</p>
 </div>
 <div id="interpretation-of-parameters" class="section level1">
 <h1><span class="header-section-number">4</span> Interpretation of parameters</h1>
@@ -319,121 +502,121 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <div id="before-you-start" class="section level2">
 <h2><span class="header-section-number">5.1</span> Before you start</h2>
 <p>Before you start, check whether you run the latest RStudio version (from the Help menu, pick ‘check for updates’ and whether you need to update R.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;installr&quot;</span>)  <span class="co">#you  first install packages</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">require</span>(installr)  <span class="co">#then you will need to activate packages. </span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="kw">updateR</span>()  <span class="co">#run the function to start the update process</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;installr&quot;</span>)  <span class="co">#you  first install packages</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">require</span>(installr)  <span class="co">#then you will need to activate packages. </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">updateR</span>()  <span class="co">#run the function to start the update process</span></span></code></pre></div>
 <p>Give your script a nice name. Include the author, and data when you last modified the script. Include a lot of comments in your script! Don’t forget, always start with cleaning up your workspace.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">### Author: JOCHEM TOLSMA### Lastmod: 31-08-2020###</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co"># cleanup workspace</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">### Author: JOCHEM TOLSMA### Lastmod: 31-08-2020###</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># cleanup workspace</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
 <p>And set your working directory.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># set working directory</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">setwd</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">YOURDIR</span><span class="ch">\\</span><span class="st">YOURSUBDIR</span><span class="ch">\\</span><span class="st">YOURSUBSUBDIR</span><span class="ch">\\</span><span class="st">&quot;</span>)  <span class="co">#change to your own workdirectory</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># set working directory</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">setwd</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">YOURDIR</span><span class="ch">\\</span><span class="st">YOURSUBDIR</span><span class="ch">\\</span><span class="st">YOURSUBSUBDIR</span><span class="ch">\\</span><span class="st">&quot;</span>)  <span class="co">#change to your own workdirectory</span></span></code></pre></div>
 <p>Install the packages you will need.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># install packages</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">library</span>(RSiena)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># install packages</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">library</span>(RSiena)</span></code></pre></div>
 <p>Define your custom build functions.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># density: observed relations divided by possible relations</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>fdensity &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb16-3"><a href="#cb16-3"></a>    <span class="co"># x is your nomination network make sure diagonal cells are NA</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a>    <span class="co"># take care of RSiena structural zeros, set as missing.</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>    <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)<span class="op">/</span>(<span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="dt">na.rm =</span> T))</span>
-<span id="cb16-8"><a href="#cb16-8"></a>}</span>
-<span id="cb16-9"><a href="#cb16-9"></a></span>
-<span id="cb16-10"><a href="#cb16-10"></a><span class="co"># calculate intragroup density</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a>fdensityintra &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
-<span id="cb16-12"><a href="#cb16-12"></a>    <span class="co"># A is matrix indicating whether nodes in dyad have same node attributes</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-15"><a href="#cb16-15"></a>    <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-16"><a href="#cb16-16"></a>    <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)<span class="op">/</span>(<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T))</span>
-<span id="cb16-17"><a href="#cb16-17"></a>}</span>
-<span id="cb16-18"><a href="#cb16-18"></a></span>
-<span id="cb16-19"><a href="#cb16-19"></a><span class="co"># calculate intragroup density</span></span>
-<span id="cb16-20"><a href="#cb16-20"></a>fdensityinter &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
-<span id="cb16-21"><a href="#cb16-21"></a>    <span class="co"># A is matrix indicating whether nodes in dyad have same node attributes</span></span>
-<span id="cb16-22"><a href="#cb16-22"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-23"><a href="#cb16-23"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-24"><a href="#cb16-24"></a>    <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-25"><a href="#cb16-25"></a>    <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>A <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)<span class="op">/</span>(<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>A <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T))</span>
-<span id="cb16-26"><a href="#cb16-26"></a>}</span>
-<span id="cb16-27"><a href="#cb16-27"></a></span>
-<span id="cb16-28"><a href="#cb16-28"></a><span class="co"># construct dyadcharacteristic whether nodes are similar/homogenous</span></span>
-<span id="cb16-29"><a href="#cb16-29"></a>fhomomat &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb16-30"><a href="#cb16-30"></a>    <span class="co"># x is a vector of node-covariate</span></span>
-<span id="cb16-31"><a href="#cb16-31"></a>    xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="kw">length</span>(x))</span>
-<span id="cb16-32"><a href="#cb16-32"></a>    xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
-<span id="cb16-33"><a href="#cb16-33"></a>    xhomo &lt;-<span class="st"> </span>xmat <span class="op">==</span><span class="st"> </span>xmatt</span>
-<span id="cb16-34"><a href="#cb16-34"></a>    <span class="kw">return</span>(xhomo)</span>
-<span id="cb16-35"><a href="#cb16-35"></a>}</span>
-<span id="cb16-36"><a href="#cb16-36"></a></span>
-<span id="cb16-37"><a href="#cb16-37"></a><span class="co"># a function to calculate all valid dyads.</span></span>
-<span id="cb16-38"><a href="#cb16-38"></a>fndyads &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb16-39"><a href="#cb16-39"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-40"><a href="#cb16-40"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-41"><a href="#cb16-41"></a>    (<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">na.rm =</span> T))</span>
-<span id="cb16-42"><a href="#cb16-42"></a>}</span>
-<span id="cb16-43"><a href="#cb16-43"></a></span>
-<span id="cb16-44"><a href="#cb16-44"></a><span class="co"># a function to calculate all valid intragroupdyads.</span></span>
-<span id="cb16-45"><a href="#cb16-45"></a>fndyads2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
-<span id="cb16-46"><a href="#cb16-46"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-47"><a href="#cb16-47"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-48"><a href="#cb16-48"></a>    <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-49"><a href="#cb16-49"></a>    (<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T))</span>
-<span id="cb16-50"><a href="#cb16-50"></a>}</span>
-<span id="cb16-51"><a href="#cb16-51"></a></span>
-<span id="cb16-52"><a href="#cb16-52"></a></span>
-<span id="cb16-53"><a href="#cb16-53"></a>fscolnet &lt;-<span class="st"> </span><span class="cf">function</span>(network, ccovar) {</span>
-<span id="cb16-54"><a href="#cb16-54"></a>    <span class="co"># Calculate coleman on network level:</span></span>
-<span id="cb16-55"><a href="#cb16-55"></a>    <span class="co"># https://reader.elsevier.com/reader/sd/pii/S0378873314000239?token=A42F99FF6E2B750436DD2CB0DB7B1F41BDEC16052A45683C02644DAF88215A3379636B2AA197B65941D6373E9E2EE413</span></span>
-<span id="cb16-56"><a href="#cb16-56"></a>    </span>
-<span id="cb16-57"><a href="#cb16-57"></a>    fhomomat &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb16-58"><a href="#cb16-58"></a>        xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="kw">length</span>(x))</span>
-<span id="cb16-59"><a href="#cb16-59"></a>        xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
-<span id="cb16-60"><a href="#cb16-60"></a>        xhomo &lt;-<span class="st"> </span>xmat <span class="op">==</span><span class="st"> </span>xmatt</span>
-<span id="cb16-61"><a href="#cb16-61"></a>        <span class="kw">return</span>(xhomo)</span>
-<span id="cb16-62"><a href="#cb16-62"></a>    }</span>
-<span id="cb16-63"><a href="#cb16-63"></a>    </span>
-<span id="cb16-64"><a href="#cb16-64"></a>    fsumintra &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
-<span id="cb16-65"><a href="#cb16-65"></a>        <span class="co"># A is matrix indicating whether nodes constituting dyad have same characteristics</span></span>
-<span id="cb16-66"><a href="#cb16-66"></a>        <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-67"><a href="#cb16-67"></a>        x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-68"><a href="#cb16-68"></a>        <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-69"><a href="#cb16-69"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)</span>
-<span id="cb16-70"><a href="#cb16-70"></a>    }</span>
-<span id="cb16-71"><a href="#cb16-71"></a>    </span>
-<span id="cb16-72"><a href="#cb16-72"></a>    <span class="co"># expecation w*=sum_g sum_i (ni((ng-1)/(N-1)))</span></span>
-<span id="cb16-73"><a href="#cb16-73"></a>    network[network <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-74"><a href="#cb16-74"></a>    ni &lt;-<span class="st"> </span><span class="kw">rowSums</span>(network, <span class="dt">na.rm =</span> T)</span>
-<span id="cb16-75"><a href="#cb16-75"></a>    ng &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb16-76"><a href="#cb16-76"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ccovar)) {</span>
-<span id="cb16-77"><a href="#cb16-77"></a>        ng[i] &lt;-<span class="st"> </span><span class="kw">table</span>(ccovar)[<span class="kw">rownames</span>(<span class="kw">table</span>(ccovar)) <span class="op">==</span><span class="st"> </span>ccovar[i]]</span>
-<span id="cb16-78"><a href="#cb16-78"></a>    }</span>
-<span id="cb16-79"><a href="#cb16-79"></a>    N &lt;-<span class="st"> </span><span class="kw">length</span>(ccovar)</span>
-<span id="cb16-80"><a href="#cb16-80"></a>    wexp &lt;-<span class="st"> </span><span class="kw">sum</span>(ni <span class="op">*</span><span class="st"> </span>((ng <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(N <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), <span class="dt">na.rm =</span> T)</span>
-<span id="cb16-81"><a href="#cb16-81"></a>    </span>
-<span id="cb16-82"><a href="#cb16-82"></a>    <span class="co"># wgg1 how many intragroup ties</span></span>
-<span id="cb16-83"><a href="#cb16-83"></a>    w &lt;-<span class="st"> </span><span class="kw">fsumintra</span>(network, <span class="kw">fhomomat</span>(ccovar))</span>
-<span id="cb16-84"><a href="#cb16-84"></a>    </span>
-<span id="cb16-85"><a href="#cb16-85"></a>    Scol_net &lt;-<span class="st"> </span><span class="kw">ifelse</span>(w <span class="op">&gt;=</span><span class="st"> </span>wexp, (w <span class="op">-</span><span class="st"> </span>wexp)<span class="op">/</span>(<span class="kw">sum</span>(ni, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span>wexp), (w <span class="op">-</span><span class="st"> </span>wexp)<span class="op">/</span>wexp)</span>
-<span id="cb16-86"><a href="#cb16-86"></a>    <span class="kw">return</span>(Scol_net)</span>
-<span id="cb16-87"><a href="#cb16-87"></a>    </span>
-<span id="cb16-88"><a href="#cb16-88"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># density: observed relations divided by possible relations</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>fdensity &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    <span class="co"># x is your nomination network make sure diagonal cells are NA</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>    <span class="co"># take care of RSiena structural zeros, set as missing.</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)<span class="op">/</span>(<span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="dt">na.rm =</span> T))</span>
+<span id="cb12-8"><a href="#cb12-8"></a>}</span>
+<span id="cb12-9"><a href="#cb12-9"></a></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co"># calculate intragroup density</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a>fdensityintra &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
+<span id="cb12-12"><a href="#cb12-12"></a>    <span class="co"># A is matrix indicating whether nodes in dyad have same node attributes</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>    <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>    <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)<span class="op">/</span>(<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T))</span>
+<span id="cb12-17"><a href="#cb12-17"></a>}</span>
+<span id="cb12-18"><a href="#cb12-18"></a></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co"># calculate intragroup density</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a>fdensityinter &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
+<span id="cb12-21"><a href="#cb12-21"></a>    <span class="co"># A is matrix indicating whether nodes in dyad have same node attributes</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-23"><a href="#cb12-23"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-24"><a href="#cb12-24"></a>    <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-25"><a href="#cb12-25"></a>    <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>A <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)<span class="op">/</span>(<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>A <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T))</span>
+<span id="cb12-26"><a href="#cb12-26"></a>}</span>
+<span id="cb12-27"><a href="#cb12-27"></a></span>
+<span id="cb12-28"><a href="#cb12-28"></a><span class="co"># construct dyadcharacteristic whether nodes are similar/homogenous</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a>fhomomat &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb12-30"><a href="#cb12-30"></a>    <span class="co"># x is a vector of node-covariate</span></span>
+<span id="cb12-31"><a href="#cb12-31"></a>    xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="kw">length</span>(x))</span>
+<span id="cb12-32"><a href="#cb12-32"></a>    xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
+<span id="cb12-33"><a href="#cb12-33"></a>    xhomo &lt;-<span class="st"> </span>xmat <span class="op">==</span><span class="st"> </span>xmatt</span>
+<span id="cb12-34"><a href="#cb12-34"></a>    <span class="kw">return</span>(xhomo)</span>
+<span id="cb12-35"><a href="#cb12-35"></a>}</span>
+<span id="cb12-36"><a href="#cb12-36"></a></span>
+<span id="cb12-37"><a href="#cb12-37"></a><span class="co"># a function to calculate all valid dyads.</span></span>
+<span id="cb12-38"><a href="#cb12-38"></a>fndyads &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb12-39"><a href="#cb12-39"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-40"><a href="#cb12-40"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-41"><a href="#cb12-41"></a>    (<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">na.rm =</span> T))</span>
+<span id="cb12-42"><a href="#cb12-42"></a>}</span>
+<span id="cb12-43"><a href="#cb12-43"></a></span>
+<span id="cb12-44"><a href="#cb12-44"></a><span class="co"># a function to calculate all valid intragroupdyads.</span></span>
+<span id="cb12-45"><a href="#cb12-45"></a>fndyads2 &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
+<span id="cb12-46"><a href="#cb12-46"></a>    <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-47"><a href="#cb12-47"></a>    x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-48"><a href="#cb12-48"></a>    <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-49"><a href="#cb12-49"></a>    (<span class="kw">sum</span>((x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T))</span>
+<span id="cb12-50"><a href="#cb12-50"></a>}</span>
+<span id="cb12-51"><a href="#cb12-51"></a></span>
+<span id="cb12-52"><a href="#cb12-52"></a></span>
+<span id="cb12-53"><a href="#cb12-53"></a>fscolnet &lt;-<span class="st"> </span><span class="cf">function</span>(network, ccovar) {</span>
+<span id="cb12-54"><a href="#cb12-54"></a>    <span class="co"># Calculate coleman on network level:</span></span>
+<span id="cb12-55"><a href="#cb12-55"></a>    <span class="co"># https://reader.elsevier.com/reader/sd/pii/S0378873314000239?token=A42F99FF6E2B750436DD2CB0DB7B1F41BDEC16052A45683C02644DAF88215A3379636B2AA197B65941D6373E9E2EE413</span></span>
+<span id="cb12-56"><a href="#cb12-56"></a>    </span>
+<span id="cb12-57"><a href="#cb12-57"></a>    fhomomat &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb12-58"><a href="#cb12-58"></a>        xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="kw">length</span>(x))</span>
+<span id="cb12-59"><a href="#cb12-59"></a>        xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
+<span id="cb12-60"><a href="#cb12-60"></a>        xhomo &lt;-<span class="st"> </span>xmat <span class="op">==</span><span class="st"> </span>xmatt</span>
+<span id="cb12-61"><a href="#cb12-61"></a>        <span class="kw">return</span>(xhomo)</span>
+<span id="cb12-62"><a href="#cb12-62"></a>    }</span>
+<span id="cb12-63"><a href="#cb12-63"></a>    </span>
+<span id="cb12-64"><a href="#cb12-64"></a>    fsumintra &lt;-<span class="st"> </span><span class="cf">function</span>(x, A) {</span>
+<span id="cb12-65"><a href="#cb12-65"></a>        <span class="co"># A is matrix indicating whether nodes constituting dyad have same characteristics</span></span>
+<span id="cb12-66"><a href="#cb12-66"></a>        <span class="kw">diag</span>(x) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-67"><a href="#cb12-67"></a>        x[x <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-68"><a href="#cb12-68"></a>        <span class="kw">diag</span>(A) &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-69"><a href="#cb12-69"></a>        <span class="kw">sum</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>A <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">na.rm =</span> T)</span>
+<span id="cb12-70"><a href="#cb12-70"></a>    }</span>
+<span id="cb12-71"><a href="#cb12-71"></a>    </span>
+<span id="cb12-72"><a href="#cb12-72"></a>    <span class="co"># expecation w*=sum_g sum_i (ni((ng-1)/(N-1)))</span></span>
+<span id="cb12-73"><a href="#cb12-73"></a>    network[network <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-74"><a href="#cb12-74"></a>    ni &lt;-<span class="st"> </span><span class="kw">rowSums</span>(network, <span class="dt">na.rm =</span> T)</span>
+<span id="cb12-75"><a href="#cb12-75"></a>    ng &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-76"><a href="#cb12-76"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ccovar)) {</span>
+<span id="cb12-77"><a href="#cb12-77"></a>        ng[i] &lt;-<span class="st"> </span><span class="kw">table</span>(ccovar)[<span class="kw">rownames</span>(<span class="kw">table</span>(ccovar)) <span class="op">==</span><span class="st"> </span>ccovar[i]]</span>
+<span id="cb12-78"><a href="#cb12-78"></a>    }</span>
+<span id="cb12-79"><a href="#cb12-79"></a>    N &lt;-<span class="st"> </span><span class="kw">length</span>(ccovar)</span>
+<span id="cb12-80"><a href="#cb12-80"></a>    wexp &lt;-<span class="st"> </span><span class="kw">sum</span>(ni <span class="op">*</span><span class="st"> </span>((ng <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(N <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), <span class="dt">na.rm =</span> T)</span>
+<span id="cb12-81"><a href="#cb12-81"></a>    </span>
+<span id="cb12-82"><a href="#cb12-82"></a>    <span class="co"># wgg1 how many intragroup ties</span></span>
+<span id="cb12-83"><a href="#cb12-83"></a>    w &lt;-<span class="st"> </span><span class="kw">fsumintra</span>(network, <span class="kw">fhomomat</span>(ccovar))</span>
+<span id="cb12-84"><a href="#cb12-84"></a>    </span>
+<span id="cb12-85"><a href="#cb12-85"></a>    Scol_net &lt;-<span class="st"> </span><span class="kw">ifelse</span>(w <span class="op">&gt;=</span><span class="st"> </span>wexp, (w <span class="op">-</span><span class="st"> </span>wexp)<span class="op">/</span>(<span class="kw">sum</span>(ni, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span>wexp), (w <span class="op">-</span><span class="st"> </span>wexp)<span class="op">/</span>wexp)</span>
+<span id="cb12-86"><a href="#cb12-86"></a>    <span class="kw">return</span>(Scol_net)</span>
+<span id="cb12-87"><a href="#cb12-87"></a>    </span>
+<span id="cb12-88"><a href="#cb12-88"></a>}</span></code></pre></div>
 </div>
 <div id="data" class="section level2">
 <h2><span class="header-section-number">5.2</span> Data</h2>
 <p>We are going to play with Twitter Networks among Dutch MPs.</p>
 <p><strong>Download data <a href="static/twitter_20190919.Rdata">here</a>.</strong></p>
 <p>Load the Robject and have a look at it. Save the list elements in separate objects.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">getwd</span>()</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">load</span>(<span class="st">&quot;static/twitter_20190919.RData&quot;</span>)  <span class="co">#change to your working directory</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="kw">str</span>(twitter_<span class="dv">20190919</span>, <span class="dv">1</span>)</span>
-<span id="cb17-4"><a href="#cb17-4"></a>keyf &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">1</span>]]</span>
-<span id="cb17-5"><a href="#cb17-5"></a>mydata &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">2</span>]]</span>
-<span id="cb17-6"><a href="#cb17-6"></a>seats &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">getwd</span>()</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">load</span>(<span class="st">&quot;static/twitter_20190919.RData&quot;</span>)  <span class="co">#change to your working directory</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">str</span>(twitter_<span class="dv">20190919</span>, <span class="dv">1</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>keyf &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">1</span>]]</span>
+<span id="cb13-5"><a href="#cb13-5"></a>mydata &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">2</span>]]</span>
+<span id="cb13-6"><a href="#cb13-6"></a>seats &lt;-<span class="st"> </span>twitter_<span class="dv">20190919</span>[[<span class="dv">3</span>]]</span></code></pre></div>
 <pre><code>## [1] &quot;C:/Users/Administrator/Documents/GitHub/homepage/content/courses/Complete-Networks/socio6&quot;
 ## List of 3
 ##  $ keyf  :&#39;data.frame&#39;:  147 obs. of  41 variables:
@@ -487,144 +670,144 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <div id="densities" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> densities</h3>
 <p>Let us first describe the total density and intra- and intergroup densities. Don’t be scared of the long script. I just do it for all kind of dimensions and for all three layers in the twitter network.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># retrieve nominationdata from rsiena object</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>fnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>fnet</span>
-<span id="cb19-3"><a href="#cb19-3"></a>atmnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>atmnet</span>
-<span id="cb19-4"><a href="#cb19-4"></a>rtnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>rtnet</span>
-<span id="cb19-5"><a href="#cb19-5"></a></span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="co"># retrieve node-attributes from rsiena object</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>vrouw &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>vrouw</span>
-<span id="cb19-8"><a href="#cb19-8"></a>partij &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>partij</span>
-<span id="cb19-9"><a href="#cb19-9"></a>ethminz &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>ethminz</span>
-<span id="cb19-10"><a href="#cb19-10"></a>lft &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>lft</span>
-<span id="cb19-11"><a href="#cb19-11"></a></span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="co"># de-mean-center node attributes</span></span>
-<span id="cb19-13"><a href="#cb19-13"></a>ethminz &lt;-<span class="st"> </span>ethminz <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(ethminz)<span class="op">$</span>mean</span>
-<span id="cb19-14"><a href="#cb19-14"></a>partij &lt;-<span class="st"> </span>partij <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(partij)<span class="op">$</span>mean</span>
-<span id="cb19-15"><a href="#cb19-15"></a>vrouw &lt;-<span class="st"> </span>vrouw <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(vrouw)<span class="op">$</span>mean</span>
-<span id="cb19-16"><a href="#cb19-16"></a>lft &lt;-<span class="st"> </span>lft <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(lft)<span class="op">$</span>mean</span>
-<span id="cb19-17"><a href="#cb19-17"></a></span>
-<span id="cb19-18"><a href="#cb19-18"></a><span class="co"># construct matrices for similarity for each dimension (dyad characteristics)</span></span>
-<span id="cb19-19"><a href="#cb19-19"></a>vrouwm &lt;-<span class="st"> </span><span class="kw">fhomomat</span>(vrouw)</span>
-<span id="cb19-20"><a href="#cb19-20"></a>partijm &lt;-<span class="st"> </span><span class="kw">fhomomat</span>(partij)</span>
-<span id="cb19-21"><a href="#cb19-21"></a>ethminzm &lt;-<span class="st"> </span><span class="kw">fhomomat</span>(ethminz)</span>
-<span id="cb19-22"><a href="#cb19-22"></a></span>
-<span id="cb19-23"><a href="#cb19-23"></a><span class="co"># just for fun, make dyad characteristic indicating whether both nodes are ethnic minorities</span></span>
-<span id="cb19-24"><a href="#cb19-24"></a>xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(ethminz, <span class="dt">nrow =</span> <span class="kw">length</span>(ethminz), <span class="dt">ncol =</span> <span class="kw">length</span>(ethminz))</span>
-<span id="cb19-25"><a href="#cb19-25"></a>xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
-<span id="cb19-26"><a href="#cb19-26"></a>minoritym &lt;-<span class="st"> </span>xmat <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>xmatt <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb19-27"><a href="#cb19-27"></a></span>
-<span id="cb19-28"><a href="#cb19-28"></a><span class="co"># for age max 5 year difference / for descriptives</span></span>
-<span id="cb19-29"><a href="#cb19-29"></a>xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(lft, <span class="dt">nrow =</span> <span class="kw">length</span>(lft), <span class="dt">ncol =</span> <span class="kw">length</span>(lft))</span>
-<span id="cb19-30"><a href="#cb19-30"></a>xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
-<span id="cb19-31"><a href="#cb19-31"></a>lftm &lt;-<span class="st"> </span>(<span class="kw">abs</span>(xmat <span class="op">-</span><span class="st"> </span>xmatt) <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>)</span>
-<span id="cb19-32"><a href="#cb19-32"></a></span>
-<span id="cb19-33"><a href="#cb19-33"></a><span class="co"># calculate all possible similar dyads, not the focus of this exercise.  fndyads2(fnet[,,1], vrouwm)</span></span>
-<span id="cb19-34"><a href="#cb19-34"></a><span class="co"># fndyads2(fnet[,,3], vrouwm) fndyads2(fnet[,,1], partijm) fndyads2(fnet[,,3], partijm)</span></span>
-<span id="cb19-35"><a href="#cb19-35"></a><span class="co"># fndyads2(fnet[,,1], ethminzm) fndyads2(fnet[,,3], ethminzm)</span></span>
-<span id="cb19-36"><a href="#cb19-36"></a></span>
-<span id="cb19-37"><a href="#cb19-37"></a><span class="co"># make a big object to store all results</span></span>
-<span id="cb19-38"><a href="#cb19-38"></a>desmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">10</span>, <span class="dt">ncol =</span> <span class="dv">9</span>)</span>
-<span id="cb19-39"><a href="#cb19-39"></a></span>
-<span id="cb19-40"><a href="#cb19-40"></a><span class="co"># lets start using our functions</span></span>
-<span id="cb19-41"><a href="#cb19-41"></a>desmat[<span class="dv">1</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(fnet[, , <span class="dv">1</span>])</span>
-<span id="cb19-42"><a href="#cb19-42"></a>desmat[<span class="dv">1</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(fnet[, , <span class="dv">2</span>])</span>
-<span id="cb19-43"><a href="#cb19-43"></a>desmat[<span class="dv">1</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(fnet[, , <span class="dv">3</span>])</span>
-<span id="cb19-44"><a href="#cb19-44"></a>desmat[<span class="dv">2</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], vrouwm)</span>
-<span id="cb19-45"><a href="#cb19-45"></a>desmat[<span class="dv">2</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], vrouwm)</span>
-<span id="cb19-46"><a href="#cb19-46"></a>desmat[<span class="dv">2</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], vrouwm)</span>
-<span id="cb19-47"><a href="#cb19-47"></a>desmat[<span class="dv">3</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], vrouwm)</span>
-<span id="cb19-48"><a href="#cb19-48"></a>desmat[<span class="dv">3</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], vrouwm)</span>
-<span id="cb19-49"><a href="#cb19-49"></a>desmat[<span class="dv">3</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], vrouwm)</span>
-<span id="cb19-50"><a href="#cb19-50"></a>desmat[<span class="dv">4</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], partijm)</span>
-<span id="cb19-51"><a href="#cb19-51"></a>desmat[<span class="dv">4</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], partijm)</span>
-<span id="cb19-52"><a href="#cb19-52"></a>desmat[<span class="dv">4</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], partijm)</span>
-<span id="cb19-53"><a href="#cb19-53"></a>desmat[<span class="dv">5</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], partijm)</span>
-<span id="cb19-54"><a href="#cb19-54"></a>desmat[<span class="dv">5</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], partijm)</span>
-<span id="cb19-55"><a href="#cb19-55"></a>desmat[<span class="dv">5</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], partijm)</span>
-<span id="cb19-56"><a href="#cb19-56"></a>desmat[<span class="dv">6</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], ethminzm)</span>
-<span id="cb19-57"><a href="#cb19-57"></a>desmat[<span class="dv">6</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], ethminzm)</span>
-<span id="cb19-58"><a href="#cb19-58"></a>desmat[<span class="dv">6</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], ethminzm)</span>
-<span id="cb19-59"><a href="#cb19-59"></a>desmat[<span class="dv">7</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], ethminzm)</span>
-<span id="cb19-60"><a href="#cb19-60"></a>desmat[<span class="dv">7</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], ethminzm)</span>
-<span id="cb19-61"><a href="#cb19-61"></a>desmat[<span class="dv">7</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], ethminzm)</span>
-<span id="cb19-62"><a href="#cb19-62"></a>desmat[<span class="dv">8</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], minoritym)</span>
-<span id="cb19-63"><a href="#cb19-63"></a>desmat[<span class="dv">8</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], minoritym)</span>
-<span id="cb19-64"><a href="#cb19-64"></a>desmat[<span class="dv">8</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], minoritym)</span>
-<span id="cb19-65"><a href="#cb19-65"></a>desmat[<span class="dv">9</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], lftm)</span>
-<span id="cb19-66"><a href="#cb19-66"></a>desmat[<span class="dv">9</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], lftm)</span>
-<span id="cb19-67"><a href="#cb19-67"></a>desmat[<span class="dv">9</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], lftm)</span>
-<span id="cb19-68"><a href="#cb19-68"></a>desmat[<span class="dv">10</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], lftm)</span>
-<span id="cb19-69"><a href="#cb19-69"></a>desmat[<span class="dv">10</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], lftm)</span>
-<span id="cb19-70"><a href="#cb19-70"></a>desmat[<span class="dv">10</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], lftm)</span>
-<span id="cb19-71"><a href="#cb19-71"></a></span>
-<span id="cb19-72"><a href="#cb19-72"></a>desmat[<span class="dv">1</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(atmnet[, , <span class="dv">1</span>])</span>
-<span id="cb19-73"><a href="#cb19-73"></a>desmat[<span class="dv">1</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(atmnet[, , <span class="dv">2</span>])</span>
-<span id="cb19-74"><a href="#cb19-74"></a>desmat[<span class="dv">1</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(atmnet[, , <span class="dv">3</span>])</span>
-<span id="cb19-75"><a href="#cb19-75"></a>desmat[<span class="dv">2</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], vrouwm)</span>
-<span id="cb19-76"><a href="#cb19-76"></a>desmat[<span class="dv">2</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], vrouwm)</span>
-<span id="cb19-77"><a href="#cb19-77"></a>desmat[<span class="dv">2</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], vrouwm)</span>
-<span id="cb19-78"><a href="#cb19-78"></a>desmat[<span class="dv">3</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], vrouwm)</span>
-<span id="cb19-79"><a href="#cb19-79"></a>desmat[<span class="dv">3</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], vrouwm)</span>
-<span id="cb19-80"><a href="#cb19-80"></a>desmat[<span class="dv">3</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], vrouwm)</span>
-<span id="cb19-81"><a href="#cb19-81"></a>desmat[<span class="dv">4</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], partijm)</span>
-<span id="cb19-82"><a href="#cb19-82"></a>desmat[<span class="dv">4</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], partijm)</span>
-<span id="cb19-83"><a href="#cb19-83"></a>desmat[<span class="dv">4</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], partijm)</span>
-<span id="cb19-84"><a href="#cb19-84"></a>desmat[<span class="dv">5</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], partijm)</span>
-<span id="cb19-85"><a href="#cb19-85"></a>desmat[<span class="dv">5</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], partijm)</span>
-<span id="cb19-86"><a href="#cb19-86"></a>desmat[<span class="dv">5</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], partijm)</span>
-<span id="cb19-87"><a href="#cb19-87"></a>desmat[<span class="dv">6</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], ethminzm)</span>
-<span id="cb19-88"><a href="#cb19-88"></a>desmat[<span class="dv">6</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], ethminzm)</span>
-<span id="cb19-89"><a href="#cb19-89"></a>desmat[<span class="dv">6</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], ethminzm)</span>
-<span id="cb19-90"><a href="#cb19-90"></a>desmat[<span class="dv">7</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], ethminzm)</span>
-<span id="cb19-91"><a href="#cb19-91"></a>desmat[<span class="dv">7</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], ethminzm)</span>
-<span id="cb19-92"><a href="#cb19-92"></a>desmat[<span class="dv">7</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], ethminzm)</span>
-<span id="cb19-93"><a href="#cb19-93"></a>desmat[<span class="dv">8</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], minoritym)</span>
-<span id="cb19-94"><a href="#cb19-94"></a>desmat[<span class="dv">8</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], minoritym)</span>
-<span id="cb19-95"><a href="#cb19-95"></a>desmat[<span class="dv">8</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], minoritym)</span>
-<span id="cb19-96"><a href="#cb19-96"></a>desmat[<span class="dv">9</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], lftm)</span>
-<span id="cb19-97"><a href="#cb19-97"></a>desmat[<span class="dv">9</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], lftm)</span>
-<span id="cb19-98"><a href="#cb19-98"></a>desmat[<span class="dv">9</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], lftm)</span>
-<span id="cb19-99"><a href="#cb19-99"></a>desmat[<span class="dv">10</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], lftm)</span>
-<span id="cb19-100"><a href="#cb19-100"></a>desmat[<span class="dv">10</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], lftm)</span>
-<span id="cb19-101"><a href="#cb19-101"></a>desmat[<span class="dv">10</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], lftm)</span>
-<span id="cb19-102"><a href="#cb19-102"></a></span>
-<span id="cb19-103"><a href="#cb19-103"></a>desmat[<span class="dv">1</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(rtnet[, , <span class="dv">1</span>])</span>
-<span id="cb19-104"><a href="#cb19-104"></a>desmat[<span class="dv">1</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(rtnet[, , <span class="dv">2</span>])</span>
-<span id="cb19-105"><a href="#cb19-105"></a>desmat[<span class="dv">1</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(rtnet[, , <span class="dv">3</span>])</span>
-<span id="cb19-106"><a href="#cb19-106"></a>desmat[<span class="dv">2</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], vrouwm)</span>
-<span id="cb19-107"><a href="#cb19-107"></a>desmat[<span class="dv">2</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], vrouwm)</span>
-<span id="cb19-108"><a href="#cb19-108"></a>desmat[<span class="dv">2</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], vrouwm)</span>
-<span id="cb19-109"><a href="#cb19-109"></a>desmat[<span class="dv">3</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], vrouwm)</span>
-<span id="cb19-110"><a href="#cb19-110"></a>desmat[<span class="dv">3</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], vrouwm)</span>
-<span id="cb19-111"><a href="#cb19-111"></a>desmat[<span class="dv">3</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], vrouwm)</span>
-<span id="cb19-112"><a href="#cb19-112"></a>desmat[<span class="dv">4</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], partijm)</span>
-<span id="cb19-113"><a href="#cb19-113"></a>desmat[<span class="dv">4</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], partijm)</span>
-<span id="cb19-114"><a href="#cb19-114"></a>desmat[<span class="dv">4</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], partijm)</span>
-<span id="cb19-115"><a href="#cb19-115"></a>desmat[<span class="dv">5</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], partijm)</span>
-<span id="cb19-116"><a href="#cb19-116"></a>desmat[<span class="dv">5</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], partijm)</span>
-<span id="cb19-117"><a href="#cb19-117"></a>desmat[<span class="dv">5</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], partijm)</span>
-<span id="cb19-118"><a href="#cb19-118"></a>desmat[<span class="dv">6</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], ethminzm)</span>
-<span id="cb19-119"><a href="#cb19-119"></a>desmat[<span class="dv">6</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], ethminzm)</span>
-<span id="cb19-120"><a href="#cb19-120"></a>desmat[<span class="dv">6</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], ethminzm)</span>
-<span id="cb19-121"><a href="#cb19-121"></a>desmat[<span class="dv">7</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], ethminzm)</span>
-<span id="cb19-122"><a href="#cb19-122"></a>desmat[<span class="dv">7</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], ethminzm)</span>
-<span id="cb19-123"><a href="#cb19-123"></a>desmat[<span class="dv">7</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], ethminzm)</span>
-<span id="cb19-124"><a href="#cb19-124"></a>desmat[<span class="dv">8</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], minoritym)</span>
-<span id="cb19-125"><a href="#cb19-125"></a>desmat[<span class="dv">8</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], minoritym)</span>
-<span id="cb19-126"><a href="#cb19-126"></a>desmat[<span class="dv">8</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], minoritym)</span>
-<span id="cb19-127"><a href="#cb19-127"></a>desmat[<span class="dv">9</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], lftm)</span>
-<span id="cb19-128"><a href="#cb19-128"></a>desmat[<span class="dv">9</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], lftm)</span>
-<span id="cb19-129"><a href="#cb19-129"></a>desmat[<span class="dv">9</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], lftm)</span>
-<span id="cb19-130"><a href="#cb19-130"></a>desmat[<span class="dv">10</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], lftm)</span>
-<span id="cb19-131"><a href="#cb19-131"></a>desmat[<span class="dv">10</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], lftm)</span>
-<span id="cb19-132"><a href="#cb19-132"></a>desmat[<span class="dv">10</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], lftm)</span>
-<span id="cb19-133"><a href="#cb19-133"></a></span>
-<span id="cb19-134"><a href="#cb19-134"></a><span class="kw">colnames</span>(desmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;friends w1&quot;</span>, <span class="st">&quot;friends w2&quot;</span>, <span class="st">&quot;friends w3&quot;</span>, <span class="st">&quot;atmentions w1&quot;</span>, <span class="st">&quot;atmentions w2&quot;</span>, <span class="st">&quot;atmentions w3&quot;</span>, </span>
-<span id="cb19-135"><a href="#cb19-135"></a>    <span class="st">&quot;retweets w1&quot;</span>, <span class="st">&quot;retweets w2&quot;</span>, <span class="st">&quot;retweets w3&quot;</span>)</span>
-<span id="cb19-136"><a href="#cb19-136"></a><span class="kw">rownames</span>(desmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;total&quot;</span>, <span class="st">&quot;same sex&quot;</span>, <span class="st">&quot;different sex&quot;</span>, <span class="st">&quot;same party&quot;</span>, <span class="st">&quot;different party&quot;</span>, <span class="st">&quot;same ethnicity&quot;</span>, </span>
-<span id="cb19-137"><a href="#cb19-137"></a>    <span class="st">&quot;different ethnicity&quot;</span>, <span class="st">&quot;both minority&quot;</span>, <span class="st">&quot;same age (&lt;6)&quot;</span>, <span class="st">&quot;different age (&gt;5)&quot;</span>)</span>
-<span id="cb19-138"><a href="#cb19-138"></a>desmat</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># retrieve nominationdata from rsiena object</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>fnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>fnet</span>
+<span id="cb15-3"><a href="#cb15-3"></a>atmnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>atmnet</span>
+<span id="cb15-4"><a href="#cb15-4"></a>rtnet &lt;-<span class="st"> </span>mydata<span class="op">$</span>depvars<span class="op">$</span>rtnet</span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co"># retrieve node-attributes from rsiena object</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>vrouw &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>vrouw</span>
+<span id="cb15-8"><a href="#cb15-8"></a>partij &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>partij</span>
+<span id="cb15-9"><a href="#cb15-9"></a>ethminz &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>ethminz</span>
+<span id="cb15-10"><a href="#cb15-10"></a>lft &lt;-<span class="st"> </span>mydata<span class="op">$</span>cCovars<span class="op">$</span>lft</span>
+<span id="cb15-11"><a href="#cb15-11"></a></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co"># de-mean-center node attributes</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>ethminz &lt;-<span class="st"> </span>ethminz <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(ethminz)<span class="op">$</span>mean</span>
+<span id="cb15-14"><a href="#cb15-14"></a>partij &lt;-<span class="st"> </span>partij <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(partij)<span class="op">$</span>mean</span>
+<span id="cb15-15"><a href="#cb15-15"></a>vrouw &lt;-<span class="st"> </span>vrouw <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(vrouw)<span class="op">$</span>mean</span>
+<span id="cb15-16"><a href="#cb15-16"></a>lft &lt;-<span class="st"> </span>lft <span class="op">+</span><span class="st"> </span><span class="kw">attributes</span>(lft)<span class="op">$</span>mean</span>
+<span id="cb15-17"><a href="#cb15-17"></a></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="co"># construct matrices for similarity for each dimension (dyad characteristics)</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a>vrouwm &lt;-<span class="st"> </span><span class="kw">fhomomat</span>(vrouw)</span>
+<span id="cb15-20"><a href="#cb15-20"></a>partijm &lt;-<span class="st"> </span><span class="kw">fhomomat</span>(partij)</span>
+<span id="cb15-21"><a href="#cb15-21"></a>ethminzm &lt;-<span class="st"> </span><span class="kw">fhomomat</span>(ethminz)</span>
+<span id="cb15-22"><a href="#cb15-22"></a></span>
+<span id="cb15-23"><a href="#cb15-23"></a><span class="co"># just for fun, make dyad characteristic indicating whether both nodes are ethnic minorities</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a>xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(ethminz, <span class="dt">nrow =</span> <span class="kw">length</span>(ethminz), <span class="dt">ncol =</span> <span class="kw">length</span>(ethminz))</span>
+<span id="cb15-25"><a href="#cb15-25"></a>xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
+<span id="cb15-26"><a href="#cb15-26"></a>minoritym &lt;-<span class="st"> </span>xmat <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>xmatt <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a></span>
+<span id="cb15-28"><a href="#cb15-28"></a><span class="co"># for age max 5 year difference / for descriptives</span></span>
+<span id="cb15-29"><a href="#cb15-29"></a>xmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(lft, <span class="dt">nrow =</span> <span class="kw">length</span>(lft), <span class="dt">ncol =</span> <span class="kw">length</span>(lft))</span>
+<span id="cb15-30"><a href="#cb15-30"></a>xmatt &lt;-<span class="st"> </span><span class="kw">t</span>(xmat)</span>
+<span id="cb15-31"><a href="#cb15-31"></a>lftm &lt;-<span class="st"> </span>(<span class="kw">abs</span>(xmat <span class="op">-</span><span class="st"> </span>xmatt) <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>)</span>
+<span id="cb15-32"><a href="#cb15-32"></a></span>
+<span id="cb15-33"><a href="#cb15-33"></a><span class="co"># calculate all possible similar dyads, not the focus of this exercise.  fndyads2(fnet[,,1], vrouwm)</span></span>
+<span id="cb15-34"><a href="#cb15-34"></a><span class="co"># fndyads2(fnet[,,3], vrouwm) fndyads2(fnet[,,1], partijm) fndyads2(fnet[,,3], partijm)</span></span>
+<span id="cb15-35"><a href="#cb15-35"></a><span class="co"># fndyads2(fnet[,,1], ethminzm) fndyads2(fnet[,,3], ethminzm)</span></span>
+<span id="cb15-36"><a href="#cb15-36"></a></span>
+<span id="cb15-37"><a href="#cb15-37"></a><span class="co"># make a big object to store all results</span></span>
+<span id="cb15-38"><a href="#cb15-38"></a>desmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">10</span>, <span class="dt">ncol =</span> <span class="dv">9</span>)</span>
+<span id="cb15-39"><a href="#cb15-39"></a></span>
+<span id="cb15-40"><a href="#cb15-40"></a><span class="co"># lets start using our functions</span></span>
+<span id="cb15-41"><a href="#cb15-41"></a>desmat[<span class="dv">1</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(fnet[, , <span class="dv">1</span>])</span>
+<span id="cb15-42"><a href="#cb15-42"></a>desmat[<span class="dv">1</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(fnet[, , <span class="dv">2</span>])</span>
+<span id="cb15-43"><a href="#cb15-43"></a>desmat[<span class="dv">1</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(fnet[, , <span class="dv">3</span>])</span>
+<span id="cb15-44"><a href="#cb15-44"></a>desmat[<span class="dv">2</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], vrouwm)</span>
+<span id="cb15-45"><a href="#cb15-45"></a>desmat[<span class="dv">2</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], vrouwm)</span>
+<span id="cb15-46"><a href="#cb15-46"></a>desmat[<span class="dv">2</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], vrouwm)</span>
+<span id="cb15-47"><a href="#cb15-47"></a>desmat[<span class="dv">3</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], vrouwm)</span>
+<span id="cb15-48"><a href="#cb15-48"></a>desmat[<span class="dv">3</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], vrouwm)</span>
+<span id="cb15-49"><a href="#cb15-49"></a>desmat[<span class="dv">3</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], vrouwm)</span>
+<span id="cb15-50"><a href="#cb15-50"></a>desmat[<span class="dv">4</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], partijm)</span>
+<span id="cb15-51"><a href="#cb15-51"></a>desmat[<span class="dv">4</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], partijm)</span>
+<span id="cb15-52"><a href="#cb15-52"></a>desmat[<span class="dv">4</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], partijm)</span>
+<span id="cb15-53"><a href="#cb15-53"></a>desmat[<span class="dv">5</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], partijm)</span>
+<span id="cb15-54"><a href="#cb15-54"></a>desmat[<span class="dv">5</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], partijm)</span>
+<span id="cb15-55"><a href="#cb15-55"></a>desmat[<span class="dv">5</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], partijm)</span>
+<span id="cb15-56"><a href="#cb15-56"></a>desmat[<span class="dv">6</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], ethminzm)</span>
+<span id="cb15-57"><a href="#cb15-57"></a>desmat[<span class="dv">6</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], ethminzm)</span>
+<span id="cb15-58"><a href="#cb15-58"></a>desmat[<span class="dv">6</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], ethminzm)</span>
+<span id="cb15-59"><a href="#cb15-59"></a>desmat[<span class="dv">7</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], ethminzm)</span>
+<span id="cb15-60"><a href="#cb15-60"></a>desmat[<span class="dv">7</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], ethminzm)</span>
+<span id="cb15-61"><a href="#cb15-61"></a>desmat[<span class="dv">7</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], ethminzm)</span>
+<span id="cb15-62"><a href="#cb15-62"></a>desmat[<span class="dv">8</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], minoritym)</span>
+<span id="cb15-63"><a href="#cb15-63"></a>desmat[<span class="dv">8</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], minoritym)</span>
+<span id="cb15-64"><a href="#cb15-64"></a>desmat[<span class="dv">8</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], minoritym)</span>
+<span id="cb15-65"><a href="#cb15-65"></a>desmat[<span class="dv">9</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">1</span>], lftm)</span>
+<span id="cb15-66"><a href="#cb15-66"></a>desmat[<span class="dv">9</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">2</span>], lftm)</span>
+<span id="cb15-67"><a href="#cb15-67"></a>desmat[<span class="dv">9</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(fnet[, , <span class="dv">3</span>], lftm)</span>
+<span id="cb15-68"><a href="#cb15-68"></a>desmat[<span class="dv">10</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">1</span>], lftm)</span>
+<span id="cb15-69"><a href="#cb15-69"></a>desmat[<span class="dv">10</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">2</span>], lftm)</span>
+<span id="cb15-70"><a href="#cb15-70"></a>desmat[<span class="dv">10</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(fnet[, , <span class="dv">3</span>], lftm)</span>
+<span id="cb15-71"><a href="#cb15-71"></a></span>
+<span id="cb15-72"><a href="#cb15-72"></a>desmat[<span class="dv">1</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(atmnet[, , <span class="dv">1</span>])</span>
+<span id="cb15-73"><a href="#cb15-73"></a>desmat[<span class="dv">1</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(atmnet[, , <span class="dv">2</span>])</span>
+<span id="cb15-74"><a href="#cb15-74"></a>desmat[<span class="dv">1</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(atmnet[, , <span class="dv">3</span>])</span>
+<span id="cb15-75"><a href="#cb15-75"></a>desmat[<span class="dv">2</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], vrouwm)</span>
+<span id="cb15-76"><a href="#cb15-76"></a>desmat[<span class="dv">2</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], vrouwm)</span>
+<span id="cb15-77"><a href="#cb15-77"></a>desmat[<span class="dv">2</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], vrouwm)</span>
+<span id="cb15-78"><a href="#cb15-78"></a>desmat[<span class="dv">3</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], vrouwm)</span>
+<span id="cb15-79"><a href="#cb15-79"></a>desmat[<span class="dv">3</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], vrouwm)</span>
+<span id="cb15-80"><a href="#cb15-80"></a>desmat[<span class="dv">3</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], vrouwm)</span>
+<span id="cb15-81"><a href="#cb15-81"></a>desmat[<span class="dv">4</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], partijm)</span>
+<span id="cb15-82"><a href="#cb15-82"></a>desmat[<span class="dv">4</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], partijm)</span>
+<span id="cb15-83"><a href="#cb15-83"></a>desmat[<span class="dv">4</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], partijm)</span>
+<span id="cb15-84"><a href="#cb15-84"></a>desmat[<span class="dv">5</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], partijm)</span>
+<span id="cb15-85"><a href="#cb15-85"></a>desmat[<span class="dv">5</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], partijm)</span>
+<span id="cb15-86"><a href="#cb15-86"></a>desmat[<span class="dv">5</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], partijm)</span>
+<span id="cb15-87"><a href="#cb15-87"></a>desmat[<span class="dv">6</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], ethminzm)</span>
+<span id="cb15-88"><a href="#cb15-88"></a>desmat[<span class="dv">6</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], ethminzm)</span>
+<span id="cb15-89"><a href="#cb15-89"></a>desmat[<span class="dv">6</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], ethminzm)</span>
+<span id="cb15-90"><a href="#cb15-90"></a>desmat[<span class="dv">7</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], ethminzm)</span>
+<span id="cb15-91"><a href="#cb15-91"></a>desmat[<span class="dv">7</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], ethminzm)</span>
+<span id="cb15-92"><a href="#cb15-92"></a>desmat[<span class="dv">7</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], ethminzm)</span>
+<span id="cb15-93"><a href="#cb15-93"></a>desmat[<span class="dv">8</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], minoritym)</span>
+<span id="cb15-94"><a href="#cb15-94"></a>desmat[<span class="dv">8</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], minoritym)</span>
+<span id="cb15-95"><a href="#cb15-95"></a>desmat[<span class="dv">8</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], minoritym)</span>
+<span id="cb15-96"><a href="#cb15-96"></a>desmat[<span class="dv">9</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">1</span>], lftm)</span>
+<span id="cb15-97"><a href="#cb15-97"></a>desmat[<span class="dv">9</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">2</span>], lftm)</span>
+<span id="cb15-98"><a href="#cb15-98"></a>desmat[<span class="dv">9</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(atmnet[, , <span class="dv">3</span>], lftm)</span>
+<span id="cb15-99"><a href="#cb15-99"></a>desmat[<span class="dv">10</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">1</span>], lftm)</span>
+<span id="cb15-100"><a href="#cb15-100"></a>desmat[<span class="dv">10</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">2</span>], lftm)</span>
+<span id="cb15-101"><a href="#cb15-101"></a>desmat[<span class="dv">10</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(atmnet[, , <span class="dv">3</span>], lftm)</span>
+<span id="cb15-102"><a href="#cb15-102"></a></span>
+<span id="cb15-103"><a href="#cb15-103"></a>desmat[<span class="dv">1</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(rtnet[, , <span class="dv">1</span>])</span>
+<span id="cb15-104"><a href="#cb15-104"></a>desmat[<span class="dv">1</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(rtnet[, , <span class="dv">2</span>])</span>
+<span id="cb15-105"><a href="#cb15-105"></a>desmat[<span class="dv">1</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensity</span>(rtnet[, , <span class="dv">3</span>])</span>
+<span id="cb15-106"><a href="#cb15-106"></a>desmat[<span class="dv">2</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], vrouwm)</span>
+<span id="cb15-107"><a href="#cb15-107"></a>desmat[<span class="dv">2</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], vrouwm)</span>
+<span id="cb15-108"><a href="#cb15-108"></a>desmat[<span class="dv">2</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], vrouwm)</span>
+<span id="cb15-109"><a href="#cb15-109"></a>desmat[<span class="dv">3</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], vrouwm)</span>
+<span id="cb15-110"><a href="#cb15-110"></a>desmat[<span class="dv">3</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], vrouwm)</span>
+<span id="cb15-111"><a href="#cb15-111"></a>desmat[<span class="dv">3</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], vrouwm)</span>
+<span id="cb15-112"><a href="#cb15-112"></a>desmat[<span class="dv">4</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], partijm)</span>
+<span id="cb15-113"><a href="#cb15-113"></a>desmat[<span class="dv">4</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], partijm)</span>
+<span id="cb15-114"><a href="#cb15-114"></a>desmat[<span class="dv">4</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], partijm)</span>
+<span id="cb15-115"><a href="#cb15-115"></a>desmat[<span class="dv">5</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], partijm)</span>
+<span id="cb15-116"><a href="#cb15-116"></a>desmat[<span class="dv">5</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], partijm)</span>
+<span id="cb15-117"><a href="#cb15-117"></a>desmat[<span class="dv">5</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], partijm)</span>
+<span id="cb15-118"><a href="#cb15-118"></a>desmat[<span class="dv">6</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], ethminzm)</span>
+<span id="cb15-119"><a href="#cb15-119"></a>desmat[<span class="dv">6</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], ethminzm)</span>
+<span id="cb15-120"><a href="#cb15-120"></a>desmat[<span class="dv">6</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], ethminzm)</span>
+<span id="cb15-121"><a href="#cb15-121"></a>desmat[<span class="dv">7</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], ethminzm)</span>
+<span id="cb15-122"><a href="#cb15-122"></a>desmat[<span class="dv">7</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], ethminzm)</span>
+<span id="cb15-123"><a href="#cb15-123"></a>desmat[<span class="dv">7</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], ethminzm)</span>
+<span id="cb15-124"><a href="#cb15-124"></a>desmat[<span class="dv">8</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], minoritym)</span>
+<span id="cb15-125"><a href="#cb15-125"></a>desmat[<span class="dv">8</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], minoritym)</span>
+<span id="cb15-126"><a href="#cb15-126"></a>desmat[<span class="dv">8</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], minoritym)</span>
+<span id="cb15-127"><a href="#cb15-127"></a>desmat[<span class="dv">9</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">1</span>], lftm)</span>
+<span id="cb15-128"><a href="#cb15-128"></a>desmat[<span class="dv">9</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">2</span>], lftm)</span>
+<span id="cb15-129"><a href="#cb15-129"></a>desmat[<span class="dv">9</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityintra</span>(rtnet[, , <span class="dv">3</span>], lftm)</span>
+<span id="cb15-130"><a href="#cb15-130"></a>desmat[<span class="dv">10</span>, <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">1</span>], lftm)</span>
+<span id="cb15-131"><a href="#cb15-131"></a>desmat[<span class="dv">10</span>, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">2</span>], lftm)</span>
+<span id="cb15-132"><a href="#cb15-132"></a>desmat[<span class="dv">10</span>, <span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fdensityinter</span>(rtnet[, , <span class="dv">3</span>], lftm)</span>
+<span id="cb15-133"><a href="#cb15-133"></a></span>
+<span id="cb15-134"><a href="#cb15-134"></a><span class="kw">colnames</span>(desmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;friends w1&quot;</span>, <span class="st">&quot;friends w2&quot;</span>, <span class="st">&quot;friends w3&quot;</span>, <span class="st">&quot;atmentions w1&quot;</span>, <span class="st">&quot;atmentions w2&quot;</span>, <span class="st">&quot;atmentions w3&quot;</span>, </span>
+<span id="cb15-135"><a href="#cb15-135"></a>    <span class="st">&quot;retweets w1&quot;</span>, <span class="st">&quot;retweets w2&quot;</span>, <span class="st">&quot;retweets w3&quot;</span>)</span>
+<span id="cb15-136"><a href="#cb15-136"></a><span class="kw">rownames</span>(desmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;total&quot;</span>, <span class="st">&quot;same sex&quot;</span>, <span class="st">&quot;different sex&quot;</span>, <span class="st">&quot;same party&quot;</span>, <span class="st">&quot;different party&quot;</span>, <span class="st">&quot;same ethnicity&quot;</span>, </span>
+<span id="cb15-137"><a href="#cb15-137"></a>    <span class="st">&quot;different ethnicity&quot;</span>, <span class="st">&quot;both minority&quot;</span>, <span class="st">&quot;same age (&lt;6)&quot;</span>, <span class="st">&quot;different age (&gt;5)&quot;</span>)</span>
+<span id="cb15-138"><a href="#cb15-138"></a>desmat</span></code></pre></div>
 <pre><code>##                     friends w1 friends w2 friends w3 atmentions w1 atmentions w2 atmentions w3
 ## total                0.2545583  0.2794521  0.2797969    0.04912612    0.03500236   0.013465660
 ## same sex             0.2630408  0.2887662  0.2883167    0.05278618    0.03569521   0.013750219
@@ -653,42 +836,42 @@ In the upper left and right corner of the code blocks you will find copy-to-clip
 <div id="coleman-homophily-index." class="section level2">
 <h2><span class="header-section-number">5.5</span> Coleman Homophily index.</h2>
 <p>Because the sizes of the different subgroups vary (e.g. the political parties have different seats) and the number of out-degrees differs between MPs, within party densities may also be higher when MPs randomly select a partner/alter. That is, segregation will be in part structurally induced by differences in relative group sizes and activity on twitter (i.e. outdegrees). A measure of segregation that takes relative group sizes and differences in outdegrees into account is the Coleman’s Homophily Index. In this measure a value of 0 would indicate that the observed number of within-group ties is the same as would be expected under random choice. A value of 1 would indicate maximum segregation and a value of -1 indicates the unlikely case that MPs maximally avoid within group relations.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>colmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">9</span>)</span>
-<span id="cb21-2"><a href="#cb21-2"></a></span>
-<span id="cb21-3"><a href="#cb21-3"></a>colmat[<span class="dv">1</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">1</span>], partij)</span>
-<span id="cb21-4"><a href="#cb21-4"></a>colmat[<span class="dv">1</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">2</span>], partij)</span>
-<span id="cb21-5"><a href="#cb21-5"></a>colmat[<span class="dv">1</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">3</span>], partij)</span>
-<span id="cb21-6"><a href="#cb21-6"></a>colmat[<span class="dv">1</span>, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">1</span>], partij)</span>
-<span id="cb21-7"><a href="#cb21-7"></a>colmat[<span class="dv">1</span>, <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">2</span>], partij)</span>
-<span id="cb21-8"><a href="#cb21-8"></a>colmat[<span class="dv">1</span>, <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">3</span>], partij)</span>
-<span id="cb21-9"><a href="#cb21-9"></a>colmat[<span class="dv">1</span>, <span class="dv">7</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">1</span>], partij)</span>
-<span id="cb21-10"><a href="#cb21-10"></a>colmat[<span class="dv">1</span>, <span class="dv">8</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">2</span>], partij)</span>
-<span id="cb21-11"><a href="#cb21-11"></a>colmat[<span class="dv">1</span>, <span class="dv">9</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">3</span>], partij)</span>
-<span id="cb21-12"><a href="#cb21-12"></a></span>
-<span id="cb21-13"><a href="#cb21-13"></a>colmat[<span class="dv">2</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">1</span>], vrouw)</span>
-<span id="cb21-14"><a href="#cb21-14"></a>colmat[<span class="dv">2</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">2</span>], vrouw)</span>
-<span id="cb21-15"><a href="#cb21-15"></a>colmat[<span class="dv">2</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">3</span>], vrouw)</span>
-<span id="cb21-16"><a href="#cb21-16"></a>colmat[<span class="dv">2</span>, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">1</span>], vrouw)</span>
-<span id="cb21-17"><a href="#cb21-17"></a>colmat[<span class="dv">2</span>, <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">2</span>], vrouw)</span>
-<span id="cb21-18"><a href="#cb21-18"></a>colmat[<span class="dv">2</span>, <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">3</span>], vrouw)</span>
-<span id="cb21-19"><a href="#cb21-19"></a>colmat[<span class="dv">2</span>, <span class="dv">7</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">1</span>], vrouw)</span>
-<span id="cb21-20"><a href="#cb21-20"></a>colmat[<span class="dv">2</span>, <span class="dv">8</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">2</span>], vrouw)</span>
-<span id="cb21-21"><a href="#cb21-21"></a>colmat[<span class="dv">2</span>, <span class="dv">9</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">3</span>], vrouw)</span>
-<span id="cb21-22"><a href="#cb21-22"></a></span>
-<span id="cb21-23"><a href="#cb21-23"></a>colmat[<span class="dv">3</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">1</span>], ethminz)</span>
-<span id="cb21-24"><a href="#cb21-24"></a>colmat[<span class="dv">3</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">2</span>], ethminz)</span>
-<span id="cb21-25"><a href="#cb21-25"></a>colmat[<span class="dv">3</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">3</span>], ethminz)</span>
-<span id="cb21-26"><a href="#cb21-26"></a>colmat[<span class="dv">3</span>, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">1</span>], ethminz)</span>
-<span id="cb21-27"><a href="#cb21-27"></a>colmat[<span class="dv">3</span>, <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">2</span>], ethminz)</span>
-<span id="cb21-28"><a href="#cb21-28"></a>colmat[<span class="dv">3</span>, <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">3</span>], ethminz)</span>
-<span id="cb21-29"><a href="#cb21-29"></a>colmat[<span class="dv">3</span>, <span class="dv">7</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">1</span>], ethminz)</span>
-<span id="cb21-30"><a href="#cb21-30"></a>colmat[<span class="dv">3</span>, <span class="dv">8</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">2</span>], ethminz)</span>
-<span id="cb21-31"><a href="#cb21-31"></a>colmat[<span class="dv">3</span>, <span class="dv">9</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">3</span>], ethminz)</span>
-<span id="cb21-32"><a href="#cb21-32"></a></span>
-<span id="cb21-33"><a href="#cb21-33"></a><span class="kw">colnames</span>(colmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;friends w1&quot;</span>, <span class="st">&quot;friends w2&quot;</span>, <span class="st">&quot;friends w3&quot;</span>, <span class="st">&quot;atmentions w1&quot;</span>, <span class="st">&quot;atmentions w2&quot;</span>, <span class="st">&quot;atmentions w3&quot;</span>, </span>
-<span id="cb21-34"><a href="#cb21-34"></a>    <span class="st">&quot;retweets w1&quot;</span>, <span class="st">&quot;retweets w2&quot;</span>, <span class="st">&quot;retweets w3&quot;</span>)</span>
-<span id="cb21-35"><a href="#cb21-35"></a><span class="kw">rownames</span>(colmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;party&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;ethnicity&quot;</span>)</span>
-<span id="cb21-36"><a href="#cb21-36"></a>colmat</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>colmat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">9</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a>colmat[<span class="dv">1</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">1</span>], partij)</span>
+<span id="cb17-4"><a href="#cb17-4"></a>colmat[<span class="dv">1</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">2</span>], partij)</span>
+<span id="cb17-5"><a href="#cb17-5"></a>colmat[<span class="dv">1</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">3</span>], partij)</span>
+<span id="cb17-6"><a href="#cb17-6"></a>colmat[<span class="dv">1</span>, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">1</span>], partij)</span>
+<span id="cb17-7"><a href="#cb17-7"></a>colmat[<span class="dv">1</span>, <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">2</span>], partij)</span>
+<span id="cb17-8"><a href="#cb17-8"></a>colmat[<span class="dv">1</span>, <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">3</span>], partij)</span>
+<span id="cb17-9"><a href="#cb17-9"></a>colmat[<span class="dv">1</span>, <span class="dv">7</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">1</span>], partij)</span>
+<span id="cb17-10"><a href="#cb17-10"></a>colmat[<span class="dv">1</span>, <span class="dv">8</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">2</span>], partij)</span>
+<span id="cb17-11"><a href="#cb17-11"></a>colmat[<span class="dv">1</span>, <span class="dv">9</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">3</span>], partij)</span>
+<span id="cb17-12"><a href="#cb17-12"></a></span>
+<span id="cb17-13"><a href="#cb17-13"></a>colmat[<span class="dv">2</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">1</span>], vrouw)</span>
+<span id="cb17-14"><a href="#cb17-14"></a>colmat[<span class="dv">2</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">2</span>], vrouw)</span>
+<span id="cb17-15"><a href="#cb17-15"></a>colmat[<span class="dv">2</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">3</span>], vrouw)</span>
+<span id="cb17-16"><a href="#cb17-16"></a>colmat[<span class="dv">2</span>, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">1</span>], vrouw)</span>
+<span id="cb17-17"><a href="#cb17-17"></a>colmat[<span class="dv">2</span>, <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">2</span>], vrouw)</span>
+<span id="cb17-18"><a href="#cb17-18"></a>colmat[<span class="dv">2</span>, <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">3</span>], vrouw)</span>
+<span id="cb17-19"><a href="#cb17-19"></a>colmat[<span class="dv">2</span>, <span class="dv">7</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">1</span>], vrouw)</span>
+<span id="cb17-20"><a href="#cb17-20"></a>colmat[<span class="dv">2</span>, <span class="dv">8</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">2</span>], vrouw)</span>
+<span id="cb17-21"><a href="#cb17-21"></a>colmat[<span class="dv">2</span>, <span class="dv">9</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">3</span>], vrouw)</span>
+<span id="cb17-22"><a href="#cb17-22"></a></span>
+<span id="cb17-23"><a href="#cb17-23"></a>colmat[<span class="dv">3</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">1</span>], ethminz)</span>
+<span id="cb17-24"><a href="#cb17-24"></a>colmat[<span class="dv">3</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">2</span>], ethminz)</span>
+<span id="cb17-25"><a href="#cb17-25"></a>colmat[<span class="dv">3</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(fnet[, , <span class="dv">3</span>], ethminz)</span>
+<span id="cb17-26"><a href="#cb17-26"></a>colmat[<span class="dv">3</span>, <span class="dv">4</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">1</span>], ethminz)</span>
+<span id="cb17-27"><a href="#cb17-27"></a>colmat[<span class="dv">3</span>, <span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">2</span>], ethminz)</span>
+<span id="cb17-28"><a href="#cb17-28"></a>colmat[<span class="dv">3</span>, <span class="dv">6</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(atmnet[, , <span class="dv">3</span>], ethminz)</span>
+<span id="cb17-29"><a href="#cb17-29"></a>colmat[<span class="dv">3</span>, <span class="dv">7</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">1</span>], ethminz)</span>
+<span id="cb17-30"><a href="#cb17-30"></a>colmat[<span class="dv">3</span>, <span class="dv">8</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">2</span>], ethminz)</span>
+<span id="cb17-31"><a href="#cb17-31"></a>colmat[<span class="dv">3</span>, <span class="dv">9</span>] &lt;-<span class="st"> </span><span class="kw">fscolnet</span>(rtnet[, , <span class="dv">3</span>], ethminz)</span>
+<span id="cb17-32"><a href="#cb17-32"></a></span>
+<span id="cb17-33"><a href="#cb17-33"></a><span class="kw">colnames</span>(colmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;friends w1&quot;</span>, <span class="st">&quot;friends w2&quot;</span>, <span class="st">&quot;friends w3&quot;</span>, <span class="st">&quot;atmentions w1&quot;</span>, <span class="st">&quot;atmentions w2&quot;</span>, <span class="st">&quot;atmentions w3&quot;</span>, </span>
+<span id="cb17-34"><a href="#cb17-34"></a>    <span class="st">&quot;retweets w1&quot;</span>, <span class="st">&quot;retweets w2&quot;</span>, <span class="st">&quot;retweets w3&quot;</span>)</span>
+<span id="cb17-35"><a href="#cb17-35"></a><span class="kw">rownames</span>(colmat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;party&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;ethnicity&quot;</span>)</span>
+<span id="cb17-36"><a href="#cb17-36"></a>colmat</span></code></pre></div>
 <pre><code>##           friends w1 friends w2 friends w3 atmentions w1 atmentions w2 atmentions w3  retweets w1
 ## party     0.23290292 0.21197422 0.21310665    0.39147672   0.399713437    0.48111606  0.804211725
 ## sex       0.04624336 0.04080333 0.04272129    0.07421140   0.032149289    0.04699739 -0.005381047
@@ -708,9 +891,9 @@ We are focussing on the retweetnetwork and do not yet take into account multiple
 </div>
 <div id="step-2-define-myeff-object." class="section level3">
 <h3><span class="header-section-number">5.6.2</span> step 2: define myeff object.</h3>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">library</span>(RSiena)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>myeff &lt;-<span class="st"> </span><span class="kw">getEffects</span>(mydata)</span>
-<span id="cb23-3"><a href="#cb23-3"></a>myeff</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">library</span>(RSiena)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>myeff &lt;-<span class="st"> </span><span class="kw">getEffects</span>(mydata)</span>
+<span id="cb19-3"><a href="#cb19-3"></a>myeff</span></code></pre></div>
 <pre><code>##    name   effectName                      include fix   test  initialValue parm
 ## 1  fnet   constant fnet rate (period 1)   TRUE    FALSE FALSE    7.22021   0   
 ## 2  fnet   constant fnet rate (period 2)   TRUE    FALSE FALSE    3.79571   0   
@@ -724,15 +907,15 @@ We are focussing on the retweetnetwork and do not yet take into account multiple
 ## 10 rtnet  constant rtnet rate (period 2)  TRUE    FALSE FALSE    9.39819   0   
 ## 11 rtnet  rtnet: outdegree (density)      TRUE    FALSE FALSE   -1.61392   0   
 ## 12 rtnet  rtnet: reciprocity              TRUE    FALSE FALSE    0.00000   0</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>myeff_m1 &lt;-<span class="st"> </span>myeff</span>
-<span id="cb25-2"><a href="#cb25-2"></a>myeff_m1 &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myeff_m1, sameX, <span class="dt">interaction1 =</span> <span class="st">&quot;partij&quot;</span>, <span class="dt">name =</span> <span class="st">&quot;rtnet&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>myeff_m1 &lt;-<span class="st"> </span>myeff</span>
+<span id="cb21-2"><a href="#cb21-2"></a>myeff_m1 &lt;-<span class="st"> </span><span class="kw">includeEffects</span>(myeff_m1, sameX, <span class="dt">interaction1 =</span> <span class="st">&quot;partij&quot;</span>, <span class="dt">name =</span> <span class="st">&quot;rtnet&quot;</span>)</span></code></pre></div>
 <pre><code>##   effectName         include fix   test  initialValue parm
 ## 1 rtnet: same partij TRUE    FALSE FALSE          0   0</code></pre>
 </div>
 <div id="step-3-create-alogrithm" class="section level3">
 <h3><span class="header-section-number">5.6.3</span> step 3: create alogrithm</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># I used a seed so you will probably see the same results</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a>myalgorithm &lt;-<span class="st"> </span><span class="kw">sienaAlgorithmCreate</span>(<span class="dt">projname =</span> <span class="st">&quot;test&quot;</span>, <span class="dt">seed =</span> <span class="dv">345654</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># I used a seed so you will probably see the same results</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>myalgorithm &lt;-<span class="st"> </span><span class="kw">sienaAlgorithmCreate</span>(<span class="dt">projname =</span> <span class="st">&quot;test&quot;</span>, <span class="dt">seed =</span> <span class="dv">345654</span>)</span></code></pre></div>
 <pre><code>## siena07 will create an output file test.txt .</code></pre>
 <p>Have a look at the created file!!</p>
 </div>
@@ -740,22 +923,22 @@ We are focussing on the retweetnetwork and do not yet take into account multiple
 <h3><span class="header-section-number">5.6.4</span> step 4: estimate model</h3>
 <p>I generally estimate the model three times to start with. Gives me the opportunity to grab a cup of coffee. Depending on the results I will decide whether or not I need to rerun the model and with which results I want to continue later.</p>
 <p>I :heart: <i class="fas fa-mug-hot"></i>!! :smile:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># to speed things up a bit, I am using more cores.</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>ansM1 &lt;-<span class="st"> </span><span class="kw">siena07</span>(myalgorithm, <span class="dt">data =</span> mydata, <span class="dt">effects =</span> myeff_m1, <span class="dt">useCluster =</span> <span class="ot">TRUE</span>, <span class="dt">nbrNodes =</span> <span class="dv">4</span>, <span class="dt">initC =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb29-3"><a href="#cb29-3"></a>    <span class="dt">batch =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb29-4"><a href="#cb29-4"></a>ansM1b &lt;-<span class="st"> </span><span class="kw">siena07</span>(myalgorithm, <span class="dt">data =</span> mydata, <span class="dt">prevAns =</span> ansM1, <span class="dt">effects =</span> myeff_m1, <span class="dt">useCluster =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb29-5"><a href="#cb29-5"></a>    <span class="dt">nbrNodes =</span> <span class="dv">4</span>, <span class="dt">initC =</span> <span class="ot">TRUE</span>, <span class="dt">batch =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb29-6"><a href="#cb29-6"></a>ansM1c &lt;-<span class="st"> </span><span class="kw">siena07</span>(myalgorithm, <span class="dt">data =</span> mydata, <span class="dt">prevAns =</span> ansM1b, <span class="dt">effects =</span> myeff_m1, <span class="dt">useCluster =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb29-7"><a href="#cb29-7"></a>    <span class="dt">nbrNodes =</span> <span class="dv">4</span>, <span class="dt">initC =</span> <span class="ot">TRUE</span>, <span class="dt">batch =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb29-8"><a href="#cb29-8"></a></span>
-<span id="cb29-9"><a href="#cb29-9"></a><span class="kw">save</span>(ansM1, <span class="dt">file =</span> <span class="st">&quot;ansM1a.RData&quot;</span>)</span>
-<span id="cb29-10"><a href="#cb29-10"></a><span class="kw">save</span>(ansM1b, <span class="dt">file =</span> <span class="st">&quot;ansM1b.RData&quot;</span>)</span>
-<span id="cb29-11"><a href="#cb29-11"></a><span class="kw">save</span>(ansM1c, <span class="dt">file =</span> <span class="st">&quot;ansM1c.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># to speed things up a bit, I am using more cores.</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>ansM1 &lt;-<span class="st"> </span><span class="kw">siena07</span>(myalgorithm, <span class="dt">data =</span> mydata, <span class="dt">effects =</span> myeff_m1, <span class="dt">useCluster =</span> <span class="ot">TRUE</span>, <span class="dt">nbrNodes =</span> <span class="dv">4</span>, <span class="dt">initC =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb25-3"><a href="#cb25-3"></a>    <span class="dt">batch =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>ansM1b &lt;-<span class="st"> </span><span class="kw">siena07</span>(myalgorithm, <span class="dt">data =</span> mydata, <span class="dt">prevAns =</span> ansM1, <span class="dt">effects =</span> myeff_m1, <span class="dt">useCluster =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb25-5"><a href="#cb25-5"></a>    <span class="dt">nbrNodes =</span> <span class="dv">4</span>, <span class="dt">initC =</span> <span class="ot">TRUE</span>, <span class="dt">batch =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb25-6"><a href="#cb25-6"></a>ansM1c &lt;-<span class="st"> </span><span class="kw">siena07</span>(myalgorithm, <span class="dt">data =</span> mydata, <span class="dt">prevAns =</span> ansM1b, <span class="dt">effects =</span> myeff_m1, <span class="dt">useCluster =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb25-7"><a href="#cb25-7"></a>    <span class="dt">nbrNodes =</span> <span class="dv">4</span>, <span class="dt">initC =</span> <span class="ot">TRUE</span>, <span class="dt">batch =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb25-8"><a href="#cb25-8"></a></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="kw">save</span>(ansM1, <span class="dt">file =</span> <span class="st">&quot;ansM1a.RData&quot;</span>)</span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="kw">save</span>(ansM1b, <span class="dt">file =</span> <span class="st">&quot;ansM1b.RData&quot;</span>)</span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="kw">save</span>(ansM1c, <span class="dt">file =</span> <span class="st">&quot;ansM1c.RData&quot;</span>)</span></code></pre></div>
 <p>Let us have a look at the data.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">load</span>(<span class="st">&quot;static/ansM1a.RData&quot;</span>)</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">load</span>(<span class="st">&quot;static/ansM1b.RData&quot;</span>)</span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="kw">load</span>(<span class="st">&quot;static/ansM1c.RData&quot;</span>)</span>
-<span id="cb30-4"><a href="#cb30-4"></a>ansM1</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">load</span>(<span class="st">&quot;static/ansM1a.RData&quot;</span>)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">load</span>(<span class="st">&quot;static/ansM1b.RData&quot;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="kw">load</span>(<span class="st">&quot;static/ansM1c.RData&quot;</span>)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>ansM1</span></code></pre></div>
 <pre><code>## Estimates, standard errors and convergence t-ratios
 ## 
 ##                                            Estimate   Standard   Convergence 
@@ -778,7 +961,7 @@ We are focussing on the retweetnetwork and do not yet take into account multiple
 ## 
 ## 
 ## Total of 2158 iteration steps.</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>ansM1b</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>ansM1b</span></code></pre></div>
 <pre><code>## Estimates, standard errors and convergence t-ratios
 ## 
 ##                                            Estimate   Standard   Convergence 
@@ -801,7 +984,7 @@ We are focussing on the retweetnetwork and do not yet take into account multiple
 ## 
 ## 
 ## Total of 2104 iteration steps.</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>ansM1c</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>ansM1c</span></code></pre></div>
 <pre><code>## Estimates, standard errors and convergence t-ratios
 ## 
 ##                                            Estimate   Standard   Convergence 
@@ -825,7 +1008,7 @@ We are focussing on the retweetnetwork and do not yet take into account multiple
 ## 
 ## Total of 2078 iteration steps.</code></pre>
 <p>So, do we have an answer to our first research question? It is up to you answer the other research questions.</p>
-<p>Latest Version: 07-10-2020</p>
+<p>Latest Version: 16-11-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
 </div>

@@ -2,7 +2,7 @@
 title: Consequences of Egocentric Networks (methods)
 author: JochemTolsma
 date: '2020-09-07'
-slug: dyads4
+slug: ego4
 categories:
   - R
   - Social Networks
@@ -227,8 +227,9 @@ I am using the package Lavaan to estimate the models. In the section 'alternativ
 ## first quickly estimate the previous models in Lavaan. 
 
 Information of one alter only: 
-```{r,  attr.source = '.numberLines', results='hold'}
+```{r,  attr.source = '.numberLines', results='hold', tidy=FALSE}
 library(lavaan)
+
 model1 <- '
   Y1 ~ alt1_xa
   Y1 ~ 1
