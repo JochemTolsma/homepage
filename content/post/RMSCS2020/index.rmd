@@ -1,14 +1,14 @@
 ---
 title: Examination-RMSCS
 author: Jochem Tolsma
-date: '2020-11-18'
+date: '2020-11-17'
 slug: RMSCS2020
 categories: []
 tags: []
 subtitle: 'Examination Ceremony Research Master Social and Cultural Science 2020'
 summary: 'Parents, friends and foes,...if you want to view the presentations of the RMSCS graduates please follow this link: [livestream](http://www.ru.nl/over-ons/diensten-faciliteiten/vm/academiegebouw-berchmanianum/livestream-berchmanianum/)!'
 authors: []
-lastmod: '2020-11-18T15:49:37+02:00'
+lastmod: '2020-11-18T12:00:00+02:00'
 featured: no
 iimage:
   caption: ''
