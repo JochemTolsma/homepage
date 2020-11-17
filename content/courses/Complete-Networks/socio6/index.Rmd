@@ -158,20 +158,20 @@ Well let's sample some more and plot them.
 set.seed(245651)
 sam_waitingtimes <- NA
 for (ministeps in 1:5000) {
-waitingtimes<-NA
-waitingtimes[1] <-  rexp(1, rate = 5)
-waitingtimes[2] <-  rexp(1, rate = 10)
-waitingtimes[3] <-  rexp(1, rate = 15)
-actor <- which(waitingtimes==min(waitingtimes))
-sam_waitingtimes[ministeps] <- waitingtimes[actor]
+  waitingtimes <- NA
+  waitingtimes[1] <- rexp(1, rate = 5)
+  waitingtimes[2] <- rexp(1, rate = 10)
+  waitingtimes[3] <- rexp(1, rate = 15)
+  actor <- which(waitingtimes == min(waitingtimes))
+  sam_waitingtimes[ministeps] <- waitingtimes[actor]
 }
 
-par(mfrow=c(1,2))
-hist(sam_waitingtimes, freq=FALSE, xlab="waiting times", main="sampled waiting times")
-abline(v=mean(sam_waitingtimes), col="red")
+par(mfrow = c(1, 2))
+hist(sam_waitingtimes, freq = FALSE, xlab = "waiting times", main = "sampled waiting times")
+abline(v = mean(sam_waitingtimes), col = "red")
 
-hist(rexp(5000, rate = 30), freq=FALSE, xlab="waiting times", main="rate=30")
-abline(v=1/30, col="red")
+hist(rexp(5000, rate = 30), freq = FALSE, xlab = "waiting times", main = "rate=30")
+abline(v = 1 / 30, col = "red")
 
 ```
 The distribution of the sampled waiting times is plotted in the figure above on the left. As you see this distribution is 'identical' to the exponential distribution with a rate parameter $\lambda$ of 30 (which is plotted on the right). And the expected waiting time, plotted in red, is 1/30. This leads us to page 43 of the RSiena manual: 
@@ -191,19 +191,19 @@ set.seed(245651)
 
 results <- list()
 for (nsim in 1:1000) {
-  time <- 0 
+  time <- 0
   steps_tot <- 0
   steps_i <- 0
   steps_j <- 0
   steps_k <- 0
   actors <- NA
-  while (time < 1 ) {
+  while (time < 1) {
     steps_tot <- steps_tot + 1
-    waitingtimes<-NA
-    waitingtimes[1] <-  rexp(1, rate = 5)
-    waitingtimes[2] <-  rexp(1, rate = 10)
-    waitingtimes[3] <-  rexp(1, rate = 15)
-    actor <- which(waitingtimes==min(waitingtimes))
+    waitingtimes <- NA
+    waitingtimes[1] <- rexp(1, rate = 5)
+    waitingtimes[2] <- rexp(1, rate = 10)
+    waitingtimes[3] <- rexp(1, rate = 15)
+    actor <- which(waitingtimes == min(waitingtimes))
     time <- time + waitingtimes[actor]
     actors[steps_tot] <- actor
   }
@@ -331,23 +331,23 @@ library(RSiena)
 Define your custom build functions. 
 
 ```{r functions, attr.source = '.numberLines', results='hold'}
-#density: observed relations divided by possible relations
-fdensity <- function(x) { 
-	#x is your nomination network
-	#make sure diagonal cells are NA
-	diag(x) <- NA
-	#take care of RSiena structural zeros, set as missing. 
-	x[x==10] <- NA
-	sum(x==1, na.rm=T) / (sum(x==1 | x==0, na.rm=T))
+# density: observed relations divided by possible relations
+fdensity <- function(x) {
+  # x is your nomination network
+  # make sure diagonal cells are NA
+  diag(x) <- NA
+  # take care of RSiena structural zeros, set as missing.
+  x[x == 10] <- NA
+  sum(x == 1, na.rm = T) / (sum(x == 1 | x == 0, na.rm = T))
 }
 
-#calculate intragroup density
-fdensityintra <- function(x, A) { 
-	#A is matrix indicating whether nodes in dyad have same node attributes 
-	diag(x) <- NA
-	x[x==10] <- NA
-	diag(A) <- NA
-	sum(x==1 & A==1, na.rm=T) / (sum((x==1 | x==0) & A==1, na.rm=T))
+# calculate intragroup density
+fdensityintra <- function(x, A) {
+  # A is matrix indicating whether nodes in dyad have same node attributes
+  diag(x) <- NA
+  x[x == 10] <- NA
+  diag(A) <- NA
+  sum(x == 1 & A == 1, na.rm = T) / (sum((x == 1 | x == 0) & A == 1, na.rm = T))
 }
 
 #calculate intragroup density
@@ -359,63 +359,64 @@ fdensityinter <- function(x, A) {
 	sum(x==1 & A!=1, na.rm=T) / (sum((x==1 | x==0) & A!=1, na.rm=T))
 }
 
-#construct dyadcharacteristic whether nodes are similar/homogenous
+# construct dyadcharacteristic whether nodes are similar/homogenous
 fhomomat <- function(x) {
-#x is a vector of node-covariate
-  xmat <- matrix(x, nrow=length(x), ncol=length(x))
-xmatt <- t(xmat)
-xhomo <- xmat==xmatt
-return(xhomo)
+  # x is a vector of node-covariate
+  xmat <- matrix(x, nrow = length(x), ncol = length(x))
+  xmatt <- t(xmat)
+  xhomo <- xmat == xmatt
+  return(xhomo)
 }
 
-# a function to calculate all valid dyads. 
+# a function to calculate all valid dyads.
 fndyads <- function(x) {
-	diag(x) <- NA
-	x[x==10] <- NA
-	(sum((x==1 | x==0) , na.rm=T))
+  diag(x) <- NA
+  x[x == 10] <- NA
+  (sum((x == 1 | x == 0), na.rm = T))
 }
 
 # a function to calculate all valid intragroupdyads.
 fndyads2 <- function(x, A) {
-	diag(x) <- NA
-	x[x==10] <- NA
-	diag(A) <- NA
-	(sum((x==1 | x==0) & A==1, na.rm=T))
+  diag(x) <- NA
+  x[x == 10] <- NA
+  diag(A) <- NA
+  (sum((x == 1 | x == 0) & A == 1, na.rm = T))
 }
 
 
 fscolnet <- function(network, ccovar) {
-#Calculate coleman on network level: https://reader.elsevier.com/reader/sd/pii/S0378873314000239?token=A42F99FF6E2B750436DD2CB0DB7B1F41BDEC16052A45683C02644DAF88215A3379636B2AA197B65941D6373E9E2EE413
+  # Calculate coleman on network level: https://reader.elsevier.com/reader/sd/pii/S0378873314000239?token=A42F99FF6E2B750436DD2CB0DB7B1F41BDEC16052A45683C02644DAF88215A3379636B2AA197B65941D6373E9E2EE413
 
-	fhomomat <- function(x) {
-	xmat <- matrix(x, nrow=length(x), ncol=length(x))
-	xmatt <- t(xmat)
-	xhomo <- xmat==xmatt
-	return(xhomo)
-	}
+  fhomomat <- function(x) {
+    xmat <- matrix(x, nrow = length(x), ncol = length(x))
+    xmatt <- t(xmat)
+    xhomo <- xmat == xmatt
+    return(xhomo)
+  }
 
-	fsumintra <- function(x, A) { 
-	#A is matrix indicating whether nodes constituting dyad have same characteristics
-	diag(x) <- NA
-	x[x==10] <- NA
-	diag(A) <- NA
-	sum(x==1 & A==1, na.rm=T) 
-	}
+  fsumintra <- function(x, A) {
+    # A is matrix indicating whether nodes constituting dyad have same characteristics
+    diag(x) <- NA
+    x[x == 10] <- NA
+    diag(A) <- NA
+    sum(x == 1 & A == 1, na.rm = T)
+  }
 
-	#expecation w*=sum_g sum_i (ni((ng-1)/(N-1)))
-	network[network==10] <- NA
-	ni <- rowSums(network, na.rm=T)
-	ng <- NA
-	for (i in 1:length(ccovar)) {ng[i] <- table(ccovar)[rownames(table(ccovar))==ccovar[i]]}
-	N <- length(ccovar)
-	wexp <- sum(ni*((ng-1)/(N-1)), na.rm=T)
+  # expecation w*=sum_g sum_i (ni((ng-1)/(N-1)))
+  network[network == 10] <- NA
+  ni <- rowSums(network, na.rm = T)
+  ng <- NA
+  for (i in 1:length(ccovar)) {
+    ng[i] <- table(ccovar)[rownames(table(ccovar)) == ccovar[i]]
+  }
+  N <- length(ccovar)
+  wexp <- sum(ni * ((ng - 1) / (N - 1)), na.rm = T)
 
-	#wgg1 how many intragroup ties
-	w <- fsumintra(network, fhomomat(ccovar)) 
-	
-	Scol_net <- ifelse(w>=wexp, (w-wexp) / (sum(ni, na.rm=T) - wexp), (w - wexp)/wexp)
-	return(Scol_net)
+  # wgg1 how many intragroup ties
+  w <- fsumintra(network, fhomomat(ccovar))
 
+  Scol_net <- ifelse(w >= wexp, (w - wexp) / (sum(ni, na.rm = T) - wexp), (w - wexp) / wexp)
+  return(Scol_net)
 }
 
 
