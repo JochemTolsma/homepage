@@ -30,7 +30,7 @@ if you want to view the presentations of the RMSCS graduates please follow this 
 
 # **PRESENTATIONS**
 
-The presentation of the Examination Ceremony Research Master Social and Cultural Science 2020 can be found here: [presentations](.pdf).
+The presentation of the Examination Ceremony Research Master Social and Cultural Science 2020 can be found here: [presentations](2020uitreikingRMSCS.pdf).
 
 ---  
 
@@ -52,3 +52,14 @@ The presentation of the Examination Ceremony Research Master Social and Cultural
 **17.20**|**Virtual Drinks**| 
 
 ---  
+
+# **PROMO**
+
+Do you want to know how we lured these students into our programme? 
+Watch our promo video: 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pwSfddp4Vaw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---  
+
+
