@@ -27,11 +27,13 @@ output:
 
 ---
 
-<script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
-<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
-<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
+<script src="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/accessible-code-block/empty-anchor.js"></script>
+<link href="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/anchor-sections/anchor-sections.js"></script>
+<script src="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/clipboard/clipboard.min.js"></script>
+<link href="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/primer-tooltips/build.css" rel="stylesheet" />
+<link href="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/klippy/css/klippy.min.css" rel="stylesheet" />
+<script src="{{< relref "courses/Egocentric-Networks/ego4/index.html" >}}index_files/klippy/js/klippy.min.js"></script>
 <style type="text/css">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -301,19 +303,19 @@ One method is to use an aggregation method. Thus calculate the mean happiness sc
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -28.1781  -5.1202  -0.2004   5.1594  25.7992 
+## -21.9658  -4.7366  -0.1134   4.6496  22.9888 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.04120    0.15283    0.27    0.788    
-## xa           4.04153    0.07922   51.02   &lt;2e-16 ***
+## (Intercept)  0.09209    0.13263   0.694    0.488    
+## xa           3.97062    0.06054  65.584   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 7.768 on 2582 degrees of freedom
+## Residual standard error: 6.742 on 2582 degrees of freedom
 ##   (416 observations deleted due to missingness)
-## Multiple R-squared:  0.502,  Adjusted R-squared:  0.5018 
-## F-statistic:  2603 on 1 and 2582 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Multiple R-squared:  0.6249, Adjusted R-squared:  0.6247 
+## F-statistic:  4301 on 1 and 2582 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="micro-macro-approach" class="section level1">
@@ -420,7 +422,7 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 <span id="cb16-7"><a href="#cb16-7"></a></span>
 <span id="cb16-8"><a href="#cb16-8"></a>fit1 &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model1, <span class="dt">data =</span> data_long)</span>
 <span id="cb16-9"><a href="#cb16-9"></a><span class="kw">summary</span>(fit1)</span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 24 iterations
+<pre><code>## lavaan 0.6-7 ended normally after 19 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -443,15 +445,15 @@ I am using the package Lavaan to estimate the models. In the section ‘alternat
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##   Y1 ~                                                
-##     xa                4.042    0.079   51.038    0.000
+##     xa                3.971    0.061   65.609    0.000
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .Y1                0.041    0.153    0.270    0.787
+##    .Y1                0.092    0.133    0.695    0.487
 ## 
 ## Variances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .Y1               60.298    1.678   35.944    0.000</code></pre>
+##    .Y1               45.420    1.264   35.944    0.000</code></pre>
 </div>
 <div id="persons-as-variable-approach-in-lavaan" class="section level2">
 <h2><span class="header-section-number">5.2</span> Persons as variable approach in Lavaan</h2>
@@ -755,7 +757,7 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 <span id="cb24-66"><a href="#cb24-66"></a><span class="kw">summary</span>(fit1)</span>
 <span id="cb24-67"><a href="#cb24-67"></a></span>
 <span id="cb24-68"><a href="#cb24-68"></a><span class="co"># summary(fit2)</span></span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 92 iterations
+<pre><code>## lavaan 0.6-7 ended normally after 105 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -767,7 +769,7 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 ##                                                       
 ## Model Test User Model:
 ##                                                       
-##   Test statistic                              3032.453
+##   Test statistic                              3027.830
 ##   Degrees of freedom                                36
 ##   P-value (Chi-square)                           0.000
 ## 
@@ -783,56 +785,56 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 ##     alt1_xa           1.000                           
 ##     alt2_xa           1.000                           
 ##     alt3_xa           1.000                           
-##     alt1_xb    (a)    0.406    0.011   36.241    0.000
-##     alt2_xb    (a)    0.406    0.011   36.241    0.000
-##     alt3_xb    (a)    0.406    0.011   36.241    0.000
+##     alt1_xb    (a)    0.407    0.011   36.042    0.000
+##     alt2_xb    (a)    0.407    0.011   36.042    0.000
+##     alt3_xb    (a)    0.407    0.011   36.042    0.000
 ## 
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##   Y1 ~                                                
-##     FX                5.132    0.108   47.302    0.000
-##     size             -0.906    0.341   -2.656    0.008
+##     FX                5.095    0.107   47.609    0.000
+##     size             -0.914    0.341   -2.683    0.007
 ##   FX ~                                                
-##     size              0.119    0.109    1.091    0.275
+##     size              0.117    0.110    1.070    0.285
 ##   Y2 ~                                                
-##     FX               13.363    0.202   66.068    0.000
-##     size             -1.290    0.637   -2.025    0.043
+##     FX                7.937    0.137   57.834    0.000
+##     size             -0.755    0.436   -1.733    0.083
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##  .Y1 ~~                                               
-##    .Y2               -1.913    2.292   -0.835    0.404
+##    .Y2               -1.255    1.547   -0.812    0.417
 ##  .alt1_xa ~~                                          
-##    .alt1_xb    (d)    0.099    0.024    4.216    0.000
+##    .alt1_xb    (d)    0.094    0.024    3.969    0.000
 ##  .alt2_xa ~~                                          
-##    .alt2_xb    (d)    0.099    0.024    4.216    0.000
+##    .alt2_xb    (d)    0.094    0.024    3.969    0.000
 ##  .alt3_xa ~~                                          
-##    .alt3_xb    (d)    0.099    0.024    4.216    0.000
+##    .alt3_xb    (d)    0.094    0.024    3.969    0.000
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .Y1                0.951    1.560    0.609    0.542
-##    .Y2               -0.952    3.718   -0.256    0.798
-##    .alt1_xa    (e)   -0.310    0.291   -1.066    0.286
-##    .alt2_xa    (e)   -0.310    0.291   -1.066    0.286
-##    .alt3_xa    (e)   -0.310    0.291   -1.066    0.286
-##    .alt1_xb    (f)   -0.103    0.120   -0.863    0.388
-##    .alt2_xb    (f)   -0.103    0.120   -0.863    0.388
-##    .alt3_xb    (f)   -0.103    0.120   -0.863    0.388
+##    .Y1                1.003    1.560    0.643    0.520
+##    .Y2               -0.666    2.295   -0.290    0.772
+##    .alt1_xa    (e)   -0.306    0.293   -1.045    0.296
+##    .alt2_xa    (e)   -0.306    0.293   -1.045    0.296
+##    .alt3_xa    (e)   -0.306    0.293   -1.045    0.296
+##    .alt1_xb    (f)   -0.102    0.121   -0.844    0.399
+##    .alt2_xb    (f)   -0.102    0.121   -0.844    0.399
+##    .alt3_xb    (f)   -0.102    0.121   -0.844    0.399
 ##     size              0.000                           
 ##    .FX                0.000                           
 ## 
 ## Variances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
-##    .alt1_xa    (b)    1.006    0.035   28.761    0.000
-##    .alt2_xa    (b)    1.006    0.035   28.761    0.000
-##    .alt3_xa    (b)    1.006    0.035   28.761    0.000
-##    .alt1_xb    (c)    1.101    0.031   35.024    0.000
-##    .alt2_xb    (c)    1.101    0.031   35.024    0.000
-##    .alt3_xb    (c)    1.101    0.031   35.024    0.000
-##    .FX                3.617    0.180   20.106    0.000
-##    .Y1               26.328    1.650   15.960    0.000
-##    .Y2               44.359    5.538    8.010    0.000
+##    .alt1_xa    (b)    1.001    0.035   28.771    0.000
+##    .alt2_xa    (b)    1.001    0.035   28.771    0.000
+##    .alt3_xa    (b)    1.001    0.035   28.771    0.000
+##    .alt1_xb    (c)    1.098    0.032   34.764    0.000
+##    .alt2_xb    (c)    1.098    0.032   34.764    0.000
+##    .alt3_xb    (c)    1.098    0.032   34.764    0.000
+##    .FX                3.675    0.182   20.148    0.000
+##    .Y1               26.210    1.637   16.008    0.000
+##    .Y2               31.545    2.600   12.131    0.000
 ##     size              7.028    0.314   22.361    0.000</code></pre>
 <p>Please note that the estimated variance (model implied variance) of the <code>size</code> variable is way too large. In reality the variance is <code>0.35</code>. This indicates we have a misspecified model.</p>
 </div>
@@ -898,7 +900,7 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 <span id="cb26-56"><a href="#cb26-56"></a></span>
 <span id="cb26-57"><a href="#cb26-57"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model2, <span class="dt">data =</span> data_wide2, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb26-58"><a href="#cb26-58"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 70 iterations
+<pre><code>## lavaan 0.6-7 ended normally after 72 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -909,7 +911,7 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 ##                                                       
 ## Model Test User Model:
 ##                                                        
-##   Test statistic                              22209.763
+##   Test statistic                              22209.404
 ##   Degrees of freedom                                  6
 ##   P-value (Chi-square)                            0.000
 ## 
@@ -922,25 +924,25 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##   Y1 ~                                                
-##     FX                5.163    0.477   10.815    0.000
+##     FX                5.165    0.476   10.843    0.000
 ##     size             -0.767    0.320   -2.400    0.016
-##     FXsize           -0.062    0.179   -0.345    0.730
+##     FXsize           -0.062    0.178   -0.349    0.727
 ##   FX ~                                                
 ##     size              0.008    0.022    0.338    0.736
 ##   Y2 ~                                                
-##     FX                1.156    0.740    1.561    0.119
-##     size             -0.622    0.494   -1.258    0.208
-##     FXsize            4.534    0.277   16.355    0.000
+##     FX                1.062    0.547    1.942    0.052
+##     size             -0.366    0.366   -1.001    0.317
+##     FXsize            2.577    0.205   12.587    0.000
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##  .Y1 ~~                                               
-##    .Y2               21.249    1.826   11.634    0.000
+##    .Y2               12.511    1.319    9.485    0.000
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##    .Y1                2.132    0.849    2.513    0.012
-##    .Y2                1.194    1.312    0.910    0.363
+##    .Y2                0.602    0.971    0.619    0.536
 ##    .FX                0.000                           
 ##     size              0.000                           
 ##     FXsize            0.000                           
@@ -949,9 +951,9 @@ See <a href="%22http://www.understandingdata.net/2017/03/22/cfa-in-lavaan/%22">h
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##    .FX                3.471    0.155   22.354    0.000
 ##    .Y1               34.789    1.557   22.345    0.000
-##    .Y2               82.776    3.704   22.345    0.000
+##    .Y2               45.446    2.034   22.347    0.000
 ##     size              0.350                           
-##     FXsize           24.728    1.106   22.360    0.000</code></pre>
+##     FXsize           24.736    1.106   22.358    0.000</code></pre>
 </div>
 <div id="final-model" class="section level2">
 <h2><span class="header-section-number">8.4</span> final model?</h2>
@@ -979,7 +981,7 @@ I just have very good reasons (ahum) to think that each alter contributes unique
 <span id="cb28-19"><a href="#cb28-19"></a></span>
 <span id="cb28-20"><a href="#cb28-20"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> data_wide2, <span class="dt">missing =</span> <span class="st">&quot;fiml&quot;</span>, <span class="dt">fixed.x =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb28-21"><a href="#cb28-21"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 66 iterations
+<pre><code>## lavaan 0.6-7 ended normally after 61 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -990,7 +992,7 @@ I just have very good reasons (ahum) to think that each alter contributes unique
 ##                                                       
 ## Model Test User Model:
 ##                                                       
-##   Test statistic                              3128.198
+##   Test statistic                              3127.833
 ##   Degrees of freedom                                 3
 ##   P-value (Chi-square)                           0.000
 ## 
@@ -1003,21 +1005,21 @@ I just have very good reasons (ahum) to think that each alter contributes unique
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##   Y1 ~                                                
-##     FX                5.104    0.477   10.696    0.000
-##     FXsize           -0.042    0.179   -0.233    0.816
+##     FX                5.107    0.476   10.729    0.000
+##     FXsize           -0.043    0.178   -0.240    0.810
 ##   Y2 ~                                                
-##     FX                1.106    0.740    1.496    0.135
-##     FXsize            4.551    0.277   16.428    0.000
+##     FX                1.032    0.546    1.890    0.059
+##     FXsize            2.587    0.205   12.652    0.000
 ## 
 ## Covariances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##  .Y1 ~~                                               
-##    .Y2               21.409    1.834   11.673    0.000
+##    .Y2               12.606    1.324    9.522    0.000
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##    .Y1                0.146    0.187    0.779    0.436
-##    .Y2               -0.416    0.288   -1.442    0.149
+##    .Y2               -0.346    0.214   -1.622    0.105
 ##     FX                0.000                           
 ##     FXsize            0.000                           
 ## 
@@ -1025,15 +1027,15 @@ I just have very good reasons (ahum) to think that each alter contributes unique
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)
 ##     FX                3.472    0.155   22.353    0.000
 ##    .Y1               34.985    1.566   22.344    0.000
-##    .Y2               82.906    3.710   22.345    0.000
-##     FXsize           24.727    1.106   22.360    0.000</code></pre>
+##    .Y2               45.493    2.036   22.347    0.000
+##     FXsize           24.735    1.106   22.358    0.000</code></pre>
 <p>We would conclude that my line of reasoning holds true with respect to Y2 but not with respect to Y1.</p>
 </div>
 </div>
 <div id="alternative-approaches" class="section level1">
 <h1><span class="header-section-number">9</span> Alternative Approaches</h1>
 <p>The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén <a href="%22www.statmodel.com%22">www.statmodel.com</a>. If you have Mplus installed on your computer, you may use the R package <code>MplusAutomation</code> to estimate models with Mplus within R. Below you may find two examples with Mplus: one demonstrating the persons as variable approach, the other demonstrating the multi-level approach.</p>
-<p>Latest Version: 27-10-2020</p>
+<p>Latest Version: 07-12-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
 <div class="footnotes">

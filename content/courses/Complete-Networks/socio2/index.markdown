@@ -82,7 +82,7 @@ We could use the function `degree` in `igraph` to find the outdegree of each nod
 hist(igraph::degree(G1, mode="out", loops=FALSE), xlab="outdegree", main="histogram of outdegree atmention network Dutch MPs")
 ```
 
-<img src="/courses/Complete-Networks/socio2/index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="{{< relref "courses/Complete-Networks/socio2/index.markdown" >}}index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
 We observe that most MPs atmention a little and some atmention a lot. An explanation could be that some MPs have the 'task' (e.g. communication officer) to tweet a lot.  
 
@@ -99,7 +99,7 @@ We could use the function `degree` in `igraph` to find the indegree of each node
 hist(igraph::degree(G1, mode="in", loops=FALSE), xlab="indegree", main="histogram of indegree atmention network Dutch MPs")
 ```
 
-<img src="/courses/Complete-Networks/socio2/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="{{< relref "courses/Complete-Networks/socio2/index.markdown" >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 We observe that most MPs are atmentioned seldom and some are atmentioned often. An explanation could be that some MPs are more important and it may help your own career to atmention these MPs.  
 
@@ -173,7 +173,7 @@ for ( i in 1:trial ){
 abline(v=dyadcount$mut, col="red", lwd=3)}
 ```
 
-<img src="/courses/Complete-Networks/socio2/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="{{< relref "courses/Complete-Networks/socio2/index.markdown" >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 We thus observe way more (or significantly more) mutual dyads (203) as could be expected based solely on chance. Conclusion: MPs scratch each others back. In social networks of positive relations, reciprocity effects are very common 
 
 {{% alert note %}}

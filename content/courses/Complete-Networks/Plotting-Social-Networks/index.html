@@ -25,11 +25,13 @@ editor_options:
   chunk_output_type: console
 ---
 
-<script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
-<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
-<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
+<script src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/accessible-code-block/empty-anchor.js"></script>
+<link href="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/anchor-sections/anchor-sections.js"></script>
+<script src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/clipboard/clipboard.min.js"></script>
+<link href="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/primer-tooltips/build.css" rel="stylesheet" />
+<link href="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/klippy/css/klippy.min.css" rel="stylesheet" />
+<script src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/klippy/js/klippy.min.js"></script>
 <style type="text/css">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -383,12 +385,12 @@ You may wonder why we only have 147 nodes (of MPs) in our data. Well that is bec
 ## [147] &quot;Roy van Aalst                           &quot;</code></pre>
 <p>But now let us start plotting.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">plot</span>(G1)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-7-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-7-1.svg" width="576" /></p>
 <p>I cant see anything!! |:-(<br />
 Would <code>simplify</code> help?</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>G1 &lt;-<span class="st"> </span><span class="kw">simplify</span>(G1)</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="kw">plot</span>(G1)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-8-1.svg" width="576" />
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-8-1.svg" width="576" />
 Still way too dense. What is the density of the network??</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">edge_density</span>(G1)</span></code></pre></div>
 <pre><code>## [1] 0.04845774</code></pre>
@@ -406,11 +408,11 @@ Still way too dense. What is the density of the network??</p>
 <span id="cb19-7"><a href="#cb19-7"></a>edges &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(G2, <span class="dt">what =</span> <span class="st">&quot;edges&quot;</span>)</span>
 <span id="cb19-8"><a href="#cb19-8"></a>G2 &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(edges, <span class="dt">directed =</span> <span class="ot">FALSE</span>, <span class="dt">vertices =</span> keyf)</span>
 <span id="cb19-9"><a href="#cb19-9"></a><span class="kw">plot</span>(G2)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-10-1.svg" width="576" />
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-10-1.svg" width="576" />
 Mmm, It looks like MPs do like to mention themselves! Let simplify again.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>G2 &lt;-<span class="st"> </span><span class="kw">simplify</span>(G2)</span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-11-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-11-1.svg" width="576" /></p>
 </div>
 <div id="select-nodes-to-plot" class="section level1">
 <h1><span class="header-section-number">6</span> Select nodes to plot</h1>
@@ -431,7 +433,7 @@ Mmm, It looks like MPs do like to mention themselves! Let simplify again.</p>
 <span id="cb21-14"><a href="#cb21-14"></a>    <span class="dt">add.colnames =</span> <span class="ot">NA</span>, <span class="dt">add.rownames =</span> <span class="ot">NA</span>)</span>
 <span id="cb21-15"><a href="#cb21-15"></a>G2_sel &lt;-<span class="st"> </span><span class="kw">simplify</span>(G2_sel)</span>
 <span id="cb21-16"><a href="#cb21-16"></a><span class="kw">plot</span>(G2_sel, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-12-1.svg" width="576" />
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-12-1.svg" width="576" />
 The same logic of course applies if you would like to select on node attributes (e.g. gender, party).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># option 1: see above.  only select MPs from the liberal party</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a>selection &lt;-<span class="st"> </span>keyf<span class="op">$</span>Partij <span class="op">==</span><span class="st"> &quot;VVD&quot;</span></span>
@@ -445,7 +447,7 @@ The same logic of course applies if you would like to select on node attributes 
 <span id="cb22-10"><a href="#cb22-10"></a>selection_id &lt;-<span class="st"> </span><span class="kw">which</span>(selection)  <span class="co"># this gives us a numeric variable</span></span>
 <span id="cb22-11"><a href="#cb22-11"></a>G_sel &lt;-<span class="st"> </span><span class="kw">induced_subgraph</span>(G2, <span class="dt">v =</span> selection_id)</span>
 <span id="cb22-12"><a href="#cb22-12"></a><span class="kw">plot</span>(G_sel)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-13-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-13-1.svg" width="576" /></p>
 </div>
 <div id="change-vertices" class="section level1">
 <h1><span class="header-section-number">7</span> Change Vertices</h1>
@@ -455,7 +457,7 @@ The same logic of course applies if you would like to select on node attributes 
 <div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># changing V</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="kw">V</span>(G2)<span class="op">$</span>size =<span class="st"> </span><span class="kw">degree</span>(G2) <span class="op">*</span><span class="st"> </span><span class="fl">1.05</span></span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-14-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-14-1.svg" width="576" /></p>
 </div>
 <div id="color" class="section level2">
 <h2><span class="header-section-number">7.2</span> color</h2>
@@ -463,7 +465,7 @@ The same logic of course applies if you would like to select on node attributes 
 <span id="cb24-2"><a href="#cb24-2"></a><span class="kw">V</span>(G2)<span class="op">$</span>label.cex =<span class="st"> </span><span class="dv">1</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a><span class="kw">V</span>(G2)<span class="op">$</span>color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(G2)<span class="op">$</span>Geslacht <span class="op">==</span><span class="st"> &quot;vrouw&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>)</span>
 <span id="cb24-4"><a href="#cb24-4"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-15-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-15-1.svg" width="576" /></p>
 </div>
 </div>
 <div id="changing-edges" class="section level1">
@@ -474,7 +476,7 @@ The same logic of course applies if you would like to select on node attributes 
 <span id="cb25-2"><a href="#cb25-2"></a><span class="kw">E</span>(G2)<span class="op">$</span>arrow.size =<span class="st"> </span><span class="fl">0.4</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="kw">E</span>(G2)<span class="op">$</span>curved =<span class="st"> </span><span class="fl">0.3</span></span>
 <span id="cb25-4"><a href="#cb25-4"></a><span class="kw">plot</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-16-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-16-1.svg" width="576" /></p>
 </div>
 </div>
 <div id="add-a-legend" class="section level1">
@@ -485,14 +487,14 @@ The same logic of course applies if you would like to select on node attributes 
 <span id="cb26-4"><a href="#cb26-4"></a>    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="dv">-1</span>, <span class="dt">y =</span> <span class="dv">-1</span>, <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>), <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;#777777&quot;</span>, <span class="dt">pt.bg =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
 <span id="cb26-5"><a href="#cb26-5"></a>        <span class="dt">pt.cex =</span> <span class="dv">2</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>)</span>
 <span id="cb26-6"><a href="#cb26-6"></a>}</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-17-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-17-1.svg" width="576" /></p>
 </div>
 <div id="coordinates" class="section level1">
 <h1><span class="header-section-number">10</span> Coordinates</h1>
 <p>Lets puts the MPs where they belong.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># lets have a look first</span></span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="kw">plot</span>(keyf<span class="op">$</span>X, keyf<span class="op">$</span>Y, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">18</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">18</span>, <span class="dv">18</span>), <span class="dt">col =</span> keyf<span class="op">$</span>Partij_col, <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-18-1.svg" width="576" />
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-18-1.svg" width="576" />
 In case you wonder. The empty seats are the MPs without a Twitter account.
 Lets assign these coordinates to our MPs</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># it really depends on your plotting window (size, resolution etc.) to get consistent results you</span></span>
@@ -523,7 +525,7 @@ Lets assign these coordinates to our MPs</p>
 <span id="cb28-26"><a href="#cb28-26"></a>owncoords[, <span class="dv">2</span>] &lt;-<span class="st"> </span>(owncoords[, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(owncoords[, <span class="dv">2</span>]))</span>
 <span id="cb28-27"><a href="#cb28-27"></a><span class="kw">plot.igraph</span>(G2, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
 <span id="cb28-28"><a href="#cb28-28"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-19-1.svg" width="864" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-19-1.svg" width="864" /></p>
 </div>
 <div id="change-edges" class="section level1">
 <h1><span class="header-section-number">11</span> Change edges</h1>
@@ -556,7 +558,7 @@ To demonstrate this I first make a weighted atmention network. I simply sum whet
 <span id="cb29-23"><a href="#cb29-23"></a></span>
 <span id="cb29-24"><a href="#cb29-24"></a><span class="kw">plot.igraph</span>(G_w, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
 <span id="cb29-25"><a href="#cb29-25"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-20-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-20-1.svg" width="576" /></p>
 </div>
 <div id="changing-edge-width-based-on-weight." class="section level2">
 <h2><span class="header-section-number">11.2</span> changing edge width based on weight.</h2>
@@ -566,7 +568,7 @@ To demonstrate this I first make a weighted atmention network. I simply sum whet
 <span id="cb30-4"><a href="#cb30-4"></a><span class="kw">E</span>(G_w)<span class="op">$</span>width &lt;-<span class="st"> </span><span class="kw">E</span>(G_w)<span class="op">$</span>weight</span>
 <span id="cb30-5"><a href="#cb30-5"></a><span class="kw">plot.igraph</span>(G_w, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="dt">layout =</span> owncoords, <span class="dt">rescale =</span> F, <span class="dt">margin =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, </span>
 <span id="cb30-6"><a href="#cb30-6"></a>    <span class="dv">1</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">1</span>])), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(owncoords[, <span class="dv">2</span>]), <span class="kw">max</span>(owncoords[, <span class="dv">2</span>])))</span></code></pre></div>
-<p><img src="/courses/Complete-Networks/Plotting-Social-Networks/index_files/figure-html/unnamed-chunk-21-1.svg" width="576" /></p>
+<p><img src="{{< relref "courses/Complete-Networks/Plotting-Social-Networks/index.html" >}}index_files/figure-html/unnamed-chunk-21-1.svg" width="576" /></p>
 </div>
 <div id="change-edge-width-based-on-dyad-charactersitics" class="section level2">
 <h2><span class="header-section-number">11.3</span> change edge width based on dyad charactersitics</h2>
@@ -640,6 +642,6 @@ To demonstrate this I first make a weighted atmention network. I simply sum whet
 <li>add title to figure (hint: look at ?plot)</li>
 <li>save as pdf, png or html (hint: look at ?png)</li>
 </ul>
-<p>Latest Version: 07-10-2020</p>
+<p>Latest Version: 07-12-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
