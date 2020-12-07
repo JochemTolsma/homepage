@@ -96,8 +96,6 @@ Any ideas about what a 2.5 degree network would look like. To be honest, I don't
 ### Six degrees of seperation 
 Teaser...
 
-![](/smallworld.PNG)  
-
 The idea that all people are connected through just six degrees of separation is based on Stanley Milgram's famous 'The small world problem' paper.[^6] We will discuss the small world concept in more detail when we will discuss complete networks. Luckily, you don't need to read the book. Just watch the movie: 
 
 
@@ -206,11 +204,7 @@ Martí, J., Bolíbar, M., & Lozares, C. (2017). Network cohesion and social supp
 
 Each chapter ends with a **SELF-TEST**. Using what you learned in this chapter you should be able to answer both the theoretical and methodological part of this [SELF-TEST]({{< ref "/ego5.md" >}}). 
 
-## Definitions
 
-- network layer  
-- density  
-- triad
 
 
 

@@ -1,0 +1,137 @@
+---
+#Page title
+title: Conceptual Models
+
+# Title for the menu link if you wish to use a shorter link title, otherwise remove this option.
+#linktitle:
+
+# Page summary for search engines.
+summary: conceptual models; path diagrams; lavaan; sem; mediation; moderation; moderated mediation; 2-1-1 models. 
+
+# Date page published
+date: '`r format(Sys.Date(), "%d-%m-%Y")`'
+
+
+# Academic page type (do not modify).
+type: book
+
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: yes
+    self_contained: no
+    toc: true
+
+# add bibliography
+bibliography: my-library.bib
+
+# Position of this page in the menu. Remove this option to sort alphabetically.
+weight: 1
+---
+
+<!---
+
+
+
+{{< highlight go >}} A bunch of code here 
+2 + 2  
+{{< /highlight >}}
+
+{{< youtube id="w7Ft2ymGmfc" autoplay="true" title="my title" >}} 
+  
+
+{{% alert note %}}
+A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{% /alert %}}
+
+{{% alert warning %}}
+Here's some important information...
+{{% /alert %}}
+
+
+--->  
+
+## Overview  
+
+Conceptual models may help a researcher to:  
+
+- organize the thought process and improve structured thinking  
+- critically think about causality  
+- identify equivalent models  
+- **formulate (informative and testable) hypotheses**    
+- summarize hypotheses graphically for a lay audience  
+- summarize hypotheses graphically for an expert audience when translated into a path diagram
+
+{{% alert note %}}
+Although closely related, a conceptual model is not a path diagram.  
+A **conceptual model** is a tool for researchers to organize the thought process and to concisely summarize hypotheses. Although it is a good idea to follow some conventions there are no real rules in how to graphically represent the assumed relations between concepts. Researcher may (should?!) be creative in how they want to depict non-linear relations or complex 'aggregation rules'.  
+A **path diagram** is a formal and graphical representation of a structural model (i.e. a set of structural equations). There are clear rules how to depict manifest and latent variables, (error)variances between exogenous and endogenous variables, random intercepts and slopes, et cetera.  
+{{% /alert %}}
+
+---  
+
+## Aim 
+
+The intended learning outcomes of this course are:  
+1. Theoretical knowledge and insight: you will be able to define core concepts related to conceptual models (e.g. correlation, causality, mediation, moderation) and are able to explain the distinction with path diagrams.  
+2. Academic attitude: you develop a positive attitude towards applying conceptual models in your own social science research projects.   
+3. Research skills: you will be able to use conceptual models as a tool to: formulate strong hypotheses; summarize hypotheses; assess the system of formulated hypotheses in social science projects of others. 
+
+---  
+
+## Structure  
+
+On each different page we discuss a different conceptual model.  
+
+- Correlation  
+- Direct effect  
+- Two direct effects (partial correlation / multiple regression)
+- Mediation 
+- Spuriousness 
+- Moderation
+- Multi-level model  
+- Multi-level mediation (2-1-1 model)  
+- Multi-level moderation (cross-level interaction)  
+- Multi-level micro-macro model  
+- Longitudinal model  
+- Cross-Lagged Panel Model  
+
+Each page contains the following subsections:  
+
+- The Conceptual Model  
+- Explanation  
+- Abstract hypothesis/hypotheses  
+- Real life example  
+- Structural equations   
+- Formal test of hypotheses  
+
+{{% alert note %}}
+Feel free to jump to the page and subsection you are most interested in. But there is a clear order in the pages and subsections. The best way to reach the aim of this course is by going through the pages one by one from top to bottom.  
+Use the **menu on the left** to navigate through the main sections.  
+Use the **menu on the right** to navigate to subsections of each current page. 
+{{% /alert %}}
+
+---  
+
+## SEM and path diagrams  
+
+Although I will try to translate each Conceptual Model into a more formal set of structural equations and will show you how to test this structural model (with the R package **Lavaan**), this is not a tutorial on SEM or path diagrams. 
+
+---  
+
+## Correlation versus Causation  
+
+More often than not, the conceptual model will try to summarize causal mechanisms (e.g. X causes Y). And more often than not, it is not possible to give a causal interpretation of the estimates obtained after the hypotheses test. I will try to discuss the extent to which parameter estimates may be given a causal interpretation throughout this tutorial.  
+Also note that I use the label *correlation* but naturally the correct measure for the presumed association depends on the measurement level of the variables involved (i.e. nominal, ordinal, metric). 
+
+---  
+
+## Data  
+
+For the examples in this tutorial I will use the dateset [*The NEtherlands Longitudinal Lifecourse Study (NELLS)*] (https://doi.org/10.17026/dans-25n-2xjv) (@tolsma_netherlands_2014). Please follow the link to download the codebook and dataset. 
+
+---  
+
+## References
+
+

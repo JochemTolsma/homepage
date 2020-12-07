@@ -1,0 +1,232 @@
+---
+title: Correlation
+author: JochemTolsma
+date: '2020-12-07'
+slug: cor1
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle:
+
+summary: "conceptual model, correlation, explanation, tutorial, R, Lavaan"
+lastmod: '`r format(Sys.Date(), "%d-%m-%Y")`'
+
+type: book
+weight: 10
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: yes
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<!---
+<style>
+.btn-text-right{
+	text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+
+## The Conceptual Model  
+
+```{r correlation, echo=FALSE, fig.cap="correlation", out.width = '100%'}
+knitr::include_graphics("../static/CM1.PNG")
+```
+
+
+---  
+
+## Explanation  
+
+In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, **X** and **Y**.  
+The double headed arrow indicates that you do not assume a causal relation but a simple correlation. Thus: if X is high, Y is high; when Y is low, X is low.  
+It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.  
+
+
+{{% alert note %}}
+Please note, I use the label *concept* and not *variable*. A *variable* is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and the concept as intended may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the 'concept as measured'.  
+It is generally a good idea to use concepts that are (very) close to your actual measurements. Thus, although you may use the concept *social cohesion* in your conceptual model, this concept is overly broad and there is a fierce debate on how it should be defined. If you have measured social cohesion with for example a single item on generalized trust ("Generally speaking would you say that most people can be trusted or that you can't be too careful in dealing with people?") why not use the concept generalized trust in your conceptual model? 
+{{% /alert %}}
+
+---  
+
+## Abstract hypothesis/hypotheses  
+
+Hypo: X is related to Y.  
+or:  
+Hypo: X and Y are related  
+better:  
+Hypo: X and Y are positively related 
+
+---  
+
+## Real life example  
+
+X is occupational success.  
+Y is health 
+
+Hypo 1a: People's health and occupational success are positively related to each other.  
+
+You may have a more precise idea on why occupational success and health are related. Perhaps because of a third (unmeasured) concept such as social origin (e.g. income and parental education). That is, the relation is at least in part spurious (see here). Alternatively, you may assume two bidirectional causal mechanisms. In the latter case your hypothesis could read: 
+
+Hypo 1b: A higher occupational status will lead to a better health 
+and a better health will lead to a higher occupational status. 
+
+{{% alert warning %}}
+Where hypo 1a is fairly easy to test, hypo1b is not. Hypo 1b implicitly assumes that health at time T will cause in part your health at time T + 1 and that occupational success at time T will cause in part your occupational success at time T + 1 (i.e. stability paths). It also assumes some correlation between health and occupational success at time T. Finally, Hypo 1b assumes that within-individual changes in occupational success (health) are related to within-individual changes in health (occupational success). You could test this Hypo 1b with, for example, a [Random Intercept Cross-Lagged Panel Model (RI-CLPM)](https://ellenhamaker.github.io/RI-CLPM/).  
+{{% /alert %}}
+
+---  
+
+## Structural equations   
+
+- Y=X  
+
+or, following the syntax of the R package **Lavaan**
+
+- Y~~X  
+
+The double `~~` indicates a (error)variance. 
+
+---  
+
+## Formal test of hypotheses  
+
+Load the NELLS data.  
+
+```{r}
+rm(list=ls()) #empty environment
+require(haven)
+nells <- read_dta("../static/NELLS panel nl v1_2.dta") #change directory name to your working directory
+```
+
+Operationalize concepts.
+
+```{r}
+# We will use the data of wave 2.
+nellsw2<- nells[nells$w2cpanel==1,]
+
+# As an indicator of occupational success we will use income in wave 2.
+table(nellsw2$w2fa61, useNA="always")
+attributes(nellsw2$w2fa61)
+#recode (I will start newly created variables with cm from conceptual models)
+nellsw2$cm_income <- nellsw2$w2fa61
+nellsw2$cm_income[nellsw2$cm_income==1] <- 100
+nellsw2$cm_income[nellsw2$cm_income==2] <- 225
+nellsw2$cm_income[nellsw2$cm_income==3] <- 400
+nellsw2$cm_income[nellsw2$cm_income==4] <- 750
+nellsw2$cm_income[nellsw2$cm_income==5] <- 1250
+nellsw2$cm_income[nellsw2$cm_income==6] <- 1750
+nellsw2$cm_income[nellsw2$cm_income==7] <- 2250
+nellsw2$cm_income[nellsw2$cm_income==8] <- 2750
+nellsw2$cm_income[nellsw2$cm_income==9] <- 3250
+nellsw2$cm_income[nellsw2$cm_income==10] <- 3750
+nellsw2$cm_income[nellsw2$cm_income==11] <- 4250
+nellsw2$cm_income[nellsw2$cm_income==12] <- 4750
+nellsw2$cm_income[nellsw2$cm_income==13] <- 5250
+nellsw2$cm_income[nellsw2$cm_income==14] <- 5750
+nellsw2$cm_income[nellsw2$cm_income==15] <- 6500
+nellsw2$cm_income[nellsw2$cm_income==16] <- 7500
+nellsw2$cm_income[nellsw2$cm_income==17] <- NA
+# let us scale the variable a bit and translate into income per 1000euro
+nellsw2$cm_income <- nellsw2$cm_income/1000
+
+#from household income to personal income
+attributes(nellsw2$w2fa62)
+table(nellsw2$w2fa62, useNA="always")
+nellsw2$cm_income_per <- nellsw2$w2fa62
+nellsw2$cm_income_per[nellsw2$cm_income_per==1] <- 0
+nellsw2$cm_income_per[nellsw2$cm_income_per==2] <- 10
+nellsw2$cm_income_per[nellsw2$cm_income_per==3] <- 20
+nellsw2$cm_income_per[nellsw2$cm_income_per==4] <- 30
+nellsw2$cm_income_per[nellsw2$cm_income_per==5] <- 40
+nellsw2$cm_income_per[nellsw2$cm_income_per==6] <- 50
+nellsw2$cm_income_per[nellsw2$cm_income_per==7] <- 60
+nellsw2$cm_income_per[nellsw2$cm_income_per==8] <- 70
+nellsw2$cm_income_per[nellsw2$cm_income_per==9] <- 80
+nellsw2$cm_income_per[nellsw2$cm_income_per==10] <- 90
+nellsw2$cm_income_per[nellsw2$cm_income_per==11] <- 100
+nellsw2$cm_income_per[nellsw2$cm_income_per==12] <- NA
+
+nellsw2$cm_income_ind <- nellsw2$cm_income * nellsw2$cm_income_per/100
+
+#as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we have to reverse code original variable
+
+attributes(nellsw2$w2scf1)
+table(nellsw2$w2scf1, useNA="always")
+nellsw2$cm_health <- 6 - nellsw2$w2scf1
+
+```
+
+And test the correlation. Naturally, there are many ways to test for a correlation in R but in this tutorial I will try to do everything at least also in the package **Lavaan**. 
+
+But first plot the association:
+```{r}
+#I randomly select 200 respondents otherwise the plot will be too crowded
+selection <- sample(1:length(nellsw2$cm_income_ind), 200, replace=FALSE) 
+#because we are interested in a correlation, I plot the standardized variables
+plot(scale(nellsw2$cm_income_ind[selection]), scale(nellsw2$cm_health[selection]))
+```
+I don't see a very clear association. Perhaps at most a weak correlation.  
+
+And now,...the correlation
+
+```{r}
+cor.test(nellsw2$cm_income_ind,nellsw2$cm_health)
+```
+And with **Lavaan**.
+
+```{r}
+require(lavaan)
+var(nellsw2$cm_income_ind, na.rm=TRUE)
+
+model <- '
+  cm_income_ind ~~ cm_health
+  '
+
+fit <- cfa(model, data = nellsw2) #I use cfa instead of lavaan. The only advantage is that I don't have to tell lavaan that I also need the variances of the variables. 
+summary(fit, standardized=TRUE)
+parameterEstimates(fit)
+```
+The covariance between the standardized variables is of course the correlation and this is the same value as the one obtained with `cor.test()`. 
+
+
+---  
+
+## References
+
+

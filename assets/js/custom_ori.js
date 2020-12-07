@@ -17,7 +17,7 @@ var x = document.getElementsByClassName("d-none d-xl-block col-xl-2 docs-toc");
 //	}
 
 	// Generate html
-	var htmltoc = '<ul class="nav toc-top"><li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li></ul>' +
+	var htmltoc = '<ul class="nav toc-top"><li><a href="#" id="back_to_top" class="docs-toc-title">On This Page</a></li></ul>' +
 	'<nav id="TableOfContents" class="nav flex-column">' +
   toc.html() +
 	'</nav>';

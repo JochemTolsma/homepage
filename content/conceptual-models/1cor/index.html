@@ -1,0 +1,347 @@
+<script src="index_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="index_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="index_files/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="index_files/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="index_files/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="index_files/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+</style>
+
+<div id="TOC">
+<ul>
+<li><a href="#the-conceptual-model"><span class="toc-section-number">0.1</span> The Conceptual Model</a></li>
+<li><a href="#explanation"><span class="toc-section-number">0.2</span> Explanation</a></li>
+<li><a href="#abstract-hypothesishypotheses"><span class="toc-section-number">0.3</span> Abstract hypothesis/hypotheses</a></li>
+<li><a href="#real-life-example"><span class="toc-section-number">0.4</span> Real life example</a></li>
+<li><a href="#structural-equations"><span class="toc-section-number">0.5</span> Structural equations</a></li>
+<li><a href="#formal-test-of-hypotheses"><span class="toc-section-number">0.6</span> Formal test of hypotheses</a></li>
+<li><a href="#references"><span class="toc-section-number">0.7</span> References</a></li>
+</ul>
+</div>
+
+<!--set global settings-->
+<!--copy to clipboard-->
+<p><script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+---></p>
+<!---
+<style>
+.btn-text-right{
+    text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+<div id="the-conceptual-model" class="section level2">
+<h2><span class="header-section-number">0.1</span> The Conceptual Model</h2>
+<div class="figure"><span id="fig:correlation"></span>
+<img src="../static/CM1.PNG" alt="correlation" width="100%" />
+<p class="caption">
+Figure 1: correlation
+</p>
+</div>
+<hr />
+</div>
+<div id="explanation" class="section level2">
+<h2><span class="header-section-number">0.2</span> Explanation</h2>
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, <strong>X</strong> and <strong>Y</strong>.<br />
+The double headed arrow indicates that you do not assume a causal relation but a simple correlation. Thus: if X is high, Y is high; when Y is low, X is low.<br />
+It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.</p>
+<p>{{% alert note %}}
+Please note, I use the label <em>concept</em> and not <em>variable</em>. A <em>variable</em> is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and the concept as intended may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the ‘concept as measured’.<br />
+It is generally a good idea to use concepts that are (very) close to your actual measurements. Thus, although you may use the concept <em>social cohesion</em> in your conceptual model, this concept is overly broad and there is a fierce debate on how it should be defined. If you have measured social cohesion with for example a single item on generalized trust (“Generally speaking would you say that most people can be trusted or that you can’t be too careful in dealing with people?”) why not use the concept generalized trust in your conceptual model?
+{{% /alert %}}</p>
+<hr />
+</div>
+<div id="abstract-hypothesishypotheses" class="section level2">
+<h2><span class="header-section-number">0.3</span> Abstract hypothesis/hypotheses</h2>
+<p>Hypo: X is related to Y.<br />
+or:<br />
+Hypo: X and Y are related<br />
+better:<br />
+Hypo: X and Y are positively related</p>
+<hr />
+</div>
+<div id="real-life-example" class="section level2">
+<h2><span class="header-section-number">0.4</span> Real life example</h2>
+<p>X is occupational success.<br />
+Y is health</p>
+<p>Hypo 1a: People’s health and occupational success are positively related to each other.</p>
+<p>You may have a more precise idea on why occupational success and health are related. Perhaps because of a third (unmeasured) concept such as social origin (e.g. income and parental education). That is, the relation is at least in part spurious (see here). Alternatively, you may assume two bidirectional causal mechanisms. In the latter case your hypothesis could read:</p>
+<p>Hypo 1b: A higher occupational status will lead to a better health
+and a better health will lead to a higher occupational status.</p>
+<p>{{% alert warning %}}
+Where hypo 1a is fairly easy to test, hypo1b is not. Hypo 1b implicitly assumes that health at time T will cause in part your health at time T + 1 and that occupational success at time T will cause in part your occupational success at time T + 1 (i.e. stability paths). It also assumes some correlation between health and occupational success at time T. Finally, Hypo 1b assumes that within-individual changes in occupational success (health) are related to within-individual changes in health (occupational success). You could test this Hypo 1b with, for example, a <a href="https://ellenhamaker.github.io/RI-CLPM/">Random Intercept Cross-Lagged Panel Model (RI-CLPM)</a>.<br />
+{{% /alert %}}</p>
+<hr />
+</div>
+<div id="structural-equations" class="section level2">
+<h2><span class="header-section-number">0.5</span> Structural equations</h2>
+<ul>
+<li>Y=X</li>
+</ul>
+<p>or, following the syntax of the R package <strong>Lavaan</strong></p>
+<ul>
+<li>Y~~X</li>
+</ul>
+<p>The double <code>~~</code> indicates a (error)variance.</p>
+<hr />
+</div>
+<div id="formal-test-of-hypotheses" class="section level2">
+<h2><span class="header-section-number">0.6</span> Formal test of hypotheses</h2>
+<p>Load the NELLS data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())  <span class="co">#empty environment</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">require</span>(haven)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>nells &lt;-<span class="st"> </span><span class="kw">read_dta</span>(<span class="st">&quot;../static/NELLS panel nl v1_2.dta&quot;</span>)  <span class="co">#change directory name to your working directory</span></span></code></pre></div>
+<p>Operationalize concepts.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># We will use the data of wave 2.</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>nellsw2 &lt;-<span class="st"> </span>nells[nells<span class="op">$</span>w2cpanel <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ]</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># As an indicator of occupational success we will use income in wave 2.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa61, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17 &lt;NA&gt; 
+##   55   78  103  204  338  326  282  272  276  205  133   62   48   22   22   29  374    0</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa61)</span></code></pre></div>
+<pre><code>## $label
+## [1] &quot; wat is het netto inkomen per maand van u en uw partner samen?/van u?/  &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+##  Minder dan ¤150 per maand      ¤150 - ¤299 per maand      ¤300 - ¤499 per maand 
+##                          1                          2                          3 
+##      ¤500 - ¤999 per maand  ¤1.000 - ¤1.499 per maand  ¤1.500 - ¤1.999 per maand 
+##                          4                          5                          6 
+##  ¤2.000 - ¤2.499 per maand  ¤2.500 - ¤2.999 per maand  ¤3.000 - ¤3.499 per maand 
+##                          7                          8                          9 
+##  ¤3.500 - ¤3.999 per maand  ¤4.000 - ¤4.499 per maand  ¤4.500 - ¤4.999 per maand 
+##                         10                         11                         12 
+##  ¤5.000 - ¤5.499 per maand  ¤5.500 - ¤5.999 per maand  ¤6.000 - ¤6.999 per maand 
+##                         13                         14                         15 
+##   ¤7.000 of meer per maand weet niet, wil niet zeggen 
+##                         16                         17 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># recode (I will start newly created variables with cm from conceptual models)</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa61</span>
+<span id="cb6-3"><a href="#cb6-3"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">225</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">400</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">750</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">1250</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">1750</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">2250</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">2750</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">3250</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">3750</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">4250</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">4750</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">5250</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="dv">5750</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">6500</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">16</span>] &lt;-<span class="st"> </span><span class="dv">7500</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="co"># let us scale the variable a bit and translate into income per 1000euro</span></span>
+<span id="cb6-21"><a href="#cb6-21"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="co"># from household income to personal income</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa62)</span></code></pre></div>
+<pre><code>## $label
+## [1] &quot; hoe groot is uw bijdrage in dit inkomen ongeveer? kunt u een percentage noemen &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## vrijwel geen bijdrage          ongeveer 10%          ongeveer 20%          ongeveer 30% 
+##                     1                     2                     3                     4 
+##          ongeveer 40%          ongeveer 50%          ongeveer 60%          ongeveer 70% 
+##                     5                     6                     7                     8 
+##          ongeveer 80%          ongeveer 90%         ongeveer 100%             weet niet 
+##                     9                    10                    11                    12 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa62, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5    6    7    8    9   10   11   12 &lt;NA&gt; 
+##  253   48   89  259  233  242  183  229  114   63  887  229    0</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>nellsw2<span class="op">$</span>cm_income_per &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa62</span>
+<span id="cb10-2"><a href="#cb10-2"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">40</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">60</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">70</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">80</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">90</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a></span>
+<span id="cb10-15"><a href="#cb10-15"></a>nellsw2<span class="op">$</span>cm_income_ind &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income <span class="op">*</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_per<span class="op">/</span><span class="dv">100</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="co"># have to reverse code original variable</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span></code></pre></div>
+<pre><code>## $label
+## [1] &quot; wat vindt u, over het algemeen genomen, van uw gezondheid? &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## uitstekend  zeer goed       goed      matig     slecht 
+##          1          2          3          4          5 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5 &lt;NA&gt; 
+##  438  853 1211  247   48   32</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
+<p>And test the correlation. Naturally, there are many ways to test for a correlation in R but in this tutorial I will try to do everything at least also in the package <strong>Lavaan</strong>.</p>
+<p>But first plot the association:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># I randomly select 200 respondents otherwise the plot will be too crowded</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>selection &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nellsw2<span class="op">$</span>cm_income_ind), <span class="dv">200</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co"># because we are interested in a correlation, I plot the standardized variables</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="kw">plot</span>(<span class="kw">scale</span>(nellsw2<span class="op">$</span>cm_income_ind[selection]), <span class="kw">scale</span>(nellsw2<span class="op">$</span>cm_health[selection]))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.svg" width="576" />
+I don’t see a very clear association. Perhaps at most a weak correlation.</p>
+<p>And now,…the correlation</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">cor.test</span>(nellsw2<span class="op">$</span>cm_income_ind, nellsw2<span class="op">$</span>cm_health)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  nellsw2$cm_income_ind and nellsw2$cm_health
+## t = 3.886, df = 2353, p-value = 0.0001047
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.03959172 0.11986098
+## sample estimates:
+##       cor 
+## 0.0798558</code></pre>
+<p>And with <strong>Lavaan</strong>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">require</span>(lavaan)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">var</span>(nellsw2<span class="op">$</span>cm_income_ind, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 1.021848</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  cm_income_ind ~~ cm_health</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  &quot;</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a></span>
+<span id="cb20-5"><a href="#cb20-5"></a>fit &lt;-<span class="st"> </span><span class="kw">cfa</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use cfa instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the variances of the variables. </span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 10 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          3
+##                                                       
+##                                                   Used       Total
+##   Number of observations                          2355        2829
+##                                                                   
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_income_ind ~~                                                      
+##     cm_health         0.074    0.019    3.863    0.000    0.074    0.080
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     cm_income_ind     1.023    0.030   34.315    0.000    1.023    1.000
+##     cm_health         0.839    0.024   34.315    0.000    0.839    1.000</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">parameterEstimates</span>(fit)</span></code></pre></div>
+<pre><code>##             lhs op           rhs   est    se      z pvalue ci.lower ci.upper
+## 1 cm_income_ind ~~     cm_health 0.074 0.019  3.863      0    0.036    0.111
+## 2 cm_income_ind ~~ cm_income_ind 1.023 0.030 34.315      0    0.965    1.081
+## 3     cm_health ~~     cm_health 0.839 0.024 34.315      0    0.791    0.886</code></pre>
+<p>The covariance between the standardized variables is of course the correlation and this is the same value as the one obtained with <code>cor.test()</code>.</p>
+<hr />
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">0.7</span> References</h2>
+</div>

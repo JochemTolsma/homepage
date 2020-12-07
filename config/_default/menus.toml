@@ -35,8 +35,13 @@
   weight = 50
 
 [[main]]
+  name = "Conceptual Models"
+  url = "conceptual-models/"
+  weight = 51
+
+[[main]]
   #identifier = "demo2"
-  name = "demo2"
+  name = "Intro R"
   url = "/tutorials/demo2/"
   parent = "tutorials"
   weight = 10
