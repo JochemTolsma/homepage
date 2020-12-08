@@ -63,7 +63,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 
 ## The Conceptual Model  
 
-```{r correlation, echo=FALSE, fig.cap="correlation", out.width = '100%'}
+```{r correlation, echo=FALSE, fig.cap="direct effect", out.width = '100%'}
 knitr::include_graphics("../static/CM2.PNG")
 ```
 
@@ -192,14 +192,14 @@ But first plot the association and add the regression line:
 selection <- sample(1:length(nellsw2$cm_income_ind), 200, replace=FALSE) 
 #because we are interested in a correlation, I plot the standardized variables
 plot(nellsw2$cm_income_ind[selection], nellsw2$cm_health[selection])
-abline(lm(nellsw2$cm_income_ind~nellsw2$cm_health), lwd=4, col="red")
+abline(lm(nellsw2$cm_health~nellsw2$cm_income_ind), lwd=4, col="red")
 ```
 I hope you observe that the regression line does not fit the data very well. 
 
 And now,...estimate the direct effect via `lm()`:
 
 ```{r}
-summary(lm(nellsw2$cm_income_ind~nellsw2$cm_health))
+summary(lm(nellsw2$cm_health~nellsw2$cm_income_ind))
 ```
 And with **Lavaan**.
 
@@ -210,10 +210,10 @@ var(cbind(nellsw2$cm_income_ind,nellsw2$cm_health), na.rm=TRUE)
 cor(cbind(nellsw2$cm_income_ind,nellsw2$cm_health), use="pairwise.complete.obs", method="pearson")
 ```
 
-```{r}
+```{r, tidy=FALSE}
 model <- '
-  cm_income_ind ~ cm_health
-  cm_income_ind ~ 1
+  cm_health ~ cm_income_ind 
+  cm_health ~ 1
 '
 ```  
   
@@ -225,7 +225,7 @@ inspect(fit,'r2') #to obtain r-squared
 ```
 Let us briefly discuss the results:  
 
-- The direct effect is **0.088**. A causal interpretation would be: if your income increases with 1000euros your health will improve by 0.088 (on a scale from 1-5).  
+- The direct effect is **0.072**. A causal interpretation would be: if your income increases with 1000euros your health will improve by 0.072 (on a scale from 1-5).  
 - You will also observe that the standardized regression coefficient is 0.80 which is exactly the same as the estimated correlation between our two concepts previously. Thus the correlation and direct effect models are equivalent and we should be very cautious in giving our regression coefficient a causal interpretation.  
 - I hope you also observe that the explained variance is very low (and thus that the error variance of our health variables is almost identical to the observed variance). Perhaps, you should conclude that even though the strong significant effect the impact (or linear relation) between income and health is not substantial and negliable?   
 

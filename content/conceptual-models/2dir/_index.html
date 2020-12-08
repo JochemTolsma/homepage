@@ -131,9 +131,9 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <div id="the-conceptual-model" class="section level2">
 <h2>The Conceptual Model</h2>
 <div class="figure"><span id="fig:correlation"></span>
-<img src="../static/CM2.PNG" alt="correlation" width="100%" />
+<img src="../static/CM2.PNG" alt="direct effect" width="100%" />
 <p class="caption">
-Figure 1: correlation
+Figure 1: direct effect
 </p>
 </div>
 <hr />
@@ -304,27 +304,27 @@ Y is health</p>
 <span id="cb4-2"><a href="#cb4-2"></a>selection &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nellsw2<span class="op">$</span>cm_income_ind), <span class="dv">200</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co"># because we are interested in a correlation, I plot the standardized variables</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="kw">plot</span>(nellsw2<span class="op">$</span>cm_income_ind[selection], nellsw2<span class="op">$</span>cm_health[selection])</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_income_ind <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_health), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="/conceptual-models/2dir/_index_files/figure-html/unnamed-chunk-3-1.svg" width="576" />
 I hope you observe that the regression line does not fit the data very well.</p>
 <p>And now,…estimate the direct effect via <code>lm()</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_income_ind <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_health))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind))</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = nellsw2$cm_income_ind ~ nellsw2$cm_health)
+## lm(formula = nellsw2$cm_health ~ nellsw2$cm_income_ind)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -1.5742 -0.7228 -0.1110  0.5522  6.1022 
+## -2.5178 -0.5178 -0.3913  0.5382  1.6087 
 ## 
 ## Coefficients:
-##                   Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)        1.13321    0.08202  13.816  &lt; 2e-16 ***
-## nellsw2$cm_health  0.08821    0.02270   3.886 0.000105 ***
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            3.39132    0.03276 103.516  &lt; 2e-16 ***
+## nellsw2$cm_income_ind  0.07230    0.01860   3.886 0.000105 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.009 on 2353 degrees of freedom
+## Residual standard error: 0.9132 on 2353 degrees of freedom
 ##   (474 observations deleted due to missingness)
 ## Multiple R-squared:  0.006377,   Adjusted R-squared:  0.005955 
 ## F-statistic:  15.1 on 1 and 2353 DF,  p-value: 0.0001047</code></pre>
@@ -339,10 +339,10 @@ I hope you observe that the regression line does not fit the data very well.</p>
 ##           [,1]      [,2]
 ## [1,] 1.0000000 0.0798558
 ## [2,] 0.0798558 1.0000000</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model &lt;-<span class="st"> &quot;</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  cm_income_ind ~ cm_health</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  cm_income_ind ~ 1</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>model &lt;-<span class="st"> &#39;</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  cm_health ~ cm_income_ind </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  cm_health ~ 1</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">&#39;</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>fit &lt;-<span class="st"> </span><span class="kw">cfa</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use cfa instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the error variances. </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
@@ -384,7 +384,7 @@ I hope you observe that the regression line does not fit the data very well.</p>
 ##         0.006</code></pre>
 <p>Let us briefly discuss the results:</p>
 <ul>
-<li>The direct effect is <strong>0.088</strong>. A causal interpretation would be: if your income increases with 1000euros your health will improve by 0.088 (on a scale from 1-5).<br />
+<li>The direct effect is <strong>0.072</strong>. A causal interpretation would be: if your income increases with 1000euros your health will improve by 0.072 (on a scale from 1-5).<br />
 </li>
 <li>You will also observe that the standardized regression coefficient is 0.80 which is exactly the same as the estimated correlation between our two concepts previously. Thus the correlation and direct effect models are equivalent and we should be very cautious in giving our regression coefficient a causal interpretation.<br />
 </li>

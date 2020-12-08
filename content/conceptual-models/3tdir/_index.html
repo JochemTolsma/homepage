@@ -1,0 +1,546 @@
+---
+title: Two Direct Effect
+author: JochemTolsma
+date: '2020-12-07'
+slug: tdir3
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle:
+
+summary: "conceptual model, correlation, direct effect, explanation, tutorial, R, Lavaan"
+lastmod: '08-12-2020'
+
+type: book
+weight: 30
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: no
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+<script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
+<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+</style>
+
+<div id="TOC">
+<ul>
+<li><a href="#the-conceptual-model">The Conceptual Model</a></li>
+<li><a href="#explanation">Explanation</a></li>
+<li><a href="#abstract-hypothesishypotheses">Abstract hypothesis/hypotheses</a></li>
+<li><a href="#real-life-example">Real life example</a></li>
+<li><a href="#structural-equations">Structural equations</a></li>
+<li><a href="#formal-test-of-hypotheses">Formal test of hypotheses</a></li>
+</ul>
+</div>
+
+<!--set global settings-->
+<!--copy to clipboard-->
+<p><script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+---></p>
+<!---
+<style>
+.btn-text-right{
+    text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+<div id="the-conceptual-model" class="section level2">
+<h2>The Conceptual Model</h2>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="../static/CM3a.PNG" alt="two direct effects" width="100%" />
+<p class="caption">
+Figure 1: two direct effects
+</p>
+</div>
+<hr />
+</div>
+<div id="explanation" class="section level2">
+<h2>Explanation</h2>
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, ** $ X_1 $ <strong>, </strong> $ X_2 $ ** and <strong>Y</strong>.<br />
+The single headed arrow indicates that you assume causal (linear) relations from ** $ X_1 $ ** and ** $ X_2 $ ** (on the left) to <strong>Y</strong> on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
+In this example we have to direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.<br />
+It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace <em>a</em> with <em>+</em> or <em>-</em>.</p>
+<p>{{% alert note %}}
+Please note, I use the label <em>concept</em> and not <em>variable</em>. A <em>variable</em> is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and the concept as intended may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the ‘concept as measured’.<br />
+It is generally a good idea to use concepts that are (very) close to your actual measurements. Thus, although you may use the concept <em>social cohesion</em> in your conceptual model, this concept is overly broad and there is a fierce debate on how it should be defined. If you have measured social cohesion with for example a single item on generalized trust (“Generally speaking would you say that most people can be trusted or that you can’t be too careful in dealing with people?”) why not use the concept generalized trust in your conceptual model?
+{{% /alert %}}</p>
+<hr />
+</div>
+<div id="abstract-hypothesishypotheses" class="section level2">
+<h2>Abstract hypothesis/hypotheses</h2>
+<p>Hypo1: $ X_1 $ leads to Y.<br />
+Hypo2: $ X_2 $ leads to Y.</p>
+<p>Normally we do not have an hypothesis on the association between $ X_1 $ and $ X_2 $. If we do, we could summarize our ideas with the following conceptual model:</p>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="../static/CM3b.PNG" alt="two direct effects and association" width="100%" />
+<p class="caption">
+Figure 2: two direct effects and association
+</p>
+</div>
+<p>Hypo3: $ X_1 $ and $ X_2 $ are positively associated.</p>
+<hr />
+</div>
+<div id="real-life-example" class="section level2">
+<h2>Real life example</h2>
+<p>$ X_1 $ is occupational success.<br />
+$ X_2 $ is being in a relationship (YES/NO)
+Y is health</p>
+<p>Hypo1: Occupational success will lead to better health. (Money makes happy.)
+Hypo2: Being in a relationship will lead to better health. (Love makes happy.)</p>
+<hr />
+</div>
+<div id="structural-equations" class="section level2">
+<h2>Structural equations</h2>
+<ul>
+<li>$ Y = X_1 $<br />
+</li>
+<li>$ Y = X_2 $<br />
+</li>
+<li>$ X_1 = X_2 $</li>
+</ul>
+<p>or, following the syntax of the R package <strong>Lavaan</strong></p>
+<ul>
+<li>Y~<span class="math inline">\(X_1\)</span><br />
+</li>
+<li>Y~<span class="math inline">\(X_2\)</span></li>
+<li><span class="math inline">\(X_1\)</span>~~<span class="math inline">\(X_2\)</span></li>
+</ul>
+<p>The single <code>~</code> indicates a direct effect (regression path).
+The double <code>~~</code> indicates a (partial), (error)variance.</p>
+<hr />
+</div>
+<div id="formal-test-of-hypotheses" class="section level2">
+<h2>Formal test of hypotheses</h2>
+<p>Load the NELLS data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())  <span class="co">#empty environment</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">require</span>(haven)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>nells &lt;-<span class="st"> </span><span class="kw">read_dta</span>(<span class="st">&quot;../static/NELLS panel nl v1_2.dta&quot;</span>)  <span class="co">#change directory name to your working directory</span></span></code></pre></div>
+<p>Operationalize concepts.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># We will use the data of wave 2.</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>nellsw2 &lt;-<span class="st"> </span>nells[nells<span class="op">$</span>w2cpanel <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ]</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># As an indicator of occupational success we will use income in wave 2.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa61, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa61)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># recode (I will start newly created variables with cm from conceptual models)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa61</span>
+<span id="cb2-9"><a href="#cb2-9"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">225</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">400</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">750</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">1250</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">1750</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">2250</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">2750</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">3250</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">3750</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">4250</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">4750</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">5250</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="dv">5750</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">6500</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">16</span>] &lt;-<span class="st"> </span><span class="dv">7500</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># let us scale the variable a bit and translate into income per 1000euro</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># from household income to personal income</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa62)</span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa62, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-32"><a href="#cb2-32"></a>nellsw2<span class="op">$</span>cm_income_per &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa62</span>
+<span id="cb2-33"><a href="#cb2-33"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">40</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">60</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">70</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">80</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">90</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a>nellsw2<span class="op">$</span>cm_income_ind &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income <span class="op">*</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_per<span class="op">/</span><span class="dv">100</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="co"># habing a partner</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fb1)</span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fb1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-51"><a href="#cb2-51"></a>nellsw2<span class="op">$</span>cm_partner &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">ifelse</span>(nellsw2<span class="op">$</span>w2fb1 <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="co"># have to reverse code original variable</span></span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-58"><a href="#cb2-58"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17 &lt;NA&gt; 
+##   55   78  103  204  338  326  282  272  276  205  133   62   48   22   22   29  374    0 
+## $label
+## [1] &quot; wat is het netto inkomen per maand van u en uw partner samen?/van u?/  &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+##  Minder dan ¤150 per maand      ¤150 - ¤299 per maand      ¤300 - ¤499 per maand 
+##                          1                          2                          3 
+##      ¤500 - ¤999 per maand  ¤1.000 - ¤1.499 per maand  ¤1.500 - ¤1.999 per maand 
+##                          4                          5                          6 
+##  ¤2.000 - ¤2.499 per maand  ¤2.500 - ¤2.999 per maand  ¤3.000 - ¤3.499 per maand 
+##                          7                          8                          9 
+##  ¤3.500 - ¤3.999 per maand  ¤4.000 - ¤4.499 per maand  ¤4.500 - ¤4.999 per maand 
+##                         10                         11                         12 
+##  ¤5.000 - ¤5.499 per maand  ¤5.500 - ¤5.999 per maand  ¤6.000 - ¤6.999 per maand 
+##                         13                         14                         15 
+##   ¤7.000 of meer per maand weet niet, wil niet zeggen 
+##                         16                         17 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## $label
+## [1] &quot; hoe groot is uw bijdrage in dit inkomen ongeveer? kunt u een percentage noemen &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## vrijwel geen bijdrage          ongeveer 10%          ongeveer 20%          ongeveer 30% 
+##                     1                     2                     3                     4 
+##          ongeveer 40%          ongeveer 50%          ongeveer 60%          ongeveer 70% 
+##                     5                     6                     7                     8 
+##          ongeveer 80%          ongeveer 90%         ongeveer 100%             weet niet 
+##                     9                    10                    11                    12 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
+##    1    2    3    4    5    6    7    8    9   10   11   12 &lt;NA&gt; 
+##  253   48   89  259  233  242  183  229  114   63  887  229    0 
+## $label
+## [1] &quot; heeft u op dit moment een partner?  &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## ik woon alleen en heb geen partner  ik woon alleen en heb een partner 
+##                                  1                                  2 
+##             ik woon ongehuwd samen               ik woon gehuwd samen 
+##                                  3                                  4 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
+##    1    2    3    4 &lt;NA&gt; 
+##  665  264  475 1425    0 
+## $label
+## [1] &quot; wat vindt u, over het algemeen genomen, van uw gezondheid? &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## uitstekend  zeer goed       goed      matig     slecht 
+##          1          2          3          4          5 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
+##    1    2    3    4    5 &lt;NA&gt; 
+##  438  853 1211  247   48   32</code></pre>
+<p>And test the direct effect. Naturally, there are many ways to test for a direct effects in R but in this tutorial I will try to do everything at least also in the package <strong>Lavaan</strong>.</p>
+<p>But first plot the associations:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># I randomly select 200 respondents otherwise the plot will be too crowded</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>selection &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nellsw2<span class="op">$</span>cm_income_ind), <span class="dv">200</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># because we are interested in a correlation, I plot the standardized variables</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">plot</span>(nellsw2<span class="op">$</span>cm_income_ind[selection], nellsw2<span class="op">$</span>cm_health[selection])</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">boxplot</span>(cm_health <span class="op">~</span><span class="st"> </span>cm_partner, <span class="dt">data =</span> nellsw2, <span class="dt">notch =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="/conceptual-models/3tdir/_index_files/figure-html/unnamed-chunk-5-1.svg" width="576" />
+I hope you observe that the regression line does not fit the data very well and that the means/median of health does not differ much whether or not you have a partner.</p>
+<p>And now,…estimate the direct effect via <code>lm()</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind))</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_partner))</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind <span class="op">+</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_partner))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nellsw2$cm_health ~ nellsw2$cm_income_ind)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.5178 -0.5178 -0.3913  0.5382  1.6087 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            3.39132    0.03276 103.516  &lt; 2e-16 ***
+## nellsw2$cm_income_ind  0.07230    0.01860   3.886 0.000105 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9132 on 2353 degrees of freedom
+##   (474 observations deleted due to missingness)
+## Multiple R-squared:  0.006377,   Adjusted R-squared:  0.005955 
+## F-statistic:  15.1 on 1 and 2353 DF,  p-value: 0.0001047
+## 
+## 
+## Call:
+## lm(formula = nellsw2$cm_health ~ nellsw2$cm_partner)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.4985 -0.4946 -0.4946  0.5054  1.5054 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          3.498485   0.035747  97.869   &lt;2e-16 ***
+## nellsw2$cm_partner1 -0.003866   0.040896  -0.095    0.925    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9183 on 2795 degrees of freedom
+##   (32 observations deleted due to missingness)
+## Multiple R-squared:  3.198e-06,  Adjusted R-squared:  -0.0003546 
+## F-statistic: 0.008938 on 1 and 2795 DF,  p-value: 0.9247
+## 
+## 
+## Call:
+## lm(formula = nellsw2$cm_health ~ nellsw2$cm_income_ind + nellsw2$cm_partner)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.5380 -0.5221 -0.3993  0.5364  1.6174 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            3.40777    0.04439  76.774  &lt; 2e-16 ***
+## nellsw2$cm_income_ind  0.07441    0.01900   3.916 9.25e-05 ***
+## nellsw2$cm_partner1   -0.02521    0.04590  -0.549    0.583    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9133 on 2352 degrees of freedom
+##   (474 observations deleted due to missingness)
+## Multiple R-squared:  0.006504,   Adjusted R-squared:  0.00566 
+## F-statistic: 7.699 on 2 and 2352 DF,  p-value: 0.0004647</code></pre>
+<p>And with <strong>Lavaan</strong>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">require</span>(lavaan)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  cm_health ~ cm_income_ind</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  cm_health ~ cm_partner</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  cm_income_ind ~~ cm_partner</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>nellsw2<span class="op">$</span>cm_partner &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(nellsw2<span class="op">$</span>cm_partner)</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use sem instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the error variances. </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># parameterEstimates(fit)</span></span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 18 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          6
+##                                                       
+##                                                   Used       Total
+##   Number of observations                          2355        2829
+##                                                                   
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_health ~                                                           
+##     cm_income_ind     0.074    0.019    3.919    0.000    0.074    0.082
+##     cm_partner       -0.025    0.046   -0.550    0.583   -0.025   -0.012
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_income_ind ~~                                                      
+##     cm_partner        0.086    0.009    9.631    0.000    0.086    0.202
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         0.833    0.024   34.315    0.000    0.833    0.993
+##     cm_income_ind     1.023    0.030   34.315    0.000    1.023    1.000
+##     cm_partner        0.175    0.005   34.315    0.000    0.175    1.000
+## 
+## cm_health 
+##     0.007</code></pre>
+<p>Let us briefly discuss the results:</p>
+<ul>
+<li>The direct effect for income on health does not change once we include our partner variable.<br />
+</li>
+<li>You will also observe that having a partner does not contribute to our SWB.<br />
+</li>
+<li>Money makes you happy but a partner does not.<br />
+</li>
+<li>According to the results, having a partner is positively related to income.</li>
+</ul>
+<p>Given the above, you may want to go back to your theoretical drawing board. And perhaps having done so, you now would like to estimate the following model:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">require</span>(lavaan)</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  cm_income_ind ~ cm_health </span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  cm_income_ind ~ cm_partner</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  cm_income_ind ~ 1</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  cm_health ~~ cm_partner</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="st">&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>nellsw2<span class="op">$</span>cm_partner &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(nellsw2<span class="op">$</span>cm_partner)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use sem instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the error variances. </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># parameterEstimates(fit)</span></span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 22 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          9
+##                                                       
+##                                                   Used       Total
+##   Number of observations                          2355        2829
+##                                                                   
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_income_ind ~                                                       
+##     cm_health         0.087    0.022    3.919    0.000    0.087    0.079
+##     cm_partner        0.488    0.049   10.047    0.000    0.488    0.202
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_health ~~                                                          
+##     cm_partner        0.002    0.008    0.248    0.804    0.002    0.005
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_income_ind     0.272    0.117    2.312    0.021    0.272    0.269
+##     cm_health         3.496    0.019  185.248    0.000    3.496    3.817
+##     cm_partner        1.773    0.009  205.509    0.000    1.773    4.235
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_income_ind     0.975    0.028   34.315    0.000    0.975    0.953
+##     cm_health         0.839    0.024   34.315    0.000    0.839    1.000
+##     cm_partner        0.175    0.005   34.315    0.000    0.175    1.000
+## 
+## cm_income_ind 
+##         0.047</code></pre>
+<p><strong>Take Home Messages</strong></p>
+<ul>
+<li>It is easy to estimate equivalent models with similar fits but with a different interpretation.</li>
+</ul>
+<hr />
+</div>
