@@ -13,7 +13,7 @@ summary: "conceptual model, correlation, direct effect, explanation, tutorial, R
 lastmod: '`r format(Sys.Date(), "%d-%m-%Y")`'
 
 type: book
-weight: 10
+weight: 20
 
  
 output:
