@@ -1,32 +1,3 @@
----
-title: examplermarkdown
-author: JochemTolsma
-date: '2020-08-19'
-slug: examplermarkdown
-categories:
-  - R
-  - Social Networks
-tags: []
-linktitle: Examplermarkdown
-
-summary: ~
-lastmod: '2020-08-19T08:27:34+02:00'
-
-type: book
-weight: 4
-
-
-output:
-  blogdown::html_page:
-    highlight: "haddock"
-    number_sections: yes
-    self_contained: yes
-    toc: true
-    fig_width: 6
-    dev: "svg"
-
----
-
 <script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
 // v0.0.1
 // Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
@@ -41,6 +12,45 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
 });
 </script>
 <script>/*!
@@ -286,25 +296,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h1><span class="header-section-number">1</span> test met header</h1>
 <div id="nog-een-test" class="section level2">
 <h2><span class="header-section-number">1.1</span> nog een test</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r watch-out numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 4
 ## [1] 6</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r watch-out numberLines"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
-<pre><code>## [1] 4
-## [1] 6</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r bg-danger numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">&quot;mpg&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r bg-danger numberLines"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="st">&quot;mpg&quot;</span>]</span></code></pre></div>
 <pre class="bg-warning"><code>## [1] 21.0 21.0 22.8 21.4 18.7</code></pre>
 <blockquote>
 <p>en wat is dit dan</p>
 </blockquote>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">if</span> (<span class="ot">TRUE</span>) {</span>
-<span id="cb7-2"><a href="#cb7-2"></a>    x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>    x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">if</span> (<span class="ot">TRUE</span>) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>}</span></code></pre></div>
 <pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
-<p>Latest Version: 24-08-2020</p>
+<p>Latest Version: 08-12-2020</p>
 <p>Please email any comments to: <a href="mailto:j.tolsma@ru.nl" class="email">j.tolsma@ru.nl</a></p>
 </div>
 </div>
