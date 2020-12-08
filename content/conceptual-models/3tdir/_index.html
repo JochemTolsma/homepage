@@ -1,39 +1,10 @@
----
-title: Two Direct Effect
-author: JochemTolsma
-date: '2020-12-07'
-slug: tdir3
-categories:
-  - R
-  - Conceptual Models
-tags: []
-#linktitle:
-
-summary: "conceptual model, correlation, direct effect, explanation, tutorial, R, Lavaan"
-lastmod: '08-12-2020'
-
-type: book
-weight: 30
-
- 
-output:
-  blogdown::html_page:
-    highlight: "haddock"
-    number_sections: no
-    self_contained: no
-    toc: true
-    fig_width: 6
-    dev: "svg"
-
----
-
-<script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
-<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
-<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
+<script src="_index_files/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="_index_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="_index_files/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="_index_files/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="_index_files/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="_index_files/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="_index_files/klippy-0.0.0.9500/js/klippy.min.js"></script>
 <style type="text/css">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -140,8 +111,7 @@ Figure 1: two direct effects
 </div>
 <div id="explanation" class="section level2">
 <h2>Explanation</h2>
-<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, ** $ X_1 $ <strong>, </strong> $ X_2 $ ** and <strong>Y</strong>.<br />
-The single headed arrow indicates that you assume causal (linear) relations from ** $ X_1 $ ** and ** $ X_2 $ ** (on the left) to <strong>Y</strong> on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, <strong>$ X_1 <span class="math inline">\(** , **\)</span> X_2 <span class="math inline">\(** and **Y**. The single headed arrow indicates that you assume causal (linear) relations from **\)</span> X_1 <span class="math inline">\(** and **\)</span> X_2 $</strong> (on the left) to <strong>Y</strong> on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
 In this example we have to direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.<br />
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace <em>a</em> with <em>+</em> or <em>-</em>.</p>
 <p>{{% alert note %}}
@@ -349,7 +319,7 @@ The double <code>~~</code> indicates a (partial), (error)variance.</p>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
 <span id="cb4-8"><a href="#cb4-8"></a></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="kw">boxplot</span>(cm_health <span class="op">~</span><span class="st"> </span>cm_partner, <span class="dt">data =</span> nellsw2, <span class="dt">notch =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="/conceptual-models/3tdir/_index_files/figure-html/unnamed-chunk-5-1.svg" width="576" />
+<p><img src="_index_files/figure-html/unnamed-chunk-5-1.svg" width="576" />
 I hope you observe that the regression line does not fit the data very well and that the means/median of health does not differ much whether or not you have a partner.</p>
 <p>And now,…estimate the direct effect via <code>lm()</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind))</span>
