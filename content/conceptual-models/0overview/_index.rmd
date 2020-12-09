@@ -80,6 +80,7 @@ knitr::include_graphics("../static/CM2.PNG")
 ```{r direct2a, echo=FALSE, fig.cap="Two Direct Effect", out.width = '100%'}
 knitr::include_graphics("../static/CM3a.PNG")
 ```
+---  
 
 ```{r direct2b, echo=FALSE, fig.cap="Two Direct Effect (and association)", out.width = '100%'}
 knitr::include_graphics("../static/CM3b.PNG")
@@ -92,6 +93,7 @@ knitr::include_graphics("../static/CM3b.PNG")
 ```{r mediationa, echo=FALSE, fig.cap="Direct Effect", out.width = '100%'}
 knitr::include_graphics("../static/CM2.PNG")
 ```
+---  
 
 ```{r mediationb, echo=FALSE, fig.cap="Mediation", out.width = '100%'}
 knitr::include_graphics("../static/CM4.PNG")
@@ -104,13 +106,17 @@ knitr::include_graphics("../static/CM4.PNG")
 ```{r spuriousa, echo=FALSE, fig.cap="Correlation", out.width = '100%'}
 knitr::include_graphics("../static/CM5a.PNG")
 ```
+---  
 
 ```{r spuriousb, echo=FALSE, fig.cap="Spurious Relation", out.width = '100%'}
 knitr::include_graphics("../static/CM5b.PNG")
 ```
+---  
+
 ```{r spuriousc, echo=FALSE, fig.cap="Spurious Relation (alternative)", out.width = '100%'}
 knitr::include_graphics("../static/CM5c.PNG")
 ```
+---  
 
 ```{r spuriousd, echo=FALSE, fig.cap="Spurious Relation (and error correlation)", out.width = '100%'}
 knitr::include_graphics("../static/CM5d.PNG")
@@ -123,12 +129,18 @@ knitr::include_graphics("../static/CM5d.PNG")
 ```{r moderationa, echo=FALSE, fig.cap="Moderation", out.width = '100%'}
 knitr::include_graphics("../static/CM6a.PNG")
 ```
+---  
+
 ```{r moderationb, echo=FALSE, fig.cap="Moderation (with main effect of moderator)", out.width = '100%'}
 knitr::include_graphics("../static/CM6b.PNG")
 ```
+---  
+
 ```{r moderationc, echo=FALSE, fig.cap="Moderation (alternative)", out.width = '100%'}
 knitr::include_graphics("../static/CM6c.PNG")
 ```
+---  
+
 ```{r moderationd, echo=FALSE, fig.cap="Moderation (categorical moderator)", out.width = '100%'}
 knitr::include_graphics("../static/CM6d.PNG")
 ```
@@ -141,12 +153,18 @@ knitr::include_graphics("../static/CM6d.PNG")
 knitr::include_graphics("../static/CM7a.PNG")
 ```
 
+---  
+
 ```{r MLb, echo=FALSE, fig.cap="Multilevel model (better alternative)", out.width = '100%'}
 knitr::include_graphics("../static/CM7b.PNG")
 ```
+---  
+
 ```{r MLc, echo=FALSE, fig.cap="Multilevel model (explict level notation)", out.width = '100%'}
 knitr::include_graphics("../static/CM7c.PNG")
 ```
+---  
+
 ```{r MLd, echo=FALSE, fig.cap="Between-Within Multilevel model (aggregated X-variable)", out.width = '100%'}
 knitr::include_graphics("../static/CM7d.PNG")
 ```
@@ -158,6 +176,8 @@ knitr::include_graphics("../static/CM7d.PNG")
 ```{r MLMEa, echo=FALSE, fig.cap="Multilevel Mediation", out.width = '100%'}
 knitr::include_graphics("../static/CM8a.PNG")
 ```
+
+---  
 
 ```{r MLMEb, echo=FALSE, fig.cap="Multilevel Mediation (wrong)", out.width = '100%'}
 knitr::include_graphics("../static/CM8b.PNG")

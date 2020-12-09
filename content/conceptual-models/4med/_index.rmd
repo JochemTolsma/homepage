@@ -96,7 +96,7 @@ It is not always necessary to label the paths but for this tutorial it will turn
 {{% alert note %}}
 Please note, that:  
 - hypothesis 4 may hold even if hypothesis 2 and 3 are false. 
-- hypotheses 1, 2 and 3 may be true but that hypothesis 1 is false.  
+- hypotheses 2, 3 and 4 may be true but that hypothesis 1 is false.  
 
 It is thus good practice to accept your mediation mechanism only if all four hypotheses hold true. Or more precisely, if you cannot refute any of the four hypotheses. 
 {{% /alert %}}
@@ -215,6 +215,7 @@ nellsw2$cm_income_ind <- nellsw2$cm_income * nellsw2$cm_income_per/100
 
 attributes(nellsw2$w2fa102)
 table(nellsw2$w2fa102, useNA="always")
+nellsw2$cm_education <- nellsw2$w2fa102
 nellsw2$cm_education[nellsw2$w2fa102==1] <- 6
 nellsw2$cm_education[nellsw2$w2fa102==2] <- 9
 nellsw2$cm_education[nellsw2$w2fa102==3] <- 10
