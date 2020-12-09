@@ -171,7 +171,7 @@ It is not always necessary to label the paths but for this tutorial it will turn
 <p>{{% alert note %}}
 Please note, that:<br />
 - hypothesis 4 may hold even if hypothesis 2 and 3 are false.
-- hypotheses 1, 2 and 3 may be true but that hypothesis 1 is false.</p>
+- hypotheses 2, 3 and 4 may be true but that hypothesis 1 is false.</p>
 <p>It is thus good practice to accept your mediation mechanism only if all four hypotheses hold true. Or more precisely, if you cannot refute any of the four hypotheses.
 {{% /alert %}}</p>
 </div>
@@ -285,28 +285,29 @@ I hope you notice that a mediation model is very similar to the model with two d
 <span id="cb2-52"><a href="#cb2-52"></a></span>
 <span id="cb2-53"><a href="#cb2-53"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa102)</span>
 <span id="cb2-54"><a href="#cb2-54"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa102, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
-<span id="cb2-55"><a href="#cb2-55"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">6</span></span>
-<span id="cb2-56"><a href="#cb2-56"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">9</span></span>
-<span id="cb2-57"><a href="#cb2-57"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb2-58"><a href="#cb2-58"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
-<span id="cb2-59"><a href="#cb2-59"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">12</span></span>
-<span id="cb2-60"><a href="#cb2-60"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb2-61"><a href="#cb2-61"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
-<span id="cb2-62"><a href="#cb2-62"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">14</span></span>
-<span id="cb2-63"><a href="#cb2-63"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">15</span></span>
-<span id="cb2-64"><a href="#cb2-64"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
-<span id="cb2-65"><a href="#cb2-65"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
-<span id="cb2-66"><a href="#cb2-66"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">7</span></span>
-<span id="cb2-67"><a href="#cb2-67"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
-<span id="cb2-68"><a href="#cb2-68"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="fl">14.5</span></span>
-<span id="cb2-69"><a href="#cb2-69"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb2-70"><a href="#cb2-70"></a></span>
+<span id="cb2-55"><a href="#cb2-55"></a>nellsw2<span class="op">$</span>cm_education &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa102</span>
+<span id="cb2-56"><a href="#cb2-56"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">9</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">12</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">14</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">15</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">7</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="fl">14.5</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">4</span></span>
 <span id="cb2-71"><a href="#cb2-71"></a></span>
-<span id="cb2-72"><a href="#cb2-72"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
-<span id="cb2-73"><a href="#cb2-73"></a><span class="co"># have to reverse code original variable</span></span>
-<span id="cb2-74"><a href="#cb2-74"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span>
-<span id="cb2-75"><a href="#cb2-75"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
-<span id="cb2-76"><a href="#cb2-76"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
+<span id="cb2-72"><a href="#cb2-72"></a></span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="co"># have to reverse code original variable</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span>
+<span id="cb2-76"><a href="#cb2-76"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-77"><a href="#cb2-77"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
 <pre><code>## 
 ##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17 &lt;NA&gt; 
 ##   55   78  103  204  338  326  282  272  276  205  133   62   48   22   22   29  374    0 
