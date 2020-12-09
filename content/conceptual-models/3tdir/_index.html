@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, correlation, direct effect, explanation, tutorial, R, Lavaan"
-lastmod: '08-12-2020'
+lastmod: '09-12-2020'
 
 type: book
 weight: 30
@@ -140,7 +140,8 @@ Figure 1: two direct effects
 </div>
 <div id="explanation" class="section level2">
 <h2>Explanation</h2>
-<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, <strong>$ X_1 <span class="math inline">\(** , **\)</span> X_2 <span class="math inline">\(** and **Y**. The single headed arrow indicates that you assume causal (linear) relations from **\)</span> X_1 <span class="math inline">\(** and **\)</span> X_2 $</strong> (on the left) to <strong>Y</strong> on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, $ X_1 $ , $ X_2 $ and Y.<br />
+The single headed arrow indicates that you assume causal (linear) relations from $ X_1 $ and $ X_2 $ (on the left) to <strong>Y</strong> on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
 In this example we have to direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.<br />
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace <em>a</em> with <em>+</em> or <em>-</em>.</p>
 <p>{{% alert note %}}
@@ -188,7 +189,7 @@ Hypo2: Being in a relationship will lead to better health. (Love makes happy.)</
 <li>Y~<span class="math inline">\(X_2\)</span></li>
 <li><span class="math inline">\(X_1\)</span>~~<span class="math inline">\(X_2\)</span></li>
 </ul>
-<p>The single <code>~</code> indicates a direct effect (regression path).
+<p>The single <code>~</code> indicates a direct effect (regression path).<br />
 The double <code>~~</code> indicates a (partial), (error)variance.</p>
 <hr />
 </div>
@@ -417,11 +418,11 @@ I hope you observe that the regression line does not fit the data very well and 
 <p>And with <strong>Lavaan</strong>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">require</span>(lavaan)</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>model &lt;-<span class="st"> &#39;</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="st">  cm_health ~ cm_income_ind</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a><span class="st">  cm_health ~ cm_partner</span></span>
 <span id="cb7-6"><a href="#cb7-6"></a><span class="st">  cm_income_ind ~~ cm_partner</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="st">&quot;</span></span></code></pre></div>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">&#39;</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>nellsw2<span class="op">$</span>cm_partner &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(nellsw2<span class="op">$</span>cm_partner)</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use sem instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the error variances. </span></span>

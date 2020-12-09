@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, mediation, explanation, tutorial, R, Lavaan"
-lastmod: '08-12-2020'
+lastmod: '09-12-2020'
 
 type: book
 weight: 40
@@ -106,7 +106,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#real-life-example">Real life example</a></li>
 <li><a href="#structural-equations">Structural equations</a></li>
 <li><a href="#formal-test-of-hypotheses">Formal test of hypotheses</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -135,9 +134,9 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <div id="the-conceptual-model" class="section level2">
 <h2>The Conceptual Model</h2>
 <div class="figure"><span id="fig:correlation"></span>
-<img src="../static/CM2.PNG" alt="Mediation" width="50%" />
+<img src="../static/CM2.PNG" alt="Direct effect" width="100%" />
 <p class="caption">
-Figure 1: Mediation
+Figure 1: Direct effect
 </p>
 </div>
 <div class="figure"><span id="fig:mediation"></span>
@@ -205,7 +204,7 @@ Y is health</p>
 </ul>
 <p>You will often encounter Hypo4s formulated as: The causal relation between educational success and health is (in part) explained by occupational success.</p>
 <p>{{% alert warning %}}
-I hope you notice that a mediation model is very similar to the model with two direct effects. The only difference is that we now assume a causal path between X and Me and not a correlation between <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>.
+I hope you notice that a mediation model is very similar to the model with two direct effects. The only difference is that we now assume a causal path between X and Me and not a correlation between $ X_1 $ and $ X_2 $.
 {{% /alert %}}</p>
 <hr />
 </div>
@@ -236,12 +235,82 @@ I hope you notice that a mediation model is very similar to the model with two d
 <span id="cb2-2"><a href="#cb2-2"></a>nellsw2 &lt;-<span class="st"> </span>nells[nells<span class="op">$</span>w2cpanel <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ]</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="co"># As an indicator of occupational success we will use income in wave 2.</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa61, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa61, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa61)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># recode (I will start newly created variables with cm from conceptual models)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa61</span>
+<span id="cb2-9"><a href="#cb2-9"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">225</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">400</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">750</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">1250</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">1750</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">2250</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">2750</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">3250</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">3750</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">4250</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">4750</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">5250</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="dv">5750</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">6500</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">16</span>] &lt;-<span class="st"> </span><span class="dv">7500</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># let us scale the variable a bit and translate into income per 1000euro</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># from household income to personal income</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa62)</span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa62, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-32"><a href="#cb2-32"></a>nellsw2<span class="op">$</span>cm_income_per &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa62</span>
+<span id="cb2-33"><a href="#cb2-33"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">40</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">60</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">70</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">80</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">90</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a>nellsw2<span class="op">$</span>cm_income_ind &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income <span class="op">*</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_per<span class="op">/</span><span class="dv">100</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="co"># as an indicator of educational success we will use highest completed level of education in years.</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="co"># the rationale behind this coding this I will take the maximum for university as 16.5 (taking into</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="co"># account that some masters are 2 years and some 1 year) and subsequently subtract the years needed</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="co"># to obtain a university degree given the degree under consideration.</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa102)</span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa102, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-55"><a href="#cb2-55"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">9</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">12</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">14</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">15</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">7</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="fl">14.5</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a></span>
+<span id="cb2-71"><a href="#cb2-71"></a></span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="co"># have to reverse code original variable</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-76"><a href="#cb2-76"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
 <pre><code>## 
 ##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17 &lt;NA&gt; 
-##   55   78  103  204  338  326  282  272  276  205  133   62   48   22   22   29  374    0</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa61)</span></code></pre></div>
-<pre><code>## $label
+##   55   78  103  204  338  326  282  272  276  205  133   62   48   22   22   29  374    0 
+## $label
 ## [1] &quot; wat is het netto inkomen per maand van u en uw partner samen?/van u?/  &quot;
 ## 
 ## $format.stata
@@ -262,32 +331,9 @@ I hope you notice that a mediation model is very similar to the model with two d
 ##                         16                         17 
 ## 
 ## $class
-## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># recode (I will start newly created variables with cm from conceptual models)</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa61</span>
-<span id="cb6-3"><a href="#cb6-3"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">225</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">400</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">750</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">1250</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">1750</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">2250</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">2750</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">3250</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">3750</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">4250</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">4750</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">5250</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="dv">5750</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">6500</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">16</span>] &lt;-<span class="st"> </span><span class="dv">7500</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a><span class="co"># let us scale the variable a bit and translate into income per 1000euro</span></span>
-<span id="cb6-21"><a href="#cb6-21"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income<span class="op">/</span><span class="dv">1000</span></span>
-<span id="cb6-22"><a href="#cb6-22"></a></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="co"># from household income to personal income</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa62)</span></code></pre></div>
-<pre><code>## $label
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## $label
 ## [1] &quot; hoe groot is uw bijdrage in dit inkomen ongeveer? kunt u een percentage noemen &quot;
 ## 
 ## $format.stata
@@ -302,34 +348,12 @@ I hope you notice that a mediation model is very similar to the model with two d
 ##                     9                    10                    11                    12 
 ## 
 ## $class
-## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa62, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
-<pre><code>## 
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
 ##    1    2    3    4    5    6    7    8    9   10   11   12 &lt;NA&gt; 
-##  253   48   89  259  233  242  183  229  114   63  887  229    0</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>nellsw2<span class="op">$</span>cm_income_per &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa62</span>
-<span id="cb10-2"><a href="#cb10-2"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">30</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">40</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">50</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">60</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">70</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">80</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">90</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a></span>
-<span id="cb10-15"><a href="#cb10-15"></a>nellsw2<span class="op">$</span>cm_income_ind &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income <span class="op">*</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_per<span class="op">/</span><span class="dv">100</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="co"># as an indicator of educational success we will use highest completed level of education in years.</span></span>
-<span id="cb10-18"><a href="#cb10-18"></a><span class="co"># the rationale behind this coding this I will take the maximum for university as 16.5 (taking into</span></span>
-<span id="cb10-19"><a href="#cb10-19"></a><span class="co"># account that some masters are 2 years and some 1 year) and subsequently subtract the years needed</span></span>
-<span id="cb10-20"><a href="#cb10-20"></a><span class="co"># to obtain a university degree given the degree under consideration.</span></span>
-<span id="cb10-21"><a href="#cb10-21"></a></span>
-<span id="cb10-22"><a href="#cb10-22"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa102)</span></code></pre></div>
-<pre><code>## $label
+##  253   48   89  259  233  242  183  229  114   63  887  229    0 
+## $label
 ## [1] &quot; wat is uw hoogst voltooide opleiding, dat wil zeggen waarvan u een diploma heef&quot;
 ## 
 ## $format.stata
@@ -368,32 +392,12 @@ I hope you notice that a mediation model is very similar to the model with two d
 ##                                                              15 
 ## 
 ## $class
-## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa102, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
-<pre><code>## 
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
 ##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 &lt;NA&gt; 
-##  118  223  202  205  117  223  737  586   89  208   12    8   20   17   34   30</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">6</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">9</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">12</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">14</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">15</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">7</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="fl">14.5</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a></span>
-<span id="cb14-17"><a href="#cb14-17"></a></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
-<span id="cb14-19"><a href="#cb14-19"></a><span class="co"># have to reverse code original variable</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span></code></pre></div>
-<pre><code>## $label
+##  118  223  202  205  117  223  737  586   89  208   12    8   20   17   34   30 
+## $label
 ## [1] &quot; wat vindt u, over het algemeen genomen, van uw gezondheid? &quot;
 ## 
 ## $format.stata
@@ -404,31 +408,32 @@ I hope you notice that a mediation model is very similar to the model with two d
 ##          1          2          3          4          5 
 ## 
 ## $class
-## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span></code></pre></div>
-<pre><code>## 
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
 ##    1    2    3    4    5 &lt;NA&gt; 
 ##  438  853 1211  247   48   32</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
 <p>And test the model with <strong>Lavaan</strong>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">require</span>(lavaan)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">var</span>(nellsw2<span class="op">$</span>cm_income_ind, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## [1] 1.021848</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>model &lt;-<span class="st"> &quot;</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  # direct effect</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  cm_health ~ a*cm_education  </span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  # mediator </span></span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="st">  cm_income_ind ~ b*cm_education</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="st">  cm_health ~ c*cm_income_ind </span></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="st">  # indirect effect </span></span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="st">  bc := b*c  </span></span>
-<span id="cb21-9"><a href="#cb21-9"></a><span class="st">  # total effect  </span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="st">  total := a + (b*c)</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="st">&quot;</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a></span>
-<span id="cb21-13"><a href="#cb21-13"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)</span>
-<span id="cb21-14"><a href="#cb21-14"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 12 iterations
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">require</span>(lavaan)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">var</span>(nellsw2<span class="op">$</span>cm_income_ind, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  # direct effect</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  cm_health ~ a*cm_education  </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  # mediator </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  cm_income_ind ~ b*cm_education</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="st">  cm_health ~ c*cm_income_ind </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">  # indirect effect </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  bc := b*c  </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">  # total effect  </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="st">  total := a + (b*c)</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">&quot;</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)</span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span></code></pre></div>
+<pre><code>## [1] 1.021848
+## lavaan 0.6-7 ended normally after 12 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
@@ -465,15 +470,12 @@ I hope you notice that a mediation model is very similar to the model with two d
 ## Defined Parameters:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
 ##     bc                0.003    0.003    0.957    0.338    0.003    0.007
-##     total             0.058    0.007    7.873    0.000    0.058    0.161</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span></code></pre></div>
-<pre><code>##     cm_health cm_income_ind 
+##     total             0.058    0.007    7.873    0.000    0.058    0.161
+## 
+##     cm_health cm_income_ind 
 ##         0.026         0.122</code></pre>
 <p>We need to refute our mediation mechanism. Do you see why?<br />
 Well, because income is not related to SWB, at least not when we take into account educational success. Our <em>c-path</em> is not significant.
 Thus, the reason why we observed a positive relation between income and SWB previously was because of <strong>omitted variable bias</strong>.</p>
 <hr />
-</div>
-<div id="references" class="section level2">
-<h2>References</h2>
 </div>

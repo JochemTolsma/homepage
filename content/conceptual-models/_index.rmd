@@ -92,9 +92,13 @@ On each different page we discuss a different conceptual model.
 - Multi-level model  
 - Multi-level mediation (2-1-1 model)  
 - Multi-level moderation (cross-level interaction)  
+<!---
+- Mediated Moderation  
+- Moderated Mediation  
 - Multi-level micro-macro model  
 - Longitudinal model  
 - Cross-Lagged Panel Model  
+--->
 
 Each page contains the following subsections:  
 

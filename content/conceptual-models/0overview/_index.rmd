@@ -1,0 +1,180 @@
+---
+title: Overview-Conceptual-Models
+author: JochemTolsma
+date: '2020-12-07'
+slug: overview0
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle: "Overview Conceptual Models"
+
+summary: "conceptual model, correlation, explanation, tutorial, R, Lavaan"
+lastmod: '`r format(Sys.Date(), "%d-%m-%Y")`'
+
+type: book
+weight: 5
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: no
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<!---
+<style>
+.btn-text-right{
+	text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+
+## Correlation  
+
+```{r correlation, echo=FALSE, fig.cap="Correlation", out.width = '100%'}
+knitr::include_graphics("../static/CM1.PNG")
+```
+---  
+
+## Direct Effect
+
+```{r direct1, echo=FALSE, fig.cap="Direct Effect", out.width = '100%'}
+knitr::include_graphics("../static/CM2.PNG")
+```
+---  
+
+## Two Direct Effects
+
+```{r direct2a, echo=FALSE, fig.cap="Two Direct Effect", out.width = '100%'}
+knitr::include_graphics("../static/CM3a.PNG")
+```
+
+```{r direct2b, echo=FALSE, fig.cap="Two Direct Effect (and association)", out.width = '100%'}
+knitr::include_graphics("../static/CM3b.PNG")
+```
+
+---  
+
+## Mediation
+
+```{r mediationa, echo=FALSE, fig.cap="Direct Effect", out.width = '100%'}
+knitr::include_graphics("../static/CM2.PNG")
+```
+
+```{r mediationb, echo=FALSE, fig.cap="Mediation", out.width = '100%'}
+knitr::include_graphics("../static/CM4.PNG")
+```
+
+---  
+
+## Spurious relation
+
+```{r spuriousa, echo=FALSE, fig.cap="Correlation", out.width = '100%'}
+knitr::include_graphics("../static/CM5a.PNG")
+```
+
+```{r spuriousb, echo=FALSE, fig.cap="Spurious Relation", out.width = '100%'}
+knitr::include_graphics("../static/CM5b.PNG")
+```
+```{r spuriousc, echo=FALSE, fig.cap="Spurious Relation (alternative)", out.width = '100%'}
+knitr::include_graphics("../static/CM5c.PNG")
+```
+
+```{r spuriousd, echo=FALSE, fig.cap="Spurious Relation (and error correlation)", out.width = '100%'}
+knitr::include_graphics("../static/CM5d.PNG")
+```
+
+---  
+
+## Moderation  
+
+```{r moderationa, echo=FALSE, fig.cap="Moderation", out.width = '100%'}
+knitr::include_graphics("../static/CM6a.PNG")
+```
+```{r moderationb, echo=FALSE, fig.cap="Moderation (with main effect of moderator)", out.width = '100%'}
+knitr::include_graphics("../static/CM6b.PNG")
+```
+```{r moderationc, echo=FALSE, fig.cap="Moderation (alternative)", out.width = '100%'}
+knitr::include_graphics("../static/CM6c.PNG")
+```
+```{r moderationd, echo=FALSE, fig.cap="Moderation (categorical moderator)", out.width = '100%'}
+knitr::include_graphics("../static/CM6d.PNG")
+```
+---  
+
+
+## Multilevel  
+
+```{r MLa, echo=FALSE, fig.cap="Multilevel model", out.width = '100%'}
+knitr::include_graphics("../static/CM7a.PNG")
+```
+
+```{r MLb, echo=FALSE, fig.cap="Multilevel model (better alternative)", out.width = '100%'}
+knitr::include_graphics("../static/CM7b.PNG")
+```
+```{r MLc, echo=FALSE, fig.cap="Multilevel model (explict level notation)", out.width = '100%'}
+knitr::include_graphics("../static/CM7c.PNG")
+```
+```{r MLd, echo=FALSE, fig.cap="Between-Within Multilevel model (aggregated X-variable)", out.width = '100%'}
+knitr::include_graphics("../static/CM7d.PNG")
+```
+
+---  
+
+## Multilevel Mediation
+
+```{r MLMEa, echo=FALSE, fig.cap="Multilevel Mediation", out.width = '100%'}
+knitr::include_graphics("../static/CM8a.PNG")
+```
+
+```{r MLMEb, echo=FALSE, fig.cap="Multilevel Mediation (wrong)", out.width = '100%'}
+knitr::include_graphics("../static/CM8b.PNG")
+```
+
+---  
+
+## Multilevel Moderation
+
+```{r MLMOa, echo=FALSE, fig.cap="Multilevel Moderation (cross-level interaction)", out.width = '100%'}
+knitr::include_graphics("../static/CM9.PNG")
+```
+
+
+```{r MLMOb, echo=FALSE, fig.cap="Multilevel Moderation (wrong)", out.width = '100%'}
+knitr::include_graphics("../static/CM9b.PNG")
+```
+
+---  
+

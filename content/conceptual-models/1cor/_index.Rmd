@@ -31,7 +31,7 @@ output:
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
 options(width = 100)
 ```
 

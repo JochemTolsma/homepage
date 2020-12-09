@@ -31,7 +31,7 @@ output:
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt")
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
 options(width = 100)
 ```
 
@@ -63,7 +63,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 
 ## The Conceptual Model  
 
-```{r correlation, echo=FALSE, fig.cap="Mediation", out.width = '50%'}
+```{r correlation, echo=FALSE, fig.cap="Direct effect", out.width = '100%'}
 knitr::include_graphics("../static/CM2.PNG")
 ```
 
@@ -131,7 +131,7 @@ You will often encounter Hypo4s formulated as: The causal relation between educa
 
 
 {{% alert warning %}}
-I hope you notice that a mediation model is very similar to the model with two direct effects. The only difference is that we now assume a causal path between X and Me and not a correlation between $X_1$ and $X_2$. 
+I hope you notice that a mediation model is very similar to the model with two direct effects. The only difference is that we now assume a causal path between X and Me and not a correlation between $ X_1 $ and $ X_2 $. 
 {{% /alert %}}
 
 ---  
@@ -268,6 +268,5 @@ Thus, the reason why we observed a positive relation between income and SWB prev
 
 ---  
 
-## References
 
 

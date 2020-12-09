@@ -72,8 +72,8 @@ knitr::include_graphics("../static/CM3a.PNG")
 
 ## Explanation  
 
-In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, **$ X_1 $** ,  **$ X_2 $** and **Y**.  
-The single headed arrow indicates that you assume causal (linear) relations from **$ X_1 $** and  **$ X_2 $** (on the left) to **Y** on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
+In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, $ X_1 $ ,  $ X_2 $ and Y.  
+The single headed arrow indicates that you assume causal (linear) relations from $ X_1 $ and $ X_2 $ (on the left) to **Y** on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
 In this example we have to direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.     
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace *a* with *+* or *-*.  
 
@@ -123,7 +123,7 @@ or, following the syntax of the R package **Lavaan**
 - Y~$X_2$
 - $X_1$~~$X_2$
 
-The single `~` indicates a direct effect (regression path). 
+The single `~` indicates a direct effect (regression path).  
 The double `~~` indicates a (partial), (error)variance. 
 
 ---  
@@ -227,7 +227,7 @@ summary(lm(nellsw2$cm_health ~ nellsw2$cm_income_ind + nellsw2$cm_partner))
 ```
 And with **Lavaan**.
 
-```{r}
+```{r, tidy=FALSE}
 require(lavaan)
 
 model <- '
