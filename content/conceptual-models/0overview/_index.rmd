@@ -146,6 +146,56 @@ knitr::include_graphics("../static/CM6d.PNG")
 ```
 ---  
 
+## Mediated Moderation
+
+### Version 1
+```{r mma, echo=FALSE, fig.cap="Moderation", out.width = '100%'}
+knitr::include_graphics("../static/CM10a.PNG")
+```
+
+```{r mmb, echo=FALSE, fig.cap="Mediated Moderation (version 1)", out.width = '100%'}
+knitr::include_graphics("../static/CM10b.PNG")
+```
+---  
+
+### Version 2
+
+```{r mmc, echo=FALSE, fig.cap="Moderation", out.width = '100%'}
+knitr::include_graphics("../static/CM10a.PNG")
+```
+
+```{r mmd, echo=FALSE, fig.cap="Mediated Moderation (version 2)", out.width = '100%'}
+knitr::include_graphics("../static/CM10c.PNG")
+```
+
+---
+
+## Mederated Mediation
+
+### Version 1
+```{r mmd2, echo=FALSE, fig.cap="Mediation", out.width = '100%'}
+knitr::include_graphics("../static/CM4.PNG")
+```
+
+```{r mme, echo=FALSE, fig.cap="Moderated Mediation (version 1)", out.width = '100%'}
+knitr::include_graphics("../static/CM10d.PNG")
+```
+---  
+
+### Version 2
+
+```{r mmf, echo=FALSE, fig.cap="Mediation", out.width = '100%'}
+knitr::include_graphics("../static/CM4.PNG")
+```
+
+```{r mmg, echo=FALSE, fig.cap="Moderated Mediation (version 2)", out.width = '100%'}
+knitr::include_graphics("../static/CM10e.PNG")
+```
+
+---
+
+
+
 
 ## Multilevel  
 

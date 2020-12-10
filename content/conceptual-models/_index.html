@@ -9,7 +9,7 @@ title: Conceptual Models
 summary: conceptual models; path diagrams; lavaan; sem; mediation; moderation; moderated mediation; 2-1-1 models. 
 
 # Date page published
-date: '09-12-2020'
+date: '10-12-2020'
 
 
 # Academic page type (do not modify).
@@ -18,7 +18,7 @@ type: book
 output:
   blogdown::html_page:
     highlight: "haddock"
-    number_sections: yes
+    number_sections: no
     self_contained: no
     toc: true
 
@@ -35,12 +35,12 @@ weight: 1
 
 <div id="TOC">
 <ul>
-<li><a href="#overview"><span class="toc-section-number">0.1</span> Overview</a></li>
-<li><a href="#aim"><span class="toc-section-number">0.2</span> Aim</a></li>
-<li><a href="#structure"><span class="toc-section-number">0.3</span> Structure</a></li>
-<li><a href="#sem-and-path-diagrams"><span class="toc-section-number">0.4</span> SEM and path diagrams</a></li>
-<li><a href="#correlation-versus-causation"><span class="toc-section-number">0.5</span> Correlation versus Causation</a></li>
-<li><a href="#data"><span class="toc-section-number">0.6</span> Data</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#aim">Aim</a></li>
+<li><a href="#structure">Structure</a></li>
+<li><a href="#sem-and-path-diagrams">SEM and path diagrams</a></li>
+<li><a href="#correlation-versus-causation">Correlation versus Causation</a></li>
+<li><a href="#data">Data</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </div>
@@ -67,7 +67,7 @@ Here's some important information...
 
 --->
 <div id="overview" class="section level2">
-<h2><span class="header-section-number">0.1</span> Overview</h2>
+<h2>Overview</h2>
 <p>Conceptual models may help a researcher to:</p>
 <ul>
 <li>organize the thought process and improve structured thinking<br />
@@ -84,13 +84,13 @@ Here's some important information...
 </ul>
 <p>{{% alert note %}}
 Although closely related, a conceptual model is not a path diagram.<br />
-A <strong>conceptual model</strong> is a tool for researchers to organize the thought process and to concisely summarize hypotheses. Although it is a good idea to follow some conventions there are no real rules in how to graphically represent the assumed relations between concepts. Researcher may (should?!) be creative in how they want to depict non-linear relations or complex ‘aggregation rules’.<br />
+A <strong>conceptual model</strong> is a tool for researchers to organize the thought process and to concisely summarize hypotheses. Although it is a good idea to follow some conventions there are no real rules in how to graphically represent the assumed relations between concepts. Researcher can (should?!) be creative in how they want to depict non-linear relations, feedback mechanisms, or complex ‘aggregation rules’.<br />
 A <strong>path diagram</strong> is a formal and graphical representation of a structural model (i.e. a set of structural equations). There are clear rules how to depict manifest and latent variables, (error)variances between exogenous and endogenous variables, random intercepts and slopes, et cetera.<br />
 {{% /alert %}}</p>
 <hr />
 </div>
 <div id="aim" class="section level2">
-<h2><span class="header-section-number">0.2</span> Aim</h2>
+<h2>Aim</h2>
 <p>The intended learning outcomes of this course are:<br />
 1. Theoretical knowledge and insight: you will be able to define core concepts related to conceptual models (e.g. correlation, causality, mediation, moderation) and are able to explain the distinction with path diagrams.<br />
 2. Academic attitude: you develop a positive attitude towards applying conceptual models in your own social science research projects.<br />
@@ -98,7 +98,7 @@ A <strong>path diagram</strong> is a formal and graphical representation of a st
 <hr />
 </div>
 <div id="structure" class="section level2">
-<h2><span class="header-section-number">0.3</span> Structure</h2>
+<h2>Structure</h2>
 <p>On each different page we discuss a different conceptual model.</p>
 <ul>
 <li>Correlation<br />
@@ -108,15 +108,18 @@ A <strong>path diagram</strong> is a formal and graphical representation of a st
 <li>Two direct effects (partial correlation / multiple regression)</li>
 <li>Mediation</li>
 <li>Spuriousness</li>
-<li>Moderation</li>
+<li>Moderation<br />
+</li>
+<li>Mediated Moderation<br />
+</li>
+<li>Moderated Mediation<br />
+</li>
 <li>Multi-level model<br />
 </li>
 <li>Multi-level mediation (2-1-1 model)<br />
 </li>
 <li>Multi-level moderation (cross-level interaction)<br />
 <!---
-- Mediated Moderation  
-- Moderated Mediation  
 - Multi-level micro-macro model  
 - Longitudinal model  
 - Cross-Lagged Panel Model  
@@ -144,18 +147,28 @@ Use the <strong>menu on the right</strong> to navigate to subsections of each cu
 <hr />
 </div>
 <div id="sem-and-path-diagrams" class="section level2">
-<h2><span class="header-section-number">0.4</span> SEM and path diagrams</h2>
+<h2>SEM and path diagrams</h2>
 <p>Although I will try to translate each Conceptual Model into a more formal set of structural equations and will show you how to test this structural model (with the R package <strong>Lavaan</strong>), this is not a tutorial on SEM or path diagrams.</p>
+<p>For useful links see:</p>
+<ul>
+<li>The <a href="https://lavaan.ugent.be/index.html">Lavaan website</a><br />
+</li>
+<li>The <a href="http://www.statmodel.com/">Mplus website</a><br />
+</li>
+<li>The <a href="http://davidakenny.net/">homepage of David A. Kenny</a><br />
+</li>
+<li>The <a href="http://www.afhayes.com/index.html">homepage of Andrew F. Hayes</a></li>
+</ul>
 <hr />
 </div>
 <div id="correlation-versus-causation" class="section level2">
-<h2><span class="header-section-number">0.5</span> Correlation versus Causation</h2>
+<h2>Correlation versus Causation</h2>
 <p>More often than not, the conceptual model will try to summarize causal mechanisms (e.g. X causes Y). And more often than not, it is not possible to give a causal interpretation of the estimates obtained after the hypotheses test. I will try to discuss the extent to which parameter estimates may be given a causal interpretation throughout this tutorial.<br />
 Also note that I use the label <em>correlation</em> but naturally the correct measure for the presumed association depends on the measurement level of the variables involved (i.e. nominal, ordinal, metric).</p>
 <hr />
 </div>
 <div id="data" class="section level2">
-<h2><span class="header-section-number">0.6</span> Data</h2>
+<h2>Data</h2>
 <p>For the examples in this tutorial I will use the dateset [<em>The NEtherlands Longitudinal Lifecourse Study (NELLS)</em>] (<a href="https://doi.org/10.17026/dans-25n-2xjv" class="uri">https://doi.org/10.17026/dans-25n-2xjv</a>) (<span class="citation">Tolsma et al. (<a href="#ref-tolsma_netherlands_2014" role="doc-biblioref">2014</a>)</span>). Please follow the link to download the codebook and dataset.</p>
 <hr />
 </div>

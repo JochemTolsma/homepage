@@ -18,7 +18,7 @@ type: book
 output:
   blogdown::html_page:
     highlight: "haddock"
-    number_sections: yes
+    number_sections: no
     self_contained: no
     toc: true
 
@@ -64,7 +64,7 @@ Conceptual models may help a researcher to:
 
 {{% alert note %}}
 Although closely related, a conceptual model is not a path diagram.  
-A **conceptual model** is a tool for researchers to organize the thought process and to concisely summarize hypotheses. Although it is a good idea to follow some conventions there are no real rules in how to graphically represent the assumed relations between concepts. Researcher may (should?!) be creative in how they want to depict non-linear relations or complex 'aggregation rules'.  
+A **conceptual model** is a tool for researchers to organize the thought process and to concisely summarize hypotheses. Although it is a good idea to follow some conventions there are no real rules in how to graphically represent the assumed relations between concepts. Researcher can (should?!) be creative in how they want to depict non-linear relations, feedback mechanisms, or complex 'aggregation rules'.  
 A **path diagram** is a formal and graphical representation of a structural model (i.e. a set of structural equations). There are clear rules how to depict manifest and latent variables, (error)variances between exogenous and endogenous variables, random intercepts and slopes, et cetera.  
 {{% /alert %}}
 
@@ -88,13 +88,13 @@ On each different page we discuss a different conceptual model.
 - Two direct effects (partial correlation / multiple regression)
 - Mediation 
 - Spuriousness 
-- Moderation
+- Moderation  
+- Mediated Moderation  
+- Moderated Mediation  
 - Multi-level model  
 - Multi-level mediation (2-1-1 model)  
 - Multi-level moderation (cross-level interaction)  
 <!---
-- Mediated Moderation  
-- Moderated Mediation  
 - Multi-level micro-macro model  
 - Longitudinal model  
 - Cross-Lagged Panel Model  
@@ -120,6 +120,14 @@ Use the **menu on the right** to navigate to subsections of each current page.
 ## SEM and path diagrams  
 
 Although I will try to translate each Conceptual Model into a more formal set of structural equations and will show you how to test this structural model (with the R package **Lavaan**), this is not a tutorial on SEM or path diagrams. 
+
+For useful links see:
+
+- The [Lavaan website](https://lavaan.ugent.be/index.html)  
+- The [Mplus website](http://www.statmodel.com/)  
+- The [homepage of David A. Kenny](http://davidakenny.net/)    
+- The [homepage of Andrew F. Hayes](http://www.afhayes.com/index.html) 
+
 
 ---  
 

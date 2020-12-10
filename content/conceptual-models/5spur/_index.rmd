@@ -1,0 +1,248 @@
+---
+title: Spurious relationship
+author: JochemTolsma
+date: '2020-12-07'
+slug: spur5
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle:
+
+summary: "conceptual model, mediation, explanation, spurious relatinship, tutorial, R, Lavaan"
+lastmod: '`r format(Sys.Date(), "%d-%m-%Y")`'
+
+type: book
+weight: 50
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: no
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
+options(width = 100)
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<!---
+<style>
+.btn-text-right{
+	text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+
+## The Conceptual Model  
+
+```{r correlation, echo=FALSE, fig.cap="Correlation", out.width = '100%'}
+knitr::include_graphics("../static/CM5a.PNG")
+```
+
+```{r mediation, echo=FALSE, fig.cap="Spurious relationship", out.width = '100%'}
+knitr::include_graphics("../static/CM5b.PNG")
+```
+
+
+---  
+
+## Explanation  
+
+In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, **X**, **S** and **Y**.  
+We assume an association between X and Y (See Figure 1 \ref{correlation}). 
+The observed association is the result of a common cause **S**(see Figure 2 \ref{mediation}). If you want to graphically depict a Spurious relationship, it may be useful to show the model without the common cause as well but this is a bit a matter of taste.  
+It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.  
+
+
+{{% alert note %}}
+Please note that in this example I hypothesize an association between X and Y. But the same reasoning would hold if we would hypothesize a direct effect between X and Y. 
+{{% /alert %}}
+
+---  
+
+## Abstract hypothesis/hypotheses  
+
+
+
+- Hypo1: X is related to Y ($d>0$).  
+- Hypo2: S leads to X ($e>0$).  
+- Hypo3: S leads to Y ($f>0$).  
+- Hypo4: S is the reason why X and Y are related ($d' < d$)
+
+
+
+---  
+
+## Real life example  
+
+X is occupational success
+S is occupational success.  
+Y is health 
+
+- Hypo1: Occupational success is related to a better health. 
+- Hypo2: Educational success leads to occupational success.  
+- Hypo3: Educational success leads to a better health.  
+- Hypo4: That occupational success and health are related is at least in part because educational success causes both occupational success and a better health. 
+
+---  
+
+## Structural equations   
+
+- Y=X  
+- Y=S 
+- X=S
+
+or, following the syntax of the R package **Lavaan**
+
+- Y~~X  
+- Y~S  
+- X~S    
+
+---  
+
+## Formal test of hypotheses  
+
+Load the NELLS data.  
+
+```{r}
+rm(list=ls()) #empty environment
+require(haven)
+nells <- read_dta("../static/NELLS panel nl v1_2.dta") #change directory name to your working directory
+```
+
+Operationalize concepts.
+
+```{r}
+# We will use the data of wave 2.
+nellsw2<- nells[nells$w2cpanel==1,]
+
+# As an indicator of occupational success we will use income in wave 2.
+table(nellsw2$w2fa61, useNA="always")
+attributes(nellsw2$w2fa61)
+#recode (I will start newly created variables with cm from conceptual models)
+nellsw2$cm_income <- nellsw2$w2fa61
+nellsw2$cm_income[nellsw2$cm_income==1] <- 100
+nellsw2$cm_income[nellsw2$cm_income==2] <- 225
+nellsw2$cm_income[nellsw2$cm_income==3] <- 400
+nellsw2$cm_income[nellsw2$cm_income==4] <- 750
+nellsw2$cm_income[nellsw2$cm_income==5] <- 1250
+nellsw2$cm_income[nellsw2$cm_income==6] <- 1750
+nellsw2$cm_income[nellsw2$cm_income==7] <- 2250
+nellsw2$cm_income[nellsw2$cm_income==8] <- 2750
+nellsw2$cm_income[nellsw2$cm_income==9] <- 3250
+nellsw2$cm_income[nellsw2$cm_income==10] <- 3750
+nellsw2$cm_income[nellsw2$cm_income==11] <- 4250
+nellsw2$cm_income[nellsw2$cm_income==12] <- 4750
+nellsw2$cm_income[nellsw2$cm_income==13] <- 5250
+nellsw2$cm_income[nellsw2$cm_income==14] <- 5750
+nellsw2$cm_income[nellsw2$cm_income==15] <- 6500
+nellsw2$cm_income[nellsw2$cm_income==16] <- 7500
+nellsw2$cm_income[nellsw2$cm_income==17] <- NA
+# let us scale the variable a bit and translate into income per 1000euro
+nellsw2$cm_income <- nellsw2$cm_income/1000
+
+#from household income to personal income
+attributes(nellsw2$w2fa62)
+table(nellsw2$w2fa62, useNA="always")
+nellsw2$cm_income_per <- nellsw2$w2fa62
+nellsw2$cm_income_per[nellsw2$cm_income_per==1] <- 0
+nellsw2$cm_income_per[nellsw2$cm_income_per==2] <- 10
+nellsw2$cm_income_per[nellsw2$cm_income_per==3] <- 20
+nellsw2$cm_income_per[nellsw2$cm_income_per==4] <- 30
+nellsw2$cm_income_per[nellsw2$cm_income_per==5] <- 40
+nellsw2$cm_income_per[nellsw2$cm_income_per==6] <- 50
+nellsw2$cm_income_per[nellsw2$cm_income_per==7] <- 60
+nellsw2$cm_income_per[nellsw2$cm_income_per==8] <- 70
+nellsw2$cm_income_per[nellsw2$cm_income_per==9] <- 80
+nellsw2$cm_income_per[nellsw2$cm_income_per==10] <- 90
+nellsw2$cm_income_per[nellsw2$cm_income_per==11] <- 100
+nellsw2$cm_income_per[nellsw2$cm_income_per==12] <- NA
+
+nellsw2$cm_income_ind <- nellsw2$cm_income * nellsw2$cm_income_per/100
+
+#as an indicator of educational success we will use highest completed level of education in years.
+#the rationale behind this coding this I will take the maximum for university as 16.5 (taking into account that some masters are 2 years and some 1 year) and subsequently subtract the years needed to obtain a university degree given the degree under consideration. 
+
+attributes(nellsw2$w2fa102)
+table(nellsw2$w2fa102, useNA="always")
+nellsw2$cm_education <- nellsw2$w2fa102
+nellsw2$cm_education[nellsw2$w2fa102==1] <- 6
+nellsw2$cm_education[nellsw2$w2fa102==2] <- 9
+nellsw2$cm_education[nellsw2$w2fa102==3] <- 10
+nellsw2$cm_education[nellsw2$w2fa102==4] <- 11
+nellsw2$cm_education[nellsw2$w2fa102==5] <- 12
+nellsw2$cm_education[nellsw2$w2fa102==6] <- 10
+nellsw2$cm_education[nellsw2$w2fa102==7] <- 11
+nellsw2$cm_education[nellsw2$w2fa102==8] <- 14
+nellsw2$cm_education[nellsw2$w2fa102==9] <- 15
+nellsw2$cm_education[nellsw2$w2fa102==10] <- 16.5
+nellsw2$cm_education[nellsw2$w2fa102==11] <- 16.5
+nellsw2$cm_education[nellsw2$w2fa102==12] <- 7
+nellsw2$cm_education[nellsw2$w2fa102==13] <- 11
+nellsw2$cm_education[nellsw2$w2fa102==14] <- 14.5
+nellsw2$cm_education[nellsw2$w2fa102==15] <- 4
+
+
+#as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we have to reverse code original variable
+attributes(nellsw2$w2scf1)
+table(nellsw2$w2scf1, useNA="always")
+nellsw2$cm_health <- 6 - nellsw2$w2scf1
+
+```
+
+And test the model with **Lavaan**.
+
+```{r}
+require(lavaan)
+var(cbind(nellsw2$cm_income_ind, nellsw2$cm_health), na.rm=TRUE)
+
+model <- '
+  # association
+  cm_health ~~ cm_income_ind  
+  #regressions
+  cm_health ~ cm_education  
+  cm_income_ind ~ cm_education
+'
+
+#first check the sample covariance matrix
+inspectSampleCov(model, data=nellsw2)
+
+fit <- sem(model, data = nellsw2) 
+summary(fit, standardized=TRUE)
+
+```
+
+We observe that the (error)covariance between health and occupational success is no longer significant.  
+
+---  
+
+
+

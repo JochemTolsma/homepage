@@ -2,7 +2,7 @@
 title: Mediation
 author: JochemTolsma
 date: '2020-12-07'
-slug: cor1
+slug: med4
 categories:
   - R
   - Conceptual Models

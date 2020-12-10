@@ -10,7 +10,7 @@ tags: []
 #linktitle: "Overview Conceptual Models"
 
 summary: "conceptual model, correlation, explanation, tutorial, R, Lavaan"
-lastmod: '09-12-2020'
+lastmod: '10-12-2020'
 
 type: book
 weight: 5
@@ -43,6 +43,14 @@ output:
 <li><a href="#mediation">Mediation</a></li>
 <li><a href="#spurious-relation">Spurious relation</a></li>
 <li><a href="#moderation">Moderation</a></li>
+<li><a href="#mediated-moderation">Mediated Moderation</a><ul>
+<li><a href="#version-1">Version 1</a></li>
+<li><a href="#version-2">Version 2</a></li>
+</ul></li>
+<li><a href="#mederated-mediation">Mederated Mediation</a><ul>
+<li><a href="#version-1-1">Version 1</a></li>
+<li><a href="#version-2-1">Version 2</a></li>
+</ul></li>
 <li><a href="#multilevel">Multilevel</a></li>
 <li><a href="#multilevel-mediation">Multilevel Mediation</a></li>
 <li><a href="#multilevel-moderation">Multilevel Moderation</a></li>
@@ -187,33 +195,103 @@ Figure 14: Moderation (categorical moderator)
 </div>
 <hr />
 </div>
+<div id="mediated-moderation" class="section level2">
+<h2>Mediated Moderation</h2>
+<div id="version-1" class="section level3">
+<h3>Version 1</h3>
+<div class="figure"><span id="fig:mma"></span>
+<img src="../static/CM10a.PNG" alt="Moderation" width="100%" />
+<p class="caption">
+Figure 15: Moderation
+</p>
+</div>
+<div class="figure"><span id="fig:mmb"></span>
+<img src="../static/CM10b.PNG" alt="Mediated Moderation (version 1)" width="100%" />
+<p class="caption">
+Figure 16: Mediated Moderation (version 1)
+</p>
+</div>
+<hr />
+</div>
+<div id="version-2" class="section level3">
+<h3>Version 2</h3>
+<div class="figure"><span id="fig:mmc"></span>
+<img src="../static/CM10a.PNG" alt="Moderation" width="100%" />
+<p class="caption">
+Figure 17: Moderation
+</p>
+</div>
+<div class="figure"><span id="fig:mmd"></span>
+<img src="../static/CM10c.PNG" alt="Mediated Moderation (version 2)" width="100%" />
+<p class="caption">
+Figure 18: Mediated Moderation (version 2)
+</p>
+</div>
+<hr />
+</div>
+</div>
+<div id="mederated-mediation" class="section level2">
+<h2>Mederated Mediation</h2>
+<div id="version-1-1" class="section level3">
+<h3>Version 1</h3>
+<div class="figure"><span id="fig:mmd2"></span>
+<img src="../static/CM4.PNG" alt="Mediation" width="100%" />
+<p class="caption">
+Figure 19: Mediation
+</p>
+</div>
+<div class="figure"><span id="fig:mme"></span>
+<img src="../static/CM10d.PNG" alt="Moderated Mediation (version 1)" width="100%" />
+<p class="caption">
+Figure 20: Moderated Mediation (version 1)
+</p>
+</div>
+<hr />
+</div>
+<div id="version-2-1" class="section level3">
+<h3>Version 2</h3>
+<div class="figure"><span id="fig:mmf"></span>
+<img src="../static/CM4.PNG" alt="Mediation" width="100%" />
+<p class="caption">
+Figure 21: Mediation
+</p>
+</div>
+<div class="figure"><span id="fig:mmg"></span>
+<img src="../static/CM10e.PNG" alt="Moderated Mediation (version 2)" width="100%" />
+<p class="caption">
+Figure 22: Moderated Mediation (version 2)
+</p>
+</div>
+<hr />
+</div>
+</div>
 <div id="multilevel" class="section level2">
 <h2>Multilevel</h2>
 <div class="figure"><span id="fig:MLa"></span>
 <img src="../static/CM7a.PNG" alt="Multilevel model" width="100%" />
 <p class="caption">
-Figure 15: Multilevel model
+Figure 23: Multilevel model
 </p>
 </div>
 <hr />
 <div class="figure"><span id="fig:MLb"></span>
 <img src="../static/CM7b.PNG" alt="Multilevel model (better alternative)" width="100%" />
 <p class="caption">
-Figure 16: Multilevel model (better alternative)
+Figure 24: Multilevel model (better alternative)
 </p>
 </div>
 <hr />
 <div class="figure"><span id="fig:MLc"></span>
 <img src="../static/CM7c.PNG" alt="Multilevel model (explict level notation)" width="100%" />
 <p class="caption">
-Figure 17: Multilevel model (explict level notation)
+Figure 25: Multilevel model (explict level notation)
 </p>
 </div>
 <hr />
 <div class="figure"><span id="fig:MLd"></span>
 <img src="../static/CM7d.PNG" alt="Between-Within Multilevel model (aggregated X-variable)" width="100%" />
 <p class="caption">
-Figure 18: Between-Within Multilevel model (aggregated X-variable)
+Figure 26: Between-Within Multilevel model (aggregated X-variable)
 </p>
 </div>
 <hr />
@@ -223,14 +301,14 @@ Figure 18: Between-Within Multilevel model (aggregated X-variable)
 <div class="figure"><span id="fig:MLMEa"></span>
 <img src="../static/CM8a.PNG" alt="Multilevel Mediation" width="100%" />
 <p class="caption">
-Figure 19: Multilevel Mediation
+Figure 27: Multilevel Mediation
 </p>
 </div>
 <hr />
 <div class="figure"><span id="fig:MLMEb"></span>
 <img src="../static/CM8b.PNG" alt="Multilevel Mediation (wrong)" width="100%" />
 <p class="caption">
-Figure 20: Multilevel Mediation (wrong)
+Figure 28: Multilevel Mediation (wrong)
 </p>
 </div>
 <hr />
@@ -240,13 +318,13 @@ Figure 20: Multilevel Mediation (wrong)
 <div class="figure"><span id="fig:MLMOa"></span>
 <img src="../static/CM9.PNG" alt="Multilevel Moderation (cross-level interaction)" width="100%" />
 <p class="caption">
-Figure 21: Multilevel Moderation (cross-level interaction)
+Figure 29: Multilevel Moderation (cross-level interaction)
 </p>
 </div>
 <div class="figure"><span id="fig:MLMOb"></span>
 <img src="../static/CM9b.PNG" alt="Multilevel Moderation (wrong)" width="100%" />
 <p class="caption">
-Figure 22: Multilevel Moderation (wrong)
+Figure 30: Multilevel Moderation (wrong)
 </p>
 </div>
 <hr />
