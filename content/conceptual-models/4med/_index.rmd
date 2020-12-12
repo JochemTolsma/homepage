@@ -63,7 +63,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 
 ## The Conceptual Model  
 
-```{r correlation, echo=FALSE, fig.cap="Direct effect", out.width = '100%'}
+```{r correlation, echo=FALSE, fig.cap="Total effect (a)", out.width = '100%'}
 knitr::include_graphics("../static/CM2.PNG")
 ```
 
@@ -76,12 +76,16 @@ knitr::include_graphics("../static/CM4.PNG")
 
 ## Explanation  
 
-In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, **X**, **Me** and **Y**.  
+In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, **X**, the independent variable, **Me**, the mediator, and **Y**, the dependent variable.  
 We assume a causal relationship running from X to Y (See Figure 1 \ref{correlation}). 
 We assume that in part this relationship can be explained by a Mediator, Me (see Figure 2 \ref{mediation}). If you want to graphically depict a mediation mechanism, it may be useful to show the model without the mediator as well but this is a bit a matter of taste.  
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.  
 
+### path names
 
+- path **a** is called the total effect of **X** on **Y**.  
+- path **a'** is called the direct effect of **X** on **Y**.  
+- the path running through the mediator, **bc**, is the indirect effect of **X** on **Y**.  
 ---  
 
 ## Abstract hypothesis/hypotheses  

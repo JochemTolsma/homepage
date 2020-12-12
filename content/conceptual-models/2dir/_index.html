@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, correlation, direct effect, explanation, tutorial, R, Lavaan"
-lastmod: '10-12-2020'
+lastmod: '12-12-2020'
 
 type: book
 weight: 20
@@ -100,7 +100,10 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="#the-conceptual-model">The Conceptual Model</a></li>
 <li><a href="#explanation">Explanation</a></li>
 <li><a href="#abstract-hypothesishypotheses">Abstract hypothesis/hypotheses</a></li>
-<li><a href="#real-life-example">Real life example</a></li>
+<li><a href="#real-life-example">Real life example</a><ul>
+<li><a href="#continuous-dv">Continuous DV</a></li>
+<li><a href="#dichotemous-dv">Dichotemous DV</a></li>
+</ul></li>
 <li><a href="#structural-equations">Structural equations</a></li>
 <li><a href="#formal-test-of-hypotheses">Formal test of hypotheses</a></li>
 </ul>
@@ -140,9 +143,10 @@ Figure 1: direct effect
 </div>
 <div id="explanation" class="section level2">
 <h2>Explanation</h2>
-<p>In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, <strong>X</strong> and <strong>Y</strong>.<br />
-The single headed arrow indicates that you assume a causal relation from <strong>X</strong> (on the left) to <strong>Y</strong> on the right. Thus: if X increases, Y will increase as a result as well; the more X, the more Y.<br />
-It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace <em>a</em> with <em>+</em> or <em>-</em>.</p>
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, <strong>X</strong>, the independent variable (IV) and <strong>Y</strong> the dependent variable (DV).<br />
+The single headed arrow indicates that <strong>you assume a causal relation</strong> from <strong>X</strong> (on the left) to <strong>Y</strong> on the right. Thus: if X increases, Y will increase as a result as well; the more X, the more Y.<br />
+The shape of the relation remains implicit in your conceptual model but researchers commonly <strong>assume a linear relation</strong> between the concepts.</p>
+<p>It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace <em>a</em> with <em>+</em> or <em>-</em>.</p>
 <p>{{% alert note %}}
 Please note, I use the label <em>concept</em> and not <em>variable</em>. A <em>variable</em> is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and the concept as intended may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the ‘concept as measured’.<br />
 It is generally a good idea to use concepts that are (very) close to your actual measurements. Thus, although you may use the concept <em>social cohesion</em> in your conceptual model, this concept is overly broad and there is a fierce debate on how it should be defined. If you have measured social cohesion with for example a single item on generalized trust (“Generally speaking would you say that most people can be trusted or that you can’t be too careful in dealing with people?”) why not use the concept generalized trust in your conceptual model?
@@ -158,11 +162,21 @@ Hypo: The more X, the more Y</p>
 </div>
 <div id="real-life-example" class="section level2">
 <h2>Real life example</h2>
+<div id="continuous-dv" class="section level3">
+<h3>Continuous DV</h3>
 <p>X is occupational success.<br />
 Y is health</p>
 <p>Hypo 1a: Occupational success will lead to better health.</p>
 <p>Note, that we used the same concepts as in the previous example (an association between occupational success and health). That we now formulate a causal path should be informed by theory.</p>
+</div>
+<div id="dichotemous-dv" class="section level3">
+<h3>Dichotemous DV</h3>
+<p>X is occupational success.<br />
+Y is healthy (YES versus NO)</p>
+<p>Hypo 1b: Occupational success increases the probability to be healthy.</p>
+<p>Note, that you will probably use a logistic regression model to test your hypothesis. Thus where your conceptual model assumes a linear relation between your IV and your DV, your formal model assumes an S-shape relation; The logistic model is linear in the logit, not in the probability.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <hr />
+</div>
 </div>
 <div id="structural-equations" class="section level2">
 <h2>Structural equations</h2>
@@ -397,4 +411,10 @@ I hope you observe that the regression line does not fit the data very well.</p>
 <li>A direct effect cannot always be given a causal interpretation.</li>
 </ul>
 <hr />
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><span class="math display">\[p = P(Y=1) = \frac{exp(\beta_kx_k)}{1+exp(\beta_kx_k)}\]</span><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>

@@ -72,8 +72,10 @@ knitr::include_graphics("../static/CM2.PNG")
 
 ## Explanation  
 
-In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, **X** and **Y**.  
-The single headed arrow indicates that you assume a causal relation from **X** (on the left) to **Y** on the right. Thus: if X increases, Y will increase as a result as well; the more X, the more Y.   
+In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, **X**, the independent variable (IV) and **Y** the dependent variable (DV).  
+The single headed arrow indicates that **you assume a causal relation** from **X** (on the left) to **Y** on the right. Thus: if X increases, Y will increase as a result as well; the more X, the more Y.  
+The shape of the relation remains implicit in your conceptual model but researchers commonly **assume a linear relation** between the concepts.  
+
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace *a* with *+* or *-*.  
 
 
@@ -94,6 +96,8 @@ Hypo: The more X, the more Y
 
 ## Real life example  
 
+### Continuous DV  
+
 X is occupational success.  
 Y is health 
 
@@ -101,6 +105,16 @@ Hypo 1a: Occupational success will lead to better health.
 
 Note, that we used the same concepts as in the previous example (an association between occupational success and health). That we now formulate a causal path should be informed by theory.  
 
+### Dichotemous DV  
+
+X is occupational success.  
+Y is healthy (YES versus NO) 
+
+Hypo 1b: Occupational success increases the probability to be healthy.  
+
+Note, that you will probably use a logistic regression model to test your hypothesis. Thus where your conceptual model assumes a linear relation between your IV and your DV, your formal model assumes an S-shape relation; The logistic model is linear in the logit, not in the probability.[^1]
+
+[^1]: $$p = P(Y=1) = \frac{exp(\beta_kx_k)}{1+exp(\beta_kx_k)}$$ 
 
 ---  
 

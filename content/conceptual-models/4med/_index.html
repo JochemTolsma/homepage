@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, mediation, explanation, tutorial, R, Lavaan"
-lastmod: '10-12-2020'
+lastmod: '12-12-2020'
 
 type: book
 weight: 40
@@ -98,7 +98,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="TOC">
 <ul>
 <li><a href="#the-conceptual-model">The Conceptual Model</a></li>
-<li><a href="#explanation">Explanation</a></li>
+<li><a href="#explanation">Explanation</a><ul>
+<li><a href="#path-names">path names</a></li>
+</ul></li>
 <li><a href="#abstract-hypothesishypotheses">Abstract hypothesis/hypotheses</a><ul>
 <li><a href="#mediation">Mediation</a></li>
 <li><a href="#suppression">Suppression</a></li>
@@ -134,9 +136,9 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 <div id="the-conceptual-model" class="section level2">
 <h2>The Conceptual Model</h2>
 <div class="figure"><span id="fig:correlation"></span>
-<img src="../static/CM2.PNG" alt="Direct effect" width="100%" />
+<img src="../static/CM2.PNG" alt="Total effect (a)" width="100%" />
 <p class="caption">
-Figure 1: Direct effect
+Figure 1: Total effect (a)
 </p>
 </div>
 <div class="figure"><span id="fig:mediation"></span>
@@ -149,11 +151,20 @@ Figure 2: Mediation
 </div>
 <div id="explanation" class="section level2">
 <h2>Explanation</h2>
-<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, <strong>X</strong>, <strong>Me</strong> and <strong>Y</strong>.<br />
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, <strong>X</strong>, the independent variable, <strong>Me</strong>, the mediator, and <strong>Y</strong>, the dependent variable.<br />
 We assume a causal relationship running from X to Y (See Figure 1 ).
 We assume that in part this relationship can be explained by a Mediator, Me (see Figure 2 ). If you want to graphically depict a mediation mechanism, it may be useful to show the model without the mediator as well but this is a bit a matter of taste.<br />
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.</p>
-<hr />
+<div id="path-names" class="section level3">
+<h3>path names</h3>
+<ul>
+<li>path <strong>a</strong> is called the total effect of <strong>X</strong> on <strong>Y</strong>.<br />
+</li>
+<li>path <strong>a’</strong> is called the direct effect of <strong>X</strong> on <strong>Y</strong>.<br />
+</li>
+<li><h2 id="the-path-running-through-the-mediator-bc-is-the-indirect-effect-of-x-on-y.">the path running through the mediator, <strong>bc</strong>, is the indirect effect of <strong>X</strong> on <strong>Y</strong>.</h2></li>
+</ul>
+</div>
 </div>
 <div id="abstract-hypothesishypotheses" class="section level2">
 <h2>Abstract hypothesis/hypotheses</h2>

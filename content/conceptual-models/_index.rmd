@@ -73,6 +73,7 @@ A **path diagram** is a formal and graphical representation of a structural mode
 ## Aim 
 
 The intended learning outcomes of this course are:  
+
 1. Theoretical knowledge and insight: you will be able to define core concepts related to conceptual models (e.g. correlation, causality, mediation, moderation) and are able to explain the distinction with path diagrams.  
 2. Academic attitude: you develop a positive attitude towards applying conceptual models in your own social science research projects.   
 3. Research skills: you will be able to use conceptual models as a tool to: formulate strong hypotheses; summarize hypotheses; assess the system of formulated hypotheses in social science projects of others. 
