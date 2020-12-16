@@ -1,5 +1,5 @@
 ---
-title: Two Direct Effect
+title: Two Direct Effects
 author: JochemTolsma
 date: '2020-12-07'
 slug: tdir3
@@ -74,7 +74,7 @@ knitr::include_graphics("../static/CM3a.PNG")
 
 In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, $ X_1 $ ,  $ X_2 $ and Y.  
 The single headed arrow indicates that you assume causal (linear) relations from $ X_1 $ and $ X_2 $ (on the left) to **Y** on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
-In this example we have to direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.     
+In this example we have two direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.     
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace *a* with *+* or *-*.  
 
 
@@ -92,7 +92,7 @@ Hypo2: $ X_2 $ leads to Y.
 
 Normally we do not have an hypothesis on the association between $ X_1 $ and $ X_2 $. If we do, we could summarize our ideas with the following conceptual model: 
 
-```{r, echo=FALSE, fig.cap="two direct effects and association", out.width = '100%'}
+```{r, echo=FALSE, fig.cap="Two direct effects and association", out.width = '100%'}
 knitr::include_graphics("../static/CM3b.PNG")
 ```
 Hypo3: $ X_1 $ and $ X_2 $ are positively associated. 
@@ -210,15 +210,15 @@ selection <- sample(1:length(nellsw2$cm_income_ind), 200, replace=FALSE)
 #because we are interested in a correlation, I plot the standardized variables
 
 par(mfrow=c(1,2))
-plot(nellsw2$cm_income_ind[selection], nellsw2$cm_health[selection])
+plot(nellsw2$cm_income_ind[selection], nellsw2$cm_health[selection], xlab="income", ylab="health", main="Bivariate effect of income on health")
 abline(lm(nellsw2$cm_health~nellsw2$cm_income_ind), lwd=4, col="red")
 
-boxplot(cm_health ~ cm_partner, data=nellsw2, notch=TRUE)
+boxplot(cm_health ~ cm_partner, data=nellsw2, notch=TRUE, xlab="having a partner", ylab="health", main="Bivariate effect partnership on health")
 
 ```
 I hope you observe that the regression line does not fit the data very well and that the means/median of health does not differ much whether or not you have a partner. 
 
-And now,...estimate the direct effect via `lm()`:
+And now,...estimate the direct effects via `lm()`:
 
 ```{r}
 summary(lm(nellsw2$cm_health ~ nellsw2$cm_income_ind))
@@ -242,6 +242,7 @@ nellsw2$cm_partner <- as.numeric(nellsw2$cm_partner)
 
 fit <- sem(model, data = nellsw2) #I use sem instead of lavaan. The only advantage is that I don't have to tell lavaan that I also need the error variances. 
 summary(fit, standardized=TRUE)
+fitMeasures(fit, fit.measures = "logl")
 inspect(fit,'r2') #to obtain r-squared
 #parameterEstimates(fit)
 ```
@@ -270,6 +271,7 @@ nellsw2$cm_partner <- as.numeric(nellsw2$cm_partner)
 
 fit <- sem(model, data = nellsw2) #I use sem instead of lavaan. The only advantage is that I don't have to tell lavaan that I also need the error variances. 
 summary(fit, standardized=TRUE)
+fitMeasures(fit, fit.measures = "logl")
 inspect(fit,'r2') #to obtain r-squared
 #parameterEstimates(fit)
 ```
@@ -277,7 +279,7 @@ inspect(fit,'r2') #to obtain r-squared
 
 **Take Home Messages**  
 
-- It is easy to estimate equivalent models with similar fits but with a different interpretation.   
+- It is easy to estimate equivalent models with similar fits (see the loglikelihood of the models above) but with a different interpretation.   
 
 
 

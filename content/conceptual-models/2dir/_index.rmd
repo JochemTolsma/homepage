@@ -205,7 +205,7 @@ But first plot the association and add the regression line:
 #I randomly select 200 respondents otherwise the plot will be too crowded
 selection <- sample(1:length(nellsw2$cm_income_ind), 200, replace=FALSE) 
 #because we are interested in a correlation, I plot the standardized variables
-plot(nellsw2$cm_income_ind[selection], nellsw2$cm_health[selection])
+plot(nellsw2$cm_income_ind[selection], nellsw2$cm_health[selection], xlab="income", ylab="health", main="Effect of income on health")
 abline(lm(nellsw2$cm_health~nellsw2$cm_income_ind), lwd=4, col="red")
 ```
 I hope you observe that the regression line does not fit the data very well. 
@@ -241,7 +241,7 @@ Let us briefly discuss the results:
 
 - The direct effect is **0.072**. A causal interpretation would be: if your income increases with 1000euros your health will improve by 0.072 (on a scale from 1-5).  
 - You will also observe that the standardized regression coefficient is 0.80 which is exactly the same as the estimated correlation between our two concepts previously. Thus the correlation and direct effect models are equivalent and we should be very cautious in giving our regression coefficient a causal interpretation.  
-- I hope you also observe that the explained variance is very low (and thus that the error variance of our health variables is almost identical to the observed variance). Perhaps, you should conclude that even though the strong significant effect the impact (or linear relation) between income and health is not substantial and negliable?   
+- I hope you also observe that the explained variance is very low (and thus that the error variance of our health variables is almost identical to the observed variance). Perhaps, you should conclude that even though the strong significant effect the impact (or linear relation) between income and health is not substantial and negligible?   
 
 **Take Home Messages**  
 

@@ -58,9 +58,11 @@ Conceptual models may help a researcher to:
 - organize the thought process and improve structured thinking  
 - critically think about causality  
 - identify equivalent models  
-- **formulate (informative and testable) hypotheses**    
+- **formulate (informative and testable) hypotheses**[^1]    
 - summarize hypotheses graphically for a lay audience  
 - summarize hypotheses graphically for an expert audience when translated into a path diagram
+
+[^1]: With hypothesis (plural hypotheses) I mean a proposed explanation for a (social) phenomenon. The hypothesis becomes scientific when it is testable with empirical data and a suitable scientific method. 
 
 {{% alert note %}}
 Although closely related, a conceptual model is not a path diagram.  
@@ -74,9 +76,9 @@ A **path diagram** is a formal and graphical representation of a structural mode
 
 The intended learning outcomes of this course are:  
 
-1. Theoretical knowledge and insight: you will be able to define core concepts related to conceptual models (e.g. correlation, causality, mediation, moderation) and are able to explain the distinction with path diagrams.  
-2. Academic attitude: you develop a positive attitude towards applying conceptual models in your own social science research projects.   
-3. Research skills: you will be able to use conceptual models as a tool to: formulate strong hypotheses; summarize hypotheses; assess the system of formulated hypotheses in social science projects of others. 
+1. Theoretical **knowledge** and insight: you will be able to define core concepts related to conceptual models (e.g. correlation, causality, mediation, moderation) and are able to explain the distinction with path diagrams.  
+2. Academic **attitude**: you develop a positive attitude towards applying conceptual models in your own social science research projects.   
+3. Research **skills**: you will be able to use conceptual models as a tool to: formulate strong hypotheses; summarize hypotheses; assess the system of formulated hypotheses in social science projects of others. 
 
 ---  
 
@@ -135,7 +137,27 @@ For useful links see:
 ## Correlation versus Causation  
 
 More often than not, the conceptual model will try to summarize causal mechanisms (e.g. X causes Y). And more often than not, it is not possible to give a causal interpretation of the estimates obtained after the hypotheses test. I will try to discuss the extent to which parameter estimates may be given a causal interpretation throughout this tutorial.  
-Also note that I use the label *correlation* but naturally the correct measure for the presumed association depends on the measurement level of the variables involved (i.e. nominal, ordinal, metric). 
+Also note that I use the label *correlation* but naturally the correct measure for the presumed (bivariate) association depends on the type of scales used for the measurement of the variables involved (i.e. nominal, ordinal, interval, ratio scales). 
+
+### Covariance and Correlation
+
+Social scientists try to explain variance and covariance. It is therefore a good idea to learn by heart the formula for variance and covariance. The variance of a sampled random variable X is as follows: 
+
+$$s_{xx} = s_x= \frac{\Sigma^n_i(X_i-\overline{X})(X_i-\overline{X})}{n-1}= \frac{\Sigma^n_i(X_i-\overline{X})^2}{n-1}$$ 
+
+The covariance between two sampled random variables X and Y is as follows:  
+
+$$s_{xy} = \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{n-1}$$
+The correlation is a covariance on standardized variables ($X_{sd}=(X-\overline{X})/s_x$) and hence:  
+
+$$r_{xy} = \frac{s_{xy}}{s_x s_y}$$
+Just to be complete. The population equivalent of the covariance: 
+
+$$\sigma _{xy} = \frac{\Sigma^n_i(X_i - \mu_x)(Y_i-\mu_y)}{N},$$
+with $\mu$ the population mean. 
+And the correlation within the population is: 
+
+$$\rho_{xy} = \frac{\sigma_{xy}}{\sigma_x \sigma_y}$$
 
 ---  
 

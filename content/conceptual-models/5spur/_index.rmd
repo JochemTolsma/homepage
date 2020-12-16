@@ -77,8 +77,8 @@ knitr::include_graphics("../static/CM5b.PNG")
 ## Explanation  
 
 In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, **X**, **S** and **Y**.  
-We assume an association between X and Y (See Figure 1 \ref{correlation}). 
-The observed association is the result of a common cause **S**(see Figure 2 \ref{mediation}). If you want to graphically depict a Spurious relationship, it may be useful to show the model without the common cause as well but this is a bit a matter of taste.  
+We assume an association between X and Y (See Figure 1). 
+The observed association is the result of a common cause **S** (See Figure 2). If you want to graphically depict a Spurious relationship, it may be useful to show the model without the common cause as well but this is a bit a matter of taste.  
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.  
 
 
@@ -88,7 +88,7 @@ Please note that in this example I hypothesize an association between X and Y. B
 
 ---  
 
-## Abstract hypothesis/hypotheses  
+## Abstract hypotheses  
 
 
 

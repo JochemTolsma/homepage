@@ -1,5 +1,5 @@
 ---
-title: moderation
+title: Moderation
 author: JochemTolsma
 date: '2020-12-07'
 slug: mod6
@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, moderation, explanation, tutorial, R, Lavaan"
-lastmod: '12-12-2020'
+lastmod: '16-12-2020'
 
 type: book
 weight: 60
@@ -101,16 +101,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <ul>
 <li><a href="#the-conceptual-model">The Conceptual Model</a><ul>
 <li><a href="#version-1">Version 1</a></li>
-</ul></li>
-<li><a href="#the-moderator-mo-moderates-the-strength-of-the-impact-of-x-on-y-i.e.-path-a.">The moderator <strong>Mo</strong> moderates the strength of the impact of <strong>X</strong> on <strong>Y</strong> (i.e. path <strong>a</strong>).</a><ul>
 <li><a href="#version-2">Version 2</a></li>
 <li><a href="#version-3">Version 3</a></li>
-</ul></li>
-<li><a href="#version-2-and-version-3-are-mathematically-equivalent-structural-models.-they-will-lead-to-exactly-the-same-model-fit.-however-from-a-theoretical-viewpoint-they-are-different.-see-also-examples-below">Version 2 and Version 3 are (mathematically) equivalent (structural) models. They will lead to exactly the same model fit. However, from a theoretical viewpoint they are different. (see also examples below)</a><ul>
 <li><a href="#version-4">Version 4</a></li>
 </ul></li>
 <li><a href="#explanation">Explanation</a></li>
-<li><a href="#abstract-hypothesishypotheses">Abstract hypothesis/hypotheses</a><ul>
+<li><a href="#abstract-hypotheses">Abstract hypotheses</a><ul>
 <li><a href="#positive-main-effect-positive-interaction">positive main effect, positive interaction</a></li>
 <li><a href="#positive-main-effect-negative-interaction">positive main effect, negative interaction</a></li>
 <li><a href="#negative-main-effect-positive-interaction">negative main effect, positive interaction</a></li>
@@ -118,8 +114,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 <li><a href="#real-life-example">Real life example</a></li>
 <li><a href="#structural-equations">Structural equations</a><ul>
-<li><a href="#linear-model">linear model</a></li>
-<li><a href="#non-linear-logit-model">non-linear (logit) model</a></li>
+<li><a href="#interpretation-linear-model">Interpretation (linear model)</a></li>
+<li><a href="#interpretation-non-linear-logit-model">Interpretation (non-linear (logit) model)</a></li>
 <li><a href="#lavaan-syntax">Lavaan syntax</a></li>
 </ul></li>
 <li><a href="#formal-test-of-hypotheses">Formal test of hypotheses</a></li>
@@ -160,10 +156,9 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 Figure 1: Moderation
 </p>
 </div>
+<p>The moderator <strong>Mo</strong> moderates the strength of the impact of <strong>X</strong> on <strong>Y</strong> (i.e. path <strong>a</strong>).</p>
+<hr />
 </div>
-</div>
-<div id="the-moderator-mo-moderates-the-strength-of-the-impact-of-x-on-y-i.e.-path-a." class="section level2">
-<h2>The moderator <strong>Mo</strong> moderates the strength of the impact of <strong>X</strong> on <strong>Y</strong> (i.e. path <strong>a</strong>).</h2>
 <div id="version-2" class="section level3">
 <h3>Version 2</h3>
 <p><img src="../static/CM2.PNG" width="100%" /></p>
@@ -185,10 +180,9 @@ Figure 2: Moderation (including direct effect of moderator)
 Figure 3: Moderation (equivalent to version 2)
 </p>
 </div>
+<p>Version 2 and Version 3 are (mathematically) equivalent (structural) models. They will lead to exactly the same model fit. However, from a theoretical viewpoint they are different. (see also examples below).</p>
+<hr />
 </div>
-</div>
-<div id="version-2-and-version-3-are-mathematically-equivalent-structural-models.-they-will-lead-to-exactly-the-same-model-fit.-however-from-a-theoretical-viewpoint-they-are-different.-see-also-examples-below" class="section level2">
-<h2>Version 2 and Version 3 are (mathematically) equivalent (structural) models. They will lead to exactly the same model fit. However, from a theoretical viewpoint they are different. (see also examples below)</h2>
 <div id="version-4" class="section level3">
 <h3>Version 4</h3>
 <p><img src="../static/CM2.PNG" width="100%" /></p>
@@ -207,15 +201,15 @@ Figure 4: Moderation (categorical Moderator)
 <p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, <strong>X</strong>, <strong>Mo</strong> and <strong>Y</strong>.<br />
 We assume an association between X and Y.
 The strength of this relation may depend on <strong>Mo</strong>, the strength of this relation is conditional on the value of <strong>Mo</strong>. We also call this an interaction effect.
-If you want to graphically depict a moderation, it may be useful to show the model without the moderator as well but this is a bit a matter of taste.<br />
+If you want to graphically depict a moderation, it may be useful to show the model without the moderator as well but this is a bit a matter of taste. I have noticed that journal article reviewers and committees that evaluate grant proposals are not always familiar with a graphical depiction of an interaction effect. I have received (more than once!) the comment that my figure was presumably wrong because an arrow was pointing at a different arrow. I therefore now add a very small bullit on the arrow which, I hope, makes clear that it is by design that I point one arrow to another arrow.<br />
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.</p>
 <p>{{% alert warning %}}
 If the relationship between <strong>X</strong> and <strong>Y</strong> is assumed to be non-linear, for example when the dependent variable is binary and you are planning to estimate logistic regression models, the interpretation of moderation/interaction effects is a lot more complicated. <strong>SEE STRUCTURAL EQUATIONS BELOW</strong>.<br />
 {{% /alert %}}</p>
 <hr />
 </div>
-<div id="abstract-hypothesishypotheses" class="section level2">
-<h2>Abstract hypothesis/hypotheses</h2>
+<div id="abstract-hypotheses" class="section level2">
+<h2>Abstract hypotheses</h2>
 <p>See Version 1/2 above.</p>
 <div id="positive-main-effect-positive-interaction" class="section level3">
 <h3>positive main effect, positive interaction</h3>
@@ -264,10 +258,14 @@ Y is health</p>
 <ul>
 <li>Hypo3: The relationship between educational success and a better health is stronger for older persons.</li>
 </ul>
-<p>For hypothesis 3 it is not necessary that there is also a main effect of education on health. Also, the direction of the interaction effect is left a bit implicit (presumably positive). But cannot be falsified when:<br />
-- there is no main effect and we observe an interaction effect (regardless of sign)<br />
-- there is a positive main effect and a positive interaction effect.<br />
-- there is a negative main effect and a negative interaction effect.</p>
+<p>For hypothesis 3 it is not necessary that there is also a main effect of education on health. Also, the direction of the interaction effect is left a bit implicit (presumably positive). But cannot be falsified when:</p>
+<ul>
+<li>there is no main effect and we observe an interaction effect (regardless of sign)<br />
+</li>
+<li>there is a positive main effect and a positive interaction effect.<br />
+</li>
+<li>there is a negative main effect and a negative interaction effect.</li>
+</ul>
 <p>For this reason, I would prefer hypotheses 1 and 2 above the single hypothesis 3.</p>
 <p>Please compare the following set of hypotheses:</p>
 <ul>
@@ -286,17 +284,17 @@ Y is health</p>
 </div>
 <div id="structural-equations" class="section level2">
 <h2>Structural equations</h2>
-<div id="linear-model" class="section level3">
-<h3>linear model</h3>
 <ul>
 <li>$ Y= b_0 + b_1X + b_2Mo + b_3XMo Y= b_0 + (b_1 + b_3Mo)X + b_2Mo $</li>
 </ul>
+<div id="interpretation-linear-model" class="section level3">
+<h3>Interpretation (linear model)</h3>
 <p>The interaction effect is the cross-partial derivative of Y with respect to X and M0:<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p><span class="math display">\[ \frac{\partial ^2(Y|X,Mo)}{\partial X \partial Mo} = \frac{\partial(b_1 + b_3Mo)}{ \partial Mo} = b_3 \]</span></p>
 <p>Thus the interaction effect is <span class="math inline">\(b_3\)</span>.</p>
 </div>
-<div id="non-linear-logit-model" class="section level3">
-<h3>non-linear (logit) model</h3>
+<div id="interpretation-non-linear-logit-model" class="section level3">
+<h3>Interpretation (non-linear (logit) model)</h3>
 <p>However, if we have a binary outcome variable our hypotheses are about the probability that Y is 1 (<span class="math inline">\(P(Y=1)\)</span>). If we estimate the model with a logit function, this is:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <p><span class="math inline">\(P(Y=1|X,Mo)= \frac{e^{(b_0 + b_1X + b_2Mo + b_3XMo)}} {1 + e^{(b_0 + b_1X + b_2Mo + b_3XMo)}} = \frac{1}{1 + e^{-(b_0 + b_1X + b_2Mo + b_3XMo)}}\)</span></p>
 <p>let us define <span class="math inline">\(P(Y=1|X,Mo)\)</span> as <span class="math inline">\(F(Y)\)</span> (i.e. the logistic distribution function).</p>
@@ -322,7 +320,7 @@ where <span class="math inline">\(f(Y)\)</span> is the derivative of the logisti
 </li>
 <li>Y~d*Mo<br />
 </li>
-<li>Y~b*XMo</li>
+<li>Y~b*X:Mo</li>
 </ul>
 <hr />
 </div>
@@ -532,30 +530,40 @@ where <span class="math inline">\(f(Y)\)</span> is the derivative of the logisti
 <span id="cb4-2"><a href="#cb4-2"></a></span>
 <span id="cb4-3"><a href="#cb4-3"></a></span>
 <span id="cb4-4"><a href="#cb4-4"></a>model &lt;-<span class="st"> &quot;</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  cm_health~1   </span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  cm_health~a*cm_education_c  </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  cm_health~d*cm_age_c   </span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  cm_health~b*cm_educ_age </span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="st">  cm_health~~cm_health</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="st">  </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  &quot;</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  #structural model</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  cm_health~ a*cm_education_c + d*cm_age_c + b*cm_education_c:cm_age_c </span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="st">  #intercepts</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">  cm_health~1   </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  cm_education_c ~1   </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">  cm_age_c~1   </span></span>
 <span id="cb4-13"><a href="#cb4-13"></a></span>
-<span id="cb4-14"><a href="#cb4-14"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> nellsw2)</span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## lavaan 0.6-7 ended normally after 22 iterations
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">  #residual variance</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="st">  cm_health ~~ cm_health</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="st">  </span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="st">  #variances </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="st">  cm_education_c ~~ cm_age_c</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="st">  &quot;</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a></span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> nellsw2, <span class="dt">auto.var =</span> T, <span class="dt">meanstructure =</span> T)</span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 31 iterations
 ## 
 ##   Estimator                                         ML
 ##   Optimization method                           NLMINB
-##   Number of free parameters                          5
+##   Number of free parameters                         11
 ##                                                       
 ##                                                   Used       Total
 ##   Number of observations                          2767        2829
 ##                                                                   
 ## Model Test User Model:
 ##                                                       
-##   Test statistic                                 0.000
-##   Degrees of freedom                                 0
+##   Test statistic                               130.504
+##   Degrees of freedom                                 3
+##   P-value (Chi-square)                           0.000
 ## 
 ## Parameter Estimates:
 ## 
@@ -566,17 +574,28 @@ where <span class="math inline">\(f(Y)\)</span> is the derivative of the logisti
 ## Regressions:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
 ##   cm_health ~                                                           
-##     cm_edctn_c (a)    0.054    0.007    8.143    0.000    0.054    0.152
-##     cm_age_c   (d)   -0.019    0.002  -10.467    0.000   -0.019   -0.194
-##     cm_educ_ag (b)    0.002    0.001    2.080    0.038    0.002    0.039
+##     cm_edctn_c (a)    0.054    0.007    8.266    0.000    0.054    0.152
+##     cm_age_c   (d)   -0.019    0.002  -10.558    0.000   -0.019   -0.194
+##     cm_dct_:__ (b)    0.002    0.001    2.130    0.033    0.002    0.039
+## 
+## Covariances:
+##                     Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_education_c ~~                                                      
+##     cm_age_c          -0.131    0.448   -0.292    0.770   -0.131   -0.006
 ## 
 ## Intercepts:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-##    .cm_health         3.495    0.017  207.345    0.000    3.495    3.809
+##    .cm_health         3.495    0.017  207.350    0.000    3.495    3.816
+##     cm_education_c    0.002    0.049    0.039    0.969    0.002    0.001
+##     cm_age_c         -0.065    0.174   -0.375    0.708   -0.065   -0.007
+##     cm_dctn_c:cm__    0.000                               0.000    0.000
 ## 
 ## Variances:
 ##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
-##    .cm_health         0.786    0.021   37.195    0.000    0.786    0.933</code></pre>
+##    .cm_health         0.786    0.021   37.195    0.000    0.786    0.937
+##     cm_education_c    6.626    0.178   37.195    0.000    6.626    1.000
+##     cm_age_c         83.937    2.257   37.195    0.000   83.937    1.000
+##     cm_dctn_c:cm__  479.911   12.902   37.195    0.000  479.911    1.000</code></pre>
 <p>We observe that higher educated persons report higher SWB.<br />
 We observe that older persons report lower SWB.<br />
 We observe that the relationship between education and SWB is higher for older persons.</p>

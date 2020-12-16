@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, correlation, direct effect, explanation, tutorial, R, Lavaan"
-lastmod: '12-12-2020'
+lastmod: '16-12-2020'
 
 type: book
 weight: 20
@@ -317,8 +317,9 @@ Y is healthy (YES versus NO)</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># I randomly select 200 respondents otherwise the plot will be too crowded</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>selection &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(nellsw2<span class="op">$</span>cm_income_ind), <span class="dv">200</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co"># because we are interested in a correlation, I plot the standardized variables</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">plot</span>(nellsw2<span class="op">$</span>cm_income_ind[selection], nellsw2<span class="op">$</span>cm_health[selection])</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">plot</span>(nellsw2<span class="op">$</span>cm_income_ind[selection], nellsw2<span class="op">$</span>cm_health[selection], <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;health&quot;</span>, </span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="dt">main =</span> <span class="st">&quot;Effect of income on health&quot;</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="/conceptual-models/2dir/_index_files/figure-html/unnamed-chunk-3-1.svg" width="576" />
 I hope you observe that the regression line does not fit the data very well.</p>
 <p>And now,…estimate the direct effect via <code>lm()</code>:</p>
@@ -402,7 +403,7 @@ I hope you observe that the regression line does not fit the data very well.</p>
 </li>
 <li>You will also observe that the standardized regression coefficient is 0.80 which is exactly the same as the estimated correlation between our two concepts previously. Thus the correlation and direct effect models are equivalent and we should be very cautious in giving our regression coefficient a causal interpretation.<br />
 </li>
-<li>I hope you also observe that the explained variance is very low (and thus that the error variance of our health variables is almost identical to the observed variance). Perhaps, you should conclude that even though the strong significant effect the impact (or linear relation) between income and health is not substantial and negliable?</li>
+<li>I hope you also observe that the explained variance is very low (and thus that the error variance of our health variables is almost identical to the observed variance). Perhaps, you should conclude that even though the strong significant effect the impact (or linear relation) between income and health is not substantial and negligible?</li>
 </ul>
 <p><strong>Take Home Messages</strong></p>
 <ul>

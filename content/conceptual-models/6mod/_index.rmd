@@ -1,5 +1,5 @@
 ---
-title: moderation
+title: Moderation
 author: JochemTolsma
 date: '2020-12-07'
 slug: mod6
@@ -75,8 +75,11 @@ knitr::include_graphics("../static/CM2.PNG")
 knitr::include_graphics("../static/CM6a.PNG")
 ```
 
-The moderator **Mo** moderates the strength of the impact of **X** on **Y** (i.e. path **a**).
+The moderator **Mo** moderates the strength of the impact of **X** on **Y** (i.e. path **a**).  
+
+
 ---  
+
 
 ### Version 2
 
@@ -88,7 +91,7 @@ knitr::include_graphics("../static/CM2.PNG")
 knitr::include_graphics("../static/CM6b.PNG")
 ```
 
-In Version 2, the direct effect of the Moderator **Mo** on **Y** is also drawn. You may not have theorized an effect of **Mo** on **Y** and it thus not always necessary to draw this relationship but it is a good idea to consider whether this relationship may exist. When testing for the moderation effect **b** it is good practice for the direct of of the Moderator (path **d**) as it will facilitate the interpretation of the moderation effect. 
+In Version 2, the direct effect of the Moderator **Mo** on **Y** is also drawn. You may not have theorized an effect of **Mo** on **Y** and it thus not always necessary to draw this relationship but it is a good idea to consider whether this relationship may exist. When testing for the moderation effect **b** it is good practice for the direct of of the Moderator (path **d**) as it will facilitate the interpretation of the moderation effect.  
 
 ---  
 
@@ -103,8 +106,12 @@ knitr::include_graphics("../static/CM2.PNG")
 knitr::include_graphics("../static/CM6c.PNG")
 ```
 
-Version 2 and Version 3 are (mathematically) equivalent (structural) models. They will lead to exactly the same model fit. However, from a theoretical viewpoint they are different. (see also examples below)
+Version 2 and Version 3 are (mathematically) equivalent (structural) models. They will lead to exactly the same model fit. However, from a theoretical viewpoint they are different. (see also examples below).  
+  
+
 ---  
+
+
 
 ### Version 4
 
@@ -127,7 +134,7 @@ If your Moderator is a nominal variable (e.g. gender) it may be more informative
 In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, **X**, **Mo** and **Y**.  
 We assume an association between X and Y. 
 The strength of this relation may depend on **Mo**, the strength of this relation is conditional on the value of **Mo**.  We also call this an interaction effect. 
-If you want to graphically depict a moderation, it may be useful to show the model without the moderator as well but this is a bit a matter of taste.  
+If you want to graphically depict a moderation, it may be useful to show the model without the moderator as well but this is a bit a matter of taste. I have noticed that journal article reviewers and committees that evaluate grant proposals are not always familiar with a graphical depiction of an interaction effect. I have received (more than once!) the comment that my figure was presumably wrong because an arrow was pointing at a different arrow. I therefore now add a very small bullit on the arrow which, I hope, makes clear that it is by design that I point one arrow to another arrow.    
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.  
 
 
@@ -137,7 +144,7 @@ If the relationship between **X** and **Y** is assumed to be non-linear, for exa
 
 ---  
 
-## Abstract hypothesis/hypotheses  
+## Abstract hypotheses  
 
 See Version 1/2 above. 
 
@@ -178,9 +185,11 @@ Alternatively, one could also formulate just the interaction effect:
 - Hypo3: The relationship between educational success and a better health is stronger for older persons.  
 
 For hypothesis 3 it is not necessary that there is also a main effect of education on health. Also, the direction of the interaction effect is left a bit implicit (presumably positive). But cannot be falsified when:  
+
 - there is no main effect and we observe an interaction effect (regardless of sign)  
 - there is a positive main effect and a positive interaction effect.  
-- there is a negative main effect and a negative interaction effect.  
+- there is a negative main effect and a negative interaction effect.   
+
 
 For this reason, I would prefer hypotheses 1 and 2 above the single hypothesis 3.  
 
@@ -202,8 +211,9 @@ Both sets will lead to the same structural equations. But do you think that for 
 
 ## Structural equations   
 
-### linear model
 - $ Y= b_0 + b_1X + b_2Mo + b_3XMo \equiv Y= b_0 + (b_1 + b_3Mo)X + b_2Mo $
+
+### Interpretation (linear model)
 
 The interaction effect is the cross-partial derivative of Y with respect to X and M0:[^1]
 
@@ -213,7 +223,7 @@ $$ \frac{\partial ^2(Y|X,Mo)}{\partial X \partial Mo} = \frac{\partial(b_1 + b_3
 
 Thus the interaction effect is $b_3$. 
 
-### non-linear (logit) model  
+### Interpretation (non-linear (logit) model)
 
 However, if we have a binary outcome variable our hypotheses are about the probability that Y is 1 ($P(Y=1)$). If we estimate the model with a logit function, this is:[^2]
 
@@ -244,7 +254,7 @@ Following the syntax of the R package **Lavaan**
 - Y~1   
 - Y~a*X  
 - Y~d*Mo  
-- Y~b*XMo  
+- Y~b*X:Mo  
 
 ---  
 
@@ -355,19 +365,30 @@ require(lavaan)
 
 
 model <- '
-  cm_health~1   
-  cm_health~a*cm_education_c  
-  cm_health~d*cm_age_c   
-  cm_health~b*cm_educ_age 
-  cm_health~~cm_health
   
+  #structural model
+  cm_health~ a*cm_education_c + d*cm_age_c + b*cm_education_c:cm_age_c 
+  
+  #intercepts
+  cm_health~1   
+  cm_education_c ~1   
+  cm_age_c~1   
+
+  #residual variance
+  cm_health ~~ cm_health
+  
+  #variances 
+  cm_education_c ~~ cm_age_c
   '
 
 
-fit <- lavaan(model, data = nellsw2) 
+
+fit <- lavaan(model, data = nellsw2, auto.var=T, meanstructure=T) 
 summary(fit, standardized=TRUE)
 
 ```
+
+
 
 We observe that higher educated persons report higher SWB.  
 We observe that older persons report lower SWB.  

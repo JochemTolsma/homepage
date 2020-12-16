@@ -170,7 +170,7 @@ knitr::include_graphics("../static/CM10c.PNG")
 
 ---
 
-## Mederated Mediation
+## Moderated Mediation
 
 ### Version 1
 ```{r mmd2, echo=FALSE, fig.cap="Mediation", out.width = '100%'}

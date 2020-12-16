@@ -1,5 +1,5 @@
 ---
-title: Two Direct Effect
+title: Two Direct Effects
 author: JochemTolsma
 date: '2020-12-07'
 slug: tdir3
@@ -10,7 +10,7 @@ tags: []
 #linktitle:
 
 summary: "conceptual model, correlation, direct effect, explanation, tutorial, R, Lavaan"
-lastmod: '12-12-2020'
+lastmod: '16-12-2020'
 
 type: book
 weight: 30
@@ -142,7 +142,7 @@ Figure 1: two direct effects
 <h2>Explanation</h2>
 <p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, $ X_1 $ , $ X_2 $ and Y.<br />
 The single headed arrow indicates that you assume causal (linear) relations from $ X_1 $ and $ X_2 $ (on the left) to <strong>Y</strong> on the right. Thus: if $ X_1 $ or $ X_2 $ increases, Y will increase as a result as well.
-In this example we have to direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.<br />
+In this example we have two direct effects. The implicit assumption of a conceptual model is that (both) concepts have an additive effect. Naturally, there would in principle be nothing wrong with a multiplicative effect/model.<br />
 It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models, i.e. replace <em>a</em> with <em>+</em> or <em>-</em>.</p>
 <p>{{% alert note %}}
 Please note, I use the label <em>concept</em> and not <em>variable</em>. A <em>variable</em> is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and the concept as intended may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the ‘concept as measured’.<br />
@@ -156,9 +156,9 @@ It is generally a good idea to use concepts that are (very) close to your actual
 Hypo2: $ X_2 $ leads to Y.</p>
 <p>Normally we do not have an hypothesis on the association between $ X_1 $ and $ X_2 $. If we do, we could summarize our ideas with the following conceptual model:</p>
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
-<img src="../static/CM3b.PNG" alt="two direct effects and association" width="100%" />
+<img src="../static/CM3b.PNG" alt="Two direct effects and association" width="100%" />
 <p class="caption">
-Figure 2: two direct effects and association
+Figure 2: Two direct effects and association
 </p>
 </div>
 <p>Hypo3: $ X_1 $ and $ X_2 $ are positively associated.</p>
@@ -345,13 +345,15 @@ The double <code>~~</code> indicates a (partial), (error)variance.</p>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co"># because we are interested in a correlation, I plot the standardized variables</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">plot</span>(nellsw2<span class="op">$</span>cm_income_ind[selection], nellsw2<span class="op">$</span>cm_health[selection])</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">boxplot</span>(cm_health <span class="op">~</span><span class="st"> </span>cm_partner, <span class="dt">data =</span> nellsw2, <span class="dt">notch =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">plot</span>(nellsw2<span class="op">$</span>cm_income_ind[selection], nellsw2<span class="op">$</span>cm_health[selection], <span class="dt">xlab =</span> <span class="st">&quot;income&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;health&quot;</span>, </span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="dt">main =</span> <span class="st">&quot;Bivariate effect of income on health&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="kw">abline</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind), <span class="dt">lwd =</span> <span class="dv">4</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="kw">boxplot</span>(cm_health <span class="op">~</span><span class="st"> </span>cm_partner, <span class="dt">data =</span> nellsw2, <span class="dt">notch =</span> <span class="ot">TRUE</span>, <span class="dt">xlab =</span> <span class="st">&quot;having a partner&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;health&quot;</span>, </span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="dt">main =</span> <span class="st">&quot;Bivariate effect partnership on health&quot;</span>)</span></code></pre></div>
 <p><img src="/conceptual-models/3tdir/_index_files/figure-html/unnamed-chunk-5-1.svg" width="576" />
 I hope you observe that the regression line does not fit the data very well and that the means/median of health does not differ much whether or not you have a partner.</p>
-<p>And now,…estimate the direct effect via <code>lm()</code>:</p>
+<p>And now,…estimate the direct effects via <code>lm()</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind))</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_partner))</span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="kw">summary</span>(<span class="kw">lm</span>(nellsw2<span class="op">$</span>cm_health <span class="op">~</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_ind <span class="op">+</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_partner))</span></code></pre></div>
@@ -427,8 +429,9 @@ I hope you observe that the regression line does not fit the data very well and 
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use sem instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the error variances. </span></span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># parameterEstimates(fit)</span></span></code></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">fitMeasures</span>(fit, <span class="dt">fit.measures =</span> <span class="st">&quot;logl&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co"># parameterEstimates(fit)</span></span></code></pre></div>
 <pre><code>## lavaan 0.6-7 ended normally after 18 iterations
 ## 
 ##   Estimator                                         ML
@@ -466,6 +469,8 @@ I hope you observe that the regression line does not fit the data very well and 
 ##     cm_income_ind     1.023    0.030   34.315    0.000    1.023    1.000
 ##     cm_partner        0.175    0.005   34.315    0.000    0.175    1.000
 ## 
+##      logl 
+## -7737.193 
 ## cm_health 
 ##     0.007</code></pre>
 <p>Let us briefly discuss the results:</p>
@@ -491,8 +496,9 @@ I hope you observe that the regression line does not fit the data very well and 
 <span id="cb11-2"><a href="#cb11-2"></a></span>
 <span id="cb11-3"><a href="#cb11-3"></a>fit &lt;-<span class="st"> </span><span class="kw">sem</span>(model, <span class="dt">data =</span> nellsw2)  <span class="co">#I use sem instead of lavaan. The only advantage is that I don&#39;t have to tell lavaan that I also need the error variances. </span></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># parameterEstimates(fit)</span></span></code></pre></div>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="kw">fitMeasures</span>(fit, <span class="dt">fit.measures =</span> <span class="st">&quot;logl&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="kw">inspect</span>(fit, <span class="st">&quot;r2&quot;</span>)  <span class="co">#to obtain r-squared</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co"># parameterEstimates(fit)</span></span></code></pre></div>
 <pre><code>## lavaan 0.6-7 ended normally after 22 iterations
 ## 
 ##   Estimator                                         ML
@@ -536,11 +542,13 @@ I hope you observe that the regression line does not fit the data very well and 
 ##     cm_health         0.839    0.024   34.315    0.000    0.839    1.000
 ##     cm_partner        0.175    0.005   34.315    0.000    0.175    1.000
 ## 
+##      logl 
+## -7737.193 
 ## cm_income_ind 
 ##         0.047</code></pre>
 <p><strong>Take Home Messages</strong></p>
 <ul>
-<li>It is easy to estimate equivalent models with similar fits but with a different interpretation.</li>
+<li>It is easy to estimate equivalent models with similar fits (see the loglikelihood of the models above) but with a different interpretation.</li>
 </ul>
 <hr />
 </div>

@@ -63,7 +63,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 
 ## The Conceptual Model  
 
-```{r correlation, echo=FALSE, fig.cap="correlation", out.width = '100%'}
+```{r correlation, echo=FALSE, fig.cap="Correlation", out.width = '100%'}
 knitr::include_graphics("../static/CM1.PNG")
 ```
 
@@ -74,17 +74,17 @@ knitr::include_graphics("../static/CM1.PNG")
 
 In a conceptual model, the concepts are normally placed in a rectangular. We have two concepts, **X** and **Y**.  
 The double headed arrow indicates that you do not assume a causal relation but a simple correlation. Thus: if X is high, Y is high; when Y is low, X is low.  
-It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.  
+It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence (+/-) of the paths in your conceptual models.  
 
 
 {{% alert note %}}
-Please note, I use the label *concept* and not *variable*. A *variable* is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and the concept as intended may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the 'concept as measured'.  
-It is generally a good idea to use concepts that are (very) close to your actual measurements. Thus, although you may use the concept *social cohesion* in your conceptual model, this concept is overly broad and there is a fierce debate on how it should be defined. If you have measured social cohesion with for example a single item on generalized trust ("Generally speaking would you say that most people can be trusted or that you can't be too careful in dealing with people?") why not use the concept generalized trust in your conceptual model? 
+Please note, I use the label *concept* and not *variable*. A *variable* is something that is part of your dataset, measured by, for example, a survey item. A concept is a theoretical construct, and this 'concept as intended' may have relations - according to your theory - with other concepts. This concept is measured by one or more variables, the 'concept as measured'.  
+It is generally a good idea to use concepts that are (very) close to your actual measurements. Thus, although you may use the concept *social cohesion* in your conceptual model, this concept is overly broad and there is a fierce debate on how it should be defined theoretically and how we should measure it empirically. If you have measured social cohesion with for example a single item on generalized trust ("Generally speaking would you say that most people can be trusted or that you can't be too careful in dealing with people?") why not use the concept generalized trust in your conceptual model? 
 {{% /alert %}}
 
 ---  
 
-## Abstract hypothesis/hypotheses  
+## Abstract hypothesis  
 
 Hypo: X is related to Y.  
 or:  
@@ -101,7 +101,7 @@ Y is health
 
 Hypo 1a: People's health and occupational success are positively related to each other.  
 
-You may have a more precise idea on why occupational success and health are related. Perhaps because of a third (unmeasured) concept such as social origin (e.g. income and parental education). That is, the relation is at least in part spurious (see here). Alternatively, you may assume two bidirectional causal mechanisms. In the latter case your hypothesis could read: 
+You may have a more precise idea on why occupational success and health are related. Perhaps because of a third (unmeasured) concept such as social origin (e.g. income and parental education). That is, the relation is at least in part spurious (see menu on the left). Alternatively, you may assume two bidirectional causal mechanisms. In the latter case your hypothesis could read: 
 
 Hypo 1b: A higher occupational status will lead to a better health 
 and a better health will lead to a higher occupational status. 
@@ -199,7 +199,8 @@ But first plot the association:
 #I randomly select 200 respondents otherwise the plot will be too crowded
 selection <- sample(1:length(nellsw2$cm_income_ind), 200, replace=FALSE) 
 #because we are interested in a correlation, I plot the standardized variables
-plot(scale(nellsw2$cm_income_ind[selection]), scale(nellsw2$cm_health[selection]))
+plot(scale(nellsw2$cm_income_ind[selection]), scale(nellsw2$cm_health[selection]), xlab="income", ylab="health", main="Association between income and health", sub="(standardized variables)")
+abline(lm(scale(nellsw2$cm_health)~scale(nellsw2$cm_income_ind), data=nellsw2), col="red")
 ```
 I don't see a very clear association. Perhaps at most a weak correlation.  
 
@@ -212,7 +213,6 @@ And with **Lavaan**.
 
 ```{r}
 require(lavaan)
-var(nellsw2$cm_income_ind, na.rm=TRUE)
 
 model <- '
   cm_income_ind ~~ cm_health
@@ -220,7 +220,7 @@ model <- '
 
 fit <- cfa(model, data = nellsw2) #I use cfa instead of lavaan. The only advantage is that I don't have to tell lavaan that I also need the variances of the variables. 
 summary(fit, standardized=TRUE)
-parameterEstimates(fit)
+#parameterEstimates(fit)
 ```
 The covariance between the standardized variables is of course the correlation and this is the same value as the one obtained with `cor.test()`. 
 
