@@ -8,7 +8,7 @@ tags: []
 subtitle: '70.3 MolMan Triathlon'
 summary: ''
 authors: []
-lastmod: '2020-08-20T15:49:37+02:00'
+lastmod: '2020-08-20'
 featured: no
 iimage:
   caption: ''
