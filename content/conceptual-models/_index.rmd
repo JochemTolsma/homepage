@@ -62,7 +62,7 @@ Conceptual models may help a researcher to:
 - summarize hypotheses graphically for a lay audience  
 - summarize hypotheses graphically for an expert audience when translated into a path diagram
 
-[^1]: With hypothesis (plural hypotheses) I mean a proposed explanation for a (social) phenomenon. The hypothesis becomes scientific when it is testable with empirical data and a suitable scientific method. 
+[^1]: With hypothesis (plural hypotheses) I mean a proposed explanation for a (social) phenomenon. The hypothesis becomes scientific when the explanation is a prediction derived from a theory *and* it is testable with empirical data and a suitable scientific method. 
 
 {{% alert note %}}
 Although closely related, a conceptual model is not a path diagram.  
@@ -136,28 +136,39 @@ For useful links see:
 
 ## Correlation versus Causation  
 
-More often than not, the conceptual model will try to summarize causal mechanisms (e.g. X causes Y). And more often than not, it is not possible to give a causal interpretation of the estimates obtained after the hypotheses test. I will try to discuss the extent to which parameter estimates may be given a causal interpretation throughout this tutorial.  
-Also note that I use the label *correlation* but naturally the correct measure for the presumed (bivariate) association depends on the type of scales used for the measurement of the variables involved (i.e. nominal, ordinal, interval, ratio scales). 
+More often than not, the conceptual model will try to summarize causal mechanisms (e.g. X causes Y). And more often than not, it is not possible to give a causal interpretation of the estimates obtained after the hypotheses test. I will try to discuss the extent to which parameter estimates may be given a causal interpretation throughout this tutorial.    
+Also note that I use the label *correlation* but naturally the correct measure for the presumed (bivariate) association depends on the type of scales used for the measurement of the variables involved.   
+
+### Levels of measurement
+
+- Categorical (binary and nominal)  
+- Ordinal  
+- Continuous:  
+  - Interval  
+  - Ratio  
+  
+  
 
 ### Covariance and Correlation
 
-Social scientists try to explain variance and covariance. It is therefore a good idea to learn by heart the formula for variance and covariance. The variance of a sampled random variable X is as follows: 
+Social scientists try to explain variance and covariance. It is therefore a good idea to learn by heart the formula for variance and covariance. The sample variance of a random continuous variable X, Var(X), is as follows: 
 
-$$s_{xx} = s_x= \frac{\Sigma^n_i(X_i-\overline{X})(X_i-\overline{X})}{n-1}= \frac{\Sigma^n_i(X_i-\overline{X})^2}{n-1}$$ 
+$$VAR(X)=s_{xx}^2 = s_x^2= \frac{\Sigma^n_i(X_i-\overline{X})(X_i-\overline{X})}{n-1}= \frac{\Sigma^n_i(X_i-\overline{X})^2}{n-1}$$  
+(And the standard deviation is given by: $STD(X)=s_x$.)  
 
-The covariance between two sampled random variables X and Y is as follows:  
+The sample covariance of two random continuous variables X and Y, Cov(X,Y) is as follows:  
 
-$$s_{xy} = \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{n-1}$$
-The correlation is a covariance on standardized variables ($X_{sd}=(X-\overline{X})/s_x$) and hence:  
+$$COV(X,Y)=s_{xy}^2 = \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{n-1}$$
+The correlation is a covariance on standardized variables ($z_x=X_{sd}=(X-\overline{X})/s_x$) and hence:  
 
-$$r_{xy} = \frac{s_{xy}}{s_x s_y}$$
+$$CORR(X,Y)=r_{xy} = \frac{s_{xy}^2}{s_x s_y}= \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{\sqrt{\Sigma^n_i(X_i-\overline{X})}\sqrt{\Sigma^n_i(Y_i-\overline{Y})}}$$
 Just to be complete. The population equivalent of the covariance: 
 
-$$\sigma _{xy} = \frac{\Sigma^n_i(X_i - \mu_x)(Y_i-\mu_y)}{N},$$
+$$\sigma _{xy}^2 = \frac{\Sigma^n_i(X_i - \mu_x)(Y_i-\mu_y)}{N},$$
 with $\mu$ the population mean. 
 And the correlation within the population is: 
 
-$$\rho_{xy} = \frac{\sigma_{xy}}{\sigma_x \sigma_y}$$
+$$\rho_{xy} = \frac{\sigma_{xy}^2}{\sigma_x \sigma_y}$$
 
 ---  
 

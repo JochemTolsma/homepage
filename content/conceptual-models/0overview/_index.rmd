@@ -68,7 +68,7 @@ knitr::include_graphics("../static/CM1.PNG")
 ```
 ---  
 
-## Direct Effect
+## Direct Effect 
 
 ```{r direct1, echo=FALSE, fig.cap="Direct Effect", out.width = '100%'}
 knitr::include_graphics("../static/CM2.PNG")

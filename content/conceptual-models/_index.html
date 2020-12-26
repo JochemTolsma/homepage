@@ -9,7 +9,7 @@ title: Conceptual Models
 summary: conceptual models; path diagrams; lavaan; sem; mediation; moderation; moderated mediation; 2-1-1 models. 
 
 # Date page published
-date: '16-12-2020'
+date: '26-12-2020'
 
 
 # Academic page type (do not modify).
@@ -30,8 +30,6 @@ weight: 1
 ---
 
 <script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 <div id="TOC">
 <ul>
@@ -40,6 +38,7 @@ weight: 1
 <li><a href="#structure">Structure</a></li>
 <li><a href="#sem-and-path-diagrams">SEM and path diagrams</a></li>
 <li><a href="#correlation-versus-causation">Correlation versus Causation</a><ul>
+<li><a href="#levels-of-measurement">Levels of measurement</a></li>
 <li><a href="#covariance-and-correlation">Covariance and Correlation</a></li>
 </ul></li>
 <li><a href="#data">Data</a></li>
@@ -170,20 +169,36 @@ Use the <strong>menu on the right</strong> to navigate to subsections of each cu
 <div id="correlation-versus-causation" class="section level2">
 <h2>Correlation versus Causation</h2>
 <p>More often than not, the conceptual model will try to summarize causal mechanisms (e.g. X causes Y). And more often than not, it is not possible to give a causal interpretation of the estimates obtained after the hypotheses test. I will try to discuss the extent to which parameter estimates may be given a causal interpretation throughout this tutorial.<br />
-Also note that I use the label <em>correlation</em> but naturally the correct measure for the presumed (bivariate) association depends on the type of scales used for the measurement of the variables involved (i.e. nominal, ordinal, interval, ratio scales).</p>
+Also note that I use the label <em>correlation</em> but naturally the correct measure for the presumed (bivariate) association depends on the type of scales used for the measurement of the variables involved.</p>
+<div id="levels-of-measurement" class="section level3">
+<h3>Levels of measurement</h3>
+<ul>
+<li>Categorical (binary and nominal)<br />
+</li>
+<li>Ordinal<br />
+</li>
+<li>Continuous:
+<ul>
+<li>Interval<br />
+</li>
+<li>Ratio</li>
+</ul></li>
+</ul>
+</div>
 <div id="covariance-and-correlation" class="section level3">
 <h3>Covariance and Correlation</h3>
-<p>Social scientists try to explain variance and covariance. It is therefore a good idea to learn by heart the formula for variance and covariance. The variance of a sampled random variable X is as follows:</p>
-<p><span class="math display">\[s_{xx} = s_x= \frac{\Sigma^n_i(X_i-\overline{X})(X_i-\overline{X})}{n-1}= \frac{\Sigma^n_i(X_i-\overline{X})^2}{n-1}\]</span></p>
-<p>The covariance between two sampled random variables X and Y is as follows:</p>
-<p><span class="math display">\[s_{xy} = \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{n-1}\]</span>
-The correlation is a covariance on standardized variables (<span class="math inline">\(X_{sd}=(X-\overline{X})/s_x\)</span>) and hence:</p>
-<p><span class="math display">\[r_{xy} = \frac{s_{xy}}{s_x s_y}\]</span>
+<p>Social scientists try to explain variance and covariance. It is therefore a good idea to learn by heart the formula for variance and covariance. The sample variance of a random continuous variable X, Var(X), is as follows:</p>
+<p><span class="math display">\[VAR(X)=s_{xx}^2 = s_x^2= \frac{\Sigma^n_i(X_i-\overline{X})(X_i-\overline{X})}{n-1}= \frac{\Sigma^n_i(X_i-\overline{X})^2}{n-1}\]</span><br />
+(And the standard deviation is given by: <span class="math inline">\(STD(X)=s_x\)</span>.)</p>
+<p>The sample covariance of two random continuous variables X and Y, Cov(X,Y) is as follows:</p>
+<p><span class="math display">\[COV(X,Y)=s_{xy}^2 = \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{n-1}\]</span>
+The correlation is a covariance on standardized variables (<span class="math inline">\(z_x=X_{sd}=(X-\overline{X})/s_x\)</span>) and hence:</p>
+<p><span class="math display">\[CORR(X,Y)=r_{xy} = \frac{s_{xy}^2}{s_x s_y}= \frac{\Sigma^n_i(X_i-\overline{X})(Y_i-\overline{Y})}{\sqrt{\Sigma^n_i(X_i-\overline{X})}\sqrt{\Sigma^n_i(Y_i-\overline{Y})}}\]</span>
 Just to be complete. The population equivalent of the covariance:</p>
-<p><span class="math display">\[\sigma _{xy} = \frac{\Sigma^n_i(X_i - \mu_x)(Y_i-\mu_y)}{N},\]</span>
+<p><span class="math display">\[\sigma _{xy}^2 = \frac{\Sigma^n_i(X_i - \mu_x)(Y_i-\mu_y)}{N},\]</span>
 with <span class="math inline">\(\mu\)</span> the population mean.
 And the correlation within the population is:</p>
-<p><span class="math display">\[\rho_{xy} = \frac{\sigma_{xy}}{\sigma_x \sigma_y}\]</span></p>
+<p><span class="math display">\[\rho_{xy} = \frac{\sigma_{xy}^2}{\sigma_x \sigma_y}\]</span></p>
 <hr />
 </div>
 </div>
@@ -203,6 +218,6 @@ And the correlation within the population is:</p>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>With hypothesis (plural hypotheses) I mean a proposed explanation for a (social) phenomenon. The hypothesis becomes scientific when it is testable with empirical data and a suitable scientific method.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>With hypothesis (plural hypotheses) I mean a proposed explanation for a (social) phenomenon. The hypothesis becomes scientific when the explanation is a prediction derived from a theory <em>and</em> it is testable with empirical data and a suitable scientific method.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

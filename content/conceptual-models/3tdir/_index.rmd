@@ -188,7 +188,7 @@ nellsw2$cm_income_per[nellsw2$cm_income_per==12] <- NA
 
 nellsw2$cm_income_ind <- nellsw2$cm_income * nellsw2$cm_income_per/100
 
-#habing a partner
+#having a partner
 attributes(nellsw2$w2fb1)
 table(nellsw2$w2fb1, useNA="always")
 nellsw2$cm_partner <- as.factor(ifelse(nellsw2$w2fb1==1,0,1))
