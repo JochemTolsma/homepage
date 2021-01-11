@@ -79,7 +79,7 @@ We may have asked ego - with the question below - whether its BFFs are also BFFs
 It turns out that two alters in ego's BFF-network are also BFFs of each other. If we know the relations between the alters in a 1.0 degree network it becomes a 1.5 degree network. See below: 
 
 <img src="/courses/Egocentric-Networks/_index_files/figure-html/unnamed-chunk-6-1.png" width="672" />
-In the lower-left corner we see a closed *Triad*. For more information on Triads jump to this [section]({{< ref "../Complete-Networks/socio2#Triad-level" >}}) 
+In the lower-left corner we see a closed *Triad*. For more information on Triads jump to this [section](https://www.jochemtolsma.nl/courses/complete-networks/socio2/#triad-level). 
 
 
 ### 2.0 degree network
@@ -202,7 +202,7 @@ Martí, J., Bolíbar, M., & Lozares, C. (2017). Network cohesion and social supp
 
 ## <i class="fas fa-lightbulb"></i> SELF-TEST <i class="fas fa-lightbulb"></i> 
 
-Each chapter ends with a **SELF-TEST**. Using what you learned in this chapter you should be able to answer both the theoretical and methodological part of this [SELF-TEST]({{< ref "/ego5.md" >}}). 
+Each chapter ends with a **SELF-TEST**. Using what you learned in this chapter you should be able to answer both the theoretical and methodological part of this [SELF-TEST](https://www.jochemtolsma.nl/courses/egocentric-networks/ego5/). 
 
 
 

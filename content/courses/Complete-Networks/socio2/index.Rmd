@@ -1,0 +1,337 @@
+---
+title: Causes of Complete Networks
+linktitle: Socionets-Causes-Theory
+summary: Influence and selection dynamics in complete networks.
+weight: 30
+slug: socio2
+date: "2018-09-09T00:00:00Z"
+lastmod: "2018-09-09T00:00:00Z"
+categories:
+  - Social Networks
+  - R
+  - socionets
+draft: false  # Is this a draft? true/false
+toc: true  # Show table of contents? true/false
+type: book  # Do not modify.
+
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: no
+    self_contained: true
+    toc: true
+    fig_width: 6
+    dev: "svg"
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, results = "hide",message = FALSE, warning = FALSE, attr.source = ".numberLines", cache=TRUE, class.source="highlightt")
+```
+
+
+<!--copy to clipboard-->
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r message=FALSE, warning=FALSE , echo=FALSE}
+library(threejs)
+library(htmlwidgets)
+library(igraph)
+```
+
+
+# Introduction
+
+As stated in the very beginning of this course, social networks play a crucial role within the social sciences. Social networks are interesting social phenomena to explain (causes of social networks) and social networks play important roles in many so-called social problems (consequences of social networks).
+If social scientists seek explanations for why we observe specific social networks the explanations generally refer to three aspects, or 'theoretical dimensions', of social networks, namely:
+
+1. **structure** (the relations in the network)
+2. **composition** (characteristics of the nodes in the network)
+3. **evolution** (change in structure and/or composition)
+  a. tie evolution: structure --> structure
+  b. node evolution: node attributes --> node attributes
+  c. influence: structure --> node attributes
+  d. selection: node attributes --> structure
+
+The **structure** of the network refers to the relations we observe between persons. For example, we may seek explanations for why networks are more dense than others, why people tend to reciprocate positive relations and why we observe clusters in the network. There are many different types of structures (involving one, two, three or more nodes) and some of them will be discussed below.
+The **composition** of the network refers to characteristics of the persons in the network. We may seek explanations for who joins the Twitter network and when, or why we observe ethnic segregation between soccer teams even if they are part of the same club. These questions generally refer to selective selection into or out of networks, about joiners and leavers. Explanations for network size may also be categorized under the label of composition-explanations.
+**Evolution** process refers to change of social networks. Let us first consider *tie evolution*. An important realization is that the ties we currently observe in the network are in part the consequence of the ties that were present at a previous time point. Consider the simple example of reciprocity. That we observe many reciprocated relations in a network is not only because people tend to reciprocate relations but also because people tend to make relations in the first place (we can only reciprocate a relation when there is a relation). With *node evolution* I mean that node attributes may change over time as a result of other node attributes. This sounds a little complicated but it simple means that persons develop and they may do say at different rates. For example, people who start to smoke will generally smoke more and more. Or, grades of girls in elementary school improve at a faster rate than the grades of boys. In these questions a social network perspective is not necessary. *Influence* processes are by now familiar to us. Node attributes may change because of the ties this node has to specific other nodes. *Selection* refers to the opposite process; the ties I have to other nodes may change as a result of the node attributes.
+Both influence and selection processes explain why specific structures (e.g. reciprocated dyads) more often have a specific composition (e.g. ego-alter similarity) than other structures (e.g. asymmetric dyad).
+
+{{% alert note %}}
+The composition of the network may thus change due to three different processes: (1) (de)selection into networks (persons joining and/or leaving) the network; (2) node evolution; (3) influence processes.
+{{% /alert %}}
+
+
+
+
+```{r Smallworld, echo=FALSE, results="hide"}
+rm(list=ls())
+simulate_caveman <- function(n = 25, clique_size = 5){
+  require(igraph)
+  # Groups are all the same size, so I check whether N is divisible by the size of groups
+  if ( ((n%/%clique_size) * clique_size) != n){
+    stop("n is not evenly divisible by clique_size")
+  }
+
+  groups = n/clique_size # this determines the number of groups
+
+  el <- data.frame(PersonA = 1:n, Group = NA) # I create a dataframe which has people and the groups they are in
+  # I treat it like a person to group edgelist
+
+  group_vector = c()
+  for (i in 1:groups){
+    group_vector <- c(group_vector, rep(i, clique_size))
+  }
+
+  el$Group <- group_vector
+
+  inc <- table(el) # I use the table function to turn the person to group edgelist into an incidence matrix
+  adj <- inc %*% t(inc) # And I use matrix multiplication with the transpose to turn the person to group incidence matrix
+  # into a person to person adjacency matrix
+
+  diag(adj) <- 0
+
+  g <- graph.adjacency(adj, mode = "undirected") # I graph this matrix
+
+  group_connect <- seq(from = 1, to = n, by = clique_size) # I determine the points of connection using a sequence funciton
+
+  for( i in 1:(length(group_connect)-1)){
+    p1 <- group_connect[i] + 1
+    p2 <- group_connect[i+1]
+    g <- add.edges(g, c(p1,p2)) # And I connect the points of connection using add.edges
+  }
+    g <- add.edges(g, c(group_connect[1],(group_connect[groups]+1))) # finally I connect the ends of the structure so that it forms a circle
+
+    return(g)
+}
+
+set.seed(43635)
+caveman_net <- simulate_caveman(n = 105, clique_size = 15)
+
+
+caveman_net_rewired <-  rewire(caveman_net, keeping_degseq(niter = 180))
+
+E(caveman_net_rewired)$color <- "grey80"
+V(caveman_net_rewired)$color <- "red"
+#layout = layout.kamada.kawai(caveman_net)
+#plot.igraph(caveman_net_rewired, vertex.size = 4, vertex.label=NA)
+
+#graph.density(caveman_net_rewired)
+
+smallworld <- caveman_net_rewired
+
+```
+
+
+
+```{r atmnet, echo=FALSE, results="hide"}
+
+load("twitter_20190919.RData")
+
+keyf <- twitter_20190919[[1]]
+mydata <- twitter_20190919[[2]]
+seats <- twitter_20190919[[3]]
+atmnet <- mydata$depvars$atmnet
+atmnet1 <- atmnet[,,1]
+atmnet1[atmnet1==10] <- 0
+
+G1 <- igraph::graph_from_adjacency_matrix(atmnet1, mode = "directed", weighted = NULL, diag = FALSE,  add.colnames = NA, add.rownames = NA)
+
+edges <- as_data_frame(G1, what="edges")
+
+keyf <- cbind(keyf$EGOid, keyf[,names(keyf)!="EGOid"])
+names(keyf)[1] <- "EGOid"
+G1 <- graph_from_data_frame(edges, directed=TRUE, vertices=keyf)
+```
+
+## Network structures
+
+### Node-level
+Although one node is not a network (the smallest network is a dyad), I would like to start with the node-level.
+
+#### degree
+
+Some nodes, or people in the network will have a higher outdegree than others. See Figure 1 below.
+
+![](config/Slide1.PNG)
+
+
+**Figure 1.** Outdegree
+
+We could use the function `degree` in `igraph` to find the outdegree of each node. See below for an example.
+```{r, class.source="highlightt"}
+hist(igraph::degree(G1, mode="out", loops=FALSE), xlab="outdegree", main="histogram of outdegree atmention network Dutch MPs")
+```
+
+We observe that most MPs atmention a little and some atmention a lot. An explanation could be that some MPs have the 'task' (e.g. communication officer) to tweet a lot.
+
+Similarly as outdegree, some nodes, or people, in the network will have a higher indegree than others. See Figure 2 below.
+
+
+![](config/slide2.png)
+
+**Figure 2.** Indegree
+
+We could use the function `degree` in `igraph` to find the indegree of each node. See below for an example.
+```{r}
+hist(igraph::degree(G1, mode="in", loops=FALSE), xlab="indegree", main="histogram of indegree atmention network Dutch MPs")
+```
+
+We observe that most MPs are atmentioned seldom and some are atmentioned often. An explanation could be that some MPs are more important and it may help your own career to atmention these MPs.
+
+In many social networks both the out- and indegree distribution are skewed just as in our Twitter network among MPs.
+
+{{% alert note %}}
+The mean outdegree is the same as the density in the network. In RSiena, if we want to predict the network structure we start by including the *out-degree effect* that takes the average outdegree into account.
+The average outdegree is the same as the average in-degree, so there is no separate effect or that.
+To take into account that some nodes have a higher out-degree than others, we could include the *out-degree activity* effect. This states that if a node has a high out-degree at time t1 it is likely that this node has a high out-degree at t2.
+The *in-degree popularity* effect does the same for in-degree. This effect tests whether nodes who have relatively many indegrees at t1 also have many indegrees at t2.
+We could also imagine that nodes who have relatively many outdegrees will also have relatively many indegrees and there are effects for that to in RSiena (*indegree-activity* and *outdegree-popularity*).
+
+{{% /alert %}}
+
+### Dyad-level
+
+#### Undirected Dyads
+
+Dyads are the smallest possible networks. For undirected relations there are two possible dyad configurations. See Figure 3.
+
+![](config/slide3.png)
+**Figure 3.** Undirected dyads configurations
+
+#### Directed Dyads
+
+And for directed dyads. There are four options. See Figure 4. However, two configurations (the two in the middle row) are *isomorphic*. We cannot distinguish them in the network. From now on, I won't draw all isomorphs.
+
+![](config/slide4.png)
+**Figure 4.** Directed dyads configurations
+
+When there is a tie from *i* to *j* and vice versa, we call this a reciprocated dyad. I hope you see that the reasons for me to start or break a relation with you if you don't have relation with me, may be different from the reasons for me to start or break a relation with you if you have relation with me. Consider the example of atmentioning among MPs. If MP *i* atmentions MP *j* this may increase the visibility of MP *j* on Twitter and this is something MP *j* probably evaluates positively. In return of this favor, MP *j* may atmention MP *j* another time. If I scratch your back, you scratch mine.
+We could use igraph to make a dyad count, which is called a dyad census. See below:
+
+```{r, results= "hold"}
+dyadcount <- dyad.census(G1)
+dyadcount$total <- (vcount(G1)*(vcount(G1)-1))/2 # to add the number of dyads in the graph
+dyadcount
+```
+We could compare these values with a random graph of the same size with the same density.
+
+```{r}
+
+dens <- graph.density(G1)
+size <- vcount(G1)
+trial <- 1000
+
+recip <- rep(NA, trial)
+
+
+for ( i in 1:trial ){
+  random_graph <- erdos.renyi.game(n = size, p.or.m = dens, directed = TRUE)
+  recip[i] <- dyad.census(random_graph)$mut
+}
+
+{hist(recip, main="number of mutual dyads in random graph", xlab="", )
+abline(v=dyadcount$mut, col="red", lwd=3)}
+
+
+
+```
+We thus observe way more (or significantly more) mutual dyads (203) as could be expected based solely on chance. Conclusion: MPs scratch each others back. In social networks of positive relations, reciprocity effects are very common
+
+{{% alert note %}}
+If we want to test for positive reciprocity effects in RSiena, we will include the *reciprocity effect*.
+{{% /alert %}}
+
+
+#### Undirected Dyads - multiplexity
+
+If we consider two types of undirected relations simultaneously, we have three distinct configurations. See Figure 5.
+
+![](config/slide5.png)
+**Figure 5.** Multiplex, undirected dyads configurations
+
+Explanations for multiplex configuration are multicomplex. A first step to consider is whether there is a necessary, or likely, order in the relations. To illustrate. I first became friends with my wife and afterwards she became my wife. Although this situations hopefully holds true for most married couples, it is not logically necessary of course. A second step is to consider the valence of the relations. Are they positive or negative. It is not likely that I would name my friend a foe and vice versa but there is a thin line between love and hate. Feelings of hate and love for the same person may even coexist. Ever heard someone saying: "I can't live with him/her but I can't live without him/her either"?.
+
+
+
+
+#### Directed Dyads - Multiplexity
+
+Lets have a look at the possible configuration of directed dyads with two types of relations (Figure 6)
+
+<a name="Figure6"></a>
+![](config/slide6.png)
+
+**Figure 6.** Multiplex, directed dyads configurations
+
+{{% alert note %}}
+In Rsiena many multiplex effects are defined:
+
+{{% /alert %}}
+
+### Triad-level
+
+#### Undirected Triads
+
+
+![](config/slide7.png)
+**Figure 7.** Undirected triad configurations
+
+We observe an *unconnected* triad, a triad with a *connected pair*, an *open triad* and a *closed triad*. The open triad is also called a 'forbidden triad' and actor *i* in such a triad is said to hold a 'brokerage position'.
+
+#### Undirected Triads - Multiplexity
+
+![](config/slide8.png)
+
+**Figure 8.** Multiplex, undirected triad configurations
+
+#### Directed Triads
+
+By now, I am a bit tired of drawing all these nodes and relations. Luckily, the net is full of pictures of the possible directed triad configurations. I stole this one from an online workshop on Social Network Analysis for Anthropologists [here](https://eehh-stanford.github.io/SNA-workshop/).
+
+![](config/new-triad-census.png)
+**Figure 9.** Directed triad configurations
+
+These triads all have unique names. Depending on the number dyads without ties (last digit), the number of dyads with one tie (asymmetric dyads; second digit) and the number of dyads with two ties (mutual dyads; first digit). The subtypes are distinguished by the letters C, D, U, T.
+
+This triad census has been developed by Davis and Leinhardt in 1972[^1] And their original picture in the paper is too cool not to show here:
+
+![](config/Capture.png)
+**Figure 9.** Original Triad census by Davis and Leinhard (1972)
+
+[^1]: Davis, J.A. and Leinhardt, S. (1972). “The Structure of Positive Interpersonal Relations in Small Groups.” In J. Berger (Ed.), *Sociological Theories in Progress*, Volume 2, 218-251. Boston: Houghton Mifflin. [pdf](Davis1972.pdf)
+
+#### Directed Triads - Multiplexity
+I could not find a nice picture of all possible directed triad configurations for two relations simultaneously.
+Naturally, there are also specific configurations in which 4 nodes or even more nodes are involved.
+
+## Tie evolution
+
+Suppose we would like to explain why there are so many transative triads in our network. We must realize that a transitive dyad may be the outcome of different evolution processes. See below:
+
+![](config/slide9.png)
+**Figure 10.** Different pathways to a transitive triad.
+
+That is, if we assume that each tie is made subsequently, thus not two tie are created at the same time.  The reason why *i* closes the triad, may be very different from the reason why *k* closes the triad. It all depends on the social relation under consideration. Do you think both pathways are just as likely for (a) 'friendship relations', (b) 'who kicks whom relations' and (c) 'who explains social network analysis to whom? relations'
+Do you also observe that a combination of an in-degree activity effect and an in-degree popularity effect would make the top pathway more likely and that a combination of an out-degree activity effect and an indegree activity *or* indegree popularity effect would make the bottom pathway more likely?
+The take home message is that we need longitudinal data if we would like to disentangle specific explanations and that we generally need to take into account *'lower order'* explanations first before we start to scrutinize more complext *'higher order'* explanations.
+
+## Selection and influence
+
+When I started to learn SNA I followed a RSiena workshop by [Christian Steglich](https://steglich.gmw.rug.nl/sites/index.htm). And one of his slides made a big impression on me. See below:
+
+
+![](config/slide10.png)
+**Figure 10.** An inspirational slide of Christian Steglich.
+
+When scientists investigate social networks they generally do not have information on all the tie changes that take place. More commonly, the information they have is based on one or more snapshots of the network. Suppose we observe at T1 a tie between *i* who is white and *j* who is black and that at T2 we observer that there still is a tie between *i* and *j* but that *i* became black. Intuitively, we would interpret that some kind of influence (or rather assimilation) took place. Unfortunately, even though we have longitudinal data (two snapshots), we cannot rule out that actually a combination of selection and node evolution explain our observations; *i* breaks a tie with *j* who is dissimilar, *i*'s attribute evolves (for whatever reason) from white to black, *i* selects *j* who is similar.
+Christian Steglich's take home message was that we need a statistical method (RSiena) that can test which pathway is more likely. My take home message is that you have to be aware of *overdetermination*, that there are possibly multiple causes leading to the same outcome.

@@ -18,7 +18,7 @@ weight: 60
  
 output:
   blogdown::html_page:
-    highlight: "haddock"
+    highlight: default
     number_sections: no
     self_contained: no
     toc: true
@@ -29,22 +29,25 @@ output:
 bibliography: my-library.bib
 ---
 
-
+ 
 <!--set global settings--> 
 ```{r, globalsettings, echo=FALSE, warning=FALSE}
 library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
 options(width = 100)
 ```
+ 
 
-
-<!--copy to clipboard-->
+<!--copy to clipboard -->
 ```{r klippy, echo=FALSE, include=TRUE}
 require(klippy)
 klippy::klippy(position = c('top', 'left'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
+
+ 
+
 <!---
 https://www.w3schools.com/w3css/w3css_buttons.asp
 https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
@@ -258,7 +261,7 @@ Following the syntax of the R package **Lavaan**
 
 ---  
 
-## Formal test of hypotheses  
+## Formal test of hypotheses  {.tabset .tabset-fade}
 
 Load the NELLS data.  
 
@@ -346,9 +349,8 @@ nellsw2$cm_education[nellsw2$w2fa102==15] <- 4
 nellsw2$cm_education_c <- nellsw2$cm_education - mean(nellsw2$cm_education, na.rm = T)
 nellsw2$cm_age_c <- nellsw2$w1cage - mean(nellsw2$w1cage, na.rm = T)
 
-
-#interaction variable educ*age
-nellsw2$cm_educ_age <- nellsw2$cm_education_c * nellsw2$cm_age_c
+#define a dichotemous moderator based on age. 
+nellsw2$cm_old_d <- ifelse(nellsw2$cm_age_c>=0, 1, 0)
 
 
 #as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we have to reverse code original variable
@@ -360,26 +362,25 @@ nellsw2$cm_health <- 6 - nellsw2$w2scf1
 
 And test the model with **Lavaan**.
 
+### Interaction variable approach
+
 ```{r}
 require(lavaan)
 
-
 model <- '
-  
-  #structural model
-  cm_health~ a*cm_education_c + d*cm_age_c + b*cm_education_c:cm_age_c 
-  
+  #structural model 
+  cm_health~ a*cm_education_c + d*cm_age_c + b*cm_education_c:cm_age_c
   #intercepts
-  cm_health~1   
-  cm_education_c ~1   
-  cm_age_c~1   
-
+  cm_health~1
+  cm_education_c ~1
+  cm_age_c~1
+  
   #residual variance
   cm_health ~~ cm_health
   
-  #variances 
+  #variances
   cm_education_c ~~ cm_age_c
-  '
+'
 
 
 
@@ -389,10 +390,36 @@ summary(fit, standardized=TRUE)
 ```
 
 
-
 We observe that higher educated persons report higher SWB.  
 We observe that older persons report lower SWB.  
 We observe that the relationship between education and SWB is higher for older persons. 
+
+### multigroup approach
+
+```{r}
+require(lavaan)
+#no equality constraints across groups whatsoever. 
+model <- '
+  #structural model 
+  cm_health~ c(a1,a0)*cm_education_c #I am giving the education effects specific names for each group
+  #intercepts
+  cm_health~1
+  
+  #residual variance
+  cm_health ~~ cm_health
+  
+  #test for difference
+  a1a0:=a1-a0
+'
+
+
+
+fit <- lavaan(model, data = nellsw2, auto.var=T, meanstructure=T, group="cm_old_d") 
+summary(fit, standardized=TRUE)
+
+```
+
+We observe that the relationship between education and SWB is significantly higher for older persons. 
 
 ---  
 

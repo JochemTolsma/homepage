@@ -17,10 +17,10 @@ output:
   blogdown::html_page:
     highlight: "haddock"
     number_sections: yes
-    self_contained: no
+    self_contained: true
     toc: true
     fig_width: 6
-    dev: "svg"
+    keep_md: true
 editor_options: 
   chunk_output_type: inline
 ---
@@ -48,8 +48,9 @@ https://www.w3schools.com/w3css/w3css_buttons.asp
 https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
 --->
 
+<!---
 <button onclick="window.location.href='static/index.Rmd';">download code</button>
-
+--->
 
 # Introduction - RSiena behaviour
 This page will teach you how to use the R package RSiena for modeling behavioral change. Thus on this page we will focus on node evolution and influence processes.   
@@ -305,7 +306,13 @@ fanscsv <- function(ans=ans, filename="ans.csv", write=TRUE) {
 We are going to play with a subsample of the MyMovez data. The original data are stored at the [Data Archiving and Networked Services](https://doi.org/10.17026/dans-zz9-gn44).   
 
 
-**Download data [here](beh_data.Rdata).**
+```{r, echo=FALSE}
+xfun::embed_file("beh_data.Rdata")
+```
+
+<br>
+
+
 
 Load the Robject and have a look at it. 
 
@@ -644,6 +651,3 @@ What would you conclude?
 Hopefully, this example gives you enough pointers to make the assignment. 
 
 
-Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
-
-Please email any comments to: j.tolsma@ru.nl

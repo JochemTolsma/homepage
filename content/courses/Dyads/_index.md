@@ -63,7 +63,7 @@ Another approach is to take the **characteristics of the dyad** (e.g. endogamy v
 
 
 
-Which methodology is preferred should depend on your hypotheses and on the data you have to your availability. Since I assume most readers are raised within the regression tradition, in [this section]({{< ref "/dyads2.md" >}}) we will practice with estimating conditional multinomial logistic regression models. 
+Which methodology is preferred should depend on your hypotheses and on the data you have to your availability. Since I assume most readers are raised within the regression tradition, in [this section] we will practice with estimating conditional multinomial logistic regression models. 
 
 {{% alert warning %}}
 Please be aware that in both approaches we normally do not have information on (the frequency or characteristics of) dyads in which there is no relation between ego and alter. Thus, you may have information on characteristics of me and my wife but you do not have information on all other women (or men) I could have married but didn't. I fished my wife out of the sea but we don't know what the other fish looked like. (Luckily my wife is no scientist and won't read this clarification.)
@@ -74,10 +74,10 @@ Please be aware that in both approaches we normally do not have information on (
 ## Consequences of dyads (theory)
 
 Assortative mating has consequences for both partners. Just to mention a few: relationship quality; time spend together on culture consumption; divorce rates; household income.
-In [this section]({{< ref "/dyads3.md" >}}) I will explain a general theoretical framework for explaining how (1) dyad characteristics impact partner characteristics (e.g. number of children on working hour preferences); (2) how characteristics/behavior of one partner may impact characteristics/behavior of the other partner (e.g. my working hours may impact your working hours) and subsequently (3) how the characteristics/behaviors of both partners impact dyad-characteristics (e.g. our working hours on household income). 
+In [this section] I will explain a general theoretical framework for explaining how (1) dyad characteristics impact partner characteristics (e.g. number of children on working hour preferences); (2) how characteristics/behavior of one partner may impact characteristics/behavior of the other partner (e.g. my working hours may impact your working hours) and subsequently (3) how the characteristics/behaviors of both partners impact dyad-characteristics (e.g. our working hours on household income). 
 
 ## Consequences of dyads (methods)
-The method used to explain consequences of dyads depends on our Unit of Analysis. If it is the dyad itself (e.g. relationship quality) methods are relatively straightforward, because we may assume that the observations at the dyad-level are independent. If, on the other hand, the unit of analysis are the partners that make up the dyad, we need to acknowledge that these observations are not independent. In part exactly because partners select and influence each other. In [this section]({{< ref "/dyads4.md" >}}) I will demonstrate how to use actor-partner interdependence models for these situations.
+The method used to explain consequences of dyads depends on our Unit of Analysis. If it is the dyad itself (e.g. relationship quality) methods are relatively straightforward, because we may assume that the observations at the dyad-level are independent. If, on the other hand, the unit of analysis are the partners that make up the dyad, we need to acknowledge that these observations are not independent. In part exactly because partners select and influence each other. In [this section](https://www.jochemtolsma.nl/courses/dyads/dyads4/) I will demonstrate how to use actor-partner interdependence models for these situations.
 
 ## Selection and influence  
 Selection and influence processes are important reasons why nonindependent observations

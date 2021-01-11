@@ -17,10 +17,10 @@ output:
   blogdown::html_page:
     highlight: "haddock"
     number_sections: yes
-    self_contained: no
+    self_contained: true
     toc: true
     fig_width: 6
-    dev: "svg"
+    keep_md: true
 editor_options: 
   chunk_output_type: inline
 ---
@@ -49,8 +49,9 @@ https://www.w3schools.com/w3css/w3css_buttons.asp
 https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
 --->
 
+<!---
 <button onclick="window.location.href='static/index.Rmd';">download code</button>
-
+--->
 
 # Introduction - RSiena
 This page introduces the R package RSiena. This week/page we will estimate our first RSiena models to explain the structure of the network and how the network structure evolves. With respect to the latter we only focus this week on 'tie evolution' and 'selection processes'. Thus, we are focusing on the causes. On the [next page](./socio7)) we will focus on node evolution and influence processes.   
@@ -426,13 +427,19 @@ fscolnet <- function(network, ccovar) {
 
 We are going to play with Twitter Networks among Dutch MPs. 
 
-**Download data [here](static/twitter_20190919.Rdata).**
+**Download data**
+
+
+```{r, echo=FALSE}
+xfun::embed_file("twitter_20190919.Rdata")
+```
+<br>
 
 Load the Robject and have a look at it. Save the list elements in separate objects. 
 
 ```{r,  attr.source = '.numberLines', results='hold'}
 getwd()
-load("static/twitter_20190919.RData") #change to your working directory
+load("twitter_20190919.RData") #change to your working directory
 str(twitter_20190919,1)
 keyf <- twitter_20190919[[1]]
 mydata <- twitter_20190919[[2]]
@@ -707,9 +714,9 @@ save(ansM1c, file="ansM1c.RData")
 Let us have a look at the data. 
 
 ```{r}
-load("static/ansM1a.RData")
-load("static/ansM1b.RData")
-load("static/ansM1c.RData")
+load("ansM1a.RData")
+load("ansM1b.RData")
+load("ansM1c.RData")
 ansM1
 ansM1b
 ansM1c
@@ -718,6 +725,4 @@ ansM1c
 
 So, do we have an answer to our first research question? It is up to you answer the other research questions. 
 
-Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
 
-Please email any comments to: j.tolsma@ru.nl

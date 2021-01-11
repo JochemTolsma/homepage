@@ -1,0 +1,715 @@
+---
+title: Multilevel
+author: JochemTolsma
+date: '2020-12-07'
+slug: ml7
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle:
+
+summary: "conceptual model, moderation, multi-level, explanation, tutorial, R, Lavaan"
+lastmod: '30-12-2020'
+
+type: book
+weight: 70
+
+output:
+  blogdown::html_page:
+    highlight: default
+    number_sections: no
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+    
+# add bibliography
+#bibliography: my-library.bib
+---
+
+<script src="/rmarkdown-libs/accessible-code-block/empty-anchor.js"></script>
+<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
+<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<div id="TOC">
+<ul>
+<li><a href="#the-conceptual-model">The Conceptual Model</a><ul>
+<li><a href="#version-1">Version 1</a></li>
+<li><a href="#version-2-preferred">Version 2 (preferred)</a></li>
+<li><a href="#version-3-subscripts">Version 3 (subscripts)</a></li>
+<li><a href="#independent-micro-level-variable">Independent micro-level variable</a></li>
+</ul></li>
+<li><a href="#explanation">Explanation</a></li>
+<li><a href="#abstract-hypotheses">Abstract hypotheses</a><ul>
+<li><a href="#positive-main-effect-positive-interaction">positive main effect, positive interaction</a></li>
+<li><a href="#positive-main-effect-negative-interaction">positive main effect, negative interaction</a></li>
+<li><a href="#negative-main-effect-positive-interaction">negative main effect, positive interaction</a></li>
+<li><a href="#negative-main-effect-negative-interaction">negative main effect, negative interaction</a></li>
+</ul></li>
+<li><a href="#real-life-example">Real life example</a></li>
+<li><a href="#structural-equations">Structural equations</a><ul>
+<li><a href="#interpretation-linear-model">Interpretation (linear model)</a></li>
+<li><a href="#interpretation-non-linear-logit-model">Interpretation (non-linear (logit) model)</a></li>
+<li><a href="#lavaan-syntax">Lavaan syntax</a></li>
+</ul></li>
+<li><a href="#formal-test-of-hypotheses">Formal test of hypotheses</a><ul>
+<li><a href="#interaction-variable-approach">Interaction variable approach</a></li>
+<li><a href="#multigroup-approach">multigroup approach</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<!--set global settings-->
+<!--copy to clipboard -->
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+<!---
+<style>
+.btn-text-right{
+    text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+<div id="the-conceptual-model" class="section level2">
+<h2>The Conceptual Model</h2>
+<div id="version-1" class="section level3">
+<h3>Version 1</h3>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="../static/CM7a.PNG" alt="Multi-level model" width="100%" />
+<p class="caption">
+Figure 1: Multi-level model
+</p>
+</div>
+<p>The independent variable <strong><span class="math inline">\(X_2\)</span></strong> is measured at the macro-level (e.g. neighborhood) and impacts the dependent variable, <strong>Y</strong>, measured at the micro-level (e.g. neighborhood residents). The independent variable <strong><span class="math inline">\(X_1\)</span></strong> is measured at the micro-level and impacts the dependent variable, <strong>Y</strong>, as well.</p>
+<hr />
+</div>
+<div id="version-2-preferred" class="section level3">
+<h3>Version 2 (preferred)</h3>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="../static/CM7b.PNG" alt="Multi-level model (version 2)" width="100%" />
+<p class="caption">
+Figure 2: Multi-level model (version 2)
+</p>
+</div>
+<p>Please note that the independent variable at the macro-level <strong><span class="math inline">\(X_2\)</span></strong> will impact all individuals within the same macro-level unit equally. Hence, it impacts the mean score of Y within a macro-level unit. To make it more concrete, a country-level variable like National Income may impact the mean health level of individuals within a country. National Income explains between-country variance in health, not within-country variance in health. To make this more explicit, I recommend you to use the conceptual model above.</p>
+<hr />
+</div>
+<div id="version-3-subscripts" class="section level3">
+<h3>Version 3 (subscripts)</h3>
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="../static/CM7c.PNG" alt="Multi-level model (version 3)" width="100%" />
+<p class="caption">
+Figure 3: Multi-level model (version 3)
+</p>
+</div>
+<p>Unfortunately, readers who look at version 2 may now think you have two different dependent variables, one at the micro-level and one at the macro-level. You could add subscripts to make more explicit what you mean.<br />
+In the figure above we make explicit that we have a dependent variable, Y, that is measured at the micro-level. We explain (between-level) variance in mean scores of Y at the macro-level. The subscript <em>j</em> indexes the different macro-level units. <em><span class="math inline">\(Y_{.j}\)</span></em> is shorthand notation for mean score of <span class="math inline">\(Y_{ij}\)</span> for unit <em>j</em>.<br />
+At the micro-level we explain (within-level) variance in deviation-scores from the macro-level unit mean.<br />
+The subscripts for the independent variables make clear we have two independent variables, one measured at the macro-level and one measures at the micro-level.</p>
+<p>In my experience, readers who do not immediately grasp version 2 don’t understand version 3 either. I would therefore recommend sticking to version 2 and perhaps add <em>between</em> and <em>within</em> in the boxes. Add a note to your conceptual model and explain in words what you mean with your labels.</p>
+<hr />
+</div>
+<div id="independent-micro-level-variable" class="section level3">
+<h3>Independent micro-level variable</h3>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="../static/CM7d.PNG" alt="Multi-level model (version 3)" width="100%" />
+<p class="caption">
+Figure 4: Multi-level model (version 3)
+</p>
+</div>
+<p>So far, we only made explicit that our dependent variable (measured at the micro-level) can be split in a within and between component. But the same holds true for independent variables measured at the micro-level.</p>
+<p>Independent variables measured at the micro-level may impact:</p>
+<ol style="list-style-type: decimal">
+<li><strong>within macro-unit level variation</strong> in the dependent variable<br />
+</li>
+<li><strong>between macro-unit level variation</strong> in the dependent variable</li>
+</ol>
+<p>Ad1: The between macro-level unit variation in the IV may be related to the between macro-level unit variation in the DV. Stated otherwise, the mean score of our IV across the macro-level units may be related to the mean scores of our DV across the macro-level units. This is path <em>b</em> in the figure above.<br />
+Ad2: The within macro-level unit variation in the IV may be related to the within macro-level unit variation in the DV. This is path <em>a</em> in the figure above.</p>
+<p>Normally, path <em>b</em> is forgotten. Drawing a conceptual model may help you to remember to at least consider this possible pathway. If you do not include this relationship you are actually implicitly assuming that path <em>a</em> and <em>b</em> are the same. If this is not the case your estimation of path <em>a</em> will be biased.</p>
+<p>{{% alert warning %}}
+<strong>Composition effect:</strong>
+It could be possible that path <em>b</em> is not significant but that between-unit variation in your dependent variable is still explained after inclusion of your independent variable measured at the micro-level. This is then because of a so-called composition effect: the macro-level units harbor different micro-level units (e.g. some neighborhoods harbor more high income residents than others.)</p>
+<p><strong>Random samples:</strong>
+To estimate unbiased estimates it is important that you have excess to a random sample of macro-level units (not only high-income neighborhoods) and random samples of micro-level units within each macro-level unit. If the latter is not the case, for example when you sampled relatively rich residents of poor neighborhoods and relatively poor residents of rich neighborhoods, the (estimated or constructed) variable <span class="math inline">\(X_{.j}\)</span> will not be a valid measure for the true mean value of all <span class="math inline">\(X_{ij}\)</span> in neighborhood <em>j</em>.</p>
+<p>{{% /alert %}}</p>
+<hr />
+<hr />
+</div>
+</div>
+<div id="explanation" class="section level2">
+<h2>Explanation</h2>
+<p>In a conceptual model, the concepts are normally placed in a rectangular. We have three concepts, <strong>X</strong>, <strong>Mo</strong> and <strong>Y</strong>.<br />
+We assume an association between X and Y.
+The strength of this relation may depend on <strong>Mo</strong>, the strength of this relation is conditional on the value of <strong>Mo</strong>. We also call this an interaction effect.
+If you want to graphically depict a moderation, it may be useful to show the model without the moderator as well but this is a bit a matter of taste. I have noticed that journal article reviewers and committees that evaluate grant proposals are not always familiar with a graphical depiction of an interaction effect. I have received (more than once!) the comment that my figure was presumably wrong because an arrow was pointing at a different arrow. I therefore now add a very small bullit on the arrow which, I hope, makes clear that it is by design that I point one arrow to another arrow.<br />
+It is not always necessary to label the paths but for this tutorial it will turn out to be handy. Normally, when there is no sign (or label) it is assumed that the path has a positive valence. It is, however, good practice to include the valence of the paths in your conceptual models.</p>
+<p>{{% alert warning %}}
+If the relationship between <strong>X</strong> and <strong>Y</strong> is assumed to be non-linear, for example when the dependent variable is binary and you are planning to estimate logistic regression models, the interpretation of moderation/interaction effects is a lot more complicated. <strong>SEE STRUCTURAL EQUATIONS BELOW</strong>.<br />
+{{% /alert %}}</p>
+<hr />
+</div>
+<div id="abstract-hypotheses" class="section level2">
+<h2>Abstract hypotheses</h2>
+<p>See Version 1/2 above.</p>
+<div id="positive-main-effect-positive-interaction" class="section level3">
+<h3>positive main effect, positive interaction</h3>
+<ul>
+<li>Hypo1: more X leads to more Y (<span class="math inline">\(a&gt;0\)</span>).<br />
+</li>
+<li>Hypo2: The relationship between X and Y becomes stronger when Mo increases (<span class="math inline">\(b&gt;0\)</span>).</li>
+</ul>
+</div>
+<div id="positive-main-effect-negative-interaction" class="section level3">
+<h3>positive main effect, negative interaction</h3>
+<ul>
+<li>Hypo1: more X leads to more Y (<span class="math inline">\(a&gt;0\)</span>).<br />
+</li>
+<li>Hypo2: The relationship between X and Y becomes weaker when Mo increases (<span class="math inline">\(b&lt;0\)</span>).</li>
+</ul>
+</div>
+<div id="negative-main-effect-positive-interaction" class="section level3">
+<h3>negative main effect, positive interaction</h3>
+<ul>
+<li>Hypo1: more X leads to less Y (<span class="math inline">\(a&gt;0\)</span>).<br />
+</li>
+<li>Hypo2: The negative relationship between X and Y becomes weaker when Mo increases (<span class="math inline">\(b&gt;0\)</span>).</li>
+</ul>
+</div>
+<div id="negative-main-effect-negative-interaction" class="section level3">
+<h3>negative main effect, negative interaction</h3>
+<ul>
+<li>Hypo1: more X leads to less Y (<span class="math inline">\(a&gt;0\)</span>).<br />
+</li>
+<li>Hypo2: The negative relationship between X and Y becomes stronger when Mo increases (<span class="math inline">\(b&lt;0\)</span>).</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="real-life-example" class="section level2">
+<h2>Real life example</h2>
+<p>X is educational success
+Mo is age.<br />
+Y is health</p>
+<ul>
+<li>Hypo1: Educational success is (positively) related to a better health.</li>
+<li>Hypo2: The positive relationship between educational success and a better health is stronger for older persons.</li>
+</ul>
+<p>Alternatively, one could also formulate just the interaction effect:</p>
+<ul>
+<li>Hypo3: The relationship between educational success and a better health is stronger for older persons.</li>
+</ul>
+<p>For hypothesis 3 it is not necessary that there is also a main effect of education on health. Also, the direction of the interaction effect is left a bit implicit (presumably positive). But cannot be falsified when:</p>
+<ul>
+<li>there is no main effect and we observe an interaction effect (regardless of sign)<br />
+</li>
+<li>there is a positive main effect and a positive interaction effect.<br />
+</li>
+<li>there is a negative main effect and a negative interaction effect.</li>
+</ul>
+<p>For this reason, I would prefer hypotheses 1 and 2 above the single hypothesis 3.</p>
+<p>Please compare the following set of hypotheses:</p>
+<ul>
+<li>Hypo1: Educational success is (positively) related to a better health.</li>
+<li>Hypo2: Age is (negatively) related to a better health.</li>
+<li>Hypo3a: The positive relationship between educational success and a better health is stronger for older persons.</li>
+</ul>
+<p>and:</p>
+<ul>
+<li>Hypo1: Educational success is (positively) related to a better health.</li>
+<li>Hypo2: Age is (negatively) related to a better health.</li>
+<li>Hypo3b: The negative relationship between age and a better health is weaker for higher educated persons.</li>
+</ul>
+<p>Both sets will lead to the same structural equations. But do you think that for older persons education based inequality in health will be more pronounced or that for higher educated age based inequality in health will be less pronounced?</p>
+<hr />
+</div>
+<div id="structural-equations" class="section level2">
+<h2>Structural equations</h2>
+<ul>
+<li>$ Y= b_0 + b_1X + b_2Mo + b_3XMo Y= b_0 + (b_1 + b_3Mo)X + b_2Mo $</li>
+</ul>
+<div id="interpretation-linear-model" class="section level3">
+<h3>Interpretation (linear model)</h3>
+<p>The interaction effect is the cross-partial derivative of Y with respect to X and M0:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><span class="math display">\[ \frac{\partial ^2(Y|X,Mo)}{\partial X \partial Mo} = \frac{\partial(b_1 + b_3Mo)}{ \partial Mo} = b_3 \]</span></p>
+<p>Thus the interaction effect is <span class="math inline">\(b_3\)</span>.</p>
+</div>
+<div id="interpretation-non-linear-logit-model" class="section level3">
+<h3>Interpretation (non-linear (logit) model)</h3>
+<p>However, if we have a binary outcome variable our hypotheses are about the probability that Y is 1 (<span class="math inline">\(P(Y=1)\)</span>). If we estimate the model with a logit function, this is:<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p><span class="math inline">\(P(Y=1|X,Mo)= \frac{e^{(b_0 + b_1X + b_2Mo + b_3XMo)}} {1 + e^{(b_0 + b_1X + b_2Mo + b_3XMo)}} = \frac{1}{1 + e^{-(b_0 + b_1X + b_2Mo + b_3XMo)}}\)</span></p>
+<p>let us define <span class="math inline">\(P(Y=1|X,Mo)\)</span> as <span class="math inline">\(F(Y)\)</span> (i.e. the logistic distribution function).</p>
+<p>The interaction effect then becomes:</p>
+<p><span class="math display">\[ \frac{\partial ^2 F(Y)}{\partial X \partial Mo} = \frac{\partial(f(Y)(b_1 + b_3Mo))}{ \partial Mo} = f(Y)b_3 + f&#39;(Y)(b_1 + b_3Mo)(b_2 + b_3X), \]</span>
+where <span class="math inline">\(f(Y)\)</span> is the derivative of the logistic distribution function (i.e. the logistic density function) and <span class="math inline">\(f&#39;(Y)\)</span> the derivative of the density function with respect to Y.</p>
+<p>For more background reading see <span class="citation">@norton2004computing</span>.</p>
+<p>For now we have three take home messages!:</p>
+<ul>
+<li>even if <span class="math inline">\(b_3\)</span> is non significant you may have a significant interaction effect (namely: <span class="math inline">\(f&#39;(Y)b_1b_2\)</span></li>
+<li>the strength, valence (and significance) of the interaction effect depends on the value of <span class="math inline">\(Y\)</span> (i.e. the covariates), <span class="math inline">\(b_1\)</span>, <span class="math inline">\(b_2\)</span> and <span class="math inline">\(b_3\)</span>.<br />
+</li>
+<li><strong>To make sense of interaction effects in nonlinear models, use (3D) plots of predicted values against values of X and Mo!</strong></li>
+</ul>
+</div>
+<div id="lavaan-syntax" class="section level3">
+<h3>Lavaan syntax</h3>
+<p>Following the syntax of the R package <strong>Lavaan</strong></p>
+<ul>
+<li>Y~1<br />
+</li>
+<li>Y~a*X<br />
+</li>
+<li>Y~d*Mo<br />
+</li>
+<li>Y~b*X:Mo</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="formal-test-of-hypotheses" class="section level2 tabset tabset-fade">
+<h2>Formal test of hypotheses</h2>
+<p>Load the NELLS data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())  <span class="co">#empty environment</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">require</span>(haven)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>nells &lt;-<span class="st"> </span><span class="kw">read_dta</span>(<span class="st">&quot;../static/NELLS panel nl v1_2.dta&quot;</span>)  <span class="co">#change directory name to your working directory</span></span></code></pre></div>
+<p>Operationalize concepts. Please note that I mean center the covariates for ease of interpretation!</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># We will use the data of wave 2.</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>nellsw2 &lt;-<span class="st"> </span>nells[nells<span class="op">$</span>w2cpanel <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ]</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># As an indicator of occupational success we will use income in wave 2.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa61, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa61)</span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># recode (I will start newly created variables with cm from conceptual models)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa61</span>
+<span id="cb2-9"><a href="#cb2-9"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">225</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">400</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">750</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">1250</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">1750</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">2250</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">2750</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">3250</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">3750</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">4250</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">4750</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">5250</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="dv">5750</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">6500</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">16</span>] &lt;-<span class="st"> </span><span class="dv">7500</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>nellsw2<span class="op">$</span>cm_income[nellsw2<span class="op">$</span>cm_income <span class="op">==</span><span class="st"> </span><span class="dv">17</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># let us scale the variable a bit and translate into income per 1000euro</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a>nellsw2<span class="op">$</span>cm_income &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income<span class="op">/</span><span class="dv">1000</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># from household income to personal income</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa62)</span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa62, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-32"><a href="#cb2-32"></a>nellsw2<span class="op">$</span>cm_income_per &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa62</span>
+<span id="cb2-33"><a href="#cb2-33"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">40</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">60</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">70</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">80</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">90</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>nellsw2<span class="op">$</span>cm_income_per[nellsw2<span class="op">$</span>cm_income_per <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a>nellsw2<span class="op">$</span>cm_income_ind &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_income <span class="op">*</span><span class="st"> </span>nellsw2<span class="op">$</span>cm_income_per<span class="op">/</span><span class="dv">100</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="co"># as an indicator of educational success we will use highest completed level of education in years.</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="co"># the rationale behind this coding this I will take the maximum for university as 16.5 (taking into</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="co"># account that some masters are 2 years and some 1 year) and subsequently subtract the years needed</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="co"># to obtain a university degree given the degree under consideration.</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2fa102)</span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2fa102, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-55"><a href="#cb2-55"></a>nellsw2<span class="op">$</span>cm_education &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w2fa102</span>
+<span id="cb2-56"><a href="#cb2-56"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">6</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">9</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">4</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">12</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">7</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="dv">14</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="dv">15</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">11</span>] &lt;-<span class="st"> </span><span class="fl">16.5</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">12</span>] &lt;-<span class="st"> </span><span class="dv">7</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">13</span>] &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">14</span>] &lt;-<span class="st"> </span><span class="fl">14.5</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a>nellsw2<span class="op">$</span>cm_education[nellsw2<span class="op">$</span>w2fa102 <span class="op">==</span><span class="st"> </span><span class="dv">15</span>] &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb2-71"><a href="#cb2-71"></a></span>
+<span id="cb2-72"><a href="#cb2-72"></a></span>
+<span id="cb2-73"><a href="#cb2-73"></a></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="co"># mean centering</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a>nellsw2<span class="op">$</span>cm_education_c &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>cm_education <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nellsw2<span class="op">$</span>cm_education, <span class="dt">na.rm =</span> T)</span>
+<span id="cb2-76"><a href="#cb2-76"></a>nellsw2<span class="op">$</span>cm_age_c &lt;-<span class="st"> </span>nellsw2<span class="op">$</span>w1cage <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nellsw2<span class="op">$</span>w1cage, <span class="dt">na.rm =</span> T)</span>
+<span id="cb2-77"><a href="#cb2-77"></a></span>
+<span id="cb2-78"><a href="#cb2-78"></a><span class="co"># define a dichotemous moderator based on age.</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a>nellsw2<span class="op">$</span>cm_old_d &lt;-<span class="st"> </span><span class="kw">ifelse</span>(nellsw2<span class="op">$</span>cm_age_c <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb2-80"><a href="#cb2-80"></a></span>
+<span id="cb2-81"><a href="#cb2-81"></a></span>
+<span id="cb2-82"><a href="#cb2-82"></a><span class="co"># as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we</span></span>
+<span id="cb2-83"><a href="#cb2-83"></a><span class="co"># have to reverse code original variable</span></span>
+<span id="cb2-84"><a href="#cb2-84"></a><span class="kw">attributes</span>(nellsw2<span class="op">$</span>w2scf1)</span>
+<span id="cb2-85"><a href="#cb2-85"></a><span class="kw">table</span>(nellsw2<span class="op">$</span>w2scf1, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb2-86"><a href="#cb2-86"></a>nellsw2<span class="op">$</span>cm_health &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">-</span><span class="st"> </span>nellsw2<span class="op">$</span>w2scf1</span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17 &lt;NA&gt; 
+##   55   78  103  204  338  326  282  272  276  205  133   62   48   22   22   29  374    0 
+## $label
+## [1] &quot; wat is het netto inkomen per maand van u en uw partner samen?/van u?/  &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+##  Minder dan ¤150 per maand      ¤150 - ¤299 per maand      ¤300 - ¤499 per maand 
+##                          1                          2                          3 
+##      ¤500 - ¤999 per maand  ¤1.000 - ¤1.499 per maand  ¤1.500 - ¤1.999 per maand 
+##                          4                          5                          6 
+##  ¤2.000 - ¤2.499 per maand  ¤2.500 - ¤2.999 per maand  ¤3.000 - ¤3.499 per maand 
+##                          7                          8                          9 
+##  ¤3.500 - ¤3.999 per maand  ¤4.000 - ¤4.499 per maand  ¤4.500 - ¤4.999 per maand 
+##                         10                         11                         12 
+##  ¤5.000 - ¤5.499 per maand  ¤5.500 - ¤5.999 per maand  ¤6.000 - ¤6.999 per maand 
+##                         13                         14                         15 
+##   ¤7.000 of meer per maand weet niet, wil niet zeggen 
+##                         16                         17 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## $label
+## [1] &quot; hoe groot is uw bijdrage in dit inkomen ongeveer? kunt u een percentage noemen &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## vrijwel geen bijdrage          ongeveer 10%          ongeveer 20%          ongeveer 30% 
+##                     1                     2                     3                     4 
+##          ongeveer 40%          ongeveer 50%          ongeveer 60%          ongeveer 70% 
+##                     5                     6                     7                     8 
+##          ongeveer 80%          ongeveer 90%         ongeveer 100%             weet niet 
+##                     9                    10                    11                    12 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
+##    1    2    3    4    5    6    7    8    9   10   11   12 &lt;NA&gt; 
+##  253   48   89  259  233  242  183  229  114   63  887  229    0 
+## $label
+## [1] &quot; wat is uw hoogst voltooide opleiding, dat wil zeggen waarvan u een diploma heef&quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+##                                                   lagere school 
+##                                                               1 
+##                                               lbo, vmbo-kb\\bbl 
+##                                                               2 
+##                                                   mavo, vmbo-tl 
+##                                                               3 
+##                                                            havo 
+##                                                               4 
+##                                                  vwo\\gymnasium 
+##                                                               5 
+##    mbo-kort (kmbo), primair leerlingwezen, bol\\bbl niveau 1 of 
+##                                                               6 
+## mbo-tussen\\lang (mbo), secundair\\tertiar leerlingwezen, bol\\ 
+##                                                               7 
+##                                                             hbo 
+##                                                               8 
+##                                         universiteit (bachelor) 
+##                                                               9 
+##                                universiteit (master, doctoraal) 
+##                                                              10 
+##                                                 promotietraject 
+##                                                              11 
+##    buitenlandse opleiding, niet goed in te delen, lager onderwi 
+##                                                              12 
+##    buitenlandse opleiding, niet goed in te delen, middelbaar on 
+##                                                              13 
+##    buitenlandse opleiding, niet goed in te delen, hoger onderwi 
+##                                                              14 
+##                                                  geen opleiding 
+##                                                              15 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
+##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 &lt;NA&gt; 
+##  118  223  202  205  117  223  737  586   89  208   12    8   20   17   34   30 
+## $label
+## [1] &quot; wat vindt u, over het algemeen genomen, van uw gezondheid? &quot;
+## 
+## $format.stata
+## [1] &quot;%8.0g&quot;
+## 
+## $labels
+## uitstekend  zeer goed       goed      matig     slecht 
+##          1          2          3          4          5 
+## 
+## $class
+## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;        
+## 
+## 
+##    1    2    3    4    5 &lt;NA&gt; 
+##  438  853 1211  247   48   32</code></pre>
+<p>And test the model with <strong>Lavaan</strong>.</p>
+<div id="interaction-variable-approach" class="section level3">
+<h3>Interaction variable approach</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">require</span>(lavaan)</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  #structural model </span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  cm_health~ a*cm_education_c + d*cm_age_c + b*cm_education_c:cm_age_c</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  #intercepts</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  cm_health~1</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">  cm_education_c ~1</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="st">  cm_age_c~1</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">  </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">  #residual variance</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">  cm_health ~~ cm_health</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="st">  </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">  #variances</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="st">  cm_education_c ~~ cm_age_c</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="st">&quot;</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> nellsw2, <span class="dt">auto.var =</span> T, <span class="dt">meanstructure =</span> T)</span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 31 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                         11
+##                                                       
+##                                                   Used       Total
+##   Number of observations                          2767        2829
+##                                                                   
+## Model Test User Model:
+##                                                       
+##   Test statistic                               130.504
+##   Degrees of freedom                                 3
+##   P-value (Chi-square)                           0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_health ~                                                           
+##     cm_edctn_c (a)    0.054    0.007    8.266    0.000    0.054    0.152
+##     cm_age_c   (d)   -0.019    0.002  -10.558    0.000   -0.019   -0.194
+##     cm_dct_:__ (b)    0.002    0.001    2.130    0.033    0.002    0.039
+## 
+## Covariances:
+##                     Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_education_c ~~                                                      
+##     cm_age_c          -0.131    0.448   -0.292    0.770   -0.131   -0.006
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         3.495    0.017  207.350    0.000    3.495    3.816
+##     cm_education_c    0.002    0.049    0.039    0.969    0.002    0.001
+##     cm_age_c         -0.065    0.174   -0.375    0.708   -0.065   -0.007
+##     cm_dctn_c:cm__    0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         0.786    0.021   37.195    0.000    0.786    0.937
+##     cm_education_c    6.626    0.178   37.195    0.000    6.626    1.000
+##     cm_age_c         83.937    2.257   37.195    0.000   83.937    1.000
+##     cm_dctn_c:cm__  479.911   12.902   37.195    0.000  479.911    1.000</code></pre>
+<p>We observe that higher educated persons report higher SWB.<br />
+We observe that older persons report lower SWB.<br />
+We observe that the relationship between education and SWB is higher for older persons.</p>
+</div>
+<div id="multigroup-approach" class="section level3">
+<h3>multigroup approach</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r highlightt numberLines"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">require</span>(lavaan)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># no equality constraints across groups whatsoever.</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>model &lt;-<span class="st"> &quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  #structural model </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  cm_health~ c(a1,a0)*cm_education_c #I am giving the education effects specific names for each group</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  #intercepts</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  cm_health~1</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="st">  #residual variance</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="st">  cm_health ~~ cm_health</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="st">  </span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="st">  #test for difference</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="st">  a1a0:=a1-a0</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="st">&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a></span>
+<span id="cb6-18"><a href="#cb6-18"></a>fit &lt;-<span class="st"> </span><span class="kw">lavaan</span>(model, <span class="dt">data =</span> nellsw2, <span class="dt">auto.var =</span> T, <span class="dt">meanstructure =</span> T, <span class="dt">group =</span> <span class="st">&quot;cm_old_d&quot;</span>)</span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="kw">summary</span>(fit, <span class="dt">standardized =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## lavaan 0.6-7 ended normally after 15 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of free parameters                          6
+##                                                       
+##   Number of observations per group:               Used       Total
+##     1                                             1530        1572
+##     0                                             1237        1257
+##                                                                   
+## Model Test User Model:
+##                                                       
+##   Test statistic                                 0.000
+##   Degrees of freedom                                 0
+##   Test statistic for each group:
+##     1                                            0.000
+##     0                                            0.000
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                             Standard
+##   Information                                 Expected
+##   Information saturated (h1) model          Structured
+## 
+## 
+## Group 1 [1]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_health ~                                                           
+##     cm_dctn_c (a1)    0.066    0.008    7.895    0.000    0.066    0.198
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         3.353    0.023  146.715    0.000    3.353    3.677
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         0.799    0.029   27.659    0.000    0.799    0.961
+## 
+## 
+## Group 2 [0]:
+## 
+## Regressions:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##   cm_health ~                                                           
+##     cm_dctn_c (a0)    0.038    0.011    3.549    0.000    0.038    0.100
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         3.675    0.025  145.563    0.000    3.675    4.120
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##    .cm_health         0.788    0.032   24.870    0.000    0.788    0.990
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+##     a1a0              0.028    0.014    2.083    0.037    0.028    0.097</code></pre>
+<p>We observe that the relationship between education and SWB is significantly higher for older persons.</p>
+<hr />
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Assuming continuous variables X and Mo.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>The same logic applies to other nonlinear models of course.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

@@ -1,0 +1,228 @@
+Mplus VERSION 8.4
+MUTHEN & MUTHEN
+01/08/2021   8:32 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  ML empty model;
+  DATA:
+  FILE = "mplusm0_235540b62d8f9d9ce4d510f4e1ccbbc6.dat";
+
+  VARIABLE:
+  NAMES = w2cdistrict2012id w2fk2 cm_education_c;
+   MISSING=.;
+   CLUSTER = w2cdistrict2012id; MISSING = NA
+  ANALYSIS:
+  TYPE = TWOLEVEL RANDOM; ESTIMATOR=MLF;
+  MODEL:
+
+    %WITHIN%
+    w2fk2 on cm_education_c;
+    %BETWEEN%
+    w2fk2 on cm_education_c;
+
+
+
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      W2FK2       2821 469 934 2856 1617 6 1736 1179 1101 2840 2341 1684 2271 2998 2537 771 786
+                  1197 1172 690 1021 2010 1214
+      CM_EDUCA    469 2612 1617 2840 101 1703 2172 2427 2211 1657 237 1197
+
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+ML empty model;
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        2784
+
+Number of dependent variables                                    1
+Number of independent variables                                  1
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   W2FK2
+
+Observed independent variables
+   CM_EDUCA
+
+Variables with special functions
+
+  Cluster variable      W2CDISTR
+
+Estimator                                                      MLF
+Information matrix                                        OBSERVED
+Maximum number of iterations                                   100
+Convergence criterion                                    0.100D-05
+Maximum number of EM iterations                                500
+Convergence criteria for the EM algorithm
+  Loglikelihood change                                   0.100D-02
+  Relative loglikelihood change                          0.100D-05
+  Derivative                                             0.100D-03
+Minimum variance                                         0.100D-03
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+
+Input data file(s)
+  mplusm0_235540b62d8f9d9ce4d510f4e1ccbbc6.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+     Number of clusters                        282
+
+     Average cluster size        9.872
+
+     Estimated Intraclass Correlations for the Y Variables
+
+                Intraclass
+     Variable  Correlation
+
+     W2FK2        0.046
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              W2FK2         CM_EDUCA
+              ________      ________
+ W2FK2          1.000
+ CM_EDUCA       1.000         1.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     W2FK2                 1.537       1.265       1.000   61.57%       1.000      1.000      1.000
+            2784.000       0.594       0.708       4.000    1.98%       1.000      2.000
+     CM_EDUCATION_C       -0.005      -0.131      -7.632    1.22%      -1.632     -0.632     -0.632
+            2784.000       6.650       0.283       4.868    7.79%      -0.632      2.368
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                        5
+
+Loglikelihood
+
+          H0 Value                       -9744.470
+          H1 Value                       -9744.470
+
+Information Criteria
+
+          Akaike (AIC)                   19498.940
+          Bayesian (BIC)                 19528.598
+          Sample-Size Adjusted BIC       19512.711
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                              0.000
+          Degrees of Freedom                     0
+          P-Value                           1.0000
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.000
+
+CFI/TLI
+
+          CFI                                1.000
+          TLI                                1.000
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                              2.748
+          Degrees of Freedom                     2
+          P-Value                           0.2531
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value for Within                   0.000
+          Value for Between                  0.004
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+ W2FK2      ON
+    CM_EDUCATI        -0.007      0.006     -1.172      0.241
+
+ Residual Variances
+    W2FK2              0.566      0.017     32.511      0.000
+
+Between Level
+
+ W2FK2      ON
+    CM_EDUCATI        -0.036      0.041     -0.875      0.382
+
+ Intercepts
+    W2FK2              1.538      0.034     45.207      0.000
+
+ Residual Variances
+    W2FK2              0.026      0.008      3.221      0.001
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.332E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+     Beginning Time:  20:32:10
+        Ending Time:  20:32:10
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
