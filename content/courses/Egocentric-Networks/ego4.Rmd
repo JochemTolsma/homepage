@@ -364,14 +364,21 @@ Assignment 7 is way too difficult. First, in Lavaan it is not straightforward to
 
 # Real data
 
+
+```{r, echo=FALSE}
+xfun::embed_file("sn2021_egonetdata_v2.Rdata")
+```
+<br>
+
+<!--
 Download data [here](static/sn2021_egonetdata_v2.Rdata).  
 
-<!-- perhaps use embed file because of ref issues --->
+ perhaps use embed file because of ref issues --->
 
   
 Save it in your working directory 
 
-If you want to use this data run the following command `load('sn2021_egonetdata_v2.Rdata')`
+If you want to use this data run the following command: `load('sn2021_egonetdata_v2.Rdata')`
 
 {{% alert note %}}
 
@@ -652,8 +659,6 @@ We would conclude that my line of reasoning holds true with respect to Y2 but no
 
 # Alternative Approaches
 
-The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén [www.statmodel.com]("www.statmodel.com"). If you have Mplus installed on your computer, you may use the R package  `MplusAutomation` to estimate models with Mplus within R. Below you may find two examples with Mplus: one demonstrating the persons as variable approach, the other demonstrating the multi-level approach. 
+The above micro-macro models may also be estimated within Mplus developed by Muthén and Muthén [www.statmodel.com]("www.statmodel.com"). If you have Mplus installed on your computer, you may use the R package  `MplusAutomation` to estimate models with Mplus within R. 
 
-Latest Version: `r format(Sys.Date(), "%d-%m-%Y")`
 
-Please email any comments to: j.tolsma@ru.nl

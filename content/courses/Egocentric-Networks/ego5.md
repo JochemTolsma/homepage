@@ -11,7 +11,7 @@ tags: []
 linktitle: SELF-TEST
 summary: ~
 lastmod: '2020-08-31T09:26:45+02:00'
-toc: yes
+toc: true
 type: book
 weight: 50
 ---

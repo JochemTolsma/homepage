@@ -1,0 +1,85 @@
+---
+title: Lectures-Conceptual-Models
+author: JochemTolsma
+date: '2021-01-18'
+slug: lectures
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle: "Overview Conceptual Models"
+
+summary: "conceptual model, correlation, explanation, tutorial, R, Lavaan"
+lastmod: '`r format(Sys.Date(), "%d-%m-%Y")`'
+
+type: book
+weight: 4
+
+ 
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: no
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+
+---
+
+
+<!--set global settings--> 
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
+options(width = 100)
+```
+
+
+<!--copy to clipboard
+```{r klippy, echo=FALSE, include=TRUE}
+require(klippy)
+klippy::klippy(position = c('top', 'left'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+
+<!---
+<style>
+.btn-text-right{
+	text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+
+## The Basics  
+
+
+<iframe src="https://player.vimeo.com/video/501760425" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+{{% alert note %}}
+After having watched this video you will know:  
+
+- The common assumptions researchers make when drawing conceptual models
+  - chronological order  
+  - causality  
+  - causal importance    
+- That relationships between concepts have directions/valence and that it is good practice to make these explicit.  
+- That choosing the right labels for your concepts is important:
+  - because only with good labels does it make sense to assign valence to the relations;  
+  - labels should be close to both the concept as intended as the concept as measured;  
+  - researchers operate in (politically and scientifically) sensitive environments and labels should be (cross-culturally, cross-disciplinary) appropriate.    
+{{% /alert %}}
+
+---  
+
+
