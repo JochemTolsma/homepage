@@ -1,0 +1,275 @@
+
+---
+
+---
+
+
+## Explanation
+
+
+
+
+---
+
+## Abstract hypotheses
+
+
+
+---
+
+## Real life example
+
+
+---
+
+## Structural equations
+
+
+---
+
+## Formal test of hypotheses
+
+Load the NELLS data.
+
+```{r}
+rm(list=ls()) #empty environment
+require(haven)
+nells <- read_dta("../static/NELLS panel nl v1_2.dta") #change directory name to your working directory
+```
+
+Operationalize concepts. Please note that I mean center the covariates for ease of interpretation!
+
+```{r, echo=FALSE, eval=FALSE}
+# We will use the data of wave 2.
+nellsw2<- nells[nells$w2cpanel==1,]
+
+# As an indicator of occupational success we will use income in wave 2.
+table(nellsw2$w2fa61, useNA="always")
+attributes(nellsw2$w2fa61)
+#recode (I will start newly created variables with cm from conceptual models)
+nellsw2$cm_income <- nellsw2$w2fa61
+nellsw2$cm_income[nellsw2$cm_income==1] <- 100
+nellsw2$cm_income[nellsw2$cm_income==2] <- 225
+nellsw2$cm_income[nellsw2$cm_income==3] <- 400
+nellsw2$cm_income[nellsw2$cm_income==4] <- 750
+nellsw2$cm_income[nellsw2$cm_income==5] <- 1250
+nellsw2$cm_income[nellsw2$cm_income==6] <- 1750
+nellsw2$cm_income[nellsw2$cm_income==7] <- 2250
+nellsw2$cm_income[nellsw2$cm_income==8] <- 2750
+nellsw2$cm_income[nellsw2$cm_income==9] <- 3250
+nellsw2$cm_income[nellsw2$cm_income==10] <- 3750
+nellsw2$cm_income[nellsw2$cm_income==11] <- 4250
+nellsw2$cm_income[nellsw2$cm_income==12] <- 4750
+nellsw2$cm_income[nellsw2$cm_income==13] <- 5250
+nellsw2$cm_income[nellsw2$cm_income==14] <- 5750
+nellsw2$cm_income[nellsw2$cm_income==15] <- 6500
+nellsw2$cm_income[nellsw2$cm_income==16] <- 7500
+nellsw2$cm_income[nellsw2$cm_income==17] <- NA
+# let us scale the variable a bit and translate into income per 1000euro
+nellsw2$cm_income <- nellsw2$cm_income/1000
+
+#from household income to personal income
+attributes(nellsw2$w2fa62)
+table(nellsw2$w2fa62, useNA="always")
+nellsw2$cm_income_per <- nellsw2$w2fa62
+nellsw2$cm_income_per[nellsw2$cm_income_per==1] <- 0
+nellsw2$cm_income_per[nellsw2$cm_income_per==2] <- 10
+nellsw2$cm_income_per[nellsw2$cm_income_per==3] <- 20
+nellsw2$cm_income_per[nellsw2$cm_income_per==4] <- 30
+nellsw2$cm_income_per[nellsw2$cm_income_per==5] <- 40
+nellsw2$cm_income_per[nellsw2$cm_income_per==6] <- 50
+nellsw2$cm_income_per[nellsw2$cm_income_per==7] <- 60
+nellsw2$cm_income_per[nellsw2$cm_income_per==8] <- 70
+nellsw2$cm_income_per[nellsw2$cm_income_per==9] <- 80
+nellsw2$cm_income_per[nellsw2$cm_income_per==10] <- 90
+nellsw2$cm_income_per[nellsw2$cm_income_per==11] <- 100
+nellsw2$cm_income_per[nellsw2$cm_income_per==12] <- NA
+
+nellsw2$cm_income_ind <- nellsw2$cm_income * nellsw2$cm_income_per/100
+
+#as an indicator of educational success we will use highest completed level of education in years.
+#the rationale behind this coding this I will take the maximum for university as 16.5 (taking into account that some masters are 2 years and some 1 year) and subsequently subtract the years needed to obtain a university degree given the degree under consideration.
+
+attributes(nellsw2$w2fa102)
+table(nellsw2$w2fa102, useNA="always")
+nellsw2$cm_education <- nellsw2$w2fa102
+nellsw2$cm_education[nellsw2$w2fa102==1] <- 6
+nellsw2$cm_education[nellsw2$w2fa102==2] <- 9
+nellsw2$cm_education[nellsw2$w2fa102==3] <- 10
+nellsw2$cm_education[nellsw2$w2fa102==4] <- 11
+nellsw2$cm_education[nellsw2$w2fa102==5] <- 12
+nellsw2$cm_education[nellsw2$w2fa102==6] <- 10
+nellsw2$cm_education[nellsw2$w2fa102==7] <- 11
+nellsw2$cm_education[nellsw2$w2fa102==8] <- 14
+nellsw2$cm_education[nellsw2$w2fa102==9] <- 15
+nellsw2$cm_education[nellsw2$w2fa102==10] <- 16.5
+nellsw2$cm_education[nellsw2$w2fa102==11] <- 16.5
+nellsw2$cm_education[nellsw2$w2fa102==12] <- 7
+nellsw2$cm_education[nellsw2$w2fa102==13] <- 11
+nellsw2$cm_education[nellsw2$w2fa102==14] <- 14.5
+nellsw2$cm_education[nellsw2$w2fa102==15] <- 4
+
+
+
+#mean centering
+nellsw2$cm_education_c <- nellsw2$cm_education - mean(nellsw2$cm_education, na.rm = T)
+nellsw2$cm_age_c <- nellsw2$w1cage - mean(nellsw2$w1cage, na.rm = T)
+
+#define a dichotemous moderator based on age.
+nellsw2$cm_old_d <- ifelse(nellsw2$cm_age_c>=0, 1, 0)
+
+
+#as an indicator of health we will use subjective well being from 5 (excellent) to 1 (bad) thus we have to reverse code original variable
+attributes(nellsw2$w2scf1)
+table(nellsw2$w2scf1, useNA="always")
+nellsw2$cm_health <- 6 - nellsw2$w2scf1
+
+```
+
+```{r}
+getwd()
+str(test)
+```
+
+
+<!---
+
+### lme4
+
+And test the model with **lme4**.
+
+```{r, eval=FALSE}
+
+require(lme4)
+model0 <- lmer(cm_health ~ 1 + w2cdistrict2012P_LAAGINKP +  (1|w2cmun2012id), data = nellsw2)
+summary(model0)
+
+```
+
+--->
+
+### Lavaan
+
+And test the model with **lavaan**.
+
+```{r}
+require(lavaan)
+
+#empty random intercept model
+model0 <- '
+  #within
+  level: 1
+    w2fk2 ~ cm_education_c
+    w2fk2 ~~ w2fk2
+
+  #between
+  level: 2
+    w2fk2 ~ 1 #random intercept
+    w2fk2 ~~ w2fk2
+'
+
+fit0 <- lavaan(model0, data = nellsw2, cluster="w2cdistrict2012id")
+summary(fit0, standardized=TRUE)
+lavInspect(fit0, "h1")
+lavInspect(fit0, "icc")
+```
+### MPlus
+
+And test the model with **MPlus**.
+
+
+
+
+let op mplusautomation werkt niet met tibbles!!
+
+```{r}
+require(MplusAutomation)
+library(texreg)
+
+testdata <- data.frame(nellsw2[, c("w2cdistrict2012id", "w2fk2", "cm_education_c")])
+testdata <- na.omit(testdata)
+testdata$w2fk2 <- as.numeric(testdata$w2fk2)
+testdata$cm_education_c <- as.numeric(testdata$cm_education_c)
+
+mplusm0 <- mplusObject(
+  TITLE = "ML empty model;",
+  VARIABLE = "CLUSTER = w2cdistrict2012id; MISSING = NA",
+  ANALYSIS = "TYPE = TWOLEVEL RANDOM; ESTIMATOR=MLF;",
+  MODEL = "
+  %WITHIN%
+  w2fk2 on cm_education_c;
+  %BETWEEN%
+  w2fk2 on cm_education_c;",
+  usevariables = c("w2cdistrict2012id", "w2fk2", "cm_education_c"),
+  rdata = testdata[, c("w2cdistrict2012id", "w2fk2", "cm_education_c")]
+  )
+
+resmplusm3 <- mplusModeler(mplusm0, modelout = "mplusm0.inp", run = 1L, check = TRUE)
+test <- readModels()
+#summary(test)
+#test$parameters
+#test$summaries
+
+screenreg(test, digits=3, single.row = T, summaries = c("Observations", "Parameters"), custom.model.names = test[[1]]$title)
+test$data_summary
+
+#testje <- read.delim("mplusm0.out", sep="\t")
+#print(testje)
+```
+
+<!---
+
+```{r, eval=FALSE}
+require(lavaan)
+w2fk2
+#empty random intercept model
+model0 <- '
+  #within
+  level: 1
+    cm_health ~~ cm_health
+  #between
+  level: 2
+    cm_health ~ 1 #random intercept
+    cm_health ~~ cm_health
+'
+
+fit0 <- lavaan(model0, data = nellsw2, cluster="w2cmun2012id")
+summary(fit0, standardized=TRUE)
+lavInspect(fit0, "h1")
+lavInspect(fit0, "icc")
+```
+
+```{r, eval=FALSE}
+#within-level covariate
+model1 <- '
+  #within
+  level: 1
+    cm_health ~ cm_education_c
+    cm_health ~~ cm_health
+  #between
+  level: 2
+    cm_health ~ 1 #random intercept
+    cm_health ~ cm_education_c
+    cm_health ~~ cm_health
+'
+
+fit1 <- lavaan(model1, data = nellsw2, cluster="w2cmun2012id")
+summary(fit1, standardized=TRUE)
+lavInspect(fit1, "h1")
+lavInspect(fit0, "icc")
+
+#cm_health ~ cm_education_c
+
+```
+
+--->
+
+
+We would conclude that SWB does not vary between municipalities.
+
+---
+
+## References
+
+
+
