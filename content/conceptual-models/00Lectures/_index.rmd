@@ -1,7 +1,7 @@
 ---
 title: Lectures-Conceptual-Models
 author: JochemTolsma
-date: '2021-01-18'
+date: '2021-01-20'
 slug: lectures
 categories:
   - R
@@ -65,7 +65,7 @@ https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64
 
 
 <iframe src="https://player.vimeo.com/video/501760425" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-
+<p><a href="https://vimeo.com/501760425">Conceptual Models - Part 1</a> from <a href="https://vimeo.com/user122074236">Jochem Tolsma</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 
 {{% alert note %}}
@@ -84,19 +84,28 @@ After having watched this video you will know:
 
 ---  
 
+## Most common models
+ 
+
+<iframe src="https://player.vimeo.com/video/502655651" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/502655651">Conceptual Models - Part 2</a> from <a href="https://vimeo.com/user122074236">Jochem Tolsma</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+---  
+
+
 ## Hypotheses
 
 ### Lecture
 
 <iframe src="https://player.vimeo.com/video/502336571" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-<!---
-<p><a href="https://vimeo.com/502336571">Theories and Deductions_ICS</a> from <a href="https://vimeo.com/user122074236">Jochem Tolsma</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
---->
+
+<p><a href="https://vimeo.com/502336571">Theories and Deductions_ICS</a> from Jacob Dijkstra</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
 
 ### Quiz
 
 <iframe src="https://player.vimeo.com/video/502339744" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-
+<p><a href="https://vimeo.com/502339744">Empirical Content Quiz_ICS</a> from Jacob Dijkstra</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 ---  
 
