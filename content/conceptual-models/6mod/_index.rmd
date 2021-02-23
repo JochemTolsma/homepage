@@ -36,7 +36,7 @@ library(knitr)
 opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE, cache=TRUE, attr.source = ".numberLines", class.source="highlightt", results= "hold")
 options(width = 100)
 ```
- 
+
 
 <!--copy to clipboard -->
 ```{r klippy, echo=FALSE, include=TRUE}
