@@ -10,12 +10,14 @@ authors:
 superuser: true
 
 # Role/position
-role: Associate Professor of Sociology
+role: Professor of Sociology
 
 # Organizations/Affiliations
 organizations:
 - name: Radboud University
   url: "https://www.ru.nl/english/people/tolsma-j/"
+- name: University of Groningen
+  url: "https://www.rug.nl/research/department-of-sociology/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include segregation, polarisation and social inequality.

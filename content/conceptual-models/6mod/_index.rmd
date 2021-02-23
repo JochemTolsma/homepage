@@ -163,12 +163,12 @@ See Version 1/2 above.
 
 ### negative main effect, positive interaction  
 
-- Hypo1: more X leads to less Y ($a>0$).  
+- Hypo1: more X leads to less Y ($a<0$).  
 - Hypo2: The negative relationship between X and Y becomes weaker when Mo increases ($b>0$).  
 
 ### negative main effect, negative interaction  
 
-- Hypo1: more X leads to less Y ($a>0$).  
+- Hypo1: more X leads to less Y ($a<0$).  
 - Hypo2: The negative relationship between X and Y becomes stronger when Mo increases ($b<0$).  
 
 
