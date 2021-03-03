@@ -75,7 +75,7 @@ user_groups:
 - Visitors
 ---
 
-Jochem Tolsma is associate professor at the [Sociology Department of Radboud University Nijmegen](https://www.ru.nl/sociology/) and the program director of the [Research Master Social and Cultural Science](https://www.ru.nl/courseguides/socsci/research-master/social-cultural-science/).
-In his research he focuses on the causes and consequences of segregation in neighborhoods, schools and friendship networks.
+Jochem Tolsma is professor by special appointment of Social Divisions between Groups in the [Department of Sociology at the University of Groningen](https://www.rug.nl/gmw/sociology/), associate professor in the [Sociology Department of Radboud University Nijmegen](https://www.ru.nl/sociology/) and the program director of the [Research Master Social and Cultural Science](https://www.ru.nl/courseguides/socsci/research-master/social-cultural-science/) of Radboud University.
+In his research he focuses on social divisions between groups; the interplay of segregation, inequality and polarization. His particular areas of interest are the causes and consequences of segregation in neighborhoods, schools and friendship networks.
 
 At the moment, this site is mainly intended as a medium to communicate with my students and share course material. Hopefully, it will grow into something larger quickly. The intention is to share my R-tutorials (on diagonal reference models, marginal effects, micro-macro models) here, to make my course Social Networks Analysis for social scientists available through this site, and to share my inner thoughts of life (e.g. on current affairs in academia) within the blog section. Ultimately of course, my aim is to save the world with this site. With that, thanks for reading and enjoy! 

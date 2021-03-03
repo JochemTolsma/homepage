@@ -1,0 +1,23 @@
+---
+title: Jochem Tolsma appointed as professor by special appointment of social divisions between groups.
+author: Jochem Tolsma
+date: '2021-03-1'
+slug: professor
+categories: []
+tags: []
+subtitle: ''
+summary: 'As of March 1, 2021, Jochem Tolsma has been appointed as professor by special appointment of Social Divisions between Groups in the Department of Sociology at the University of Groningen. The chair is supported by the James Coleman Association.'
+lastmod: '2021-03-01'
+featured: no
+image: 
+  caption: ''
+  focal_point: ""
+  placement: 1
+  preview_only: true
+projects: []
+---
+
+<iframe width="100%" height="1100" src="https://www.rug.nl/gmw/news/jochem-tolsma-appointed-as-professor-by-special-appointment-of-social-divisions-between-groups?lang=en" title="RUG news: Jochem Tolsma appointed as professor by special appointment of social divisions between groups" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+
+
