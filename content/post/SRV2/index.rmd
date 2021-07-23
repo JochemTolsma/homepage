@@ -1,0 +1,478 @@
+---
+title: Toenemende polarisatie? Niet in de houdingen van het volk.
+authors: ["Thijmen", "Niels", "admin"]
+date: '2021-03-23'
+slug: SRV2
+categories: []
+tags: []
+subtitle: ''
+summary: 'De verkiezingsuitslag zou [volgens de Volkskrant](https://www.volkskrant.nl/nieuws-achtergrond/de-uitslagenkaart-toont-een-groeiende-polarisatie-tussen-nationalisten-en-kosmopolieten~b5b56972/) een groeiende polarisatie tonen tussen nationalisten en kosmopolieten. Het is zeker waar dat zowel de ‘kosmopolitische partij’ D66 en de ‘nationalistische partij’ FvD verkiezingswinst hebben geboekt. Maar dat het een gevolg is van toenemende polarisatie onder de bevolking, dat lijkt ons onwaarschijnlijk. Er is namelijk geen sprake van brede groeiende polarisatie op dit vlak. […]'
+lastmod: '2021-03-23'
+featured: no
+image: 
+  caption: ''
+  focal_point: ""
+  placement: 1
+  preview_only: true
+projects: []
+math: false
+---
+
+
+   
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"), echo=FALSE)
+options(width = 100)
+rgl::setupKnitr()
+```
+
+
+```{r packages, class.source="watch-out"}
+#install if necessary 
+if (!require("dplyr", character.only = TRUE)) {install.packages("dplyr", dependencies=TRUE)}
+if (!require("haven", character.only = TRUE)) {install.packages("haven", dependencies=TRUE)}
+if (!require("ggplot2", character.only = TRUE)) {install.packages("ggplot", dependencies=TRUE)}
+if (!require("plotly", character.only = TRUE)) {install.packages("plotly", dependencies=TRUE)}
+
+#load packages.
+library(dplyr)
+library(haven)
+library(ggplot2)
+library(plotly)
+
+```
+
+
+```{r}
+#clean the environment. 
+rm(list=ls())
+#load('data-processed/partner_dataprepped.Rdata')
+#load('data-processed/liss_merged_core_file_v1_201124.Rdata')
+load('LISS_srv_blog_polar.Rdata')
+```
+  
+
+<!---
+#als we bij ggplotly ook een subtitle willen. hier dan ook de caption in stoppen. 
+ggplotly(p) %>%
+  layout(title = list(text = paste0('US State Population and Life Expectancy',
+                                    '<br>',
+                                    '<sup>',
+                                    'Life expectancy 1969-1971; Population estimate as of July 1, 1975',
+                                    '</sup>')))
+--->
+----
+
+(Deze blogpost verscheen oorspronkelijk op [StukRoodVlees](https://stukroodvlees.nl/toenemende-polarisatie-niet-in-de-inhoudelijke-opvattingen-van-kiezers/))
+
+De verkiezingsuitslag zou [volgens de Volkskrant](https://www.volkskrant.nl/nieuws-achtergrond/de-uitslagenkaart-toont-een-groeiende-polarisatie-tussen-nationalisten-en-kosmopolieten~b5b56972/) een groeiende polarisatie tonen tussen nationalisten en kosmopolieten. Het is zeker waar dat zowel de ‘kosmopolitische partij’ D66 en de ‘nationalistische partij’ FvD verkiezingswinst hebben geboekt. Maar dat het een gevolg is van toenemende polarisatie onder de bevolking, dat lijkt ons onwaarschijnlijk. Er is namelijk geen sprake van brede groeiende polarisatie op dit vlak.
+
+## Polarisatie?  
+
+
+Wij zochten met behulp van de [LISS-data](https://www.lissdata.nl/about-panel) (we gebruikten data verzameld in de jaren 2008 t/m 2014 en 2016 t/m 2020) uit of de samenleving steeds verder polariseert over politieke thema’s die de kern raken van de tegenstelling nationalisme versus kosmopolitisme: de EU en migratie/integratie. Aan deelnemers aan het LISS-panel worden herhaaldelijk de volgende twee stellingen voorgelegd. Zie Box 1. 
+
+
+
+---  
+
+> **Box 1. Meting van houdingen over de EU en migratie/integratie in LISS**  
+> 
+> **EU-integratie**  
+> *Sommige mensen en partijen vinden dat de Europese eenwording nog verder zou moeten gaan. Anderen vinden dat de Europese eenwording al te ver is gegaan. Waar zou u uzelf plaatsen op een schaal van 1 t/m 5 […]?*
+> 
+> 1. De Europese eenwording zou nog verder moeten gaan  
+> 2.  
+> 3.  
+> 4.  
+> 5. De Europese eenwording is al te ver gegaan  
+> 
+> **Migratie/integratie**  
+> *In Nederland vinden sommigen dat mensen met een migratie-achtergrond hier moeten kunnen leven met behoud van de eigen cultuur. Anderen vinden dat zij zich geheel moeten aanpassen aan de Nederlandse cultuur. Waar zou u uzelf plaatsen op een schaal van 1 t/m 5 […]?*  
+> 
+> 1. behoud van eigen cultuur voor mensen met een migratie-achtergrond  
+> 2.  
+> 3.  
+> 4.  
+> 5. mensen met een migratie achtergrond moeten zich geheel aanpassen  
+
+----
+
+
+Als er sprake zou van toenemende polarisatie moet een steeds groter deel van de bevolking een (relatief) extreem antwoord geven op deze twee stellingen. Figuren 1 en 2 tonen dat dit niet het geval is. Het aantal mensen dat zeer sterk vindt dat de EU-integratie niet ver genoeg is gegaan schommelt constant tussen de 4 en 6%. Er zijn veel meer Nederlanders die vinden dat de EU-integratie veel te ver is gegaan: tussen de 17 en 33%. We zien daarbij flinke schommelingen, maar van een duidelijke stijgende trend is geen sprake. Sterker nog: in de laatste jaren lijkt de Nederlandse bevolking minder ‘extreem’ te worden op dit vlak.
+  
+
+```{r, eval=FALSE}
+dataplot <- liss_srv_subset #use the srv data. 
+
+#dataplot$jaar <- dataplot$survey_wave + 2007 #probleem is dat het jaar 2015 mist. 
+
+#Daarom gebruik ik zelf deze omslachtige code 
+dataplot$jaar <- ifelse(dataplot$survey_wave == 1, 2008, dataplot$survey_wave)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 2, 2009, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 3, 2010, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 4, 2011, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 5, 2012, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 6, 2013, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 7, 2014, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 8, 2016, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 9, 2017, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 10, 2018, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 11, 2019, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 12, 2020, dataplot$jaar)
+
+
+dataplot <- dataplot[dataplot$leeftijd>17,]
+
+#prop.table(table(dataplot$eu_integration,dataplot$jaar ))
+#table(dataplot$eu_integration,dataplot$jaar)
+
+## Get counts for each risk class on each date
+frequencies <- with(dataplot, prop.table(table(eu_integration,jaar ), margin=2))
+
+
+frequencies <- as.data.frame(frequencies)
+#changed the eu_integration values in line with the adjusted specification of the values (so no reverse code; use the original 1-5 scale. Changed the coding accordingly)
+frequencies <- frequencies[frequencies$eu_integration==1 | frequencies$eu_integration==5, ]
+frequencies$eu_integratie[frequencies$eu_integration==5] <- "al te ver"
+frequencies$eu_integratie[frequencies$eu_integration==1] <- "moet nog verder"
+frequencies$eu_integratie <- factor(frequencies$eu_integratie,  levels = c("al te ver", "moet nog verder"))
+frequencies$Freq <- round(frequencies$Freq*100, 2)
+
+frequencies$jaar <- as.numeric(as.character(frequencies$jaar))
+
+
+ggp <- ggplot(frequencies, aes(x=jaar, y=Freq, group=eu_integratie, color= eu_integratie)) + 
+        geom_line() + 
+        geom_point(size = 4, shape = 21, fill = "white") + 
+        scale_color_discrete(name = "EU integratie")  + 
+        scale_x_continuous(name="jaar", breaks=c(2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020), limits=c(2008,2020)) +
+      ylim(0,50) + 
+      labs(title="Figuur 1. Polarisatie over EU-integratie", caption="DATA: LISS", x="jaar", y="% met extreme mening") + 
+    theme(plot.caption = element_text(hjust = 0))
+      
+
+figuur1 <- ggplotly(ggp, tooltip = c("y", "x")) %>%
+  layout(annotations = 
+ list(x = 1, y = 0, text = "(DATA: LISS)", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=13, color="darkgrey"))
+ )
+
+htmlwidgets::saveWidget(figuur1, file.path("plots", 'figuur1.html'))
+
+```
+
+<iframe width="100%" height="600" src="./plots/figuur1.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+
+
+
+
+Iets vergelijkbaars zien we rond de integratie van mensen met een migratie-achtergrond. Een laag stabiel aantal mensen (2%) is het sterk eens met de ‘behoud van eigen cultuur’-extreem. Aan de andere kant van de schaal bevindt zich een aanzienlijk groter deel van de bevolking, maar het aantal neemt niet toe. In tegendeel: de laatste meetjaren zien we juist dat minder mensen vinden dat migranten zich volledig dienen aan te passen.  
+
+
+```{r}
+dataplot <- liss_srv_subset
+
+dataplot$jaar <- ifelse(dataplot$survey_wave == 1, 2008, dataplot$survey_wave)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 2, 2009, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 3, 2010, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 4, 2011, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 5, 2012, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 6, 2013, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 7, 2014, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 8, 2016, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 9, 2017, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 10, 2018, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 11, 2019, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 12, 2020, dataplot$jaar)
+
+dataplot <- dataplot[dataplot$leeftijd>17,]
+
+## Get counts for each risk class on each date
+frequencies <- with(dataplot, prop.table(table(immigrants,jaar ), margin=2))
+
+
+frequencies <- as.data.frame(frequencies)
+frequencies <- frequencies[frequencies$immigrants==1 | frequencies$immigrants==5, ]
+frequencies$immigrants2[frequencies$immigrants==1] <- "eigen cultuur behouden"
+frequencies$immigrants2[frequencies$immigrants==5] <- "volledig aan passen"
+frequencies$Freq <- round(frequencies$Freq*100, 2)
+frequencies$jaar <- as.numeric(as.character(frequencies$jaar))
+
+
+ggp <- ggplot(frequencies, aes(x=jaar, y=Freq, group=immigrants2, color= immigrants2)) + 
+        geom_line() + 
+       geom_point(size = 4, shape = 21, fill = "white") + 
+      scale_color_discrete(name = "migratie/integratie")  + 
+      scale_x_continuous(name="jaar", breaks=c(2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020), limits=c(2008,2020)) +
+      ylim(0,50) +
+      labs(title="Figuur 2. Polarisatie over migratie/integratie", caption="DATA: LISS", x="jaar", y="% met extreme mening") + 
+    theme(plot.caption = element_text(hjust = 0))
+
+figuur2 <- ggplotly(ggp, tooltip = c("y", "x")) %>%
+  layout(annotations = 
+ list(x = 1, y = 0, text = "(DATA: LISS)", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=13, color="darkgrey"))
+ )
+
+htmlwidgets::saveWidget(figuur2, file.path("plots", 'figuur2.html'))
+
+```
+
+<iframe width="100%" height="600" src="./plots/figuur2.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+
+## Sociale scheidslijnen?
+
+Ook al is er geen sprake is van toenemende polarisatie onder de bevolking, kan het nog wel zo zijn dat verschillende groepen in de samenleving uit elkaar groeien. We spreken dan eigenlijk over toenemende sociale scheidslijnen, niet over toenemende polarisatie (maar dat is wellicht academische muggenzifterij). Volgens het Volkskrant artikel zouden twee sociale kenmerken cruciaal zijn:  
+
+•	opleiding  
+•	stedelijkheid  
+
+Laten we eens kijken, want ook deze informatie vinden we in de LISS-data. Voor opleiding nemen we enkel mensen van 25 jaar en ouder mee, omdat ze zeer waarschijnlijk klaar zijn met hun onderwijscarrière. We maakten drie categorieën: Laag: basisonderwijs en vmbo; Midden: havo/vwo en mbo; Hoog: hbo en wo. Stedelijkheid is bepaald op basis van de woonplaats: Zeer sterk stedelijk; Sterk stedelijk; Matig stedelijk; Weinig stedelijk en Niet stedelijk. We tonen in het onderstaande steeds per groep de (geschatte) trendlijn in gemiddelde houding (de standaarddeviatie van deze schatting geven we aan met een schaduw om de lijn).  
+
+Kijken we naar de EU-integratie (Figuur 3) dan lijkt de sociale scheidslijn inderdaad een klein beetje toe te nemen: de verschillen tussen de opleidingsgroepen worden wat groter. Echter, de verschillen zijn altijd al groot geweest.  
+
+Voor stedelijkheid en EU-integratie zien we meer spaghetti (Figuur 4). Stedelingen staan minder negatief ten aanzien van verdere EU-integratie dan mensen in minder stedelijke gebieden. Echter, van een duidelijke toenemende sociale scheidslijn is geen sprake.
+
+
+```{r}
+
+dataplot <- liss_srv_subset
+
+dataplot <- dataplot[dataplot$leeftijd>24,]
+
+dataplot$opleiding[dataplot$oplmet==1] <- "laag"
+dataplot$opleiding[dataplot$oplmet==2] <- "laag"
+dataplot$opleiding[dataplot$oplmet==3] <- "midden"
+dataplot$opleiding[dataplot$oplmet==4] <- "midden"
+dataplot$opleiding[dataplot$oplmet==5] <- "hoog"
+dataplot$opleiding[dataplot$oplmet==6] <- "hoog"
+dataplot$opleiding[dataplot$oplmet==7] <- NA
+dataplot$opleiding[dataplot$oplmet==8] <- "laag"
+dataplot$opleiding[dataplot$oplmet==9] <- "laag"
+
+dataplot$opleiding <- factor(dataplot$opleiding,  levels = c("hoog", "midden", "laag"))
+
+
+dataplot <- dataplot[!is.na(dataplot$opleiding),]
+
+dataplot$jaar <- ifelse(dataplot$survey_wave == 1, 2008, dataplot$survey_wave)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 2, 2009, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 3, 2010, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 4, 2011, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 5, 2012, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 6, 2013, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 7, 2014, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 8, 2016, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 9, 2017, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 10, 2018, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 11, 2019, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 12, 2020, dataplot$jaar)
+
+#dataprep aangepast dus dit hoeft niet meer. 
+#dataplot$eu_integration <- 5 - dataplot$eu_integration
+
+#table(dataplot$eu_integration)
+
+ggp <- ggplot(dataplot, aes(x=jaar, y=eu_integration, colour= opleiding)) +           # Create basic ggplot
+  #geom_smooth(method = "lm", formula = y ~ x) + 
+  geom_smooth() + 
+  #xlim(0,13) +
+  #ylim(0,4) + 
+  scale_x_continuous(name="jaar", breaks=c(2008:2020), limits=c(2008,2020)) +
+  scale_y_continuous(labels=c("De Europese eenwording \n zou nog verder \n moeten gaan", "2", "3", "4","De Europese eenwording \n is al te ver \n  gegaan"), limits = c(1,5)) + 
+  labs(title="Figuur 3. EU integratie", subtitle= "Opleidingsscheidslijn", caption="DATA: LISS", x="jaar", y="") + 
+    theme(plot.caption = element_text(hjust = 0))
+
+
+figuur3 <- ggplotly(ggp) %>%
+  layout(title = list(text = paste0('Figuur 3. EU-integratie',
+                                    '<br>',
+                                    '<sup>',
+                                    'Opleidingsscheidslijn',
+                                    '</sup>')))  %>%
+  layout(annotations = 
+ list(x = 1, y = 0, text = "(DATA: LISS)", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=13, color="darkgrey"))
+ )
+
+htmlwidgets::saveWidget(figuur3, file.path("plots", 'figuur3.html'))
+```
+<iframe width="100%" height="600" src="./plots/figuur3.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+```{r stedelijkheid}
+
+dataplot <- liss_srv_subset
+dataplot <- dataplot[dataplot$leeftijd>17,]
+
+#dit is niet mee nodig, want ik heb dit aangepast in de dataprep voor de srv data. 
+#dataplot$eu_integration <- 5 - dataplot$eu_integration
+
+dataplot$stedelijkheid <- as.factor(dataplot$sted)
+
+levels(dataplot$stedelijkheid) <- c("Zeer sterk", "Sterk", "Matig", "Weinig", "Niet")
+
+dataplot$stedelijkheid <- factor(dataplot$stedelijkheid,  levels = c("Zeer sterk", "Sterk", "Matig", "Weinig", "Niet"))
+
+dataplot <- dataplot[!is.na(dataplot$stedelijkheid),]
+
+dataplot$jaar <- ifelse(dataplot$survey_wave == 1, 2008, dataplot$survey_wave)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 2, 2009, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 3, 2010, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 4, 2011, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 5, 2012, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 6, 2013, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 7, 2014, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 8, 2016, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 9, 2017, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 10, 2018, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 11, 2019, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 12, 2020, dataplot$jaar)
+
+
+ggp <- ggplot(dataplot, aes(x=jaar, y=eu_integration, colour= stedelijkheid)) +           # Create basic ggplot
+  #geom_smooth(method = "lm", formula = y ~ x) + 
+  geom_smooth() + 
+  #xlim(0,13) +
+  #ylim(0,4) + 
+  scale_x_continuous(name="jaar", breaks=c(2008:2020), limits=c(2008,2020)) +
+  scale_y_continuous(labels=c("De Europese eenwording \n zou nog verder \n moeten gaan", "2", "3", "4","De Europese eenwording \n is al te ver \n  gegaan"), limits = c(1,5)) + 
+  labs(title="Figuur 4. EU integratie", subtitle= "Stedelijkheidsscheidslijn", caption="DATA: LISS", x="jaar", y="") + 
+    theme(plot.caption = element_text(hjust = 0))  
+    # + theme(legend.position="bottom")
+
+figuur4 <- ggplotly(ggp) %>%
+  layout(title = list(text = paste0('Figuur 4. EU-integratie',
+                                    '<br>',
+                                    '<sup>',
+                                    'Stedelijkheidsscheidslijn',
+                                    '</sup>')))  %>%
+  layout(annotations = 
+ list(x = 1, y = 0, text = "(DATA: LISS)", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=13, color="darkgrey"))
+ )
+
+htmlwidgets::saveWidget(figuur4, file.path("plots", 'figuur4.html'))
+
+```
+<iframe width="100%" height="600" src="./plots/figuur4.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+We zien min of meer hetzelfde beeld als we kijken naar integratiehouding (Figuur 5 en 6): Ja, er bestaan verschillen en de hogeropgeleiden en mensen in stedelijke gebieden zijn (iets) minder vaak van mening dat migranten zich volledig dienen aan te passen, maar van duidelijk toenemende sociale scheidslijnen is geen sprake.
+
+
+```{r}
+dataplot <- liss_srv_subset
+dataplot <- dataplot[dataplot$leeftijd>24,]
+
+dataplot$opleiding[dataplot$oplmet==1] <- "laag"
+dataplot$opleiding[dataplot$oplmet==2] <- "laag"
+dataplot$opleiding[dataplot$oplmet==3] <- "midden"
+dataplot$opleiding[dataplot$oplmet==4] <- "midden"
+dataplot$opleiding[dataplot$oplmet==5] <- "hoog"
+dataplot$opleiding[dataplot$oplmet==6] <- "hoog"
+dataplot$opleiding[dataplot$oplmet==7] <- NA
+dataplot$opleiding[dataplot$oplmet==8] <- "laag"
+dataplot$opleiding[dataplot$oplmet==9] <- "laag"
+
+dataplot$opleiding <- factor(dataplot$opleiding,  levels = c("hoog", "midden", "laag"))
+
+dataplot <- dataplot[!is.na(dataplot$opleiding),]
+
+dataplot$jaar <- ifelse(dataplot$survey_wave == 1, 2008, dataplot$survey_wave)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 2, 2009, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 3, 2010, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 4, 2011, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 5, 2012, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 6, 2013, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 7, 2014, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 8, 2016, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 9, 2017, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 10, 2018, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 11, 2019, dataplot$jaar)
+dataplot$jaar <- ifelse(dataplot$survey_wave == 12, 2020, dataplot$jaar)
+
+
+ggp <- ggplot(dataplot, aes(x=jaar, y=immigrants, colour= opleiding)) +           # Create basic ggplot
+  geom_smooth() + 
+  scale_x_continuous(name="jaar", breaks=c(2008:2020), limits=c(2008,2020)) +
+  scale_y_continuous(labels=c("behoud eigen cultuur", "2", "3", "4","volledige assimilatie"), limits = c(1,5)) + 
+  labs(title="Figuur 5. Migratie/integratie", subtitle = "Opleidingsscheidslijn", caption="DATA: LISS", x="jaar", y=" ") + 
+    theme(plot.caption = element_text(hjust = 0))
+
+figuur5 <- ggplotly(ggp) %>%
+  layout(title = list(text = paste0('Figuur 5. Migratie/integratie',
+                                    '<br>',
+                                    '<sup>',
+                                    'Opleidingsscheidslijn',
+                                    '</sup>')))  %>%
+  layout(annotations = 
+ list(x = 1, y = 0, text = "(DATA: LISS)", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=13, color="darkgrey"))
+ )
+
+htmlwidgets::saveWidget(figuur5, file.path("plots", 'figuur5.html'))
+
+```
+<iframe width="100%" height="600" src="./plots/figuur5.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+
+```{r}
+
+dataplot <- liss_srv_subset
+dataplot <- dataplot[dataplot$leeftijd>17,]
+dataplot$stedelijkheid <- as.factor(dataplot$sted)
+levels(dataplot$stedelijkheid) <- c("Zeer sterk", "Sterk", "Matig", "Weinig", " Niet")
+dataplot$stedelijkheid <- factor(dataplot$stedelijkheid,  levels = c("Zeer sterk", "Sterk", "Matig", "Weinig", " Niet"))
+
+dataplot <- dataplot[!is.na(dataplot$stedelijkheid),]
+dataplot$jaar <- dataplot$survey_wave + 2007
+
+ggp <- ggplot(dataplot, aes(x=jaar, y=immigrants, colour= stedelijkheid)) +           # Create basic ggplot
+  geom_smooth() + 
+  scale_x_continuous(name="jaar", breaks=c(2008:2020), limits=c(2008,2020)) +
+  scale_y_continuous(labels=c("behoud eigen cultuur", "2", "3", "4","volledige assimilatie"), limits = c(1,5)) + 
+  labs(title="Figuur 6. Migratie/integratie", subtitle = "Stedelijkheidsscheidslijn", caption="DATA: LISS", x="jaar", y=" ") + 
+    theme(plot.caption = element_text(hjust = 0))
+
+figuur6 <- ggplotly(ggp) %>%
+  layout(title = list(text = paste0('Figuur 6. Migratie/integratie',
+                                    '<br>',
+                                    '<sup>',
+                                    'Stedelijkheidsscheidslijn',
+                                    '</sup>')))  %>%
+  layout(annotations = 
+ list(x = 1, y = 0, text = "(DATA: LISS)", 
+      showarrow = F, xref='paper', yref='paper', 
+      xanchor='right', yanchor='auto', xshift=0, yshift=0,
+      font=list(size=13, color="darkgrey"))
+ )
+
+htmlwidgets::saveWidget(figuur6, file.path("plots", 'figuur6.html'))
+```
+<iframe width="100%" height="600" src="./plots/figuur6.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=TRUE></iframe>
+
+## Polarisatie is geen easy-fix stopwoord
+
+Ja, in de verkiezing hebben kosmopolitische en nationalistische partijen (D66, VOLT, FvD en JA21) gewonnen. Echter GroenLinks en PVV verloren. Netto is er – in zetels uitgedrukt – slechts sprake van +1 op kosmopolitisme en +6 op nationalisme.  Ofwel: meer nationalisme. En zelfs die verschuiving, kunnen we niet koppelen aan een langere trend van veranderende houdingen onder de bevolking.  
+
+Kan het dan aan de data liggen? Extreem denkende mensen doen minder mee met vragenlijstonderzoek, maar we hebben geen reden om aan te nemen dat dit het afgelopen decennium is veranderd Wel weten we dat mensen met extreme meningen vaker op sociale media zitten en tv-programma’s en kranten daarvan smullen. Dit maakt het heel intuïtief dat polarisatie toeneemt, maar niet per se correct. Het populaire stopwoord ‘polarisatie’ volgt vaak te snel en te simpel.  
+
+Wat verklaart dan wel die nationalistische verschuiving in de kamer? Per verkiezing verschilt het welke houdingen (of thema’s) de stemkeus van mensen bepalen. Als migratie en integratie worden uitgelicht, lijken juist D66 en nationalisten daarvan te profiteren. Bovendien lijkt het meer geaccepteerd dat mensen op extreemrechtse partijen als FvD stemmen. Tenslotte, zou de zetelwinst voor ‘nationalisme’ wel eens vooral winst kunnen zijn voor ‘corona-vrijheid’, hetgeen waarop Forum zich profileerde. Of dit de verklaringen zijn, moet verder onderzoek uitwijzen. Voor nu kan kosmopolitisme-nationalisme polarisatie weer even in de ijskast.
+
+---  
+
+
+
