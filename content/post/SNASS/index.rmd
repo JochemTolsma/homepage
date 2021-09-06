@@ -1,0 +1,24 @@
+---
+title: SNASS
+author: Jochem Tolsma
+date: '2021-09-06'
+lastmod: '2021-09-06'
+slug: snass
+categories: [R]
+tags: []
+subtitle: 'Social Network Analysis for Social Scientists'
+summary: ''
+authors: []
+featured: yes
+iimage:
+  caption: ''
+  focal_point: ""
+  placement: 1
+  preview_only: false
+projects: []
+---
+
+Far from ready, not yet foolproof but without any binding errors... 
+
+[The ebook SNASS is online](https://jochemtolsma.github.io/SNA-4-Social-Scientists/).  
+
