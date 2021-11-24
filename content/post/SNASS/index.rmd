@@ -18,7 +18,7 @@ iimage:
 projects: []
 ---
 
-Far from ready, not yet foolproof but without any binding errors... 
+Far from ready, not yet foolproof but without any binding errors...
 
 [The ebook SNASS is online](https://jochemtolsma.github.io/SNA-4-Social-Scientists/).  
 
