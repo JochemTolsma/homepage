@@ -1,0 +1,135 @@
+---
+title: Heuristic-Conceptual-Models
+author: JochemTolsma
+date: '2022-01-11'
+slug: heuristic
+categories:
+  - R
+  - Conceptual Models
+tags: []
+#linktitle: "Overview Conceptual Models"
+
+summary: "conceptual model, correlation, explanation, tutorial, R, Lavaan"
+lastmod: '18-01-2022'
+
+type: book
+weight: 6
+
+
+output:
+  blogdown::html_page:
+    highlight: "haddock"
+    number_sections: no
+    self_contained: no
+    toc: true
+    fig_width: 6
+    dev: "svg"
+    
+bibliography: my-library.bib
+
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
+<link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#bronfenbrenner-ecological-systems-theory">Bronfenbrenner Ecological Systems Theory</a></li>
+<li><a href="#theory-of-reasoned-action">Theory of Reasoned Action</a></li>
+<li><a href="#other-examples">Other examples?</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<!--set global settings-->
+<!--copy to clipboard-->
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<!---
+https://www.w3schools.com/w3css/w3css_buttons.asp
+https://www.freecodecamp.org/news/a-quick-guide-to-styling-buttons-using-css-f64d4f96337f/
+--->
+<!---
+<style>
+.btn-text-right{
+    text-align: right;
+}
+</style>
+
+<div class="btn-text-right">
+<button onclick="window.location.href='static/index.Rmd';">download .Rmd </button>  
+</div>
+
+--->
+<div id="bronfenbrenner-ecological-systems-theory" class="section level2">
+<h2>Bronfenbrenner Ecological Systems Theory</h2>
+<p>See: <span class="citation"><a href="#ref-bronfenbrenner1977toward" role="doc-biblioref">Bronfenbrenner</a> (<a href="#ref-bronfenbrenner1977toward" role="doc-biblioref">1977</a>)</span></p>
+<div class="figure"><span style="display:block;" id="fig:EST"></span>
+<img src="../static/Bronfenbrenner.png" alt="Ecological Systems Theory" width="100%" />
+<p class="caption">
+Figure 1: Ecological Systems Theory
+</p>
+</div>
+<p><a href="https://www.simplypsychology.org/Bronfenbrenner.html">source</a></p>
+<p>This is definitely not a SEM anymore. So, what is the story this heuristic conceptual model wants to tell?</p>
+<ol style="list-style-type: decimal">
+<li><strong>Complexity:</strong> The model looks quite complex. The development of a child is affected by many complex relationships.<br />
+</li>
+<li><strong>Simultaneity:</strong> The development of a child is impacted by different type of environmental settings (or systems) simultaneously.<br />
+</li>
+<li><strong>Importancy:</strong> Because the child is placed in the center, this model seems to imply that the micro system is most important for the development.<br />
+</li>
+<li><strong>Interdependency:</strong> The arrows seem to imply that there is interaction (or interdependencies) <em>between</em> adjacent layers and that <em>within</em> each environmental setting different actors or agents play a role.</li>
+</ol>
+<hr />
+</div>
+<div id="theory-of-reasoned-action" class="section level2">
+<h2>Theory of Reasoned Action</h2>
+<p>Or Theory of Planned Behavior</p>
+<p>See: <span class="citation"><a href="#ref-Fishbein1975" role="doc-biblioref">Fishbein and Ajzen</a> (<a href="#ref-Fishbein1975" role="doc-biblioref">1975</a>)</span></p>
+<div class="figure"><span style="display:block;" id="fig:TPB"></span>
+<img src="../static/attitude.png" alt="Schematic presentation of conceptual framework for the prediction of specific intentions and behaviors" width="100%" />
+<p class="caption">
+Figure 2: Schematic presentation of conceptual framework for the prediction of specific intentions and behaviors
+</p>
+</div>
+<p><a href="https://people.umass.edu/aizen/f&amp;a1975.html">source</a></p>
+<p>This actually looks quite similar to the more formal conceptual models we discussed earliers. However, we do see some interesting tweaks.</p>
+<ol style="list-style-type: decimal">
+<li>We see that we can play with the line type (dashed or continuous) and give them a different meaning.<br />
+</li>
+<li>We also see that the arrows from <em>Attitude toward behavior X</em> and <em>Subjective norm concerning behavior X</em> are combined. So, both of them are necessary conditions in order to come to an <em>Intention to perform behavior X</em>. Thus with more heuristic conceptual models you can make a distinction between necessary conditions and sufficient conditions for the outcome.</li>
+</ol>
+<p>If you are interested multiple causality and in the distinction between necessary conditions, sufficient conditions and ‘Insufficient but Non-redundant part of an Unnecessary but Sufficient’ conditions you may want to have a look at <a href="https://www.erim.eur.nl/necessary-condition-analysis/">necessary-condition-analysis</a> and <a href="https://www.compasss.org/">Qualitative Comparative Analysis</a></p>
+<hr />
+</div>
+<div id="other-examples" class="section level2">
+<h2>Other examples?</h2>
+<ol style="list-style-type: decimal">
+<li>Maslow’s hierarchy of needs model.<br />
+</li>
+<li>The policy cycle<br />
+</li>
+<li>The empirical cycle<br />
+</li>
+<li>Constrained choice model</li>
+</ol>
+<hr />
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bronfenbrenner1977toward" class="csl-entry">
+Bronfenbrenner, Urie. 1977. <span>“Toward an Experimental Ecology of Human Development.”</span> <em>American Psychologist</em> 32 (7): 513.
+</div>
+<div id="ref-Fishbein1975" class="csl-entry">
+Fishbein, M., and Icek Ajzen. 1975. <em>Belief, Attitude, Intention, and Behavior: An Introduction to Theory and Research</em>. Reading, MA: Addison-Wesley.
+</div>
+</div>
+</div>
