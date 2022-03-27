@@ -41,10 +41,17 @@
 
 [[main]]
   #identifier = "demo2"
-  name = "Intro R"
+  name = "Introduction to R"
   url = "/tutorials/demo2/"
   parent = "tutorials"
   weight = 10
+
+[[main]]
+  #identifier = "demo2"
+  name = "Marginal Effects"
+  url = "/tutorials/me/"
+  parent = "tutorials"
+  weight = 15
 
 [[main]]
   name = "Contact"

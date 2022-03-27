@@ -8,7 +8,7 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 15  # Order that this section will appear.
 
-title = "Introduction to R"
+title = "Tutorial Marginal Effects"
 subtitle = ""
 
 [design]
@@ -22,11 +22,11 @@ subtitle = ""
   #   Any HTML color name or Hex value is valid.
 
   # Background color.
-  # color = "navy"
+   color = "navy"
   
   # Background gradient.
-  gradient_start = "DarkGreen"
-  gradient_end = "ForestGreen"
+  #gradient_start = "DarkGreen"
+  #gradient_end = "ForestGreen"
   
   # Background image.
   # image = "image.jpg"  # Name of image in `static/media/`.
@@ -50,13 +50,9 @@ subtitle = ""
  css_class = ""
 +++
 
-Please note that the latest version of this tutorial is included in my *Social Network Analysis for Social Scientists* e-book. See [SNASS](https://jochemtolsma.github.io/SNA-4-Social-Scientists/).  
+For full screen click  <a href="https://jochemtolsma.github.io/MarginalEffects/" target="_blank">here</a>. 
 
-For full screen click  <a href="https://jochemtolsma.github.io/SNA-4-Social-Scientists/tutorial.html" target="_blank">here</a>. 
-
-<iframe src="https://jochemtolsma.github.io/SNA-4-Social-Scientists/tutorial.html" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
-
-#<iframe src="https://www.jtolsma.nl/TutorialCSR/" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
+<iframe src="https://jochemtolsma.github.io/MarginalEffects/" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
 
 
 <!---
