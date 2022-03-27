@@ -56,7 +56,10 @@ For full screen click  <a href="https://jochemtolsma.github.io/SNA-4-Social-Scie
 
 <iframe src="https://jochemtolsma.github.io/SNA-4-Social-Scientists/tutorial.html" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
 
-#<iframe src="https://www.jtolsma.nl/TutorialCSR/" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
+<br><br><br><br><br><br><br><br><br>
+<!---
+<iframe src="https://www.jtolsma.nl/TutorialCSR/" width="100%" height="1000" allowfullscreen="allowfullscreen"></iframe>
+--->
 
 
 <!---
