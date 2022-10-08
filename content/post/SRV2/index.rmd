@@ -6,7 +6,7 @@ slug: SRV2
 categories: []
 tags: []
 subtitle: ''
-summary: 'TESTDe verkiezingsuitslag zou [volgens de Volkskrant](https://www.volkskrant.nl/nieuws-achtergrond/de-uitslagenkaart-toont-een-groeiende-polarisatie-tussen-nationalisten-en-kosmopolieten~b5b56972/) een groeiende polarisatie tonen tussen nationalisten en kosmopolieten. Het is zeker waar dat zowel de ‘kosmopolitische partij’ D66 en de ‘nationalistische partij’ FvD verkiezingswinst hebben geboekt. Maar dat het een gevolg is van toenemende polarisatie onder de bevolking, dat lijkt ons onwaarschijnlijk. Er is namelijk geen sprake van brede groeiende polarisatie op dit vlak. […]'
+summary: 'De verkiezingsuitslag zou [volgens de Volkskrant](https://www.volkskrant.nl/nieuws-achtergrond/de-uitslagenkaart-toont-een-groeiende-polarisatie-tussen-nationalisten-en-kosmopolieten~b5b56972/) een groeiende polarisatie tonen tussen nationalisten en kosmopolieten. Het is zeker waar dat zowel de ‘kosmopolitische partij’ D66 en de ‘nationalistische partij’ FvD verkiezingswinst hebben geboekt. Maar dat het een gevolg is van toenemende polarisatie onder de bevolking, dat lijkt ons onwaarschijnlijk. Er is namelijk geen sprake van brede groeiende polarisatie op dit vlak. […]'
 lastmod: '2021-03-23'
 featured: no
 image: 

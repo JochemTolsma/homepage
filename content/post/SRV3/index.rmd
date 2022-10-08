@@ -1,14 +1,14 @@
 ---
 title: Wokisme een gevaar voor de democratie?
-authors: ["Rob", "admin"]
-date: '2021-10-07'
+authors: ["Rob Franken", "admin"]
+date: '2022-10-07'
 slug: SRV3
 categories: []
 tags: []
 subtitle: ''
 summary: 'WOKISME! WASDASME? \n
 Minister DilanYesilgoz van Justitie en Veiligheid noemde ‘wokisme’ een bedreiging voor de democratie? Ons onderzoek laat zien dat een grote groep studenten van de Radboud Universiteit het met haar/hen eens is. Houdingen over wokisme leggen bovendien een sterke mate van polarisatie bloot. Toch, het echte gevaar voor de democratie is dat studenten maar amper geïnteresseerd zijn in politiek. Lees verder voor meer nuance ...'
-lastmod: '2022-03-23'
+lastmod: '2022-10-07'
 featured: no
 image: 
   caption: ''
@@ -111,6 +111,8 @@ Tot slot, een groot deel van de studenten is helemaal niet geïnteresseerd in po
 
 Jacobs, K., Lubbers, M., Sipma, T., Spierings, N. en T.W.G Van der Meer (2021). DUTCH PARLIAMENTARY ELECTION STUDY 2021 (DPES/NKO 2021). DANS. https://doi.org/10.17026/dans-xcy-ac9q   
 
+
+---  
 
 
 
