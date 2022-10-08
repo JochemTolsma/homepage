@@ -8,7 +8,7 @@ tags: []
 subtitle: ''
 summary: 'WOKISME! WASDASME? \n
 Minister DilanYesilgoz van Justitie en Veiligheid noemde ‘wokisme’ een bedreiging voor de democratie? Ons onderzoek laat zien dat een grote groep studenten van de Radboud Universiteit het met haar/hen eens is. Houdingen over wokisme leggen bovendien een sterke mate van polarisatie bloot. Toch, het echte gevaar voor de democratie is dat studenten maar amper geïnteresseerd zijn in politiek. Lees verder voor meer nuance ...'
-lastmod: '2021-03-23'
+lastmod: '2022-03-23'
 featured: no
 image: 
   caption: ''
