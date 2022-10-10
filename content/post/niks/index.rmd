@@ -1,0 +1,58 @@
+---
+title: Ik kan niks
+authors: ["admin"]
+date: '2022-09-19'
+slug: niks
+categories: []
+tags: []
+subtitle: ''
+summary: 'Ik kan niks erg goed. Ik kan geen maat en toon houden. Heb geen balgevoel en weinig controle over mijn ledematen. Als ik al een beeld in mijn hoofd heb, krijg ik dat niet op papier of doek, of uit steen gehouwen. Gelukkig ben ik geen musicus, sporter of kunstenaar, maar wetenschapper ...'
+lastmod: '2022-09-19'
+featured: no
+image: 
+  caption: ''
+  focal_point: ""
+  placement: 1
+  preview_only: true
+projects: []
+math: false
+---
+
+
+   
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"), echo=FALSE)
+options(width = 100)
+rgl::setupKnitr()
+```
+
+
+----
+
+
+
+Ik kan niks erg goed. Ik kan geen maat en toon houden. Heb geen balgevoel en weinig controle over mijn ledematen. Als ik al een beeld in mijn hoofd heb, krijg ik dat niet op papier of doek, of uit steen gehouwen. Gelukkig ben ik geen musicus, sporter of kunstenaar.
+
+Ik verdien mijn geld als wetenschapper. Maar uit mijn mouw schud ik geen vlotte pen. Microsoft Word moet me keer op keer vertellen dat hypothesis enkelvoud is en hypotheses meervoud. Jaloers ben ik op collega’s die op de hoogte zijn van alle recente vakliteratuur. De kans dat ik Bayesiaanse statistiek ga begrijpen blijft klein, ongeacht de hoeveelheid nieuwe informatie die beschikbaar komt.
+
+Ik ben wel heel veel. Bijvoorbeeld: hoogleraar (RUG) en universitair hoofddocent (RU). Hoe kan dat? Ik ben nieuwsgierig, kritisch en een doorzetter. Als onderzoeker, zie ik dat mijn werk beter kan. Ik vind het niet erg om aan versie 3.2c te werken, of om opnieuw te beginnen als dit me dichter tot een antwoord op mijn vragen brengt. Voor een tweet reserveer ik vijftien minuten per woord, niet slechts een wc-bezoek.
+
+Maar als docent beloon ik inzet (nog) niet. Studenten krijgen geen punten voor de moeite. Er is geen prijs voor de scriptie die het meest verbeterd is, wel voor de student die zonder enkele begeleiding een meesterwerk aflevert.
+
+Inzet is minstens zo belangrijk als talent om te slagen binnen de wetenschap. En waarschijnlijk ook daarbuiten. Ik ga daarom dit academisch jaar inzetten op inzet. Ik ga het studenten leren, het waarderen en erop selecteren.
+
+ 
+
+Ook pas ik alvast mijn CV aan:
+
+>Ik werk langzaam, maar neem de tijd.
+>
+>Mijn werk kent ruimte voor verbetering.
+>
+>Mijn inzet is mijn kracht.
+
+---  
+
+
+
