@@ -114,7 +114,7 @@ address = {street = "Thomas van Aquinostraat 4", city = "Nijmegen", region = "",
 coordinates = {latitude = "51.81930894702084", longitude = "5.862045671012133"}
 
 # Directions for visitors to locate you.
-#directions = "Enter Building 1 and take the stairs to Office 200 on Floor 2"
+directions = "Enter Maria Montessori Building  and take the stairs to Office 2.088 on Floor 2"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
