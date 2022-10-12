@@ -102,16 +102,16 @@ codefolding_nobutton = false
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = "j.tolsma@ru.nl"
+email = "jochem.tolsma@ru.nl"
 phone = "+31 24 3613017"
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {street = "Montessorilaan 3", city = "Nijmegen", region = "", postcode = "6525 HR", country = "The Netherlands", country_code = "NL"}
+address = {street = "Thomas van Aquinostraat 4", city = "Nijmegen", region = "", postcode = "6525 GD", country = "The Netherlands", country_code = "NL"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-coordinates = {latitude = "51.819347", longitude = "5.860089"}
+coordinates = {latitude = "51.81930894702084", longitude = "5.862045671012133"}
 
 # Directions for visitors to locate you.
 #directions = "Enter Building 1 and take the stairs to Office 200 on Floor 2"
