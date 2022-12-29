@@ -20,12 +20,12 @@ organizations:
   url: "https://www.rug.nl/research/department-of-sociology/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include segregation, polarisation and social inequality.
+bio: My research focuses on the intersection of segregation, polarization and inequality.
 
 interests:
-- Social inequality
+- Inequality
 - Segregation
-- Cohesion
+- Polarization
 - Social Networks
 - Research Methods
 
@@ -78,6 +78,6 @@ user_groups:
 Jochem Tolsma is professor by special appointment of Social Divisions between Groups in the [Department of Sociology at the University of Groningen](https://www.rug.nl/gmw/sociology/), associate professor in the [Sociology Department of Radboud University Nijmegen](https://www.ru.nl/sociology/) and the program director of the [Research Master Social and Cultural Science](https://www.ru.nl/courseguides/socsci/research-master/social-cultural-science/) of Radboud University.
 In his research he focuses on social divisions between groups; the interplay of segregation, inequality and polarization. His particular areas of interest are the causes and consequences of segregation in neighborhoods, schools and friendship networks.
 
-On this site you you will find some of my  R-tutorials (on diagonal reference models, marginal effects, micro-macro models) and an introduction to [conceptual models](https://www.jochemtolsma.nl/conceptual-models/). Conceptual models may help you in organizing your thought process and may help a lay audience in understanding your research ideas. You can still find older versions of my course Social Networks Analysis for social scientists [here](https://www.jochemtolsma.nl/courses/) but I strongly recommend you to check out [SNASS](www.jtolsma.nl/SNASS/) to see if I and [Bas Hofstra](https://www.bashofstra.com/) were already able to updated the material.  
+On this site you you will find some of my  R-tutorials (on diagonal reference models, marginal effects, micro-macro models) and an introduction to [conceptual models](https://www.jochemtolsma.nl/conceptual-models/). Conceptual models may help you in organizing your thought process and may help a lay audience in understanding your research ideas. You can still find older versions of my course Social Networks Analysis for social scientists [here](https://www.jochemtolsma.nl/courses/) but I strongly recommend you to check out [SNASS](https://www.jtolsma.nl/SNASS/) to see if I and [Bas Hofstra](https://www.bashofstra.com/) were already able to updated the material.  
 
 With that, thanks for reading and enjoy! 
