@@ -1,0 +1,43 @@
+---
+title: Boos op het SCP
+authors: ["admin"]
+date: '2023-09-19'
+slug: scp
+categories: []
+tags: []
+subtitle: ''
+summary: 'Het Sociaal en Cultureel Planbureau (SCP) is een belangrijk adviesorgaan voor het kabinet. Het zet onderbelichte onderwerpen op de politieke agenda en biedt handvatten voor beleid. Maar met het rapport [*Eigentijdse ongelijkheid*](https://www.scp.nl/publicaties/publicaties/2023/03/07/eigentijdse-ongelijkheid) slaat het SCP de plank mis. Hierin schotelt het SCP ons namelijk een arbitraire klassenstructuur voor. Daarmee lossen we de ongelijkheid niet op.'
+lastmod: '2023-03-09'
+featured: no
+image: 
+  caption: ''
+  focal_point: ""
+  placement: 1
+  preview_only: true
+projects: []
+math: false
+---
+
+
+   
+```{r, globalsettings, echo=FALSE, warning=FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"), echo=FALSE)
+options(width = 100)
+rgl::setupKnitr()
+```
+
+
+----
+
+Download:  
+
+* [PDF](./plots/VK09032023.pdf)  
+
+<br>
+
+![](./plots/VK09032023.pdf){width="100%" height=800px}
+
+---  
+
+
