@@ -8,6 +8,7 @@ tags: []
 subtitle: ''
 summary: 'Het Sociaal en Cultureel Planbureau (SCP) is een belangrijk adviesorgaan voor het kabinet. Het zet onderbelichte onderwerpen op de politieke agenda en biedt handvatten voor beleid. Maar met het rapport [*Eigentijdse ongelijkheid*](https://www.scp.nl/publicaties/publicaties/2023/03/07/eigentijdse-ongelijkheid) slaat het SCP de plank mis. Hierin schotelt het SCP ons namelijk een arbitraire klassenstructuur voor. Daarmee lossen we de ongelijkheid niet op.'
 featured: no
+draft: false
 image: 
   caption: ''
   focal_point: ""
