@@ -13,8 +13,52 @@ color: "navy"
 text_color_light: true
 
 padding: ["0px", "0", "0px", "0"]
+
+type: book 
+
+toc: true
+
+output:
+  blogdown::html_page:
+    toc: true  
+    toc_depth: 1
 ---  
 
+
+
+
+# Narrative CV
+
+## Teaching  
+
+I enjoy teaching students across various academic levels, spanning from first-year bachelor's students to second-year research master's and PhD students. I have experience as member and chair of the Daily Programme Committee of the Bachelor and Master's programmes in Sociology, serving as the educational director of the research master's programme Social and Cultural Science, and member of the examination board of the research master's programme in Behavioral Science. I have designed multiple courses of the bachelor sociology curriculum and, in collaboration with colleagues, the complete curriculum of the research masters programme in Social and Cultural Science. Additionally, I have led the evaluation and assessment of this programme. To make my education more efficient, effective and attractive, I have incorporated knowledge clips, introduced gamification elements, and created interactive tutorials and apps.   
+Students oftentimes find it difficult to connect sociological themes and concepts with their everyday experiences. For instance, comprehending the impact of institutions on individual life prospects can be a formidable task. For students, a lack of cognitive and affective empathy may hinder their accumulation of knowledge and sociological way of thinking. If empathy is not present among policy makers, a faltering policy may be the result. I have therefore implemented exercises in perspective taking in the courses I teach.   
+Data visualization skills are of paramount importance for both empirical and theoretical sociologists. These skills are particularly vital for effectively conveying scientific findings to various stakeholders, given that our research often relies on intricate multivariate statistical models that can be demanding for non-specialists to grasp. Consequently, I have increasingly integrated instruction on data visualization skills into my teaching.  
+I want to invest in my own education and learn more how to better align learning objectives, assessments and instructional activities, how gamification elements can be used to create an active learning environment, and how to determine the optimal mix in blended learning. 
+Education is a core task of the university and teaching talent should be equally valued as research talent. I think it would be great if researchers and lecturers are afforded greater flexibility throughout their careers in balancing teaching and research time.   
+
+## Research    
+
+My research focuses on social divisions between groups. When and where do processes of inclusion and exclusion occur, along which social dimensions and within which social contexts? What are the negative and positive consequences of segregation, inequality and polarization for individuals (e.g., belonging, radicalization), institutions (e.g., efficiency, discrimination) and societies (e.g., cohesion, political representation)? My research has been both fundamental and more policy-orientated and can be seen as a bridge between the classical sociological problems of cohesion and inequality.  
+I have demonstrated my capacity for generating innovative ideas and empirically testing them by employing various types of data and methods. I have set up national and international collaborations. I received personal grants and have participated successfully and with much pleasure in larger research consortia.  
+Cutting edge research on societal challenges more and more requires team science. In enjoy working in (multi-disciplinary) teams. My career at Radboud University and my position in Groningen for one day a week puts me in the perfect position to set-up new collaborations.  
+I want to contribute to the norm that quality is at least rewarded as much as quantity. This norm may make researchers more inclined to collaborate, collect primary data, and to invest time in social impact. This normative shift will bolster the development of PhDs, junior and senior staff members into happy and innovative researchers. 
+
+## Impact  
+
+To achieve impact with my work, I adhere to best practices in open science both in research and teaching. I mix fundamental research with more policy orientated research. I translate research findings into blog posts, accept invitations for external committee work, advisory boards and presentations.  
+Many staff members and students are already able to formulate an informed opinion on social problems and policies. They should therefore also be encouraged to disseminate their perspectives, grounded in empirical evidence. However, the art of crafting effective blog posts, op-ed articles, tweets, or fact sheets is a skill, a skill I endeavor to hone myself and teach my students.  
+I will set myself the goal of increasing the visibility of sociology and sociologists in the public debate. A concrete measure to advance the impact of research and to promote inclusive science is to more often use sounding boards during PhD and other research projects.   
+
+## Leadership  
+
+My drive to increase the impact of our field and to make education more attractive and efficient has led to more academic leadership tasks over the years. I derive satisfaction from contributing to research and educational visions for change and continuity. To create support for the next (small) steps into the right direction is both challenging and exciting. 
+Despite all the diversity among scientists, they commonly value autonomy and take pride in their work. Consequently, they therefore deserve trust. While accountability is important, I have a strong aversion to unwarranted regulatory pressures. I have an open-door policy and strive to contribute to a positive work environment.    
+Being in a leadership role also entails making decisions that are not always fully supported, and navigating interpersonal conflicts. While this can be emotionally taxing, I do not expect these situations to get under my skin easily.
+Good academic leadership cannot be taken for granted. I have been able to develop in this area in the last 15 years because of the confidence and support extended to me by more experienced colleagues. Naturally, I will keep investing in leadership qualities. There is still a lot to learn!  
+
+
+# Classical CV
 
 
 Download [PDF](./CV.pdf)   
