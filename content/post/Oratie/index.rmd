@@ -1,0 +1,33 @@
+---
+title: "Sociale scheidslijnen tussen groepen: wat valt er te verklaren?"
+author: [Jochem Tolsma]
+date: '2023-10-13'
+slug: oratie
+categories: []
+tags: []
+subtitle: ''
+summary: 'Eindelijk was daar dan mijn oratie...'
+lastmod: '2023-11-08'
+featured: no
+image: 
+  caption: ''
+  focal_point: ""
+  placement: 1
+  preview_only: true
+projects: []
+---  
+
+
+[oratie.mp4]("https://www.jtolsma.nl/oratie/oratie.mp4)
+
+
+<video autoplay controls>
+  <source src="https://www.jtolsma.nl/oratie/oratie.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+---  
+
+
+
