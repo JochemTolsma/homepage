@@ -75,9 +75,47 @@ user_groups:
 - Visitors
 ---
 
-Jochem Tolsma is professor by special appointment of Social Divisions between Groups in the [Department of Sociology at the University of Groningen](https://www.rug.nl/gmw/sociology/), associate professor in the [Sociology Department of Radboud University Nijmegen](https://www.ru.nl/sociology/) and the program director of the [Research Master Social and Cultural Science](https://www.ru.nl/courseguides/socsci/research-master/social-cultural-science/) of Radboud University.
-In his research he focuses on social divisions between groups; the interplay of segregation, inequality and polarization. His particular areas of interest are the causes and consequences of segregation in neighborhoods, schools and friendship networks.
-
-On this site you you will find some of my  R-tutorials (on diagonal reference models, marginal effects, micro-macro models) and an introduction to [conceptual models](https://www.jochemtolsma.nl/conceptual-models/). Conceptual models may help you in organizing your thought process and may help a lay audience in understanding your research ideas. You can still find older versions of my course Social Networks Analysis for social scientists [here](https://www.jochemtolsma.nl/courses/) but I strongly recommend you to check out [SNASS](https://www.jtolsma.nl/SNASS/) to see if I and [Bas Hofstra](https://www.bashofstra.com/) were already able to update the material.  
-
-With that, thanks for reading and enjoy! 
+I am professor by special appointment of Social Divisions between Groups in the
+[Department of Sociology at the University of
+Groningen](https://www.rug.nl/gmw/sociology/), associate professor in the
+[Sociology Department of Radboud University
+Nijmegen](https://www.ru.nl/sociology/) and since February 2025 also vice dean
+of education of the [Faculty of Social Sciences at Radboud
+University](https://www.ru.nl/en/about-us/organisation/faculties/social-sciences).
+Before this I was, for quite some years, the program director of the [Research
+Master Social and Cultural
+Science](https://www.ru.nl/courseguides/socsci/research-master/social-cultural-science/)
+of Radboud University.  
+In my **research** I focus on social divisions between
+groups; the interplay of segregation, inequality and polarization. Lately, I
+have been thinking about how to start a research project on 'Who joins the
+debate?' (for lack of a better name). Who, when and why do we decide to start,
+join, or avoid a contested discussion? For example, within our own university
+walls, when and why do academics decide to (not) express their professional and
+personal opinions regarding DEI policies, genAI, the budget cuts, or the
+genocidal violence going on in Gaza? One hypothesis I would like to test is that
+people may not join political debates because they perceive the debate to be
+more polarized than it is in reality.  
+When **teaching** students, my aim is to
+feed their scientific curiosity and to help them ask relevant questions. For
+this, I try to hammer to point home that imho the best questions arise out of a
+combination of theoretical knowledge, methodological skills and hands-on
+experience with different type of data (collection). And yes I know that this
+seems to contradict the hypothetico-deductive approach but it doesn't.  
+I see it as my task as **vice dean** to help the educational directors in maintaining the
+high quality of their respective educational programmes. While the current budget cuts
+present many challenges, they also bring new opportunities. There is momentum for
+change, for example, to foster greater interdisciplinary
+collaboration within and between faculties and to regain focus on our core tasks: providing high quality education and research.
+  
+  On this site you will find pdfs of my papers,
+some of my  R-tutorials (on diagonal reference models, marginal effects,
+micro-macro models) and an introduction to [conceptual
+models](https://www.jochemtolsma.nl/conceptual-models/). Conceptual models may
+help you in organizing your thought process and may help a lay audience in
+understanding your research ideas. You can still find older versions of my
+course Social Networks Analysis for social scientists
+[here](https://www.jochemtolsma.nl/courses/) but I strongly recommend you to
+check out [SNASS](https://www.jtolsma.nl/SNASS/) to see if I and [Bas
+Hofstra](https://www.bashofstra.com/) were already able to update the material.
+With that, thanks for reading and enjoy!
