@@ -49,9 +49,6 @@ social:
 - icon: envelope
   icon_pack: fas
   link: "mailto:jochem.tolsma@ru.nl" 
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/TolsmaJochem
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.nl/citations?user=Iu23-90AAAAJ&hl=nl
