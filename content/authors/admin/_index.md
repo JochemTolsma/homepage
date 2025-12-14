@@ -173,7 +173,7 @@ to more or less representative debates. </p>
 <br>
 <button class="collapsible">More teaching</button>
 <div class="content">
-  <p> <br> I try to hammer to point home that imho the best questions 
+  <p> <br> I try to hammer the point home that imho the best questions 
   - that combine scientific innovation with societal relevance - arise out of a
 combination of theoretical knowledge, methodological skills and hands-on
 experience with different type of data (collection). And yes I know that this
